@@ -9,22 +9,27 @@ Run, komorebic.exe invisible-borders 0 0 0 0, , Hide
 ; Enable focus follows mouse
 Run, komorebic.exe focus-follows-mouse enable, , Hide
 
-; Ensure there are 3 workspaces created on monitor 0
+; Ensure there are 5 workspaces created on monitor 0
 Run, komorebic.exe ensure-workspaces 0 5, , Hide
 
 ; Give the workspaces some optional names
-Run, komorebic.exe workspace-name 0 0 bsp, , Hide
+Run, komorebic.exe workspace-name 0 0 wide, , Hide
 Run, komorebic.exe workspace-name 0 1 columns, , Hide
 Run, komorebic.exe workspace-name 0 2 thicc, , Hide
 Run, komorebic.exe workspace-name 0 3 matrix, , Hide
 Run, komorebic.exe workspace-name 0 4 floaty, , Hide
 
 ; Set the padding of the different workspaces
+Run, komorebic.exe workspace-padding 0 0 0, , Hide
+Run, komorebic.exe container-padding 0 0 0, , Hide
 Run, komorebic.exe workspace-padding 0 1 0, , Hide
-Run, komorebic.exe container-padding 0 1 30, , Hide
+Run, komorebic.exe container-padding 0 1 0, , Hide
 Run, komorebic.exe workspace-padding 0 2 200, , Hide
 Run, komorebic.exe workspace-padding 0 3 0, , Hide
 Run, komorebic.exe container-padding 0 3 0, , Hide
+
+; Set the layouts of different workspaces
+Run, komorebic.exe workspace-layout 0 0 ultrawide-vertical-stack, , Hide
 
 ; Set the layouts of different workspaces
 Run, komorebic.exe workspace-layout 0 1 columns, , Hide
