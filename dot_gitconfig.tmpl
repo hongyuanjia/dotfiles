@@ -1,0 +1,22 @@
+[user]
+	name = Hongyuan Jia
+	email = hongyuanjia@cqust.edu.cn
+[credential]
+	helper = store
+[core]
+	quotepath = off
+	editor = vim
+	fileMode = false
+	longpaths = true
+# define command which will be used when "nvim" is set as a merge tool
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+# set "nvim" as tool for merging
+[merge]
+    tool = nvim
+# automatically launch merge tool without displaying a prompt
+[mergetool]
+    prompt = false
+[http]
+	sslVerify = false
+	proxy = 127.0.0.1:7890
