@@ -1,0 +1,7 @@
+{{ if ne .chezmoi.os "windows" }}
+AppData
+Documents
+*.ahk
+{{ else }}
+.config/nvim
+{{ end }}
