@@ -827,14 +827,14 @@ packer.startup(function(use)
             require('telescope').load_extension("projects")
         end
     }
-    -- use {
-    --     "nvim-telescope/telescope-fzf-native.nvim",
-    --     after = "telescope.nvim",
-    --     run = "make",
-    --     config = function()
-    --         require("telescope").load_extension("fzf")
-    --     end
-    -- }
+    use {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        after = "telescope.nvim",
+        run = "make",
+        config = function()
+            require("telescope").load_extension("fzf")
+        end
+    }
 
     -- editing
     use {
