@@ -1165,6 +1165,13 @@ packer.startup(function(use)
             vim.g.R_source_args = 'echo = TRUE, spaced = TRUE, encoding = "UTF-8"'
             -- number of columns to be offset when calculating R terminal width
             vim.g.R_setwidth = -7
+            -- manually set the R path since scoop did not write registry entries about R
+            if string.lower(jit.os) == "windows" then
+                local scoop_r = require("plenary.path").new(vim.loop.os_homedir(), "scoop", "apps", "r")
+                if scoop_r:exists() then
+                    vim.g.R_path = scoop_r:joinpath("current", "bin").filename:gsub("\\", "/")
+                end
+            end
 
             -- auto quit R when close Vim
             vim.cmd[[
