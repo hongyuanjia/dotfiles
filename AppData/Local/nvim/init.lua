@@ -31,6 +31,8 @@ local options = {
     sidescrolloff = 8,
     termguicolors = true,
     laststatus = 2,
+    list = true,
+    listchars = "eol:↵,trail:~,tab:>-,nbsp:␣",
 
     -- search
     hlsearch = true,
@@ -263,7 +265,7 @@ packer.startup(function(use)
     use "nvim-lua/plenary.nvim"
 
     -- chezmoi for dot file management
-    use "alker0/chezmoi.vim" 
+    use "alker0/chezmoi.vim"
 
     -- start tim profile
     use {
