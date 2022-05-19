@@ -1,7 +1,15 @@
-# set a CRAN mirror
-local({r <- getOption("repos")
-      r["CRAN"] <- "https://mirrors.tuna.tsinghua.edu.cn/CRAN/"
-      options(repos=r)
+local({
+    # set a CRAN mirror
+    r <- getOption("repos")
+    r["CRAN"] <- "https://mirrors.tuna.tsinghua.edu.cn/CRAN/"
+    options(repos=r)
+
+    # unset R_LIBS_SITE and R_LIBS_USER if R is installed using scoop
+    path_scoop_r <- normalizePath(file.path(Sys.getenv("USERPROFILE"), "scoop/apps/r/current"), "/", FALSE)
+    if (normalizePath(Sys.getenv("R_HOME"), "/", FALSE) == path_scoop_r) {
+        Sys.unsetenv("R_LIBS_SITE")
+        Sys.unsetenv("R_LIBS_USER")
+    }
 })
 
 .First <- function () {
