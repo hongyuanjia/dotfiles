@@ -1,41 +1,36 @@
 [user]
-	name = Hongyuan Jia
-	email = hongyuanjia@cqust.edu.cn
+    name = Hongyuan Jia
+    email = hongyuanjia@cqust.edu.cn
 [credential]
-	helper = store
+    helper = store
 [core]
-	quotepath = off
-	editor = vim
-	fileMode = false
-	longpaths = true
+{{- if eq .chezmoi.os "windows" }}
+    autocrlf = true
+{{- else }}
+    autocrlf = input
+{{- end}}
+    quotepath = off
+    editor = vim
+    fileMode = false
+    longpaths = true
     {{- if lookPath "delta" }}
-	pager = delta
+    pager = delta
     {{- end }}
 {{- if lookPath "delta" }}
 [interactive]
-	diffFilter = delta --color-only
+    diffFilter = delta --color-only
 [delta]
-	light = false
-	navigate = true
-	side-by-side = true
-	line-numbers = true
+    light = false
+    navigate = true
+    side-by-side = true
+    line-numbers = true
 [diff]
-	colorMoved = default
-{{- end }}
-# define command which will be used when "nvim" is set as a merge tool
-[mergetool "nvim"]
-	cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
-# set "nvim" as tool for merging
+    colorMoved = default
 [merge]
-{{- if lookPath "delta" }}
-	conflictstyle = diff3
+    conflictstyle = diff3
 {{- end }}
-	tool = nvim
-# automatically launch merge tool without displaying a prompt
-[mergetool]
-    prompt = false
 {{- if eq .chezmoi.os "windows" }}
 [http]
-	sslVerify = false
-	proxy = 127.0.0.1:7890
+    sslVerify = false
+    proxy = 127.0.0.1:7890
 {{- end }}
