@@ -17,6 +17,8 @@
 # automatically launch merge tool without displaying a prompt
 [mergetool]
     prompt = false
+{{- if eq .chezmoi.os "windows" }}
 [http]
 	sslVerify = false
 	proxy = 127.0.0.1:7890
+{{- end }}
