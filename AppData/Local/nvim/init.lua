@@ -441,10 +441,17 @@ packer.startup(function(use)
                 }
             })
 
+            local shell = string.lower(jit.os) == "windows" and "powershell -NoLogo" or vim.o.shell
+            local terminal = require("toggleterm.terminal").Terminal:new({ cmd = shell, direction = "horizontal" })
+            _G.toggle_terminal = function(direction)
+                terminal.direction = direction
+                terminal:toggle()
+            end
+
             -- <Leader>t[erminal]
-            keymap("n", "<Leader>tF", "<cmd>ToggleTerm direction=float<CR>")
-            keymap("n", "<Leader>tH", "<cmd>ToggleTerm size=10 direction=horizontal<CR>")
-            keymap("n", "<Leader>tV", "<cmd>ToggleTerm size=80 direction=vertical<CR>")
+            keymap("n", "<Leader>tF", "<cmd>lua toggle_terminal('float')<CR>")
+            keymap("n", "<Leader>tH", "<cmd>lua toggle_terminal('horizontal')<CR>")
+            keymap("n", "<Leader>tV", "<cmd>lua toggle_terminal('vertial')<CR>")
         end
     }
     use {
