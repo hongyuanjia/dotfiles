@@ -439,7 +439,14 @@ packer.startup(function(use)
                 }
             })
 
-            local shell = string.lower(jit.os) == "windows" and "powershell -NoLogo" or vim.o.shell
+            local shell = vim.o.shell
+            if string.lower(jit.os) == "windows" then
+                if vim.fn.executable("pwsh") == 1 then
+                    shell = "pwsh -NoLogo"
+                else
+                    shell = "powershell -NoLogo"
+                end
+            end
             local terminal = require("toggleterm.terminal").Terminal:new({ cmd = shell, direction = "horizontal" })
             _G.toggle_terminal = function(direction)
                 terminal.direction = direction
