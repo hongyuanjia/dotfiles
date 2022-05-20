@@ -9,3 +9,6 @@ function Set-EnvironmentVariable([String] $variable, [String] $value) {
 # Make neovim the default editor
 Set-EnvironmentVariable "EDITOR" "nvim"
 Set-EnvironmentVariable "GIT_EDITOR" $Env:EDITOR
+
+# Set komorebi config home
+Set-EnvironmentVariable "KOMOREBI_CONFIG_HOME" "$Env:UserProfile\.config\komorebi"
