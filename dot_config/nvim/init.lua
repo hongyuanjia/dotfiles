@@ -1012,6 +1012,7 @@ packer.startup(function(use)
         requires = "tpope/vim-rhubarb",
         config = function()
             keymap("n", "<Leader>gg", "<cmd>Git<CR>")
+            keymap("n", "<Leader>gc", "<cmd>Git commit<CR>")
             keymap("n", "<Leader>gd", "<cmd>Gdiffsplit<CR>")
         end
     }
@@ -1054,6 +1055,7 @@ packer.startup(function(use)
                 },
                 g = {
                     name = "Git",
+                    c = "Commit",
                     g = "Status",
                     j = "Next Hunk",
                     k = "Prev Hunk",
