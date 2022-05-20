@@ -429,6 +429,13 @@ packer.startup(function(use)
         "akinsho/toggleterm.nvim",
         config = function()
             require("toggleterm").setup({
+                size = function(term)
+                    if term.direction == "vertical" then
+                        return vim.o.columns * 0.3
+                    else
+                        return 20
+                    end
+                end,
                 float_opts = {
                     border = "curved",
                     winblend = 0,
