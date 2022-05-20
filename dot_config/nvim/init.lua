@@ -454,9 +454,9 @@ packer.startup(function(use)
             end
 
             -- <Leader>t[erminal]
-            keymap("n", "<Leader>tF", "<cmd>lua toggle_terminal('float')<CR>")
-            keymap("n", "<Leader>tH", "<cmd>lua toggle_terminal('horizontal')<CR>")
-            keymap("n", "<Leader>tV", "<cmd>lua toggle_terminal('vertical')<CR>")
+            keymap("n", "<Leader>tf", "<cmd>lua toggle_terminal('float')<CR>")
+            keymap("n", "<Leader>th", "<cmd>lua toggle_terminal('horizontal')<CR>")
+            keymap("n", "<Leader>tv", "<cmd>lua toggle_terminal('vertical')<CR>")
         end
     }
     use {
@@ -1111,9 +1111,9 @@ packer.startup(function(use)
                     c = "Colorcolumn",
                     s = "WhiteSpace",
                     t = "Trouble",
-                    F = "Float Terminal",
-                    H = "Horizontal Terminal",
-                    V = "Vertical Terminal"
+                    f = "Float Terminal",
+                    h = "Horizontal Terminal",
+                    v = "Vertical Terminal"
                 },
                 w = {
                     name = "Windows",
