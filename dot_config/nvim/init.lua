@@ -456,7 +456,7 @@ packer.startup(function(use)
             -- <Leader>t[erminal]
             keymap("n", "<Leader>tF", "<cmd>lua toggle_terminal('float')<CR>")
             keymap("n", "<Leader>tH", "<cmd>lua toggle_terminal('horizontal')<CR>")
-            keymap("n", "<Leader>tV", "<cmd>lua toggle_terminal('vertial')<CR>")
+            keymap("n", "<Leader>tV", "<cmd>lua toggle_terminal('vertical')<CR>")
         end
     }
     use {
