@@ -115,8 +115,8 @@ keymap("n", "<C-Left>", "<cmd>vertical resize -2<CR>")
 keymap("n", "<C-Right>", "<cmd>vertical resize +2<CR>")
 
 -- move text up and down
-keymap("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi")
-keymap("n", "<A-k>", "<Esc><cmd>m .-2<CR>==gi")
+keymap("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi<Esc>")
+keymap("n", "<A-k>", "<Esc><cmd>m .-2<CR>==gi<Esc>")
 
 -- stay in indent mode
 keymap("v", "<", "<gv")
