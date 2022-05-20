@@ -998,7 +998,6 @@ packer.startup(function(use)
             keymap("l", "<Leader>gl", "<cmd>Gitsigns setloclist<CR>")
             keymap("n", "<Leader>gp", "<cmd>Gitsigns preview_hunk<CR>")
             keymap("n", "<Leader>gu", "<cmd>Gitsigns undo_stage_hunk<CR>")
-            keymap("n", "<Leader>gw", "<cmd>Gitsigns stage_buffer<CR>")
             keymap("n", "<Leader>gR", "<cmd>Gitsigns reset_buffer<CR>")
             keymap("n", "<Leader>gb", "<cmd>lua require'gitsigns'.blame_line{full=true}<CR>")
 
@@ -1014,6 +1013,7 @@ packer.startup(function(use)
             keymap("n", "<Leader>gg", "<cmd>Git<CR>")
             keymap("n", "<Leader>gc", "<cmd>Git commit<CR>")
             keymap("n", "<Leader>gd", "<cmd>Gdiffsplit<CR>")
+            keymap("n", "<Leader>gw", "<cmd>Gwrite<CR>")
         end
     }
 
