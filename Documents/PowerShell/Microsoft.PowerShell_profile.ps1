@@ -39,12 +39,13 @@ if ((Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinue) -ne $NU
         Set-PSReadLineOption -PredictionSource History
     }
 
-    Set-PSReadLineOption -PredictionViewStyle ListView
+    Set-PSReadlineKeyHandler -Chord Ctrl+e -Function EndOfLine
 
+    Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
     # Works in InlineView
     Set-PSReadlineKeyHandler -Chord Ctrl+l -Function AcceptNextSuggestionWord
-    Set-PSReadLineKeyHandler -Chord UpArrow -Function HistorySearchBackward
-    Set-PSReadLineKeyHandler -Chord DownArrow -Function HistorySearchForward
+    Set-PSReadLineKeyHandler -Chord Ctrl+k -Function HistorySearchBackward
+    Set-PSReadLineKeyHandler -Chord Ctrl+j -Function HistorySearchForward
     # Works in ListView
     Set-PSReadlineKeyHandler -Chord Ctrl+p -Function PreviousSuggestion
     Set-PSReadlineKeyHandler -Chord Ctrl+n -Function NextSuggestion
