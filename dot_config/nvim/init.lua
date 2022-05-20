@@ -427,8 +427,6 @@ packer.startup(function(use)
     }
     use {
         "akinsho/toggleterm.nvim",
-        cmd = "ToggleTerm",
-        module = {"toggleterm", "toggleterm.terminal"},
         config = function()
             require("toggleterm").setup({
                 float_opts = {
