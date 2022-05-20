@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-05-19 16:51:20
+-- Last Modified: 2022-05-20 11:38:14
 
 -- Basic Settings
 local options = {
@@ -866,9 +866,7 @@ packer.startup(function(use)
         config = function()
             require('nvim_comment').setup({
                 hook = function()
-                    if vim.api.nvim_buf_get_option(0, "filetype") == "vue" then
-                        require("ts_context_commentstring.internal").update_commentstring()
-                    end
+                    require("ts_context_commentstring.internal").update_commentstring()
                 end
             })
         end
