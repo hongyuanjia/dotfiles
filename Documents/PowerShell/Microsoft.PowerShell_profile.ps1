@@ -6,9 +6,6 @@ function Set-EnvironmentVariable([String] $variable, [String] $value) {
     Invoke-Expression "`$env:${variable} = `"$value`""
 }
 
-# Current version using Get-Host. Works even on PowerShell v1
-$PSVer = (Get-Host).Version
-
 # Set useful alias
 if (Get-Command nvim -ErrorAction SilentlyContinue | Test-Path) {
     Set-Alias vim nvim
@@ -36,17 +33,19 @@ if ((Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinue) -ne $NU
     Set-PSReadLineOption -Colors @{ InlinePrediction = '#000055'}
     Set-PSReadLineOption -EditMode Windows
 
-    if ($PSVer.Major -gt 7 -and $PSVer.Minor -ge 2) {
+    if ((Get-Module PSReadLine).Version -gt [System.Version]'7.1.0' -and (Get-Module PSReadLine).Version -gt [System.Version]'2.2.0') {
         Set-PSReadLineOption -PredictionSource HistoryAndPlugin
     } else {
         Set-PSReadLineOption -PredictionSource History
     }
+
     Set-PSReadLineOption -PredictionViewStyle ListView
 
-    Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+    # Works in InlineView
     Set-PSReadlineKeyHandler -Chord Ctrl+l -Function AcceptNextSuggestionWord
     Set-PSReadLineKeyHandler -Chord UpArrow -Function HistorySearchBackward
     Set-PSReadLineKeyHandler -Chord DownArrow -Function HistorySearchForward
+    # Works in ListView
     Set-PSReadlineKeyHandler -Chord Ctrl+p -Function PreviousSuggestion
     Set-PSReadlineKeyHandler -Chord Ctrl+n -Function NextSuggestion
 }
