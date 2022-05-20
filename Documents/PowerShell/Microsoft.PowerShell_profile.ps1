@@ -1,17 +1,6 @@
-# Set a permanent Environment variable, and reload it into $env
-function Set-EnvironmentVariable([String] $variable, [String] $value) {
-    Set-ItemProperty "HKCU:\Environment" $variable $value
-    # Manually setting Registry entry. SetEnvironmentVariable is too slow because of blocking HWND_BROADCAST
-    #[System.Environment]::SetEnvironmentVariable("$variable", "$value","User")
-    Invoke-Expression "`$env:${variable} = `"$value`""
-}
-
 # Set useful alias
 if (Get-Command nvim -ErrorAction SilentlyContinue | Test-Path) {
     Set-Alias vim nvim
-    # Make neovim the default editor
-    Set-EnvironmentVariable "EDITOR" "nvim"
-    Set-EnvironmentVariable "GIT_EDITOR" $Env:EDITOR
 }
 
 if (Get-Command chezmoi -ErrorAction SilentlyContinue | Test-Path) {

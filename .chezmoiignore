@@ -3,6 +3,7 @@ AppData
 Documents
 *.ahk
 {{ else }}
+setup.ps1
 .config/nvim
 .config/rstudio
 {{ end }}
