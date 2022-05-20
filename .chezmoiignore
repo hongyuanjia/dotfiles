@@ -4,4 +4,5 @@ Documents
 *.ahk
 {{ else }}
 .config/nvim
+.config/rstudio
 {{ end }}
