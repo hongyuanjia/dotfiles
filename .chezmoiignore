@@ -8,4 +8,5 @@ scoop.json
 choco.config
 .config/nvim
 .config/rstudio
+.config/komorebi
 {{ end }}
