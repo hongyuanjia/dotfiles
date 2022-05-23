@@ -1,0 +1,9 @@
+{{- if lookPath "delta" -}}
+[diff]
+    command = "delta"
+    pager = "delta"
+{{- end }}
+encryption = "age"
+[age]
+    identity = "~/.ssh/id_rsa"
+    symmetric = true
