@@ -26,7 +26,8 @@ if ($null -ne (Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinu
     Set-PSReadLineOption -Colors @{ InlinePrediction = '#000055'}
     Set-PSReadLineOption -EditMode Windows
 
-    if ((Get-Module PSReadLine).Version -gt [System.Version]'7.1.0' -and (Get-Module PSReadLine).Version -gt [System.Version]'2.2.0') {
+    if ((Get-Module PSReadLine).Version -gt [System.Version]'7.1.0' -and
+        (Get-Module PSReadLine).Version -gt [System.Version]'2.2.0') {
         Set-PSReadLineOption -PredictionSource HistoryAndPlugin
     } else {
         Set-PSReadLineOption -PredictionSource History
