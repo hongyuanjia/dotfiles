@@ -4,6 +4,8 @@ Documents
 *.ahk
 {{ else }}
 setup.ps1
+scoop.json
+choco.config
 .config/nvim
 .config/rstudio
 {{ end }}
