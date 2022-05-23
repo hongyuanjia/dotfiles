@@ -1,3 +1,6 @@
+# Import utilies
+. $PSScriptRoot\utils.ps1
+
 # Set useful alias
 if (Get-Command nvim -ErrorAction SilentlyContinue | Test-Path) {
     Set-Alias vim nvim
@@ -17,7 +20,7 @@ if (Get-Command starship -ErrorAction SilentlyContinue | Test-Path) {
     Invoke-Expression (&starship init powershell)
 }
 
-if ((Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinue) -ne $NULL) {
+if ($null -ne (Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinue)) {
     Import-Module -Name PSReadLine
     Set-PSReadLineOption -Colors @{ InlinePrediction = '#000055'}
     Set-PSReadLineOption -EditMode Windows
@@ -40,10 +43,10 @@ if ((Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinue) -ne $NU
     Set-PSReadlineKeyHandler -Chord Ctrl+n -Function NextSuggestion
 }
 
-if ((Get-Module -ListAvailable Terminal-Icons -ErrorAction SilentlyContinue) -ne $NULL) {
+if ($null -ne (Get-Module -ListAvailable Terminal-Icons -ErrorAction SilentlyContinue)) {
     Import-Module -Name Terminal-Icons
 }
 
-if ((Get-Module -ListAvailable scoop-completion -ErrorAction SilentlyContinue) -ne $NULL) {
+if ($null -ne (Get-Module -ListAvailable scoop-completion -ErrorAction SilentlyContinue)) {
     Import-Module -Name scoop-completion
 }
