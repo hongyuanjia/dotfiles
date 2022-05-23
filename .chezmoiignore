@@ -2,7 +2,9 @@
 AppData
 Documents
 *.ahk
+*.ps1
 {{ else }}
+debloat.ps1
 setup.ps1
 scoop.json
 choco.config
