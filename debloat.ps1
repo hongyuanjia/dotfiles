@@ -880,7 +880,7 @@ $services_disable = @(
     "XblGameSave"                              # Xbox Live Game Save Service
     "XboxNetApiSvc"                            # Xbox Live Networking Service
     "XboxGipSvc"                               # Xbox Accessory Management Service
-    "ndu"                                      # Windows Network Data Usage Monitor
+    # "ndu"                                    # Windows Network Data Usage Monitor (Fail to stop...)
 )
 foreach ($service in $services_disable) {
     Write-Host "Setting $service StartupType to Disabled"
