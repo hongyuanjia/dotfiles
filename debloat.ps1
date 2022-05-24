@@ -853,16 +853,8 @@ New-ItemProperty -Path $RegPath -Name AllowPinnedFolderSettings_ProviderSet     
 New-ItemProperty -Path $RegPath -Name AllowPinnedFolderVideos_ProviderSet         -Value 0 -PropertyType DWord -ErrorAction SilentlyContinue -Force | Out-Null
 
 Write-Host "Enabling Hyper-V and WSL2..."
-Enable-WindowsOptionalFeature -Online -FeatureName "HypervisorPlatform" -All -NoRestart -WarningAction SilentlyContinue| Out-Null
-Enable-WindowsOptionalFeature -Online -FeatureName "VirtualMachinePlatform" -All -NoRestart -WarningAction SilentlyContinue| Out-Null
 Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux" -All -NoRestart -WarningAction SilentlyContinue | Out-Null
 Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-All" -All -NoRestart -WarningAction SilentlyContinue| Out-Null
-Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V" -All -NoRestart -WarningAction SilentlyContinue| Out-Null
-Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Tools-All" -All -NoRestart -WarningAction SilentlyContinue | Out-Null
-Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Management-PowerShell" -All -NoRestart -WarningAction SilentlyContinue | Out-Null
-Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Hypervisor" -All -NoRestart -WarningAction SilentlyContinue | Out-Null
-Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Services" -All -NoRestart -WarningAction SilentlyContinue | Out-Null
-Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-Management-Clients" -All -NoRestart -WarningAction SilentlyContinue | Out-Null
 cmd /c bcdedit /set hypervisorschedulertype classic
 
 # Tweak services
