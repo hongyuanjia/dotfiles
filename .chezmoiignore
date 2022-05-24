@@ -3,6 +3,7 @@ AppData
 Documents
 *.ahk
 *.ps1
+.config/komorebi
 {{ else }}
 debloat.ps1
 setup.ps1
@@ -10,5 +11,4 @@ scoop.json
 choco.config
 .config/nvim
 .config/rstudio
-.config/komorebi
 {{ end }}
