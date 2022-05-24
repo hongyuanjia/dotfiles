@@ -106,10 +106,20 @@ function Import-ScoopData {
         Throw "Nothing to import."
     }
 
+    # FIXME: Only works for PowerShell v7
     $ScoopData = $ScoopData | ConvertFrom-Json -AsHashtable
 
-    # Only add non-existing buckets
     $OldBuckets = Get-ScoopBuckets
+    $OldApps = Get-ScoopApps
+
+    if (-not ((Get-Command "git" -ErrorAction SilentlyContinue) | Test-Path)) {
+        scoop install git
+    }
+    # Should install Git first and temporarily disable SSL verification
+    $OldSsl = git config --get http.sslVerify
+    git config --global http.sslVerify false
+
+    # Only add non-existing buckets
     $ScoopData.bucket | ForEach-Object {
         $New = $_
 
@@ -131,9 +141,14 @@ function Import-ScoopData {
         }
     }
 
-    $OldApps = Get-ScoopApps
     $ScoopData.app | ForEach-Object {
         if ($_.Name -in $OldApps.Name) { Return }
         scoop install "$($_.Source)/$($_.Name)"
+    }
+
+    if ($OldSsl -eq "") {
+        git config --global --unset http.sslVerify
+    } elseif ($OldSsl -ne "false") {
+        git config --global http.sslVerify $OldSsl
     }
 }
