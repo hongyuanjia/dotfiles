@@ -7,7 +7,7 @@ Run, komorebic.exe watch-configuration enable, , Hide
 Run, komorebic.exe invisible-borders 0 0 0 0, , Hide
 
 ; Enable focus follows mouse
-Run, komorebic.exe focus-follows-mouse enable, , Hide
+Run, komorebic.exe focus-follows-mouse disable, , Hide
 
 ; Ensure there are 5 workspaces created on monitor 0
 Run, komorebic.exe ensure-workspaces 0 5, , Hide
@@ -92,6 +92,10 @@ Run, komorebic.exe identify-object-name-change-application exe "clion64.exe", , 
 Run, komorebic.exe identify-tray-application exe "clion64.exe", , Hide
 ; Zoom
 Run, komorebic.exe float-rule exe "Zoom.exe", , Hide
+; GitKraken
+Run, komorebic.exe manage-rule exe "gitkraken.exe", , Hide
+; Clash for Windows
+Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
 
 ; Change the focused window, Alt + Vim direction keys
 !h::
