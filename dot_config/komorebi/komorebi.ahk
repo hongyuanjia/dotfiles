@@ -14,54 +14,84 @@ Run, komorebic.exe ensure-workspaces 0 5, , Hide
 
 ; Give the workspaces some optional names
 Run, komorebic.exe workspace-name 0 0 wide, , Hide
-Run, komorebic.exe workspace-name 0 1 columns, , Hide
+Run, komorebic.exe workspace-name 0 1 chats, , Hide
 Run, komorebic.exe workspace-name 0 2 thicc, , Hide
 Run, komorebic.exe workspace-name 0 3 matrix, , Hide
 Run, komorebic.exe workspace-name 0 4 floaty, , Hide
 
 ; Set the padding of the different workspaces
 Run, komorebic.exe workspace-padding 0 0 0, , Hide
-Run, komorebic.exe container-padding 0 0 0, , Hide
+Run, komorebic.exe container-padding 0 0 4, , Hide
 Run, komorebic.exe workspace-padding 0 1 0, , Hide
 Run, komorebic.exe container-padding 0 1 0, , Hide
 Run, komorebic.exe workspace-padding 0 2 200, , Hide
 Run, komorebic.exe workspace-padding 0 3 0, , Hide
 Run, komorebic.exe container-padding 0 3 0, , Hide
 
-; Set the layouts of different workspaces
+; Set the layout for different workspaces
 Run, komorebic.exe workspace-layout 0 0 ultrawide-vertical-stack, , Hide
-
 ; Set the layouts of different workspaces
 Run, komorebic.exe workspace-layout 0 1 columns, , Hide
-
 ; Set the floaty layout to not tile any windows
 Run, komorebic.exe workspace-tiling 0 4 disable, , Hide
 
+; Set the resize delta
+Run, komorebic.exe resize-delta 20, , Hide
+
 ; Always show chat apps on the second workspace
-Run, komorebic.exe workspace-rule exe slack.exe 0 1, , Hide
-Run, komorebic.exe workspace-rule exe Discord.exe 0 1, , Hide
+; 1. Slack
+Run, komorebic.exe float-rule exe "slack.exe", , Hide
+Run, komorebic.exe workspace-rule exe "slack.exe" 0 1, , Hide
+; Below did not work
+; Run, komorebic.exe manage-rule exe "slack.exe", , Hide
+; Run, komorebic.exe identify-tray-application exe "slack.exe", , Hide
+; Run, komorebic.exe identify-border-overflow-application exe "slack.exe", , Hide
+; 2. WeChat
+Run, komorebic.exe manage-rule exe "WeChat.exe", , Hide
+Run, komorebic.exe identify-tray-application exe "WeChat.exe", , Hide
+Run, komorebic.exe float-rule class "SettingWnd", , Hide
+Run, komorebic.exe workspace-rule exe "WeChat.exe" 0 1, , Hide
+; Run, komorebic.exe identify-border-overflow-application exe "WeChat.exe", , Hide
+; 3. Tim
+Run, komorebic.exe manage-rule exe "TIM.exe", , Hide
+Run, komorebic.exe workspace-rule exe "TIM.exe" 0 1, , Hide
+Run, komorebic.exe identify-tray-application exe "TIM.exe", , Hide
+; Run, komorebic.exe identify-border-overflow-application exe "TIM.exe", , Hide
+; 4. WeCom
+Run, komorebic.exe manage-rule exe "WXWork.exe", , Hide
+Run, komorebic.exe workspace-rule exe "WXWork.exe" 0 1, , Hide
+Run, komorebic.exe identify-tray-application exe "WXWork.exe", , Hide
+; Run, komorebic.exe identify-border-overflow-application exe "WXWork.exe", , Hide
 
-; Always float IntelliJ popups, matching on class
+; Specific settings for applications
+; Windows Explorer
+Run, komorebic.exe float-rule class "OperationStatusWindow", , Hide
+; Window Spy
+Run, komorebic.exe identify-tray-application exe "AutoHotkeyU64.exe", , Hide
+Run, komorebic.exe float-rule title "Window Spy", , Hide
+; IntelliJ: Always float IntelliJ popups
 Run, komorebic.exe float-rule class SunAwtDialog, , Hide
-; Always float Control Panel, matching on title
+; Control Panel: Always float
 Run, komorebic.exe float-rule title "Control Panel", , Hide
-; Always float Task Manager, matching on class
+; Task Manager: Always float
 Run, komorebic.exe float-rule class TaskManagerWindow, , Hide
-; Always float Wally, matching on executable name
-Run, komorebic.exe float-rule exe Wally.exe, , Hide
-Run, komorebic.exe float-rule exe wincompose.exe, , Hide
-; Always float Calculator app, matching on window title
-Run, komorebic.exe float-rule title Calculator, , Hide
-Run, komorebic.exe float-rule exe 1Password.exe, , Hide
-
-; Always manage forcibly these applications that don't automatically get picked up by komorebi
-Run, komorebic.exe manage-rule exe TIM.exe, , Hide
-
-; Identify applications that close to the tray
-Run, komorebic.exe identify-tray-application exe Discord.exe, , Hide
-
-; Identify applications that have overflowing borders
-Run, komorebic.exe identify-border-overflow exe Discord.exe, , Hide
+; Microsoft Office
+Run, komorebic.exe float-rule class "_WwB", , Hide
+Run, komorebic.exe identify-border-overflow-application exe "WINWORD.EXE", , Hide
+Run, komorebic.exe identify-layered-application exe "WINWORD.EXE", , Hide
+Run, komorebic.exe identify-border-overflow-application exe "EXCEL.EXE", , Hide
+Run, komorebic.exe identify-layered-application exe "EXCEL.EXE", , Hide
+; Obsidian
+Run, komorebic.exe manage-rule exe "Obsidian.exe", , Hide
+Run, komorebic.exe identify-border-overflow-application exe "Obsidian.exe", , Hide
+; PyCharm
+Run, komorebic.exe identify-object-name-change-application exe "pycharm64.exe", , Hide
+Run, komorebic.exe identify-tray-application exe "pycharm64.exe", , Hide
+; Clion
+Run, komorebic.exe identify-object-name-change-application exe "clion64.exe", , Hide
+Run, komorebic.exe identify-tray-application exe "clion64.exe", , Hide
+; Zoom
+Run, komorebic.exe float-rule exe "Zoom.exe", , Hide
 
 ; Change the focused window, Alt + Vim direction keys
 !h::
@@ -130,6 +160,11 @@ return
 ; Promote the focused window to the top of the tree, Alt + Shift + Enter
 !+Enter::
 Run, komorebic.exe promote, , Hide
+return
+
+; Switch to ultrawide-vertical-stack layout on the main workspace, Alt + Shift + W
+!+w::
+Run, komorebic.exe workspace-layout 0 0 ultrawide-vertical-stack, , Hide
 return
 
 ; Switch to an equal-width, max-height column layout on the main workspace, Alt + Shift + C
@@ -227,4 +262,21 @@ return
 
 !+5::
 Run, komorebic.exe move-to-workspace 4, , Hide
+return
+
+; Resize the focused window, Win + Ctrl + Vim direction keys
+#^h::
+Run, komorebic.exe resize right decrease, , Hide
+return
+
+#^j::
+Run, komorebic.exe resize down increase, , Hide
+return
+
+#^k::
+Run, komorebic.exe resize down decrease, , Hide
+return
+
+#^l::
+Run, komorebic.exe resize right increase, , Hide
 return
