@@ -821,9 +821,9 @@ $RegPath = "HKLM:\SOFTWARE\Policies\Microsoft\Psched"
 If (!(Test-Path $RegPath)) {
     New-Item -Path $RegPath -ItemType Directory -Force | Out-Null
 }
-New-ItemProperty -Path $RegPath -Name "NonBestEffortLimit" -PropertyType DWord -Value 0
+New-ItemProperty -Path $RegPath -Name "NonBestEffortLimit" -PropertyType DWord -Value 0 -Force | Out-Null
 $RegPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile"
-New-ItemProperty -Path $RegPath -Name "NetworkThrottlingIndex" -PropertyType DWord -Value 0xffffffff
+New-ItemProperty -Path $RegPath -Name "NetworkThrottlingIndex" -PropertyType DWord -Value 0xffffffff -Force | Out-Null
 
 Write-Host "Removing pinned 'Pictures' and 'Documents' icon in start menu..."
 # Ref: https://docs.microsoft.com/en-us/windows/client-management/mdm/policy-csp-start#start-allowpinnedfolderdocuments
