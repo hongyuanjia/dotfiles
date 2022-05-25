@@ -101,6 +101,8 @@ Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
 ; Total Commander
 Run, komorebic.exe workspace-rule exe "TOTALCMD64.EXE" 0 3, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TOverWriteForm, , Hide
+; VSCode
+Run, komorebic.exe manage-rule exe "Code.exe", , Hide
 
 ; Change the focused window, Alt + Vim direction keys
 !h::
