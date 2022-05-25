@@ -25,10 +25,15 @@ if ($null -ne (Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinu
     Import-Module -Name PSReadLine
     Set-PSReadLineOption -Colors @{ InlinePrediction = '#000055'}
     Set-PSReadLineOption -EditMode Windows
+    Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 
-    if ((Get-Module PSReadLine).Version -gt [System.Version]'7.1.0' -and
+    if ((Get-Host).Version -gt [System.Version]'7.1.0' -and
         (Get-Module PSReadLine).Version -gt [System.Version]'2.2.0') {
         Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+
+        # Works in ListView
+        Set-PSReadlineKeyHandler -Chord Ctrl+p -Function PreviousSuggestion
+        Set-PSReadlineKeyHandler -Chord Ctrl+n -Function NextSuggestion
     } else {
         Set-PSReadLineOption -PredictionSource History
     }
@@ -40,9 +45,10 @@ if ($null -ne (Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinu
     Set-PSReadlineKeyHandler -Chord Ctrl+l -Function AcceptNextSuggestionWord
     Set-PSReadLineKeyHandler -Chord Ctrl+k -Function HistorySearchBackward
     Set-PSReadLineKeyHandler -Chord Ctrl+j -Function HistorySearchForward
-    # Works in ListView
-    Set-PSReadlineKeyHandler -Chord Ctrl+p -Function PreviousSuggestion
-    Set-PSReadlineKeyHandler -Chord Ctrl+n -Function NextSuggestion
+
+    Set-PSReadLineKeyHandler -Key Ctrl+Backspace -Function ShellBackwardKillWord
+    Set-PSReadLineKeyHandler -Key Ctrl+b -Function ShellBackwardWord
+    Set-PSReadLineKeyHandler -Key Ctrl+f -Function ShellForwardWord
 }
 
 if ($null -ne (Get-Module -ListAvailable Terminal-Icons -ErrorAction SilentlyContinue)) {
