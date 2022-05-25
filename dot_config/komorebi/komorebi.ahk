@@ -16,7 +16,7 @@ Run, komorebic.exe ensure-workspaces 0 5, , Hide
 Run, komorebic.exe workspace-name 0 0 wide, , Hide
 Run, komorebic.exe workspace-name 0 1 chats, , Hide
 Run, komorebic.exe workspace-name 0 2 mail, , Hide
-Run, komorebic.exe workspace-name 0 3 matrix, , Hide
+Run, komorebic.exe workspace-name 0 3 file, , Hide
 Run, komorebic.exe workspace-name 0 4 floaty, , Hide
 
 ; Set the padding of the different workspaces
@@ -98,6 +98,9 @@ Run, komorebic.exe float-rule exe "Zoom.exe", , Hide
 Run, komorebic.exe manage-rule exe "gitkraken.exe", , Hide
 ; Clash for Windows
 Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
+; Total Commander
+Run, komorebic.exe workspace-rule exe "TOTALCMD64.EXE" 0 3, , Hide
+Run, komorebic.exe float-rule AHK_CLASS TOverWriteForm, , Hide
 
 ; Change the focused window, Alt + Vim direction keys
 !h::
