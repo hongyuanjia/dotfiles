@@ -15,23 +15,23 @@ Run, komorebic.exe ensure-workspaces 0 5, , Hide
 ; Give the workspaces some optional names
 Run, komorebic.exe workspace-name 0 0 wide, , Hide
 Run, komorebic.exe workspace-name 0 1 chats, , Hide
-Run, komorebic.exe workspace-name 0 2 thicc, , Hide
+Run, komorebic.exe workspace-name 0 2 mail, , Hide
 Run, komorebic.exe workspace-name 0 3 matrix, , Hide
 Run, komorebic.exe workspace-name 0 4 floaty, , Hide
 
 ; Set the padding of the different workspaces
 Run, komorebic.exe workspace-padding 0 0 0, , Hide
-Run, komorebic.exe container-padding 0 0 4, , Hide
+Run, komorebic.exe container-padding 0 0 0, , Hide
 Run, komorebic.exe workspace-padding 0 1 0, , Hide
 Run, komorebic.exe container-padding 0 1 0, , Hide
-Run, komorebic.exe workspace-padding 0 2 200, , Hide
+Run, komorebic.exe workspace-padding 0 2 0, , Hide
+Run, komorebic.exe container-padding 0 2 0, , Hide
 Run, komorebic.exe workspace-padding 0 3 0, , Hide
 Run, komorebic.exe container-padding 0 3 0, , Hide
 
-; Set the layout for different workspaces
 Run, komorebic.exe workspace-layout 0 0 ultrawide-vertical-stack, , Hide
-; Set the layouts of different workspaces
 Run, komorebic.exe workspace-layout 0 1 columns, , Hide
+Run, komorebic.exe workspace-layout 0 2 vertical-stack, , Hide
 ; Set the floaty layout to not tile any windows
 Run, komorebic.exe workspace-tiling 0 4 disable, , Hide
 
@@ -51,17 +51,14 @@ Run, komorebic.exe manage-rule exe "WeChat.exe", , Hide
 Run, komorebic.exe identify-tray-application exe "WeChat.exe", , Hide
 Run, komorebic.exe float-rule class "SettingWnd", , Hide
 Run, komorebic.exe workspace-rule exe "WeChat.exe" 0 1, , Hide
-; Run, komorebic.exe identify-border-overflow-application exe "WeChat.exe", , Hide
 ; 3. Tim
 Run, komorebic.exe manage-rule exe "TIM.exe", , Hide
 Run, komorebic.exe workspace-rule exe "TIM.exe" 0 1, , Hide
 Run, komorebic.exe identify-tray-application exe "TIM.exe", , Hide
-; Run, komorebic.exe identify-border-overflow-application exe "TIM.exe", , Hide
 ; 4. WeCom
 Run, komorebic.exe manage-rule exe "WXWork.exe", , Hide
 Run, komorebic.exe workspace-rule exe "WXWork.exe" 0 1, , Hide
 Run, komorebic.exe identify-tray-application exe "WXWork.exe", , Hide
-; Run, komorebic.exe identify-border-overflow-application exe "WXWork.exe", , Hide
 
 ; Specific settings for applications
 ; Windows Explorer
@@ -81,6 +78,11 @@ Run, komorebic.exe identify-border-overflow-application exe "WINWORD.EXE", , Hid
 Run, komorebic.exe identify-layered-application exe "WINWORD.EXE", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "EXCEL.EXE", , Hide
 Run, komorebic.exe identify-layered-application exe "EXCEL.EXE", , Hide
+Run, komorebic.exe identify-border-overflow-application exe "OUTLOOK.EXE", , Hide
+Run, komorebic.exe identify-layered-application exe "OUTLOOK.EXE", , Hide
+Run, komorebic.exe identify-tray-application exe "WeChat.exe", , Hide
+Run, komorebic.exe workspace-rule exe "OUTLOOK.EXE" 0 2, , Hide
+Run, komorebic.exe float-rule exe OfficeClickToRun.exe, , Hide
 ; Obsidian
 Run, komorebic.exe manage-rule exe "Obsidian.exe", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "Obsidian.exe", , Hide
