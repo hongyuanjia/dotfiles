@@ -1021,6 +1021,7 @@ packer.startup(function(use)
             keymap("n", "<Leader>gc", "<cmd>Git commit<CR>")
             keymap("n", "<Leader>gd", "<cmd>Gdiffsplit<CR>")
             keymap("n", "<Leader>gw", "<cmd>Gwrite<CR>")
+            keymap("n", "<Leader>gP", "<cmd>Git push<CR>")
         end
     }
 
@@ -1077,6 +1078,7 @@ packer.startup(function(use)
                     S = "Status",
                     B = "Branches",
                     C = "Commits",
+                    P = "Push"
                 },
                 l = {
                     name = "List",
