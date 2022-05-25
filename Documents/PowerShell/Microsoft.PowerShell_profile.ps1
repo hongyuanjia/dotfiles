@@ -43,8 +43,8 @@ if ($null -ne (Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinu
     Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
     # Works in InlineView
     Set-PSReadlineKeyHandler -Chord Ctrl+l -Function AcceptNextSuggestionWord
-    Set-PSReadLineKeyHandler -Chord Ctrl+k -Function HistorySearchBackward
-    Set-PSReadLineKeyHandler -Chord Ctrl+j -Function HistorySearchForward
+    Set-PSReadLineKeyHandler -Chord Ctrl+p -Function HistorySearchBackward
+    Set-PSReadLineKeyHandler -Chord Ctrl+n -Function HistorySearchForward
 
     Set-PSReadLineKeyHandler -Key Ctrl+Backspace -Function ShellBackwardKillWord
     Set-PSReadLineKeyHandler -Key Ctrl+b -Function ShellBackwardWord
