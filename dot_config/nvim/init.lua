@@ -279,8 +279,8 @@ packer.startup(function(use)
             keymap("n", "<Leader>Pu", "<cmd>Packerupdate<CR>")
         end
     }
-    use "nvim-lua/popup.nvim"
-    use "nvim-lua/plenary.nvim"
+    use { "nvim-lua/popup.nvim", module = "popup" }
+    use { "nvim-lua/plenary.nvim", module = "plenary" }
 
     -- chezmoi for dot file management
     use "alker0/chezmoi.vim"
@@ -302,6 +302,12 @@ packer.startup(function(use)
 
     -- UI
     use {
+        "kyazdani42/nvim-web-devicons",
+        config = function()
+            require("nvim-web-devicons").setup({ default = true })
+        end
+    }
+    use {
         "folke/tokyonight.nvim",
         config = function()
             vim.g.tokyonight_italic_comments = false
@@ -310,7 +316,7 @@ packer.startup(function(use)
     }
     use {
         "nvim-lualine/lualine.nvim",
-        requires = "kyazdani42/nvim-web-devicons",
+        event = "VimEnter",
         config = function()
             local status_ok, tokyonight = pcall(require, "tokyonight")
             local theme = "auto"
@@ -363,17 +369,14 @@ packer.startup(function(use)
     }
     use {
         "akinsho/bufferline.nvim",
-        requires = {
-            "kyazdani42/nvim-web-devicons",
-            "moll/vim-bbye"
-        },
+        event = "BufReadPre",
         config = function()
             require("bufferline").setup {
                 options = {
                     numbers = "none",
-                    close_command = "Bdelete! %d",
+                    close_command = "bdelete! %d",
                     left_mouse_command = "buffer %d",
-                    middle_mouse_command = "Bdelete %d",
+                    middle_mouse_command = "bdelete %d",
                     right_mouse_command = nil,
                     max_name_length = 30,
                     max_prefix_length = 15,
@@ -383,11 +386,28 @@ packer.startup(function(use)
             }
         end
     }
-    use "RRethy/vim-illuminate"
+    use {
+        "RRethy/vim-illuminate",
+        event = "CursorHold",
+        module = "illuminate",
+        config = function()
+            vim.g.Illuminate_delay = 200
+        end
+    }
     use {
         "moll/vim-bbye",
+        cmd = "Bdelete",
         config = function()
             keymap("n", "<Leader>bd", "<cmd>Bdelete<CR>")
+
+            if packer_plugins["bufferline.nvim"] then
+                require("bufferline").setup({
+                    options = {
+                        close_command = "Bdelete! %d",
+                        middle_mouse_command = "Bdelete %d"
+                    }
+                })
+            end
         end
     }
     use {
@@ -421,13 +441,13 @@ packer.startup(function(use)
             local alpha = require("alpha")
             local dashboard = require("alpha.themes.dashboard")
             dashboard.section.buttons.val = {
-            	dashboard.button("SPC b N", "  New file"),
-            	dashboard.button("SPC s f", "  Find file"),
-            	dashboard.button("SPC s p", "  Find project"),
-            	dashboard.button("SPC f r", "  Recently used files"),
-            	dashboard.button("SPC s g", "  Find text"),
-            	dashboard.button("SPC f v", "  Configuration"),
-            	dashboard.button("SPC Q",   "  Quit Neovim"),
+                dashboard.button("SPC b N", "  New file"),
+                dashboard.button("SPC s f", "  Find file"),
+                dashboard.button("SPC s p", "  Find project"),
+                dashboard.button("SPC f r", "  Recently used files"),
+                dashboard.button("SPC s g", "  Find text"),
+                dashboard.button("SPC f v", "  Configuration"),
+                dashboard.button("SPC Q",   "  Quit Neovim"),
             }
 
             alpha.setup(dashboard.config)
@@ -438,7 +458,7 @@ packer.startup(function(use)
     }
     use {
         "norcalli/nvim-colorizer.lua",
-        event = "BufRead",
+        event = "BufReadPre",
         config = function()
             require("colorizer").setup()
         end
@@ -517,13 +537,13 @@ packer.startup(function(use)
     -- autocompletion
     use {
         "hrsh7th/nvim-cmp",
+        event = "InsertEnter",
         requires = {
             -- completion sources
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lua",
+            { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
 
             -- snippets
             "saadparwaiz1/cmp_luasnip",
@@ -647,9 +667,10 @@ packer.startup(function(use)
         "neovim/nvim-lspconfig",
         requires = {
             "williamboman/nvim-lsp-installer",
-            "jose-elias-alvarez/null-ls.nvim"
+            "jose-elias-alvarez/null-ls.nvim",
+            "folke/lua-dev.nvim"
         },
-        event = {"BufRead", "BufNewFile"},
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
             local lsp_handlers = {}
 
@@ -738,23 +759,12 @@ packer.startup(function(use)
                 }
 
                 if server.name == "sumneko_lua" then
-                    local lua_settings = {
-                        settings = {
-                            Lua = {
-                                diagnostics = {
-                                    globals = { "vim" },
-                                },
-                                workspace = {
-                                    library = {
-                                        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                                        [vim.fn.stdpath("config") .. "/lua"] = true,
-                                    },
-                                },
-                            }
-                        }
-                    }
-
-                    opts = vim.tbl_deep_extend("force", lua_settings, opts)
+                    -- setup lua-dev
+                    -- ref: https://github.com/williamboman/nvim-lsp-installer/issues/602#issuecomment-1104222302
+                    local lua_dev = function(opts)
+                        return require("lua-dev").setup({ lspconfig = opts })
+                    end
+                    opts = lua_dev(opts)
                 end
 
                 server:setup(opts)
@@ -772,6 +782,8 @@ packer.startup(function(use)
     }
     use {
         "folke/trouble.nvim",
+        event = "BufReadPre",
+        cmd = { "TroubleToggle", "Trouble" },
         config = function()
             require("trouble").setup()
 
@@ -795,8 +807,7 @@ packer.startup(function(use)
     use {
         "nvim-telescope/telescope.nvim",
         requires = {
-            "ahmedkhalf/project.nvim",
-            "stevearc/dressing.nvim",
+            "ahmedkhalf/project.nvim"
         },
         cmd = "Telescope",
         module = "telescope",
@@ -840,7 +851,8 @@ packer.startup(function(use)
                 patterns = {".git", ".svn", ".Rproj", ".here", "package.json"}
             })
 
-            if packer_plugins["trouble"] then
+            require("telescope").setup()
+            if packer_plugins["trouble.nvim"] then
                 local trouble = require("trouble.providers.telescope")
                 require("telescope").setup({
                     defaults = {
@@ -856,6 +868,10 @@ packer.startup(function(use)
 
             require('telescope').load_extension("projects")
         end
+    }
+    use {
+        "stevearc/dressing.nvim",
+        event = "BufReadPre"
     }
     use {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -887,7 +903,7 @@ packer.startup(function(use)
     }
     use {
         "terrortylor/nvim-comment",
-        requires = "JoosepAlviste/nvim-ts-context-commentstring",
+        keys = { "gcc", "gc" },
         config = function()
             require('nvim_comment').setup({
                 hook = function()
@@ -905,10 +921,12 @@ packer.startup(function(use)
     use "wellle/targets.vim"
     use {
         'ggandor/lightspeed.nvim',
-        requires = "tpope/vim-repeat"
+        requires = "tpope/vim-repeat",
+        keys = { "s", "S", "f", "F", "t", "T" }
     }
     use {
         "machakann/vim-sandwich",
+        keys = { "s", "S" },
         config = function()
             vim.cmd [[runtime macros/sandwich/keymap/surround.vim]]
         end
@@ -943,9 +961,7 @@ packer.startup(function(use)
     -- file management
     use {
         "kyazdani42/nvim-tree.lua",
-        requires = {
-            "kyazdani42/nvim-web-devicons"
-        },
+        cmd = { "NvimTree", "NvimTreeToggle", "NvimTreeFindFileToggle" },
         config = function()
             vim.g.nvim_tree_respect_buf_cwd = 1
 
@@ -987,9 +1003,7 @@ packer.startup(function(use)
     -- Treesitter
     use {
         "nvim-treesitter/nvim-treesitter",
-        requires = {
-            "JoosepAlviste/nvim-ts-context-commentstring",
-        },
+        event = "BufRead",
         run = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup({
@@ -1002,10 +1016,15 @@ packer.startup(function(use)
             })
         end
     }
+    use {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        module = "ts_context_commentstring"
+    }
 
     -- Git
     use {
         "lewis6991/gitsigns.nvim",
+        event = "BufReadPre",
         require = { "nvim-lua/plenary.nvim" },
         config = function()
             require("gitsigns").setup()
@@ -1046,6 +1065,7 @@ packer.startup(function(use)
     -- WhichKey
     use {
         "folke/which-key.nvim",
+        event = "VimEnter",
         config = function()
             local whichkey = require("which-key")
 
