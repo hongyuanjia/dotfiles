@@ -3,27 +3,27 @@
     {
       "Name": "main",
       "Source": "https://github.com/ScoopInstaller/Main",
-      "Updated": "2022-05-23T12:31:14+08:00"
+      "Updated": "2022-05-26T16:29:39+08:00"
     },
     {
       "Name": "extras",
       "Source": "https://github.com/ScoopInstaller/Extras",
-      "Updated": "2022-05-23T08:32:41+08:00"
+      "Updated": "2022-05-26T16:28:51+08:00"
     },
     {
       "Name": "nerd-fonts",
       "Source": "https://github.com/matthewjberger/scoop-nerd-fonts",
-      "Updated": "2022-05-22T18:46:59+08:00"
+      "Updated": "2022-05-23T20:27:18+08:00"
     },
     {
       "Name": "lemon",
       "Source": "https://github.com/hoilc/scoop-lemon",
-      "Updated": "2022-05-23T09:26:14+08:00"
+      "Updated": "2022-05-26T17:20:17+08:00"
     },
     {
       "Name": "r-bucket",
       "Source": "https://github.com/cderv/r-bucket",
-      "Updated": "2022-05-23T10:00:47+08:00"
+      "Updated": "2022-05-26T12:39:15+08:00"
     }
   ],
   "app": [
@@ -34,12 +34,12 @@
     },
     {
       "Name": "chezmoi",
-      "Version": "2.16.0",
+      "Version": "2.17.0",
       "Source": "main"
     },
     {
       "Name": "cmake",
-      "Version": "3.23.1",
+      "Version": "3.23.2",
       "Source": "main"
     },
     {
@@ -119,7 +119,7 @@
     },
     {
       "Name": "starship",
-      "Version": "1.6.3",
+      "Version": "1.7.1",
       "Source": "main"
     },
     {
@@ -144,7 +144,7 @@
     },
     {
       "Name": "everything",
-      "Version": "1.4.1.1015",
+      "Version": "1.4.1.1017",
       "Source": "extras"
     },
     {
@@ -168,8 +168,8 @@
       "Source": "extras"
     },
     {
-      "Name": "macrocreator",
-      "Version": "5.4.1",
+      "Name": "lazygit",
+      "Version": "0.34",
       "Source": "extras"
     },
     {
@@ -229,12 +229,12 @@
     },
     {
       "Name": "windows-terminal",
-      "Version": "1.12.10982.0",
+      "Version": "1.13.11431.0",
       "Source": "extras"
     },
     {
       "Name": "zoom",
-      "Version": "5.10.4.5035",
+      "Version": "5.10.6.5889",
       "Source": "extras"
     },
     {
