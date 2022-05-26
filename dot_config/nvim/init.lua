@@ -1234,6 +1234,9 @@ packer.startup(function(use)
         end
     }
 
+    -- Lua
+    use "milisims/nvim-luaref"
+
     -- R
     use {
         "jalvesaq/R-Vim-runtime",
