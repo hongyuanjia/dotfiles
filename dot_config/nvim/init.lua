@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-05-20 11:38:14
+-- Last Modified: 2022-05-26 10:40
 
 -- Basic Settings
 local options = {
@@ -981,7 +981,7 @@ packer.startup(function(use)
         "kyazdani42/nvim-tree.lua",
         cmd = { "NvimTree", "NvimTreeToggle", "NvimTreeFindFileToggle" },
         config = function()
-            vim.g.nvim_tree_respect_buf_cwd = 1
+            vim.g.nvim_tree_respect_buf_cwd = 0
 
             require("nvim-tree").setup({
                 hijack_netrw = true,
