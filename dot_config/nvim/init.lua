@@ -410,9 +410,10 @@ packer.startup(function(use)
     use {
         "moll/vim-bbye",
         cmd = "Bdelete",
-        config = function()
+        setup = function()
             keymap("n", "<Leader>bd", "<cmd>Bdelete<CR>")
-
+        end,
+        config = function()
             if packer_plugins["bufferline.nvim"] then
                 require("bufferline").setup({
                     options = {
@@ -478,6 +479,7 @@ packer.startup(function(use)
     }
     use {
         "akinsho/toggleterm.nvim",
+        event = "BufWinEnter",
         config = function()
             require("toggleterm").setup({
                 size = function(term)
@@ -539,6 +541,7 @@ packer.startup(function(use)
     }
     use {
         "sindrets/winshift.nvim",
+        cmd = { "WinShift" },
         config = function()
             require("winshift").setup({ focused_hl_groups = "Search" })
 
@@ -970,20 +973,18 @@ packer.startup(function(use)
     }
     use "wellle/targets.vim"
     use {
-        'ggandor/lightspeed.nvim',
+        "ggandor/lightspeed.nvim",
         requires = "tpope/vim-repeat",
-        keys = { "s", "S", "f", "F", "t", "T" }
     }
     use {
         "machakann/vim-sandwich",
-        keys = { "s", "S" },
         config = function()
             vim.cmd [[runtime macros/sandwich/keymap/surround.vim]]
         end
     }
     use {
         "AndrewRadev/sideways.vim",
-        cmd = {"SidewaysLeft", "SidewaysRight"},
+        cmd = { "SidewaysLeft", "SidewaysRight" },
         setup = function()
             -- <Leader>a[rgument]
             keymap("n", "<Leader>ah", "<cmd>SidewaysLeft<CR>")
@@ -996,9 +997,10 @@ packer.startup(function(use)
             "EnableWhitespace",
             "DisableWhitespace",
             "StripWhitespace",
-            "ToggleWhitespace"
+            "ToggleWhitespace",
+            "ToggleStripWhitespaceOnSave"
         },
-        config = function()
+        setup = function()
             -- <Leader>t[oggle]
             keymap("n", "<Leader>tS", "<cmd>ToggleWhitespace<CR>")
             keymap("n", "<Leader>tX", "<cmd>ToggleStripWhitespaceOnSave<CR>")
@@ -1012,6 +1014,14 @@ packer.startup(function(use)
     use {
         "kyazdani42/nvim-tree.lua",
         cmd = { "NvimTree", "NvimTreeToggle", "NvimTreeFindFileToggle" },
+        setup = function()
+            -- <Leader>f[iles]
+            keymap("n", "<Leader>fe", "<cmd>NvimTreeToggle<CR>")
+            keymap("n", "<Leader>fl", "<cmd>NvimTreeFindFileToggle<CR>")
+
+            -- <Leader>t[oggle]
+            keymap("n", "<Leader>te", "<cmd>NvimTreeToggle<CR>")
+        end,
         config = function()
             vim.g.nvim_tree_respect_buf_cwd = 0
 
@@ -1040,13 +1050,6 @@ packer.startup(function(use)
                     }
                 }
             })
-
-            -- <Leader>f[iles]
-            keymap("n", "<Leader>fe", "<cmd>NvimTreeToggle<CR>")
-            keymap("n", "<Leader>fl", "<cmd>NvimTreeFindFileToggle<CR>")
-
-            -- <Leader>t[oggle]
-            keymap("n", "<Leader>te", "<cmd>NvimTreeToggle<CR>")
         end
     }
 
