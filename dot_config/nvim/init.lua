@@ -825,7 +825,8 @@ packer.startup(function(use)
         after = "nvim-lspconfig",
         config = function()
             require("lsp_signature").setup({
-                hint_enable = false
+                hint_enable = false,
+                toggle_key = "<M-`>"
             })
         end
     }
