@@ -3,4 +3,4 @@
 Dotfiles managed by [chezmoi](https://www.chezmoi.io/). Apps on Windows managed
 via [scoop](https://scoop.sh/) and [chocolatey](https://chocolatey.org/) 
 
-[./screen.png]
+![screenshot](./screen.png)
