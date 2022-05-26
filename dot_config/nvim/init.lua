@@ -83,6 +83,16 @@ vim.opt.formatoptions:append("j")
 -- don't auto format text
 vim.opt.formatoptions:append("t")
 
+-- go to last loc when opening a buffer
+vim.cmd([[
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
+]])
+
+-- highlight on yank
+vim.cmd([[
+    autocmd TextYankPost * lua vim.highlight.on_yank {}
+]])
+
 -- Key maps
 -- shorten function name
 function _G.keymap(mode, lhs, rhs, opts)
