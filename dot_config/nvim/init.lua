@@ -542,10 +542,12 @@ packer.startup(function(use)
     use {
         "sindrets/winshift.nvim",
         cmd = { "WinShift" },
+        setup = function()
+            -- use <Leader>wS to change window position
+            keymap("n", "<Leader>wS", "<cmd>WinShift<cr>")
+        end,
         config = function()
             require("winshift").setup({ focused_hl_groups = "Search" })
-
-            keymap("n", "<Leader>wS", "<cmd>WinShift<cr>")
         end
     }
     use 'dstein64/nvim-scrollview'
