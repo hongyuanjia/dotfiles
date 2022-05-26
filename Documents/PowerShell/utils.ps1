@@ -64,8 +64,8 @@ function Get-ScoopApps {
 function Export-ScoopData {
     Grant-ScoopInstalled
 
-    @{
-        bucket = Get-ScoopBuckets | Select-Object Name, Source, Updated
+    [ordered]@{
+        bucket = Get-ScoopBuckets | Select-Object Name, Source, Updated;
         app = Get-ScoopApps | Select-Object Name, Version, Source
     } | ConvertTo-Json
 }
@@ -106,8 +106,7 @@ function Import-ScoopData {
         Throw "Nothing to import."
     }
 
-    # FIXME: Only works for PowerShell v7
-    $ScoopData = $ScoopData | ConvertFrom-Json -AsHashtable
+    $ScoopData = $ScoopData | ConvertFrom-Json
 
     $OldBuckets = Get-ScoopBuckets
     $OldApps = Get-ScoopApps
