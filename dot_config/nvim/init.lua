@@ -527,7 +527,7 @@ packer.startup(function(use)
     use {
         "sindrets/winshift.nvim",
         config = function()
-            require("winshift").setup()
+            require("winshift").setup({ focused_hl_groups = "Search" })
 
             keymap("n", "<Leader>wS", "<cmd>WinShift<cr>")
         end
