@@ -106,6 +106,10 @@ function _G.bufkeymap(mode, lhs, rhs, opts, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
 end
 
+function _G.dump(...)
+    print(vim.inspect(...))
+end
+
 -- remap space as the leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
