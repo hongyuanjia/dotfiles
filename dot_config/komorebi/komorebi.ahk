@@ -193,8 +193,8 @@ return
 Run, komorebic.exe change-layout columns, , Hide
 return
 
-; Switch to the default bsp tiling layout on the main workspace, Alt + Shift + T
-!+t::
+; Switch to the default bsp tiling layout on the main workspace, Alt + Shift + B
+!+b::
 Run, komorebic.exe change-layout bsp, , Hide
 return
 
