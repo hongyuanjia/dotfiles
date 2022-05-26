@@ -1,10 +1,14 @@
 #SingleInstance Force
+#NoEnv
+
+; Switch to the SendInput for Send
+SendMode Input
 
 ; Enable hot reloading of changes to this file
 Run, komorebic.exe watch-configuration enable, , Hide
 
 ; Configure the invisible border dimensions
-Run, komorebic.exe invisible-borders 0 0 0 0, , Hide
+Run, komorebic.exe invisible-borders 5 0 5 0, , Hide
 
 ; Enable focus follows mouse
 Run, komorebic.exe focus-follows-mouse disable, , Hide
@@ -35,8 +39,11 @@ Run, komorebic.exe workspace-layout 0 2 vertical-stack, , Hide
 ; Set the floaty layout to not tile any windows
 Run, komorebic.exe workspace-tiling 0 4 disable, , Hide
 
+; Hide windows when switching workspaces
+Run, komorebic.exe window-hiding-behaviour hide, , Hide
+
 ; Set the resize delta
-Run, komorebic.exe resize-delta 20, , Hide
+Run, komorebic.exe resize-delta 100, , Hide
 
 ; Always show chat apps on the second workspace
 ; 1. Slack
@@ -50,6 +57,7 @@ Run, komorebic.exe workspace-rule exe "slack.exe" 0 1, , Hide
 Run, komorebic.exe manage-rule exe "WeChat.exe", , Hide
 Run, komorebic.exe identify-tray-application exe "WeChat.exe", , Hide
 Run, komorebic.exe float-rule class "SettingWnd", , Hide
+Run, komorebic.exe float-rule class "TrayNotifyWnd", , Hide
 Run, komorebic.exe workspace-rule exe "WeChat.exe" 0 1, , Hide
 ; 3. Tim
 Run, komorebic.exe manage-rule exe "TIM.exe", , Hide
@@ -101,8 +109,6 @@ Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
 ; Total Commander
 Run, komorebic.exe workspace-rule exe "TOTALCMD64.EXE" 0 3, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TOverWriteForm, , Hide
-; VSCode
-Run, komorebic.exe manage-rule exe "Code.exe", , Hide
 
 ; Change the focused window, Alt + Vim direction keys
 !h::
@@ -138,23 +144,24 @@ return
 Run, komorebic.exe move right, , Hide
 return
 
-; Stack the focused window in a given direction, Alt + Shift + direction keys
-!+Left::
+; Stack the focused window in a given direction, Ctrl + Shift + direction keys
+^+Left::
 Run, komorebic.exe stack left, , Hide
 return
 
-!+Down::
-Run, komorebic.exe stack down, , Hide
-return
-
-!+Up::
-Run, komorebic.exe stack up, , Hide
-return
-
-!+Right::
+^+Right::
 Run, komorebic.exe stack right, , Hide
 return
 
+^+Up::
+Run, komorebic.exe stack up, , Hide
+return
+
+^+Down::
+Run, komorebic.exe stack down, , Hide
+return
+
+; Cycle through stacked windows, Alt + []
 !]::
 Run, komorebic.exe cycle-stack next, , Hide
 return
@@ -175,17 +182,17 @@ return
 
 ; Switch to ultrawide-vertical-stack layout on the main workspace, Alt + Shift + W
 !+w::
-Run, komorebic.exe workspace-layout 0 0 ultrawide-vertical-stack, , Hide
+Run, komorebic.exe change-layout ultrawide-vertical-stack, , Hide
 return
 
 ; Switch to an equal-width, max-height column layout on the main workspace, Alt + Shift + C
 !+c::
-Run, komorebic.exe workspace-layout 0 0 columns, , Hide
+Run, komorebic.exe change-layout columns, , Hide
 return
 
 ; Switch to the default bsp tiling layout on the main workspace, Alt + Shift + T
 !+t::
-Run, komorebic.exe workspace-layout 0 0 bsp, , Hide
+Run, komorebic.exe change-layout bsp, , Hide
 return
 
 ; Toggle the Monocle layout for the focused window, Alt + Shift + F
@@ -213,8 +220,8 @@ return
 Run, komorebic.exe retile, , Hide
 return
 
-; Float the focused window, Alt + T
-!t::
+; Float the focused window, Alt + F
+!f::
 Run, komorebic.exe toggle-float, , Hide
 return
 
@@ -228,7 +235,7 @@ return
 Run, komorebic.exe toggle-pause, , Hide
 return
 
-; Switch to workspace
+; Switch to workspace, Alt + NUM
 !1::
 Send !
 Run, komorebic.exe focus-workspace 0, , Hide
@@ -254,7 +261,7 @@ Send !
 Run, komorebic.exe focus-workspace 4, , Hide
 return
 
-; Move window to workspace
+; Move window to workspace, Alt + Shift + NUM
 !+1::
 Run, komorebic.exe move-to-workspace 0, , Hide
 return
@@ -275,19 +282,64 @@ return
 Run, komorebic.exe move-to-workspace 4, , Hide
 return
 
-; Resize the focused window, Win + Ctrl + Vim direction keys
-#^h::
-Run, komorebic.exe resize right decrease, , Hide
+; Cycle next focus, Alt + Shift + N
+!+n::
+Run, komorebic.exe cycle-focus next, , Hide
 return
 
-#^j::
-Run, komorebic.exe resize down increase, , Hide
+; Cycle previous focus, Alt + Shift + P
+!+p::
+Run, komorebic.exe cycle-focus previous, , Hide
 return
 
-#^k::
-Run, komorebic.exe resize down decrease, , Hide
+; Increase the edge of the focused window, Alt + Ctrl + Arrow keys
+!^Left::
+Run, komorebic.exe resize-edge left increase, , Hide
 return
 
-#^l::
-Run, komorebic.exe resize right increase, , Hide
+!^Right::
+Run, komorebic.exe resize-edge right increase, , Hide
 return
+
+!^Up::
+Run, komorebic.exe resize-edge up increase, , Hide
+return
+
+!^Down::
+Run, komorebic.exe resize-edge down increase, , Hide
+return
+
+; Increase the edge of the focused window, Shift + Alt + Ctrl + Arrow keys
+!+^Left::
+Run, komorebic.exe resize-edge left decrease, , Hide
+return
+
+!+^Right::
+Run, komorebic.exe resize-edge right decrease, , Hide
+return
+
+!+^Up::
+Run, komorebic.exe resize-edge up decrease, , Hide
+return
+
+!+^Down::
+Run, komorebic.exe resize-edge down decrease, , Hide
+return
+
+^!=::
+Run, komorebic.exe manage
+return
+
+^!-::
+Run, komorebic.exe unmanage
+return
+
+; Close windows using Alt + Q
+!q::Send, !{f4}
+
+; horizontal scrolling
+!WheelDown::WheelRight
+!WheelUp::WheelLeft
+
+; Remap CpasLock to ESC
+CapsLock::Send, {ESC}
