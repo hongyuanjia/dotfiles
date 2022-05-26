@@ -318,7 +318,7 @@ packer.startup(function(use)
         "nvim-lualine/lualine.nvim",
         event = "VimEnter",
         config = function()
-            local status_ok, tokyonight = pcall(require, "tokyonight")
+            local status_ok, _ = pcall(require, "tokyonight")
             local theme = "auto"
             if status_ok then
                 theme = "tokyonight"
@@ -518,10 +518,10 @@ packer.startup(function(use)
     }
     use {
         "t9md/vim-choosewin",
-        cmd = { "(Plug)(choosewin)", "ChooseWin", "ChooseWinSwap", "ChooseWinSwapStay" },
-        config = function()
+        cmd = { "ChooseWin", "ChooseWinSwap", "ChooseWinSwapStay" },
+        setup = function()
             -- use - to choose window
-            keymap("n", "-", "<cmd>ChooseWin<CR>", { noremap = false })
+            keymap("n", "-", "<cmd>ChooseWin<CR>")
         end
     }
     use {
@@ -886,7 +886,7 @@ packer.startup(function(use)
                 patterns = {".git", ".svn", ".Rproj", ".here", "package.json"}
             })
 
-            require("telescope").setup()
+            require("telescope").setup({})
             if packer_plugins["trouble.nvim"] then
                 local trouble = require("trouble.providers.telescope")
                 require("telescope").setup({
@@ -944,7 +944,7 @@ packer.startup(function(use)
         config = function()
             require('nvim_comment').setup({
                 hook = function()
-                    require("ts_context_commentstring.internal").update_commentstring()
+                    require("ts_context_commentstring.internal").update_commentstring({})
                 end
             })
         end
