@@ -1,6 +1,9 @@
 #SingleInstance Force
 #NoEnv
 
+; Set the script process priority to high
+Process, Priority, , High
+
 ; Switch to the SendInput for Send
 SendMode Input
 
