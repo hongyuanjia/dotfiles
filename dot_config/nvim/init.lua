@@ -74,6 +74,14 @@ vim.opt.iskeyword:append("-")
 vim.opt.formatoptions:remove("cro")
 -- do not insert spaces for multi bytes
 vim.opt.formatoptions:append("M")
+-- don't insert a space before or after a multi-byte when join
+vim.opt.formatoptions:append("B")
+-- multibyte line breaking
+vim.opt.formatoptions:append("m")
+-- remove a comment leader when joining
+vim.opt.formatoptions:append("j")
+-- don't auto format text
+vim.opt.formatoptions:append("t")
 
 -- Key maps
 -- shorten function name
