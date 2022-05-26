@@ -1254,6 +1254,72 @@ packer.startup(function(use)
             vim.cmd[[
                 autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
             ]]
+
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "BufWinEnter" },
+                {
+                    pattern = {"*.r", "*.R"},
+                    callback = function()
+                        vim.wo.colorcolumn = "80"
+
+                        -- set roxygen comment string
+                        vim.opt_local.comments:append("b:#'")
+
+                        -- insert current comment leader
+                        vim.opt_local.formatoptions:append("r")
+
+                        -- assign, pipe and data.table assign
+                        bufkeymap("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>")
+                        bufkeymap("i", "<M-->", "<C-v><Space>:=<C-v><Space>")
+
+                        -- {targets}
+                        bufkeymap("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>")
+                        bufkeymap("n", "<LocalLeader>dd", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>")
+
+                        -- debug
+                        bufkeymap("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>")
+                        bufkeymap("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>")
+                        bufkeymap("n", "<LocalLeader>sc", "<cmd>RSend c<CR>")
+                        bufkeymap("n", "<LocalLeader>sn", "<cmd>RSend n<CR>")
+                    end
+                }
+            )
+
+            -- keymaps for inserting pipes and debugging
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "BufWinEnter" },
+                {
+                    pattern = { "*.r", "*.R", "*.rmd", "*.Rmd", "*.qmd" },
+                    callback = function()
+                        -- pipe and data.table assign
+                        bufkeymap("i", "<M-->", "<C-v><Space><-<C-v><Space>")
+                        bufkeymap("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>")
+                        bufkeymap("i", "<M-;>", "<C-v><Space>:=<C-v><Space>")
+
+                        -- debug
+                        bufkeymap("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>")
+                        bufkeymap("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>")
+                        bufkeymap("n", "<LocalLeader>sc", "<cmd>RSend c<CR>")
+                        bufkeymap("n", "<LocalLeader>sn", "<cmd>RSend n<CR>")
+                    end
+                }
+            )
+
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "BufWinEnter" },
+                {
+                    pattern = { "*.rmd", "*.Rmd", "*.qmd" },
+                    callback = function()
+                        -- wrap long lines
+                        vim.opt_local.wrap = true
+
+                        function RRenderRmdInNewEnv()
+                            local path = vim.api.nvim_buf_get_name(0)
+                            local path = vim.fn.expand("%:p")
+                        end
+                    end
+                }
+            )
         end
     }
     use {
@@ -1263,6 +1329,23 @@ packer.startup(function(use)
         config = function()
             -- redefine test current file
             vim.cmd[[ command! -nargs=0 RTestFile :call devtools#test_file() ]]
+
+            -- keymap for package development
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "BufWinEnter" },
+                {
+                    pattern = { "*.r", "*.R" },
+                    callback = function()
+                        bufkeymap("n", "<LocalLeader>da", "<cmd>RLoadPackage<CR>")
+                        bufkeymap("n", "<LocalLeader>dd", "<cmd>RDocumentPakcage<CR>")
+                        bufkeymap("n", "<LocalLeader>dt", "<cmd>RTestPackage<CR>")
+                        bufkeymap("n", "<LocalLeader>df", "<cmd>RTestFile<CR>")
+                        bufkeymap("n", "<LocalLeader>dc", "<cmd>RCheckPackage<CR>")
+                        bufkeymap("n", "<LocalLeader>dr", "<cmd>RSend devtools::build_readme()<CR>")
+                        bufkeymap("n", "<LocalLeader>dI", "<cmd>RInstallPackage<CR>")
+                    end
+                }
+            )
         end
     }
 
