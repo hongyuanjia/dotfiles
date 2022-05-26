@@ -1,3 +1,5 @@
+README.md
+screen.png
 {{ if ne .chezmoi.os "windows" }}
 AppData
 Documents
