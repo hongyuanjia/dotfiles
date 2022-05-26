@@ -276,7 +276,7 @@ packer.startup(function(use)
             keymap("n", "<Leader>Pi", "<cmd>PackerInstall<CR>")
             keymap("n", "<Leader>Ps", "<cmd>PackerSync<CR>")
             keymap("n", "<Leader>PS", "<cmd>PackerStatus<CR>")
-            keymap("n", "<Leader>Pu", "<cmd>Packerupdate<CR>")
+            keymap("n", "<Leader>Pu", "<cmd>PackerUpdate<CR>")
         end
     }
     use { "nvim-lua/popup.nvim", module = "popup" }
@@ -679,55 +679,60 @@ packer.startup(function(use)
         },
         event = { "BufReadPre", "BufNewFile" },
         config = function()
-            local lsp_handlers = {}
-
-            lsp_handlers.setup = function()
-                local signs = {
-                    { name = "DiagnosticSignError", text = "" },
-                    { name = "DiagnosticSignWarn",  text = "" },
-                    { name = "DiagnosticSignHint",  text = "" },
-                    { name = "DiagnosticSignInfo",  text = "" },
+            require("nvim-lsp-installer").setup({
+                ensure_installed = {
+                    "sumneko_lua"
                 }
+            })
 
-                for _, sign in ipairs(signs) do
-                    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-                end
-
-                local config = {
-                    virtual_text = false,
-                    signs = { active = signs },
-                    update_in_insert = true,
-                    underline = true,
-                    severity_sort = true,
-                    float = {
-                        focusable = false,
-                        style = "minimal",
-                        border = "rounded",
-                        source = "always",
-                        header = "",
-                        prefix = "",
-                    }
-                }
-
-                vim.diagnostic.config(config)
-                vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-                    border = "rounded", wrap = false
-                })
-
-                vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+            -- udpate diagnostic config
+            local signs = {
+                { name = "DiagnosticSignError", text = "" },
+                { name = "DiagnosticSignWarn",  text = "" },
+                { name = "DiagnosticSignHint",  text = "" },
+                { name = "DiagnosticSignInfo",  text = "" },
+            }
+            for _, sign in ipairs(signs) do
+                vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+            end
+            local config = {
+                virtual_text = false,
+                signs = { active = signs },
+                update_in_insert = true,
+                underline = true,
+                severity_sort = true,
+                float = {
+                    focusable = false,
+                    style = "minimal",
                     border = "rounded",
-                })
+                    source = "always",
+                    header = "",
+                    prefix = "",
+                }
+            }
+            vim.diagnostic.config(config)
 
-                vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+            -- don't wrap long lines for hover
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                vim.lsp.handlers.hover, { border = "rounded", wrap = false }
+            )
+
+            -- use round border for signature help
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+                vim.lsp.handlers.signature_help, { border = "rounded" }
+            )
+
+            -- use virtual text for diagnostics
+            vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+                vim.lsp.diagnostic.on_publish_diagnostics, {
                     underline = true,
                     update_in_insert = false,
                     virtual_text = { spacing = 4, prefix = "●" },
                     severity_sort = true
-                })
-            end
-            lsp_handlers.setup()
+                }
+            )
 
-            lsp_handlers.on_attach = function(client, bufnr)
+            local on_attach = function(client, bufnr)
                 local function bufkeymap(mode, lhs, rhs, opts)
                     opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
                     vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
@@ -758,31 +763,45 @@ packer.startup(function(use)
                 vim.cmd[[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
             end
 
-            -- add completion source
-            local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-            if status_ok then
-                local capabilities = vim.lsp.protocol.make_client_capabilities()
-                lsp_handlers.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+            -- add lsp auto-completion source
+            if packer_plugins["cmp-nvim-lsp"] then
+                require("lspconfig.util").default_config = vim.tbl_extend(
+                    "force",
+                    require("lspconfig.util").default_config,
+                    {
+                        capabilities = require("cmp_nvim_lsp").update_capabilities(
+                            vim.lsp.protocol.make_client_capabilities()
+                        )
+                    }
+                )
             end
 
-            local lsp_installer = require("nvim-lsp-installer")
-            lsp_installer.on_server_ready(function(server)
-                local opts = {
-                    on_attach = lsp_handlers.on_attach,
-                    capabilities = lsp_handlers.capabilities
-                }
+            local lspconfig = require("lspconfig")
 
-                if server.name == "sumneko_lua" then
-                    -- setup lua-dev
-                    -- ref: https://github.com/williamboman/nvim-lsp-installer/issues/602#issuecomment-1104222302
-                    local lua_dev = function(opts)
-                        return require("lua-dev").setup({ lspconfig = opts })
-                    end
-                    opts = lua_dev(opts)
-                end
+            -- lua
+            lspconfig.sumneko_lua.setup(
+                require("lua-dev").setup({
+                    lspconfig = {
+                        on_attach = on_attach,
+                        settings = {
+                            Lua = {
+                                runtime = {
+                                    version = "LuaJIT"
+                                },
+                                diagnostics = {
+                                    globals = { "packer_plugins" }
+                                }
+                            }
+                        }
+                    }
+                })
+            )
 
-                server:setup(opts)
-            end)
+            -- r
+            lspconfig.r_language_server.setup({ on_attach = on_attach })
+
+            -- powershell
+            lspconfig.powershell_es.setup({ on_attach = on_attach })
         end
     }
     use {
@@ -1322,7 +1341,8 @@ packer.startup(function(use)
 
                         function RRenderRmdInNewEnv()
                             local path = vim.api.nvim_buf_get_name(0)
-                            local path = vim.fn.expand("%:p")
+                            -- TODO: Change backslash
+                            -- FIXME:
                         end
                     end
                 }
