@@ -725,7 +725,7 @@ packer.startup(function(use)
                 bufkeymap("n", "gh", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
                 bufkeymap("n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>")
                 bufkeymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-                bufkeymap("n", "gA", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+                bufkeymap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>")
                 bufkeymap("n", "gl", "<cmd>lua vim.diagnostic.open_float(0, {scope = 'line'})<CR>")
                 bufkeymap("n", "K",  "<cmd>lua vim.lsp.buf.hover()<CR>")
                 bufkeymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ border = 'rounded' })<CR>")
@@ -785,7 +785,9 @@ packer.startup(function(use)
         event = "BufReadPre",
         cmd = { "TroubleToggle", "Trouble" },
         config = function()
-            require("trouble").setup()
+            require("trouble").setup({
+                use_diagnostic_signs = true
+            })
 
             -- <Leader>t[oggle]
             keymap("n", "<Leader>tt", "<cmd>TroubleToggle<CR>")
@@ -1007,7 +1009,12 @@ packer.startup(function(use)
         run = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = "all",
+                ensure_installed = {
+                    "bash", "c", "cmake", "comment", "cpp", "css",
+                    "fish", "html", "javascript", "jsonc", "latex",
+                    "lua", "markdown", "python", "regex", "rust",
+                    "toml", "tsx", "typescript", "vue", "yaml"
+                },
                 highlight = { enable = true, disable = { "r" } },
                 autopairs = { enable = true },
                 indent = { enable = true, disable = { "r" } },
@@ -1029,21 +1036,21 @@ packer.startup(function(use)
         config = function()
             require("gitsigns").setup()
             -- ][c to navigate hunks
-            keymap("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-            keymap("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+            keymap("n", "]c", "&diff ? ']c' : '<cmd>lua require(\"gitsigns\").next_hunk({preview=true})<CR>'", { expr = true })
+            keymap("n", "[c", "&diff ? '[c' : '<cmd>lua require(\"gitsigns\").prev_hunk({preview=true})<CR>'", { expr = true })
 
             -- <Leader>g[it]
-            keymap("n", "<Leader>gj", "<cmd>Gitsigns next_hunk<CR>")
-            keymap("n", "<Leader>gk", "<cmd>Gitsigns prev_hunk<CR>")
+            keymap("n", "<Leader>gj", "<cmd>lua require('gitsigns').next_hunk({preview = true})<CR>")
+            keymap("n", "<Leader>gk", "<cmd>lua require('gitsigns').prev_hunk({preview = true})<CR>")
             keymap("n", "<Leader>gs", "<cmd>Gitsigns stage_hunk<CR>")
-            keymap("v", "<Leader>gs", "<cmd>Gitsigns stage_hunk<CR>")
+            keymap("v", "<Leader>gs", "<cmd>lua require('gitsigns').stage_hunk({vim.fn.line('.'), vim.fn.line('v')})<CR>")
             keymap("n", "<Leader>gr", "<cmd>Gitsigns reset_hunk<CR>")
-            keymap("v", "<Leader>gr", "<cmd>Gitsigns reset_hunk<CR>")
-            keymap("l", "<Leader>gl", "<cmd>Gitsigns setloclist<CR>")
+            keymap("v", "<Leader>gr", "<cmd>lua require('gitsigns').reset_hunk({vim.fn.line('.'), vim.fn.line('v')})<CR>")
+            keymap("n", "<Leader>gl", "<cmd>Gitsigns setloclist<CR>")
             keymap("n", "<Leader>gp", "<cmd>Gitsigns preview_hunk<CR>")
             keymap("n", "<Leader>gu", "<cmd>Gitsigns undo_stage_hunk<CR>")
             keymap("n", "<Leader>gR", "<cmd>Gitsigns reset_buffer<CR>")
-            keymap("n", "<Leader>gb", "<cmd>lua require'gitsigns'.blame_line{full=true}<CR>")
+            keymap("n", "<Leader>gb", "<cmd>lua require('gitsigns').blame_line({full=true})<CR>")
 
             -- ih for text object
             keymap("o", "ih", "<cmd>Gitsigns select_hunk<CR>")
