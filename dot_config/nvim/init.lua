@@ -533,6 +533,13 @@ packer.startup(function(use)
         end
     }
     use 'dstein64/nvim-scrollview'
+    use {
+        "rcarriga/nvim-notify",
+        event = "VimEnter",
+        config = function()
+            vim.notify = require("notify")
+        end
+    }
 
     -- autocompletion
     use {
@@ -864,8 +871,10 @@ packer.startup(function(use)
                         }
                     }
                 })
-            else
-                require("telescope").setup()
+            end
+
+            if packer_plugins["nvim-notify"] then
+                require("telescope").load_extension("notify")
             end
 
             require('telescope').load_extension("projects")
