@@ -1353,16 +1353,30 @@ packer.startup(function(use)
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "BufWinEnter" },
                 {
-                    pattern = { "*.rmd", "*.Rmd", "*.qmd" },
+                    pattern = { "*.rmd", "*.Rmd" },
                     callback = function()
                         -- wrap long lines
                         vim.opt_local.wrap = true
 
-                        function RRenderRmdInNewEnv()
-                            local path = vim.api.nvim_buf_get_name(0)
-                            -- TODO: Change backslash
-                            -- FIXME:
+                        function RToggleRmdEnv()
+                            -- get current value
+                            local env = vim.g.R_rmd_environment
+
+                            if env == ".GlobalEnv" then
+                                env = "new.env()"
+                            else
+                                env = ".GlobalEnv"
+                            end
+                            vim.g.R_rmd_environment = env
+
+                            if packer_plugins["nvim-notify"] then
+                                require("notify").notify("Rmd will be rendered in an empty environment.", "info")
+                            else
+                                print("Rmd will be rendered in an empty environment.")
+                            end
                         end
+
+                        bufkeymap("n", "<LocalLeader>re", "<cmd>lua RToggleRmdEnv()<CR>")
                     end
                 }
             )
