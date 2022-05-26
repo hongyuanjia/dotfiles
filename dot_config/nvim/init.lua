@@ -197,8 +197,17 @@ function _G.toggle_linenumber()
             \ }[&number . &relativenumber]
     ]]
 end
+function _G.toggle_slash()
+    local line = vim.api.nvim_get_current_line()
+    local first = string.match(line, "[/\\]")
+    if first == nil then return end
+    local oppsite = first == "\\" and "/" or "\\"
+    line = string.gsub(line, first, oppsite)
+    vim.api.nvim_set_current_line(line)
+end
 keymap("n", "<Leader>tc", "<cmd>lua toggle_colorcolumn()<CR>")
 keymap("n", "<Leader>tl", "<cmd>lua toggle_linenumber()<CR>")
+keymap("n", "<Leader>t\\", "<cmd>lua toggle_slash()<CR>")
 
 -- <Leader>q[uit]
 keymap("n", "<Leader>q", "<cmd>q<CR>")
