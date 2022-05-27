@@ -1236,7 +1236,7 @@ packer.startup(function(use)
                     L = "Resize Right",
                     J = "Resize Above",
                     K = "Resize Below",
-                    W = "Shift Window",
+                    S = "Shift Window",
                     ["="] = "Resize Equally",
                 },
                 q = {
