@@ -235,6 +235,18 @@ keymap("t", "<C-j>", [[<C-\><C-n><C-W>j]])
 keymap("t", "<C-k>", [[<C-\><C-n><C-W>k]])
 keymap("t", "<C-l>", [[<C-\><C-n><C-W>l]])
 
+-- File type specific settings
+vim.api.nvim_create_autocmd(
+    { "BufEnter", "BufWinEnter" },
+    {
+        pattern = { "*.ahk", "*.ahk2" },
+        callback = function()
+            vim.bo.commentstring = ";%s"
+            vim.bo.comments = "s1:/*,mb:*,ex:*/,:;"
+        end
+    }
+)
+
 -- Plugins
 -- automatically install packer
 local packer_install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
