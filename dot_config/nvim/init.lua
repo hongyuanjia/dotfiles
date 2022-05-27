@@ -124,17 +124,11 @@ keymap("n", "gk", "k")
 keymap("n", "j", "gj")
 keymap("n", "gj", "j")
 
--- use <C-[hjkl]> for window navigation
-keymap("n", "<C-h>", "<C-w>h")
-keymap("n", "<C-j>", "<C-w>j")
-keymap("n", "<C-k>", "<C-w>k")
-keymap("n", "<C-l>", "<C-w>l")
-
 -- use <C-[UDLR]> for window resizing
-keymap("n", "<C-Up>", "<cmd>resize -2<CR>")
-keymap("n", "<C-Down>", "<cmd>resize +2<CR>")
-keymap("n", "<C-Left>", "<cmd>vertical resize -2<CR>")
-keymap("n", "<C-Right>", "<cmd>vertical resize +2<CR>")
+keymap("n", "<C-j>", "<cmd>resize -2<CR>")
+keymap("n", "<C-k>", "<cmd>resize +2<CR>")
+keymap("n", "<C-l>", "<cmd>vertical resize -2<CR>")
+keymap("n", "<C-h>", "<cmd>vertical resize +2<CR>")
 
 -- move text up and down
 keymap("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi<Esc>")
