@@ -708,7 +708,8 @@ packer.startup(function(use)
         requires = {
             "williamboman/nvim-lsp-installer",
             "jose-elias-alvarez/null-ls.nvim",
-            "folke/lua-dev.nvim"
+            "folke/lua-dev.nvim",
+            "simrat39/rust-tools.nvim"
         },
         event = { "BufReadPre", "BufNewFile" },
         config = function()
@@ -835,6 +836,13 @@ packer.startup(function(use)
 
             -- powershell
             lspconfig.powershell_es.setup({ on_attach = on_attach })
+
+            -- rust
+            require('rust-tools').setup({
+                server = {
+                    on_attach = on_attach
+                }
+            })
         end
     }
     use {
