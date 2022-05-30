@@ -285,6 +285,17 @@ packer.init {
     }
 }
 
+-- issue a message when packer compilation finishses
+vim.api.nvim_create_autocmd(
+    { "User" },
+    {
+        pattern = "PackerCompileDone",
+        callback = function()
+            vim.notify("Packer Configuration recompleted.")
+        end
+    }
+)
+
 packer.startup(function(use)
     -- packer and basics
     use {
@@ -294,7 +305,7 @@ packer.startup(function(use)
             keymap("n", "<Leader>Pc", "<cmd>PackerCompile<CR>")
             keymap("n", "<Leader>Pi", "<cmd>PackerInstall<CR>")
             keymap("n", "<Leader>Ps", "<cmd>PackerSync<CR>")
-            keymap("n", "<Leader>PS", "<cmd>PackerStatus<CR>")
+            keymap("n", "<Leader>Pl", "<cmd>PackerStatus<CR>")
             keymap("n", "<Leader>Pu", "<cmd>PackerUpdate<CR>")
         end
     }
