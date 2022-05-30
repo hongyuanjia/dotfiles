@@ -11,7 +11,7 @@ SendMode Input
 Run, komorebic.exe watch-configuration enable, , Hide
 
 ; Configure the invisible border dimensions
-Run, komorebic.exe invisible-borders 5 0 5 0, , Hide
+Run, komorebic.exe invisible-borders 9 1 15 7, , Hide
 
 ; Enable focus follows mouse
 Run, komorebic.exe focus-follows-mouse disable, , Hide
@@ -59,17 +59,25 @@ Run, komorebic.exe workspace-rule exe "slack.exe" 0 1, , Hide
 ; 2. WeChat
 Run, komorebic.exe manage-rule exe "WeChat.exe", , Hide
 Run, komorebic.exe identify-tray-application exe "WeChat.exe", , Hide
+Run, komorebic.exe identify-border-overflow-application exe "Wechat.exe", , Hide
+Run, komorebic.exe workspace-rule exe "WeChat.exe" 0 1, , Hide
 Run, komorebic.exe float-rule class "SettingWnd", , Hide
 Run, komorebic.exe float-rule class "TrayNotifyWnd", , Hide
-Run, komorebic.exe workspace-rule exe "WeChat.exe" 0 1, , Hide
+Run, komorebic.exe float-rule class "UpdateWnd", , Hide
+Run, komorebic.exe float-rule class "WhatsNewWnd", , Hide
+Run, komorebic.exe float-rule class "EmotionWnd", , Hide
+Run, komorebic.exe float-rule title "TXMenuWindow", , Hide
+
 ; 3. Tim
 Run, komorebic.exe manage-rule exe "TIM.exe", , Hide
 Run, komorebic.exe workspace-rule exe "TIM.exe" 0 1, , Hide
 Run, komorebic.exe identify-tray-application exe "TIM.exe", , Hide
+Run, komorebic.exe identify-border-overflow-application exe "TIM.exe", , Hide
 ; 4. WeCom
 Run, komorebic.exe manage-rule exe "WXWork.exe", , Hide
 Run, komorebic.exe workspace-rule exe "WXWork.exe" 0 1, , Hide
 Run, komorebic.exe identify-tray-application exe "WXWork.exe", , Hide
+Run, komorebic.exe identify-border-overflow-application exe "WXWork.exe", , Hide
 
 ; Specific settings for applications
 ; Windows Explorer
@@ -112,6 +120,8 @@ Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
 ; Total Commander
 Run, komorebic.exe workspace-rule exe "TOTALCMD64.EXE" 0 3, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TOverWriteForm, , Hide
+; WinSpy
+Run, komorebic.exe float-rule exe "WinSpy64.exe", , Hide
 
 ; Change the focused window, Alt + Vim direction keys
 !h::
