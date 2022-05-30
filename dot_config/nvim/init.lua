@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-05-26 10:40
+-- Last Modified: 2022-05-30 23:12
 
 -- Basic Settings
 local options = {
@@ -467,13 +467,13 @@ packer.startup(function(use)
                 dashboard.button("SPC f r", "  Recently used files"),
                 dashboard.button("SPC s g", "  Find text"),
                 dashboard.button("SPC f v", "  Configuration"),
-                dashboard.button("SPC Q",   "  Quit Neovim"),
+                dashboard.button("SPC Q",   "  Quit Neovim")
             }
 
             alpha.setup(dashboard.config)
 
             -- <Leader>b[uffer]
-            vim.api.nvim_set_keymap("n", "<Leader>ba", "<cmd>Alpha<CR>", { noremap = true, silent = true })
+            keymap("n", "<Leader>ba", "<cmd>Alpha<CR>")
         end
     }
     use {
@@ -556,12 +556,44 @@ packer.startup(function(use)
             require("winshift").setup({ focused_hl_groups = "Search" })
         end
     }
-    use 'dstein64/nvim-scrollview'
+    use {
+        "dstein64/nvim-scrollview",
+        event = "BufRead"
+    }
     use {
         "rcarriga/nvim-notify",
         event = "VimEnter",
         config = function()
             vim.notify = require("notify")
+            require("telescope").load_extension("notify")
+        end
+    }
+
+    -- session management
+    use {
+        "olimorris/persisted.nvim",
+        setup = function()
+            -- <Leader>l[ist]
+            keymap("n", "<Leader>ls", "<cmd>lua require('telescope').extensions.persisted.persisted()<CR>")
+        end,
+        config = function()
+            require("persisted").setup({})
+            require("telescope").load_extension("persisted")
+        end,
+    }
+
+    -- project
+    use {
+        "ahmedkhalf/project.nvim",
+        event = "VimEnter",
+        config = function()
+            require("project_nvim").setup({
+                detection_methods = {"pattern", "lsp"},
+                patterns = {".git", ".svn", ".Rproj", ".here", "package.json"}
+            })
+
+            require('telescope').load_extension("projects")
+            keymap("n", "<Leader>sp", "<cmd>lua require('telescope').extensions.projects.projects()<CR>")
         end
     }
 
@@ -877,15 +909,22 @@ packer.startup(function(use)
             -- <Leader>o[pen]
             keymap("n", "<Leader>oq", "<cmd>TroubleToggle quickfix<CR>")
             keymap("n", "<Leader>ol", "<cmd>TroubleToggle loclist<CR>")
+
+            local trouble = require("trouble.providers.telescope")
+            require("telescope").setup({
+                defaults = {
+                    mappings = {
+                        i = { ["<C-t>"] = trouble.open_with_trouble },
+                        n = { ["<C-t>"] = trouble.open_with_trouble }
+                    }
+                }
+            })
         end
     }
 
     -- Telescope
     use {
         "nvim-telescope/telescope.nvim",
-        requires = {
-            "ahmedkhalf/project.nvim"
-        },
         cmd = "Telescope",
         module = "telescope",
         setup = function()
@@ -894,58 +933,50 @@ packer.startup(function(use)
 
             -- <Leader>f[ile]
             keymap("n", "<Leader>ff", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<CR>")
-            keymap("n", "<Leader>fr", "<cmd>Telescope oldfiles<CR>")
+            keymap("n", "<Leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<CR>")
 
             -- <Leader>g[it]
-            keymap("n", "<Leader>gS", "<cmd>Telescope git_status<CR>")
-            keymap("n", "<Leader>gB", "<cmd>Telescope git_branches<CR>")
-            keymap("n", "<Leader>gC", "<cmd>Telescope git_commits<CR>")
+            keymap("n", "<Leader>gS", "<cmd>lua require('telescope.builtin').git_status()<CR>")
+            keymap("n", "<Leader>gB", "<cmd>lua require('telescope.builtin').git_branches()<CR>")
+            keymap("n", "<Leader>gC", "<cmd>lua require('telescope.builtin').git_commits()<CR>")
 
             -- <Leader>l[ist]
-            keymap("n", "<Leader>ld", "<cmd>Telescope diagnostics bufnr=0<CR>")
-            keymap("n", "<Leader>lw", "<cmd>Telescope diagnostics<CR>")
+            keymap("n", "<Leader>ld", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<CR>")
+            keymap("n", "<Leader>lw", "<cmd>lua require('telescope.builtin').diagnostics()<CR>")
 
             -- <Leader>s[earch]
             keymap("n", "<Leader>sl", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>")
             keymap("n", "<Leader>sf", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<CR>")
             keymap("n", "<Leader>sb", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<CR>")
-            keymap("n", "<Leader>sB", "<cmd>Telescope git_branches<CR>")
-            keymap("n", "<Leader>sC", "<cmd>Telescope colorscheme enable_preview=true<CR>")
-            keymap("n", "<Leader>sh", "<cmd>Telescope help_tags<CR>")
-            keymap("n", "<Leader>sM", "<cmd>Telescope man_pages<CR>")
-            keymap("n", "<Leader>sr", "<cmd>Telescope oldfiles<CR>")
-            keymap("n", "<Leader>sR", "<cmd>Telescope registers<CR>")
-            keymap("n", "<Leader>sk", "<cmd>Telescope keymaps<CR>")
-            keymap("n", "<Leader>sc", "<cmd>Telescope commands<CR>")
-            keymap("n", "<Leader>sg", "<cmd>Telescope live_grep theme=ivy<CR>")
-            keymap("n", "<Leader>sp", "<cmd>Telescope projects<CR>")
-            keymap("n", "<Leader>ss", "<cmd>Telescope lsp_document_symbols<CR>")
-            keymap("n", "<Leader>sS", "<cmd>Telescope lsp_workspace_symbols<CR>")
+            keymap("n", "<Leader>sB", "<cmd>lua require('telescope.builtin').git_branches()<CR>")
+            keymap("n", "<Leader>sC", "<cmd>lua require('telescope.builtin').colorscheme({enable_preview=true})<CR>")
+            keymap("n", "<Leader>sh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
+            keymap("n", "<Leader>sM", "<cmd>lua require('telescope.builtin').man_pages()<CR>")
+            keymap("n", "<Leader>sr", "<cmd>lua require('telescope.builtin').oldfiles()<CR>")
+            keymap("n", "<Leader>sR", "<cmd>lua require('telescope.builtin').registers()<CR>")
+            keymap("n", "<Leader>sk", "<cmd>lua require('telescope.builtin').keymaps()<CR>")
+            keymap("n", "<Leader>sc", "<cmd>lua require('telescope.builtin').commands()<CR>")
+            keymap("n", "<Leader>sg", "<cmd>lua require('telescope.builtin').live_grep({theme=ivy})<CR>")
+            keymap("n", "<Leader>s*", "<cmd>lua require('telescope.builtin').grep_string()<CR>")
+            keymap("n", "<Leader>s/", "<cmd>lua require('telescope.builtin').search_history()<CR>")
+            keymap("n", "<Leader>sm", "<cmd>lua require('telescope.builtin').marks()<CR>")
+            keymap("n", "<Leader>ss", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
+            keymap("n", "<Leader>sS", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
         end,
         config = function()
-            require("project_nvim").setup({
-                detection_methods = {"pattern", "lsp"},
-                patterns = {".git", ".svn", ".Rproj", ".here", "package.json"}
-            })
-
-            require("telescope").setup({})
-            if packer_plugins["trouble.nvim"] then
-                local trouble = require("trouble.providers.telescope")
-                require("telescope").setup({
-                    defaults = {
-                        mappings = {
-                            i = { ["<C-t>"] = trouble.open_with_trouble },
-                            n = { ["<C-t>"] = trouble.open_with_trouble }
+            local actions = require("telescope.actions")
+            require("telescope").setup({
+                defaults = {
+                    mappings = {
+                        i = {
+                            ["<C-l>"] = actions.send_selected_to_qflist + actions.open_qflist
+                        },
+                        n = {
+                            ["<C-l>"] = actions.send_selected_to_qflist + actions.open_qflist
                         }
                     }
-                })
-            end
-
-            if packer_plugins["nvim-notify"] then
-                require("telescope").load_extension("notify")
-            end
-
-            require('telescope').load_extension("projects")
+                }
+            })
         end
     }
     use {
@@ -997,13 +1028,18 @@ packer.startup(function(use)
             vim.g.curshold_updatime = 1000
         end
     }
-    use "wellle/targets.vim"
+    use {
+        "wellle/targets.vim",
+        event = "BufRead"
+    }
     use {
         "ggandor/lightspeed.nvim",
         requires = "tpope/vim-repeat",
+        event = "BufRead"
     }
     use {
         "machakann/vim-sandwich",
+        event = "BufRead",
         config = function()
             vim.cmd [[runtime macros/sandwich/keymap/surround.vim]]
         end
@@ -1034,6 +1070,7 @@ packer.startup(function(use)
     }
     use {
         "mg979/vim-visual-multi",
+        keys = { "<C-n>", "<C-Up>", "<C-Down>", "\\\\", "g/" }
     }
 
     -- file management
@@ -1135,7 +1172,8 @@ packer.startup(function(use)
     use {
         "tpope/vim-fugitive",
         requires = "tpope/vim-rhubarb",
-        config = function()
+        cmd = { "Git", "Gdiffsplit", "Gwrite" },
+        setup = function()
             keymap("n", "<Leader>gg", "<cmd>Git<CR>")
             keymap("n", "<Leader>gc", "<cmd>Git commit<CR>")
             keymap("n", "<Leader>gd", "<cmd>Gdiffsplit<CR>")
