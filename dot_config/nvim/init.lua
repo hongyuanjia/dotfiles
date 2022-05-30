@@ -1049,8 +1049,6 @@ packer.startup(function(use)
             keymap("n", "<Leader>te", "<cmd>NvimTreeToggle<CR>")
         end,
         config = function()
-            vim.g.nvim_tree_respect_buf_cwd = 0
-
             require("nvim-tree").setup({
                 hijack_netrw = true,
                 hijack_cursor = true,
