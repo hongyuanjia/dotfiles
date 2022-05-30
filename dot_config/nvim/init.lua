@@ -1045,15 +1045,6 @@ packer.startup(function(use)
         end
     }
     use {
-        "AndrewRadev/sideways.vim",
-        cmd = { "SidewaysLeft", "SidewaysRight" },
-        setup = function()
-            -- <Leader>a[rgument]
-            keymap("n", "<Leader>ah", "<cmd>SidewaysLeft<CR>")
-            keymap("n", "<Leader>al", "<cmd>SidewaysRight<CR>")
-        end
-    }
-    use {
         "ntpeters/vim-better-whitespace",
         cmd = {
             "EnableWhitespace",
@@ -1195,11 +1186,6 @@ packer.startup(function(use)
             })
 
             whichkey.register({
-                a = {
-                    name = "Argument",
-                    h = "Move to Left",
-                    l = "Move to Right",
-                },
                 b = {
                     name = "Buffer",
                     a = "Alpha",
