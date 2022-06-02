@@ -67,6 +67,7 @@ Run, komorebic.exe float-rule class "UpdateWnd", , Hide
 Run, komorebic.exe float-rule class "WhatsNewWnd", , Hide
 Run, komorebic.exe float-rule class "EmotionWnd", , Hide
 Run, komorebic.exe float-rule title "TXMenuWindow", , Hide
+Run, komorebic.exe manage-rule exe "WeChatAppEx.exe", , Hide
 
 ; 3. Tim
 Run, komorebic.exe manage-rule exe "TIM.exe", , Hide
@@ -97,6 +98,8 @@ Run, komorebic.exe identify-border-overflow-application exe "WINWORD.EXE", , Hid
 Run, komorebic.exe identify-layered-application exe "WINWORD.EXE", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "EXCEL.EXE", , Hide
 Run, komorebic.exe identify-layered-application exe "EXCEL.EXE", , Hide
+Run, komorebic.exe identify-border-overflow-application exe "POWERPNT.EXE", , Hide
+Run, komorebic.exe identify-layered-application exe "POWERPNT.EXE", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "OUTLOOK.EXE", , Hide
 Run, komorebic.exe identify-layered-application exe "OUTLOOK.EXE", , Hide
 Run, komorebic.exe identify-tray-application exe "WeChat.exe", , Hide
@@ -120,8 +123,19 @@ Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
 ; Total Commander
 Run, komorebic.exe workspace-rule exe "TOTALCMD64.EXE" 0 3, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TOverWriteForm, , Hide
+Run, komorebic.exe float-rule AHK_CLASS TFsPluginConfigForm, , Hide
 ; WinSpy
 Run, komorebic.exe float-rule exe "WinSpy64.exe", , Hide
+
+; Start komorebi, Alt + Shift + S
+!+s::
+Run, komorebic.exe start, , Hide
+return
+
+; Stop komorebi, Alt + Shift + Q
+!+q::
+Run, komorebic.exe stop, , Hide
+return
 
 ; Change the focused window, Alt + Vim direction keys
 !h::
