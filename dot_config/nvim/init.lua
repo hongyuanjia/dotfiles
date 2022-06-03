@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-05-30 23:12
+-- Last Modified: 2022-06-03 21:15
 
 -- Basic Settings
 local options = {
@@ -106,8 +106,8 @@ function _G.bufkeymap(mode, lhs, rhs, opts, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
 end
 
-function _G.dump(...)
-    print(vim.inspect(...))
+function _G.P(...)
+    vim.pretty_print(...)
 end
 
 -- remap space as the leader key
@@ -477,6 +477,7 @@ packer.startup(function(use)
                 dashboard.button("SPC s p", "  Find project"),
                 dashboard.button("SPC f r", "  Recently used files"),
                 dashboard.button("SPC s g", "  Find text"),
+                dashboard.button("SPC S l", "  Load Session"),
                 dashboard.button("SPC f v", "  Configuration"),
                 dashboard.button("SPC Q",   "  Quit Neovim")
             }
@@ -586,6 +587,10 @@ packer.startup(function(use)
         setup = function()
             -- <Leader>l[ist]
             keymap("n", "<Leader>ls", "<cmd>lua require('telescope').extensions.persisted.persisted()<CR>")
+
+            -- <Leader>S[ession]
+            keymap("n", "<Leader>Sl", "<cmd>SessionLoad<CR>")
+            keymap("n", "<Leader>Ss", "<cmd>SessionLoadLast<CR>")
         end,
         config = function()
             require("persisted").setup({})
