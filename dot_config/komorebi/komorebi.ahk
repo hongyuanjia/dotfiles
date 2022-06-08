@@ -124,6 +124,8 @@ Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
 Run, komorebic.exe workspace-rule exe "TOTALCMD64.EXE" 0 3, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TOverWriteForm, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TFsPluginConfigForm, , Hide
+Run, komorebic.exe float-rule AHK_CLASS TDlgCustomColors, , Hide
+Run, komorebic.exe float-rule AHK_CLASS TExtMsgForm, , Hide
 ; WinSpy
 Run, komorebic.exe float-rule exe "WinSpy64.exe", , Hide
 
