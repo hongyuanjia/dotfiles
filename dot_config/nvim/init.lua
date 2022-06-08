@@ -590,7 +590,8 @@ packer.startup(function(use)
 
             -- <Leader>S[ession]
             keymap("n", "<Leader>Sl", "<cmd>SessionLoad<CR>")
-            keymap("n", "<Leader>Ss", "<cmd>SessionLoadLast<CR>")
+            keymap("n", "<Leader>SL", "<cmd>SessionLoadLast<CR>")
+            keymap("n", "<Leader>Ss", "<cmd>SessionSave<CR>")
         end,
         config = function()
             require("persisted").setup({})
