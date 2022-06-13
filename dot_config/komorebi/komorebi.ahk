@@ -39,8 +39,8 @@ Run, komorebic.exe container-padding 0 3 0, , Hide
 Run, komorebic.exe workspace-layout 0 0 ultrawide-vertical-stack, , Hide
 Run, komorebic.exe workspace-layout 0 1 columns, , Hide
 Run, komorebic.exe workspace-layout 0 2 vertical-stack, , Hide
-; Set the floaty layout to not tile any windows
-Run, komorebic.exe workspace-tiling 0 4 disable, , Hide
+Run, komorebic.exe workspace-layout 0 3 bsp, , Hide
+Run, komorebic.exe workspace-layout 0 4 bsp, , Hide
 
 ; Hide windows when switching workspaces
 Run, komorebic.exe window-hiding-behaviour hide, , Hide
@@ -126,8 +126,13 @@ Run, komorebic.exe float-rule AHK_CLASS TOverWriteForm, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TFsPluginConfigForm, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TDlgCustomColors, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TExtMsgForm, , Hide
+Run, komorebic.exe float-rule AHK_CLASS TDLG2FILEACTIONMIN, , Hide
 ; WinSpy
 Run, komorebic.exe float-rule exe "WinSpy64.exe", , Hide
+; Dropbox
+Run, komorebic.exe float-rule exe "Dropbox.exe", , Hide
+; RTerm.exe
+Run, komorebic.exe float-rule exe "Rterm.exe", , Hide
 
 ; Start komorebi, Alt + Shift + S
 !+s::
