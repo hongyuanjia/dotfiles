@@ -1051,8 +1051,7 @@ packer.startup(function(use)
     }
     use {
         "ggandor/lightspeed.nvim",
-        requires = "tpope/vim-repeat",
-        event = "BufRead"
+        requires = "tpope/vim-repeat"
     }
     use {
         "machakann/vim-sandwich",
@@ -1384,7 +1383,7 @@ packer.startup(function(use)
 
                         -- {targets}
                         bufkeymap("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>")
-                        bufkeymap("n", "<LocalLeader>dd", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>")
+                        bufkeymap("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>")
 
                         -- debug
                         bufkeymap("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>")
