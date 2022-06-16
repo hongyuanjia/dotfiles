@@ -40,10 +40,10 @@ local({
     Sys.setenv(LANG = "en")
 }
 
-    .set_proxy <- function(proxy = "127.0.0.1:7890") {
-        Sys.setenv(https_proxy = paste0("http://", proxy))
-        Sys.setenv(http_proxy = paste0("http://", proxy))
-    }
+.set_proxy <- function(proxy = "127.0.0.1:7890") {
+    Sys.setenv(https_proxy = paste0("http://", proxy))
+    Sys.setenv(http_proxy = paste0("http://", proxy))
+}
 
 # custom start up
 tryCatch(startup::startup(), error = function(ex) message(".Rprofile error: ", conditionMessage(ex)))
