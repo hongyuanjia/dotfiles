@@ -893,6 +893,9 @@ packer.startup(function(use)
                     on_attach = on_attach
                 }
             })
+
+            -- c++
+            lspconfig.clangd.setup({ on_attach = on_attach })
         end
     }
     use {
