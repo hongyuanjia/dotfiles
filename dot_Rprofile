@@ -40,6 +40,17 @@ local({
     Sys.setenv(LANG = "en")
 }
 
+.setup_pak <- function(update = FALSE) {
+    repos <- sprintf(
+        "https://r-lib.github.io/p/pak/devel/%s/%s/%s",
+        .Platform$pkgType, R.Version()$os, R.Version()$arch
+    )
+
+    if (!update && !requireNamespace('pak', quietly = TRUE)) update <- TRUE
+
+    if (update) install.packages('pak', repos = repos)
+}
+
 .set_proxy <- function(proxy = "127.0.0.1:7890") {
     Sys.setenv(https_proxy = paste0("http://", proxy))
     Sys.setenv(http_proxy = paste0("http://", proxy))
