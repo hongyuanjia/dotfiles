@@ -953,7 +953,7 @@ packer.startup(function(use)
             keymap("n", "<Leader>bb", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<CR>")
 
             -- <Leader>f[ile]
-            keymap("n", "<Leader>ff", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<CR>")
+            keymap("n", "<Leader>ff", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false, hidden = true})<CR>")
             keymap("n", "<Leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<CR>")
 
             -- <Leader>g[it]
