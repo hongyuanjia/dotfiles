@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-06-03 21:15
+-- Last Modified: 2022-07-07 18:35
 
 -- Basic Settings
 local options = {
@@ -896,6 +896,15 @@ packer.startup(function(use)
 
             -- c++
             lspconfig.clangd.setup({ on_attach = on_attach })
+
+            -- python
+            lspconfig.jedi_language_server.setup({ on_attach = on_attach })
+
+            -- javascript
+            lspconfig.tsserver.setup({ on_attach = on_attach })
+            lspconfig.tailwindcss.setup({ on_attach = on_attach })
+            lspconfig.eslint.setup({ on_attach = on_attach })
+            lspconfig.emmet_ls.setup({ on_attach = on_attach })
         end
     }
     use {
