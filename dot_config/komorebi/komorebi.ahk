@@ -86,8 +86,6 @@ Run, komorebic.exe float-rule class "OperationStatusWindow", , Hide
 ; Window Spy
 Run, komorebic.exe identify-tray-application exe "AutoHotkeyU64.exe", , Hide
 Run, komorebic.exe float-rule title "Window Spy", , Hide
-; IntelliJ: Always float IntelliJ popups
-Run, komorebic.exe float-rule class SunAwtDialog, , Hide
 ; Control Panel: Always float
 Run, komorebic.exe float-rule title "Control Panel", , Hide
 ; Task Manager: Always float
@@ -108,6 +106,11 @@ Run, komorebic.exe float-rule exe OfficeClickToRun.exe, , Hide
 ; Obsidian
 Run, komorebic.exe manage-rule exe "Obsidian.exe", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "Obsidian.exe", , Hide
+; IntelliJ IDEs
+Run, komorebic.exe float-rule class SunAwtDialog, , Hide
+; WebStrom
+Run, komorebic.exe identify-object-name-change-application exe "webstorm64.exe", , Hide
+Run, komorebic.exe identify-tray-application exe "webstorm64.exe", , Hide
 ; PyCharm
 Run, komorebic.exe identify-object-name-change-application exe "pycharm64.exe", , Hide
 Run, komorebic.exe identify-tray-application exe "pycharm64.exe", , Hide
