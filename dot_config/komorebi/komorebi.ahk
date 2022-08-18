@@ -67,6 +67,7 @@ Run, komorebic.exe float-rule class "UpdateWnd", , Hide
 Run, komorebic.exe float-rule class "WhatsNewWnd", , Hide
 Run, komorebic.exe float-rule class "EmotionWnd", , Hide
 Run, komorebic.exe float-rule title "TXMenuWindow", , Hide
+Run, komorebic.exe float-rule class "ChatContactMenu", , Hide
 Run, komorebic.exe manage-rule exe "WeChatAppEx.exe", , Hide
 
 ; 3. Tim
@@ -100,7 +101,7 @@ Run, komorebic.exe identify-border-overflow-application exe "POWERPNT.EXE", , Hi
 Run, komorebic.exe identify-layered-application exe "POWERPNT.EXE", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "OUTLOOK.EXE", , Hide
 Run, komorebic.exe identify-layered-application exe "OUTLOOK.EXE", , Hide
-Run, komorebic.exe identify-tray-application exe "WeChat.exe", , Hide
+Run, komorebic.exe identify-tray-application exe "OUTLOOK.EXE", , Hide
 Run, komorebic.exe workspace-rule exe "OUTLOOK.EXE" 0 2, , Hide
 Run, komorebic.exe float-rule exe OfficeClickToRun.exe, , Hide
 ; Obsidian
