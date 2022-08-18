@@ -66,8 +66,10 @@ Run, komorebic.exe float-rule class "TrayNotifyWnd", , Hide
 Run, komorebic.exe float-rule class "UpdateWnd", , Hide
 Run, komorebic.exe float-rule class "WhatsNewWnd", , Hide
 Run, komorebic.exe float-rule class "EmotionWnd", , Hide
-Run, komorebic.exe float-rule title "TXMenuWindow", , Hide
 Run, komorebic.exe float-rule class "ChatContactMenu", , Hide
+Run, komorebic.exe float-rule class "ImagePreviewLayerWnd", , Hide
+Run, komorebic.exe float-rule class "ImagePreviewWnd", , Hide
+Run, komorebic.exe float-rule title "TXMenuWindow", , Hide
 Run, komorebic.exe manage-rule exe "WeChatAppEx.exe", , Hide
 
 ; 3. Tim
@@ -122,6 +124,8 @@ Run, komorebic.exe identify-tray-application exe "clion64.exe", , Hide
 Run, komorebic.exe float-rule exe "Zoom.exe", , Hide
 ; GitKraken
 Run, komorebic.exe manage-rule exe "gitkraken.exe", , Hide
+Run, komorebic.exe identify-border-overflow-application exe "gitkraken.exe", , Hide
+; Run, komorebic.exe identify-layered-application exe "WINWORD.EXE", , Hide
 ; Clash for Windows
 Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
 ; Total Commander
