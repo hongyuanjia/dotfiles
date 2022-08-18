@@ -1045,11 +1045,7 @@ packer.startup(function(use)
         "terrortylor/nvim-comment",
         keys = { "gcc", "gc" },
         config = function()
-            require('nvim_comment').setup({
-                hook = function()
-                    require("ts_context_commentstring.internal").update_commentstring({})
-                end
-            })
+            require('nvim_comment').setup({})
         end
     }
     use {
@@ -1154,10 +1150,6 @@ packer.startup(function(use)
                 context_commentstring = { enable = true, enable_autocmd = false }
             })
         end
-    }
-    use {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        module = "ts_context_commentstring"
     }
 
     -- Git
