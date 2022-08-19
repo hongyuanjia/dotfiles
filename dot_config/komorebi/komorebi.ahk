@@ -10,8 +10,12 @@ SendMode Input
 ; Enable hot reloading of changes to this file
 Run, komorebic.exe watch-configuration enable, , Hide
 
+; Add active window border
+Run, komorebic.exe active-window-border enable, , Hide
+Run, komorebic.exe active-window-border-colour 89 87 82, , Hide
+
 ; Configure the invisible border dimensions
-Run, komorebic.exe invisible-borders 9 1 15 7, , Hide
+Run, komorebic.exe invisible-borders 2 0 4 2, , Hide
 
 ; Enable focus follows mouse
 Run, komorebic.exe focus-follows-mouse disable, , Hide
@@ -27,14 +31,18 @@ Run, komorebic.exe workspace-name 0 3 file, , Hide
 Run, komorebic.exe workspace-name 0 4 floaty, , Hide
 
 ; Set the padding of the different workspaces
-Run, komorebic.exe workspace-padding 0 0 0, , Hide
-Run, komorebic.exe container-padding 0 0 0, , Hide
-Run, komorebic.exe workspace-padding 0 1 0, , Hide
-Run, komorebic.exe container-padding 0 1 0, , Hide
-Run, komorebic.exe workspace-padding 0 2 0, , Hide
-Run, komorebic.exe container-padding 0 2 0, , Hide
-Run, komorebic.exe workspace-padding 0 3 0, , Hide
-Run, komorebic.exe container-padding 0 3 0, , Hide
+Run, komorebic.exe workspace-padding 0 0 5, , Hide
+Run, komorebic.exe container-padding 0 0 5, , Hide
+Run, komorebic.exe workspace-padding 0 1 5, , Hide
+Run, komorebic.exe container-padding 0 1 5, , Hide
+Run, komorebic.exe workspace-padding 0 2 5, , Hide
+Run, komorebic.exe container-padding 0 2 5, , Hide
+Run, komorebic.exe workspace-padding 0 3 5, , Hide
+Run, komorebic.exe container-padding 0 3 5, , Hide
+Run, komorebic.exe workspace-padding 0 4 5, , Hide
+Run, komorebic.exe container-padding 0 4 5, , Hide
+Run, komorebic.exe workspace-padding 0 5 5, , Hide
+Run, komorebic.exe container-padding 0 5 5, , Hide
 
 Run, komorebic.exe workspace-layout 0 0 ultrawide-vertical-stack, , Hide
 Run, komorebic.exe workspace-layout 0 1 columns, , Hide
@@ -141,6 +149,10 @@ Run, komorebic.exe float-rule exe "WinSpy64.exe", , Hide
 Run, komorebic.exe float-rule exe "Dropbox.exe", , Hide
 ; RTerm.exe
 Run, komorebic.exe float-rule exe "Rterm.exe", , Hide
+
+; ! -> Alt
+; + -> Shift
+; ^ -> Ctrl
 
 ; Start komorebi, Alt + Shift + S
 !+s::
