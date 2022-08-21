@@ -901,10 +901,13 @@ packer.startup(function(use)
             lspconfig.jedi_language_server.setup({ on_attach = on_attach })
 
             -- javascript
+            lspconfig.html.setup({ on_attach = on_attach })
+            lspconfig.jsonls.setup({ on_attach = on_attach })
             lspconfig.tsserver.setup({ on_attach = on_attach })
             lspconfig.tailwindcss.setup({ on_attach = on_attach })
             lspconfig.eslint.setup({ on_attach = on_attach })
             lspconfig.emmet_ls.setup({ on_attach = on_attach })
+            lspconfig.svelte.setup({ on_attach = on_attach })
         end
     }
     use {
