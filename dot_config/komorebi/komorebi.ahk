@@ -130,11 +130,6 @@ Run, komorebic.exe identify-object-name-change-application exe "clion64.exe", , 
 Run, komorebic.exe identify-tray-application exe "clion64.exe", , Hide
 ; Zoom
 Run, komorebic.exe float-rule exe "Zoom.exe", , Hide
-; GitKraken
-Run, komorebic.exe manage-rule exe "gitkraken.exe", , Hide
-Run, komorebic.exe identify-border-overflow-application exe "gitkraken.exe", , Hide
-; Run, komorebic.exe identify-layered-application exe "WINWORD.EXE", , Hide
-; Clash for Windows
 Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
 ; Total Commander
 Run, komorebic.exe workspace-rule exe "TOTALCMD64.EXE" 0 3, , Hide
@@ -149,6 +144,8 @@ Run, komorebic.exe float-rule exe "WinSpy64.exe", , Hide
 Run, komorebic.exe float-rule exe "Dropbox.exe", , Hide
 ; RTerm.exe
 Run, komorebic.exe float-rule exe "Rterm.exe", , Hide
+; Setup
+Run, komorebic.exe float-rule exe "msiexec.exe", , Hide
 
 ; ! -> Alt
 ; + -> Shift
