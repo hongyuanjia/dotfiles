@@ -3,12 +3,12 @@
     {
       "Name": "main",
       "Source": "https://github.com/ScoopInstaller/Main",
-      "Updated": "2022-08-19T09:49:47+08:00"
+      "Updated": "2022-08-21T12:31:22+08:00"
     },
     {
       "Name": "extras",
       "Source": "https://github.com/ScoopInstaller/Extras",
-      "Updated": "2022-08-19T09:56:16+08:00"
+      "Updated": "2022-08-21T13:03:15+08:00"
     },
     {
       "Name": "nerd-fonts",
@@ -18,12 +18,12 @@
     {
       "Name": "lemon",
       "Source": "https://github.com/hoilc/scoop-lemon",
-      "Updated": "2022-08-19T09:54:36+08:00"
+      "Updated": "2022-08-21T14:23:33+08:00"
     },
     {
       "Name": "r-bucket",
       "Source": "https://github.com/cderv/r-bucket",
-      "Updated": "2022-08-19T10:31:15+08:00"
+      "Updated": "2022-08-20T12:39:41+08:00"
     }
   ],
   "app": [
