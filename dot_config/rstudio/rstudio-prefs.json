@@ -49,8 +49,6 @@
     },
     "rainbow_parentheses": true,
     "rmd_chunk_output_inline": false,
-    "restore_last_project": false,
-    "restore_source_documents": false,
     "save_workspace": "never",
     "shiny_viewer_type": "browser",
     "show_doc_outline_rmd": true,
