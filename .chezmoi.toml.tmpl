@@ -7,3 +7,6 @@ encryption = "age"
 [age]
     identity = "~/.ssh/id_rsa"
     symmetric = true
+[merge]
+    command = "nvim"
+    args = ["-d", "{{ .Destination }}", "{{ .Source }}", "{{ .Target }}"]
