@@ -7,6 +7,7 @@ function Set-EnvironmentVariable([String] $variable, [String] $value) {
 }
 
 # Make neovim the default editor
+Set-EnvironmentVariable "HOME" $Env:USERPROFILE
 Set-EnvironmentVariable "EDITOR" "nvim"
 Set-EnvironmentVariable "GIT_EDITOR" $Env:EDITOR
 
