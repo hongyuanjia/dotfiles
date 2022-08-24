@@ -6,6 +6,7 @@ Documents
 *.ahk
 *.ps1
 .config/komorebi
+scoop
 {{ else }}
 debloat.ps1
 setup.ps1
