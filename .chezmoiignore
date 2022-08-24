@@ -1,5 +1,9 @@
 README.md
 screen.png
+debloat.ps1
+setup.ps1
+scoop.json
+choco.config
 {{ if ne .chezmoi.os "windows" }}
 AppData
 Documents
@@ -8,10 +12,6 @@ Documents
 .config/komorebi
 scoop
 {{ else }}
-debloat.ps1
-setup.ps1
-scoop.json
-choco.config
 .config/nvim
 .config/rstudio
 {{ end }}
