@@ -1339,6 +1339,8 @@ packer.startup(function(use)
                 vim.g.R_set_home_env = 0
             end
 
+            -- disable debugging support
+            vim.g.R_debug = 0
             -- do not align function arguments
             vim.g.r_indent_align_args = 0
             -- use two backticks to trigger the Rmarkdown chunk completion
