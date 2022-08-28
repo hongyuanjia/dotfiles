@@ -1,0 +1,31 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+if grep -qEi "(Microsoft|WSL)" /proc/version %> /dev/null ; then
+    export hostip=$(cat /etc/resolv.conf | grep -oP '(?<=nameserver\ ).*')
+    export http_proxy="http://${hostip}:7890"
+    export https_proxy="http://${hostip}:7890"
+fi
+
+# Rustup mirror
+export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+. "$HOME/.cargo/env"
+
+# starship
+eval "$(starship init bash)"
+
+# chezmoi
+alias cm=chezmoi
+alias la="ls -la"
