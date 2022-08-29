@@ -41,22 +41,6 @@
         },
         {
             "command": "unbound",
-            "keys": "alt+up"
-        },
-        {
-            "command": "unbound",
-            "keys": "alt+down"
-        },
-        {
-            "command": "unbound",
-            "keys": "alt+right"
-        },
-        {
-            "command": "unbound",
-            "keys": "alt+left"
-        },
-        {
-            "command": "unbound",
             "keys": "alt+space"
         },
         {
@@ -160,6 +144,18 @@
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "\u547d\u4ee4\u63d0\u793a\u7b26"
+            },
+            {
+                "guid": "{d3f31bee-5823-5ed8-8e04-f31ed54f2cd9}",
+                "hidden": false,
+                "name": "fedoraremix",
+                "source": "Windows.Terminal.Wsl"
+            },
+            {
+                "guid": "{43bc384b-e99b-50c0-9482-6fb1f3dbc45f}",
+                "hidden": false,
+                "name": "Fedora Remix for WSL (SystemD)",
+                "source": "WhitewaterFoundryLtd.Co.FedoraRemixforWSL_kd1vv0z0vy70w"
             }
         ]
     },
@@ -210,6 +206,29 @@
             "selectionBackground": "#FFFFFF",
             "white": "#CCCCCC",
             "yellow": "#C19C00"
+        },
+        {
+            "background": "#1E1E1E",
+            "black": "#171421",
+            "blue": "#12488B",
+            "brightBlack": "#5E5C64",
+            "brightBlue": "#2A7BDE",
+            "brightCyan": "#33C7DE",
+            "brightGreen": "#33DA7A",
+            "brightPurple": "#C061CB",
+            "brightRed": "#F66151",
+            "brightWhite": "#FFFFFF",
+            "brightYellow": "#E9AD0C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#2AA1B3",
+            "foreground": "#E8E8E8",
+            "green": "#26A269",
+            "name": "Fedora Remix for WSL",
+            "purple": "#A347BA",
+            "red": "#C01C28",
+            "selectionBackground": "#FFFFFF",
+            "white": "#D0CFCC",
+            "yellow": "#A2734C"
         },
         {
             "background": "#282C34",
