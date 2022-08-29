@@ -4,6 +4,8 @@ debloat.ps1
 setup.ps1
 scoop.json
 choco.config
+
+# on Linux or macOS
 {{ if ne .chezmoi.os "windows" }}
 AppData
 Documents
@@ -11,6 +13,13 @@ Documents
 *.ps1
 .config/komorebi
 scoop
+
+# ignore WSL-specific files
+{{ if or ( contains "microsoft" ( lower .chezmoi.kernel.osrelease ) ) ( contains "wsl" ( lower .chezmoi.kernel.osrelease ) ) }}
+bin/update_proxy.sh
+{{ end }}
+
+# on Windows
 {{ else }}
 .config/nvim
 .config/rstudio
