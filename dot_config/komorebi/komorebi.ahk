@@ -56,19 +56,21 @@ Run, komorebic.exe window-hiding-behaviour hide, , Hide
 ; Set the resize delta
 Run, komorebic.exe resize-delta 100, , Hide
 
+; Specific settings for applications
+; -- Slack --
 ; Always show chat apps on the second workspace
-; 1. Slack
-Run, komorebic.exe float-rule exe "slack.exe", , Hide
 Run, komorebic.exe workspace-rule exe "slack.exe" 0 1, , Hide
+Run, komorebic.exe float-rule exe "slack.exe", , Hide
 ; Below did not work
 ; Run, komorebic.exe manage-rule exe "slack.exe", , Hide
 ; Run, komorebic.exe identify-tray-application exe "slack.exe", , Hide
 ; Run, komorebic.exe identify-border-overflow-application exe "slack.exe", , Hide
-; 2. WeChat
+
+; -- WeChat --
+Run, komorebic.exe workspace-rule exe "WeChat.exe" 0 1, , Hide
 Run, komorebic.exe manage-rule exe "WeChat.exe", , Hide
 Run, komorebic.exe identify-tray-application exe "WeChat.exe", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "Wechat.exe", , Hide
-Run, komorebic.exe workspace-rule exe "WeChat.exe" 0 1, , Hide
 Run, komorebic.exe float-rule class "SettingWnd", , Hide
 Run, komorebic.exe float-rule class "TrayNotifyWnd", , Hide
 Run, komorebic.exe float-rule class "UpdateWnd", , Hide
@@ -77,31 +79,23 @@ Run, komorebic.exe float-rule class "EmotionWnd", , Hide
 Run, komorebic.exe float-rule class "ChatContactMenu", , Hide
 Run, komorebic.exe float-rule class "ImagePreviewLayerWnd", , Hide
 Run, komorebic.exe float-rule class "ImagePreviewWnd", , Hide
+Run, komorebic.exe float-rule class "MsgFileWnd", , Hide
 Run, komorebic.exe float-rule title "TXMenuWindow", , Hide
 Run, komorebic.exe manage-rule exe "WeChatAppEx.exe", , Hide
 
-; 3. Tim
+; -- Tim --
 Run, komorebic.exe manage-rule exe "TIM.exe", , Hide
 Run, komorebic.exe workspace-rule exe "TIM.exe" 0 1, , Hide
 Run, komorebic.exe identify-tray-application exe "TIM.exe", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "TIM.exe", , Hide
-; 4. WeCom
+
+; -- WeCom --
 Run, komorebic.exe manage-rule exe "WXWork.exe", , Hide
 Run, komorebic.exe workspace-rule exe "WXWork.exe" 0 1, , Hide
 Run, komorebic.exe identify-tray-application exe "WXWork.exe", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "WXWork.exe", , Hide
 
-; Specific settings for applications
-; Windows Explorer
-Run, komorebic.exe float-rule class "OperationStatusWindow", , Hide
-; Window Spy
-Run, komorebic.exe identify-tray-application exe "AutoHotkeyU64.exe", , Hide
-Run, komorebic.exe float-rule title "Window Spy", , Hide
-; Control Panel: Always float
-Run, komorebic.exe float-rule title "Control Panel", , Hide
-; Task Manager: Always float
-Run, komorebic.exe float-rule class TaskManagerWindow, , Hide
-; Microsoft Office
+; -- Microsoft Office --
 Run, komorebic.exe float-rule class "_WwB", , Hide
 Run, komorebic.exe identify-border-overflow-application exe "WINWORD.EXE", , Hide
 Run, komorebic.exe identify-layered-application exe "WINWORD.EXE", , Hide
@@ -114,40 +108,59 @@ Run, komorebic.exe identify-layered-application exe "OUTLOOK.EXE", , Hide
 Run, komorebic.exe identify-tray-application exe "OUTLOOK.EXE", , Hide
 Run, komorebic.exe workspace-rule exe "OUTLOOK.EXE" 0 2, , Hide
 Run, komorebic.exe float-rule exe OfficeClickToRun.exe, , Hide
-; Obsidian
-Run, komorebic.exe manage-rule exe "Obsidian.exe", , Hide
-Run, komorebic.exe identify-border-overflow-application exe "Obsidian.exe", , Hide
-; IntelliJ IDEs
+
+; -- IntelliJ IDEs --
 Run, komorebic.exe float-rule class SunAwtDialog, , Hide
-; WebStrom
 Run, komorebic.exe identify-object-name-change-application exe "webstorm64.exe", , Hide
 Run, komorebic.exe identify-tray-application exe "webstorm64.exe", , Hide
-; PyCharm
 Run, komorebic.exe identify-object-name-change-application exe "pycharm64.exe", , Hide
 Run, komorebic.exe identify-tray-application exe "pycharm64.exe", , Hide
-; Clion
 Run, komorebic.exe identify-object-name-change-application exe "clion64.exe", , Hide
 Run, komorebic.exe identify-tray-application exe "clion64.exe", , Hide
-; Zoom
-Run, komorebic.exe float-rule exe "Zoom.exe", , Hide
-; GitKraken
-Run, komorebic.exe float-rule exe "gitkraken.exe", , Hide
-; Clash for Windows
-Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
-; Total Commander
-Run, komorebic.exe workspace-rule exe "TOTALCMD64.EXE" 0 3, , Hide
+
+; -- Total Commander --
+Run, komorebic.exe workspace-rule exe "TotalCMD64.exe" 0 3, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TOverWriteForm, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TFsPluginConfigForm, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TDlgCustomColors, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TExtMsgForm, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TDLG2FILEACTIONMIN, , Hide
-; WinSpy
+
+; -- Windows Explorer --
+Run, komorebic.exe float-rule class "OperationStatusWindow", , Hide
+
+; -- Window Spy --
+Run, komorebic.exe identify-tray-application exe "AutoHotkeyU64.exe", , Hide
+Run, komorebic.exe float-rule title "Window Spy", , Hide
+
+; -- Control Panel --
+Run, komorebic.exe float-rule title "Control Panel", , Hide
+
+; -- Task Manager --
+Run, komorebic.exe float-rule class TaskManagerWindow, , Hide
+
+; -- Obsidian --
+Run, komorebic.exe float-rule exe "Obsidian.exe", , Hide
+
+; -- Zoom --
+Run, komorebic.exe float-rule exe "Zoom.exe", , Hide
+
+; -- GitKraken --
+Run, komorebic.exe float-rule exe "gitkraken.exe", , Hide
+
+; -- Clash for Windows --
+Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
+
+; -- WinSpy --
 Run, komorebic.exe float-rule exe "WinSpy64.exe", , Hide
-; Dropbox
+
+; -- Dropbox --
 Run, komorebic.exe float-rule exe "Dropbox.exe", , Hide
-; RTerm.exe
+
+; -- RTerm.exe --
 Run, komorebic.exe float-rule exe "Rterm.exe", , Hide
-; Setup
+
+; -- Setup --
 Run, komorebic.exe float-rule exe "msiexec.exe", , Hide
 
 ; ! -> Alt
