@@ -12,13 +12,18 @@ then
 fi
 export PATH
 
-if grep -qEi "(Microsoft|WSL)" /proc/version %> /dev/null ; then
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
     export hostip=$(cat /etc/resolv.conf | grep -oP '(?<=nameserver\ ).*')
     export http_proxy="http://${hostip}:7890"
     export https_proxy="http://${hostip}:7890"
 
     export DISPLAY="$hostip:0.0"
     export LIBGL_ALWAYS_INDIRECT=1
+
+    # needed for GUI with dbus-x11 installed
+    if grep -qEi "FedoraRemix" /etc/os-release &> /dev/null && command -v dbus-launch &> /dev/null ; then
+        eval "$(timeout 2s dbus-launch --auto-syntax)"
+    fi
 fi
 
 # Rustup mirror
@@ -29,7 +34,7 @@ if [ -f $HOME/.cargo/env ]; then
 fi
 
 # starship
-if command -v startship &> /dev/null ; then
+if command -v starship &> /dev/null ; then
     eval "$(starship init bash)"
 fi
 
