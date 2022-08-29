@@ -63,7 +63,7 @@
             "command": "unbound",
             "keys": "ctrl+comma"
         },
-        { 
+        {
             "command":
             {
                 "action": "moveFocus",
@@ -71,7 +71,7 @@
             },
             "keys": "alt+left"
         },
-        {   
+        {
             "command":
             {
                 "action": "moveFocus",
@@ -79,7 +79,7 @@
             },
             "keys": "alt+right"
         },
-        {   
+        {
             "command":
             {
                 "action": "moveFocus",
@@ -87,7 +87,7 @@
             },
             "keys": "alt+up"
         },
-        { 
+        {
             "command":
             {
                 "action": "moveFocus",
@@ -103,6 +103,22 @@
                 "splitMode": "duplicate"
             },
             "keys": "alt+shift+d"
+        },
+        {
+            "command": "scrollDown",
+            "keys": "ctrl+shift+down"
+        },
+        {
+            "command": "scrollDownPage",
+            "keys": "ctrl+shift+pgdn"
+        },
+        {
+            "command": "scrollUp",
+            "keys": "ctrl+shift+up"
+        },
+        {
+            "command": "scrollUpPage",
+            "keys": "ctrl+shift+pgup"
         }
     ],
     "copyFormatting": "none",
