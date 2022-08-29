@@ -16,16 +16,33 @@ if grep -qEi "(Microsoft|WSL)" /proc/version %> /dev/null ; then
     export hostip=$(cat /etc/resolv.conf | grep -oP '(?<=nameserver\ ).*')
     export http_proxy="http://${hostip}:7890"
     export https_proxy="http://${hostip}:7890"
+
+    export DISPLAY="$hostip:0.0"
+    export LIBGL_ALWAYS_INDIRECT=1
 fi
 
 # Rustup mirror
 export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
 export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
-. "$HOME/.cargo/env"
+if [ -f $HOME/.cargo/env ]; then
+    . $HOME/.cargo/env
+fi
 
 # starship
-eval "$(starship init bash)"
+if command -v startship &> /dev/null ; then
+    eval "$(starship init bash)"
+fi
 
-# chezmoi
-alias cm=chezmoi
+# fzf and fd integration
+if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
+    . /usr/share/fzf/shell/key-bindings.bash
+fi
+if command -v fd &> /dev/null && command -v fzf &> /dev/null ; then
+    export FZF_DEFAULT_COMMAND='fd --type file --hidden --exclude .git --color=always'
+    export FZF_DEFAULT_OPTS='--ansi'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+
+# alias
 alias la="ls -la"
+alias cm=chezmoi
