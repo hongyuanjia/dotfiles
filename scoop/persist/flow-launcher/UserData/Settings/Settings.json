@@ -1,12 +1,12 @@
 {
   "Hotkey": "Alt \u002B Space",
-  "OpenResultModifiers": "Alt",
+  "OpenResultModifiers": "Ctrl",
   "ColorScheme": "System",
   "ShowOpenResultHotkey": true,
   "WindowSize": 580,
   "Language": "zh-cn",
   "Theme": "Win11Dark",
-  "UseDropShadowEffect": false,
+  "UseDropShadowEffect": true,
   "QueryBoxFont": "Microsoft Sans Serif",
   "QueryBoxFontStyle": null,
   "QueryBoxFontWeight": null,
@@ -19,7 +19,7 @@
   "UseAnimation": true,
   "UseSound": true,
   "FirstLaunch": false,
-  "CustomExplorerIndex": 0,
+  "CustomExplorerIndex": 1,
   "CustomExplorerList": [
     {
       "Name": "Explorer",
@@ -30,7 +30,7 @@
     },
     {
       "Name": "Total Commander",
-      "Path": "C:\\Program Files\\totalcmd\\TOTALCMD64.exe",
+      "Path": "C:\\Users\\hongy\\AppData\\Local\\TotalCMD64\\TotalCMD64.exe",
       "FileArgument": "/O /A /S /T \u0022%f\u0022",
       "DirectoryArgument": "/O /A /S /T \u0022%d\u0022",
       "Editable": true
@@ -50,7 +50,7 @@
       "Editable": true
     }
   ],
-  "CustomBrowserIndex": 0,
+  "CustomBrowserIndex": 2,
   "CustomBrowserList": [
     {
       "Name": "Default",
@@ -88,10 +88,10 @@
   "ShouldUsePinyin": true,
   "QuerySearchPrecision": "Regular",
   "AutoUpdates": false,
-  "WindowLeft": 990,
-  "WindowTop": 249.5,
+  "WindowLeft": 990.4000000000001,
+  "WindowTop": 249.60000000000002,
   "MaxResultsToShow": 5,
-  "ActivateTimes": 432,
+  "ActivateTimes": 590,
   "CustomPluginHotkeys": [],
   "DontPromptUpdateMsg": false,
   "EnableUpdateLog": false,
@@ -111,7 +111,7 @@
   },
   "LastQueryMode": "Selected",
   "PluginSettings": {
-    "PythonDirectory": null,
+    "PythonDirectory": "C:\\Users\\hongy\\scoop\\apps\\python\\current",
     "Plugins": {
       "0ECADE17459B49F587BF81DC3A125110": {
         "ID": "0ECADE17459B49F587BF81DC3A125110",
@@ -128,7 +128,7 @@
         "Name": "Calculator",
         "Version": "1.1.9",
         "ActionKeywords": [
-          "*"
+          "c"
         ],
         "Priority": 0,
         "Disabled": false
@@ -283,6 +283,26 @@
         "Version": "2.0.2",
         "ActionKeywords": [
           "w"
+        ],
+        "Priority": 0,
+        "Disabled": false
+      },
+      "8025ce8b-b1ce-49cd-af48-b343a0df8606": {
+        "ID": "8025ce8b-b1ce-49cd-af48-b343a0df8606",
+        "Name": "Clipboard History",
+        "Version": "1.1.1",
+        "ActionKeywords": [
+          "cb"
+        ],
+        "Priority": 0,
+        "Disabled": false
+      },
+      "a56ae6ac-7b3b-47b9-857f-05ff25d29510": {
+        "ID": "a56ae6ac-7b3b-47b9-857f-05ff25d29510",
+        "Name": "Windows Terminal profiles",
+        "Version": "0.0.8",
+        "ActionKeywords": [
+          "wt"
         ],
         "Priority": 0,
         "Disabled": false

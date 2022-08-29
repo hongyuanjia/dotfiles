@@ -1,6 +1,13 @@
 {
-  "LastIndexTime": "2022-08-21T00:00:00+08:00",
-  "ProgramSources": [],
+  "LastIndexTime": "2022-08-29T00:00:00+08:00",
+  "ProgramSources": [
+    {
+      "Location": "C:\\Users\\hongy\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Scoop Apps",
+      "Name": "Scoop Apps",
+      "Enabled": true,
+      "UniqueIdentifier": "C:\\Users\\hongy\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Scoop Apps"
+    }
+  ],
   "DisabledProgramSources": [],
   "ProgramSuffixes": [
     "appref-ms",
@@ -8,7 +15,7 @@
     "lnk"
   ],
   "EnableStartMenuSource": true,
-  "EnableDescription": false,
+  "EnableDescription": true,
   "HideAppsPath": false,
   "EnableRegistrySource": true,
   "CustomizedExplorer": "explorer",
