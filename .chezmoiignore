@@ -14,4 +14,7 @@ scoop
 {{ else }}
 .config/nvim
 .config/rstudio
+bin
+.bashrc
+.bash_profile
 {{ end }}
