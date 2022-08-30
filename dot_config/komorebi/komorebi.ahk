@@ -125,6 +125,8 @@ Run, komorebic.exe float-rule AHK_CLASS TFsPluginConfigForm, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TDlgCustomColors, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TExtMsgForm, , Hide
 Run, komorebic.exe float-rule AHK_CLASS TDLG2FILEACTIONMIN, , Hide
+Run, komorebic.exe float-rule AHK_CLASS TFindFile, , Hide
+Run, komorebic.exe float-rule AHK_CLASS TDriveSelBox, , Hide
 
 ; -- Windows Explorer --
 Run, komorebic.exe float-rule class "OperationStatusWindow", , Hide
