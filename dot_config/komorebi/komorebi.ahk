@@ -15,7 +15,7 @@ Run, komorebic.exe active-window-border enable, , Hide
 Run, komorebic.exe active-window-border-colour 89 87 82, , Hide
 
 ; Configure the invisible border dimensions
-Run, komorebic.exe invisible-borders 2 0 4 2, , Hide
+Run, komorebic.exe invisible-borders 6 0 4 2, , Hide
 
 ; Enable focus follows mouse
 Run, komorebic.exe focus-follows-mouse disable, , Hide
