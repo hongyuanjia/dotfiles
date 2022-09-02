@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-07-07 18:35
+-- Last Modified: 2022-09-02 22:55
 
 -- Basic Settings
 local options = {
@@ -1394,6 +1394,7 @@ packer.startup(function(use)
                         -- {targets}
                         bufkeymap("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>")
                         bufkeymap("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>")
+                        bufkeymap("n", "<LocalLeader>tf", "<cmd>RSend targets::tar_make_future(workers = parallelly::availableCores() - 1L)<CR>")
 
                         -- debug
                         bufkeymap("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>")
