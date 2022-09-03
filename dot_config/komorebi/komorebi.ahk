@@ -20,8 +20,8 @@ Run, komorebic.exe invisible-borders 6 0 4 2, , Hide
 ; Enable focus follows mouse
 Run, komorebic.exe focus-follows-mouse disable, , Hide
 
-; Ensure there are 5 workspaces created on monitor 0
-Run, komorebic.exe ensure-workspaces 0 5, , Hide
+; Ensure there are 10 workspaces created on monitor 0
+Run, komorebic.exe ensure-workspaces 0 10, , Hide
 
 ; Give the workspaces some optional names
 Run, komorebic.exe workspace-name 0 0 wide, , Hide
@@ -169,13 +169,13 @@ Run, komorebic.exe float-rule exe "msiexec.exe", , Hide
 ; + -> Shift
 ; ^ -> Ctrl
 
-; Start komorebi, Alt + Shift + S
-!+s::
+; Start komorebi, Alt + Shift + Ctrl + S
+!+#s::
 Run, komorebic.exe start, , Hide
 return
 
-; Stop komorebi, Alt + Shift + Q
-!+q::
+; Stop komorebi, Alt + Shift + Ctrl + Q
+!+#q::
 Run, komorebic.exe stop, , Hide
 return
 
@@ -262,6 +262,16 @@ return
 ; Switch to the default bsp tiling layout on the main workspace, Alt + Shift + B
 !+b::
 Run, komorebic.exe change-layout bsp, , Hide
+return
+
+; Switch to the horizontal stack layout on the main workspace, Alt + Shift + S
+!+s::
+Run, komorebic.exe change-layout horizontal-stack, , Hide
+return
+
+; Switch to the vertical stack layout on the main workspace, Alt + Shift + V
+!+v::
+Run, komorebic.exe change-layout vertical-stack, , Hide
 return
 
 ; Toggle the Monocle layout for the focused window, Alt + Shift + F
