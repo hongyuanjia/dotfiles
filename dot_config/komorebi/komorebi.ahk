@@ -7,410 +7,483 @@ Process, Priority, , High
 ; Switch to the SendInput for Send
 SendMode Input
 
+; Load the AHK helper libaray
+#Include %A_ScriptDir%\komorebic.lib.ahk
+
 ; Enable hot reloading of changes to this file
-Run, komorebic.exe watch-configuration enable, , Hide
+WatchConfiguration("enable")
 
 ; Add active window border
-Run, komorebic.exe active-window-border enable, , Hide
-Run, komorebic.exe active-window-border-colour 89 87 82, , Hide
+ActiveWindowBorderColour(89, 87, 82, "single")
+ActiveWindowBorder("enable")
 
 ; Configure the invisible border dimensions
-Run, komorebic.exe invisible-borders 6 0 4 2, , Hide
+InvisibleBorders(6, 0, 14, 7)
 
-; Enable focus follows mouse
-Run, komorebic.exe focus-follows-mouse disable, , Hide
-
-; Ensure there are 10 workspaces created on monitor 0
-Run, komorebic.exe ensure-workspaces 0 10, , Hide
-
-; Give the workspaces some optional names
-Run, komorebic.exe workspace-name 0 0 wide, , Hide
-Run, komorebic.exe workspace-name 0 1 chats, , Hide
-Run, komorebic.exe workspace-name 0 2 mail, , Hide
-Run, komorebic.exe workspace-name 0 3 file, , Hide
-Run, komorebic.exe workspace-name 0 4 floaty, , Hide
-
-; Set the padding of the different workspaces
-Run, komorebic.exe workspace-padding 0 0 5, , Hide
-Run, komorebic.exe container-padding 0 0 5, , Hide
-Run, komorebic.exe workspace-padding 0 1 5, , Hide
-Run, komorebic.exe container-padding 0 1 5, , Hide
-Run, komorebic.exe workspace-padding 0 2 5, , Hide
-Run, komorebic.exe container-padding 0 2 5, , Hide
-Run, komorebic.exe workspace-padding 0 3 5, , Hide
-Run, komorebic.exe container-padding 0 3 5, , Hide
-Run, komorebic.exe workspace-padding 0 4 5, , Hide
-Run, komorebic.exe container-padding 0 4 5, , Hide
-Run, komorebic.exe workspace-padding 0 5 5, , Hide
-Run, komorebic.exe container-padding 0 5 5, , Hide
-
-Run, komorebic.exe workspace-layout 0 0 ultrawide-vertical-stack, , Hide
-Run, komorebic.exe workspace-layout 0 1 columns, , Hide
-Run, komorebic.exe workspace-layout 0 2 vertical-stack, , Hide
-Run, komorebic.exe workspace-layout 0 3 bsp, , Hide
-Run, komorebic.exe workspace-layout 0 4 bsp, , Hide
+; Disable focus follows mouse
+ToggleFocusFollowsMouse("disable")
 
 ; Hide windows when switching workspaces
-Run, komorebic.exe window-hiding-behaviour hide, , Hide
+WindowHidingBehaviour("hide")
 
 ; Set the resize delta
-Run, komorebic.exe resize-delta 100, , Hide
+ResizeDelta(100)
+
+; Ensure there are 10 workspaces created on monitor 0
+EnsureWorkspaces(0, 10)
+
+; Give the workspaces some optional names
+WorkspaceName(0, 0, "Work")
+WorkspaceName(0, 1, "Chats")
+WorkspaceName(0, 2, "Mail")
+WorkspaceName(0, 3, "File")
+WorkspaceName(0, 4, "Office")
+WorkspaceName(0, 5, "Misc")
+WorkspaceName(0, 6, "Misc")
+WorkspaceName(0, 7, "Misc")
+WorkspaceName(0, 8, "Misc")
+WorkspaceName(0, 9, "Floaty")
+
+; Disable window tiling
+WorkspaceTiling(0, 9, "disable")
+
+; Workspace rules
+; IMs
+WorkspaceRule("exe", "TIM.exe",        0, 1)
+WorkspaceRule("exe", "WXWork.exe",     0, 1)
+WorkspaceRule("exe", "WeChat.exe",     0, 1)
+WorkspaceRule("exe", "DingTalk.exe",   0, 1)
+; Mails
+WorkspaceRule("exe", "OUTLOOK.EXE",    0, 2)
+; File manager
+WorkspaceRule("exe", "TotalCMD64.exe", 0, 3)
 
 ; Specific settings for applications
 ; -- Slack --
-; Always show chat apps on the second workspace
-Run, komorebic.exe workspace-rule exe "slack.exe" 0 1, , Hide
-Run, komorebic.exe float-rule exe "slack.exe", , Hide
+FloatRule("exe", "slack.exe")
 ; Below did not work
-; Run, komorebic.exe manage-rule exe "slack.exe", , Hide
-; Run, komorebic.exe identify-tray-application exe "slack.exe", , Hide
-; Run, komorebic.exe identify-border-overflow-application exe "slack.exe", , Hide
+; ManageRule("exe", "slack.exe")
+; IdentifyTrayApplication("exe", "slack.exe")
+; IdentifyBorderOverflowApplication("exe", "slack.exe")
 
 ; -- WeChat --
-Run, komorebic.exe workspace-rule exe "WeChat.exe" 0 1, , Hide
-Run, komorebic.exe manage-rule exe "WeChat.exe", , Hide
-Run, komorebic.exe identify-tray-application exe "WeChat.exe", , Hide
-Run, komorebic.exe identify-border-overflow-application exe "Wechat.exe", , Hide
-Run, komorebic.exe float-rule class "SettingWnd", , Hide
-Run, komorebic.exe float-rule class "TrayNotifyWnd", , Hide
-Run, komorebic.exe float-rule class "UpdateWnd", , Hide
-Run, komorebic.exe float-rule class "WhatsNewWnd", , Hide
-Run, komorebic.exe float-rule class "EmotionWnd", , Hide
-Run, komorebic.exe float-rule class "ChatContactMenu", , Hide
-Run, komorebic.exe float-rule class "ImagePreviewLayerWnd", , Hide
-Run, komorebic.exe float-rule class "ImagePreviewWnd", , Hide
-Run, komorebic.exe float-rule class "MsgFileWnd", , Hide
-Run, komorebic.exe float-rule title "TXMenuWindow", , Hide
-Run, komorebic.exe manage-rule exe "WeChatAppEx.exe", , Hide
+ManageRule("exe", "WeChat.exe")
+IdentifyTrayApplication("exe", "WeChat.exe")
+IdentifyBorderOverflowApplication("exe", "WeChat.exe")
+FloatRule("exe", "WeChatAppEx.exe")
+FloatRule("title", "TXMenuWindow")
+FloatRule("class", "SettingWnd")
+FloatRule("class", "TrayNotifyWnd")
+FloatRule("class", "UpdateWnd")
+FloatRule("class", "WhatsNewWnd")
+FloatRule("class", "EmotionWnd")
+FloatRule("class", "ChatContactMenu")
+FloatRule("class", "ImagePreviewLayerWnd")
+FloatRule("class", "ImagePreviewWnd")
+FloatRule("class", "MsgFileWnd")
 
 ; -- Tim --
-Run, komorebic.exe manage-rule exe "TIM.exe", , Hide
-Run, komorebic.exe workspace-rule exe "TIM.exe" 0 1, , Hide
-Run, komorebic.exe identify-tray-application exe "TIM.exe", , Hide
-Run, komorebic.exe identify-border-overflow-application exe "TIM.exe", , Hide
+ManageRule("exe", "TIM.exe")
+IdentifyTrayApplication("exe", "TIM.exe")
+; IdentifyBorderOverflowApplication("exe", "TIM.exe")
+
+; -- DingTalk
+ManageRule("exe", "DingTalk.exe")
+; IdentifyTrayApplication("exe", "DingTalk.exe")
+IdentifyBorderOverflowApplication("exe", "DingTalk.exe")
 
 ; -- WeCom --
-Run, komorebic.exe manage-rule exe "WXWork.exe", , Hide
-Run, komorebic.exe workspace-rule exe "WXWork.exe" 0 1, , Hide
-Run, komorebic.exe identify-tray-application exe "WXWork.exe", , Hide
-Run, komorebic.exe identify-border-overflow-application exe "WXWork.exe", , Hide
+ManageRule("exe", "WXWork.exe")
+IdentifyTrayApplication("exe", "WXWork.exe")
+IdentifyBorderOverflowApplication("exe", "WXWork.exe")
 
 ; -- Microsoft Office --
-Run, komorebic.exe float-rule class "_WwB", , Hide
-Run, komorebic.exe identify-border-overflow-application exe "WINWORD.EXE", , Hide
-Run, komorebic.exe identify-layered-application exe "WINWORD.EXE", , Hide
-Run, komorebic.exe identify-border-overflow-application exe "EXCEL.EXE", , Hide
-Run, komorebic.exe identify-layered-application exe "EXCEL.EXE", , Hide
-Run, komorebic.exe identify-border-overflow-application exe "POWERPNT.EXE", , Hide
-Run, komorebic.exe identify-layered-application exe "POWERPNT.EXE", , Hide
-Run, komorebic.exe identify-border-overflow-application exe "OUTLOOK.EXE", , Hide
-Run, komorebic.exe identify-layered-application exe "OUTLOOK.EXE", , Hide
-Run, komorebic.exe identify-tray-application exe "OUTLOOK.EXE", , Hide
-Run, komorebic.exe workspace-rule exe "OUTLOOK.EXE" 0 2, , Hide
-Run, komorebic.exe float-rule exe OfficeClickToRun.exe, , Hide
+FloatRule("class", "_WwB")
+; --- Word ---
+IdentifyBorderOverflowApplication("exe", "WINWORD.EXE")
+IdentifyLayeredApplication("exe", "WINWORD.EXE")
+; --- Excel ---
+IdentifyBorderOverflowApplication("exe", "EXCEL.EXE")
+IdentifyLayeredApplication("exe", "EXCEL.EXE")
+; --- PowerPoint ---
+IdentifyBorderOverflowApplication("exe", "POWERPNT.EXE")
+IdentifyLayeredApplication("exe", "POWERPNT.EXE")
+; --- Outlook ---
+IdentifyBorderOverflowApplication("exe", "OUTLOOK.EXE")
+IdentifyLayeredApplication("exe", "OUTLOOK.EXE")
+IdentifyTrayApplication("exe", "OUTLOOK.EXE")
+; --- Office 365 ---
+FloatRule("exe", "OfficeClickToRun.exe")
 
 ; -- IntelliJ IDEs --
-Run, komorebic.exe float-rule class SunAwtDialog, , Hide
-Run, komorebic.exe identify-object-name-change-application exe "webstorm64.exe", , Hide
-Run, komorebic.exe identify-tray-application exe "webstorm64.exe", , Hide
-Run, komorebic.exe identify-object-name-change-application exe "pycharm64.exe", , Hide
-Run, komorebic.exe identify-tray-application exe "pycharm64.exe", , Hide
-Run, komorebic.exe identify-object-name-change-application exe "clion64.exe", , Hide
-Run, komorebic.exe identify-tray-application exe "clion64.exe", , Hide
+FloatRule("class", "SunAwtDialog")
+; --- WebStorm ---
+IdentifyObjectNameChangeApplication("exe", "webstorm64.exe")
+IdentifyTrayApplication("exe", "webstorm64.exe")
+; --- PyCharm ---
+IdentifyObjectNameChangeApplication("exe", "pycharm64.exe")
+IdentifyTrayApplication("exe", "pycharm64.exe")
+; --- Clion ---
+IdentifyObjectNameChangeApplication("exe", "clion64.exe")
+IdentifyTrayApplication("exe", "clion64.exe")
 
 ; -- Total Commander --
-Run, komorebic.exe workspace-rule exe "TotalCMD64.exe" 0 3, , Hide
-Run, komorebic.exe float-rule AHK_CLASS TOverWriteForm, , Hide
-Run, komorebic.exe float-rule AHK_CLASS TFsPluginConfigForm, , Hide
-Run, komorebic.exe float-rule AHK_CLASS TDlgCustomColors, , Hide
-Run, komorebic.exe float-rule AHK_CLASS TExtMsgForm, , Hide
-Run, komorebic.exe float-rule AHK_CLASS TDLG2FILEACTIONMIN, , Hide
-Run, komorebic.exe float-rule AHK_CLASS TFindFile, , Hide
-Run, komorebic.exe float-rule AHK_CLASS TDriveSelBox, , Hide
+FloatRule("AHK_CLASS", "TOverWriteForm")
+FloatRule("AHK_CLASS", "TFsPluginConfigForm")
+FloatRule("AHK_CLASS", "TDlgCustomColors")
+FloatRule("AHK_CLASS", "TExtMsgForm")
+FloatRule("AHK_CLASS", "TDLG2FILEACTIONMIN")
+FloatRule("AHK_CLASS", "TFindFile")
+FloatRule("AHK_CLASS", "TDriveSelBox")
+
+; -- Mozilla Firefox
+IdentifyObjectNameChangeApplication("exe", "firefox.exe")
+IdentifyTrayApplication("exe", "firefox.exe")
+; Targets invisible windows spawned by Firefox to show tab previews in the taskbar
+FloatRule("class", "MozillaTaskbarPreviewClass")
+
+; -- Visual Studio Code --
+IdentifyBorderOverflowApplication("exe", "Code.exe")
+
+; -- Inno Setup --
+; Target hidden window spawned by Inno Setup applications
+FloatRule("class", "TApplication")
+; Target Inno Setup installers
+FloatRule("class", "TWizardForm")
+
+; -- Flow Launcher --
+IdentifyBorderOverflowApplication("exe", "Flow.Launcher.exe")
 
 ; -- Windows Explorer --
-Run, komorebic.exe float-rule class "OperationStatusWindow", , Hide
+FloatRule("class", "OperationStatusWindow")
+
+; -- Windows Installer --
+FloatRule("class", "MsiDialogCloseClass")
+
+; -- Windows Console (conhost.exe) --
+ManageRule("class", "ConsoleWindowClass")
 
 ; -- Window Spy --
-Run, komorebic.exe identify-tray-application exe "AutoHotkeyU64.exe", , Hide
-Run, komorebic.exe float-rule title "Window Spy", , Hide
+IdentifyTrayApplication("exe", "AutoHotkeyU64.exe")
+FloatRule("title", "Window Spy")
 
 ; -- Control Panel --
-Run, komorebic.exe float-rule title "Control Panel", , Hide
+FloatRule("title", "Control Panel")
 
 ; -- Task Manager --
-Run, komorebic.exe float-rule class TaskManagerWindow, , Hide
+FloatRule("class", "TaskManagerWindow")
 
 ; -- Obsidian --
-Run, komorebic.exe float-rule exe "Obsidian.exe", , Hide
+ManageRule("exe", "Obsidian.exe")
+IdentifyBorderOverflowApplication("exe", "Obsidian.exe")
 
 ; -- Zoom --
-Run, komorebic.exe float-rule exe "Zoom.exe", , Hide
+FloatRule("exe", "Zoom.exe")
 
 ; -- GitKraken --
-Run, komorebic.exe float-rule exe "gitkraken.exe", , Hide
-
-; -- Clash for Windows --
-Run, komorebic.exe float-rule exe "Clash for Windows.exe", , Hide
+FloatRule("exe", "gitkraken.exe")
 
 ; -- WinSpy --
-Run, komorebic.exe float-rule exe "WinSpy64.exe", , Hide
+FloatRule("exe", "WinSpy64.exe")
 
 ; -- Dropbox --
-Run, komorebic.exe float-rule exe "Dropbox.exe", , Hide
+FloatRule("exe", "Dropbox.exe")
 
 ; -- RTerm.exe --
-Run, komorebic.exe float-rule exe "Rterm.exe", , Hide
+FloatRule("exe", "Rterm.exe")
 
 ; -- Setup --
-Run, komorebic.exe float-rule exe "msiexec.exe", , Hide
+FloatRule("exe", "msiexec.exe")
+
+; Allow komorebi to start managing windows
+CompleteConfiguration()
 
 ; ! -> Alt
 ; + -> Shift
 ; ^ -> Ctrl
+; # -> Win
 
 ; Start komorebi, Alt + Shift + Ctrl + S
-!+#s::
-Run, komorebic.exe start, , Hide
+!^+s::
+Start()
 return
 
 ; Stop komorebi, Alt + Shift + Ctrl + Q
-!+#q::
-Run, komorebic.exe stop, , Hide
+!^+q::
+Stop()
+return
+
+; Cycyle workspace, Alt + Shift + []
+!+[::
+CycleWorkspace("previous")
+return
+!+]::
+CycleWorkspace("next")
 return
 
 ; Change the focused window, Alt + Vim direction keys
 !h::
-Run, komorebic.exe focus left, , Hide
+Focus("left")
 return
 
 !j::
-Run, komorebic.exe focus down, , Hide
+Focus("down")
 return
 
 !k::
-Run, komorebic.exe focus up, , Hide
+Focus("up")
 return
 
 !l::
-Run, komorebic.exe focus right, , Hide
+Focus("right")
 return
 
 ; Move the focused window in a given direction, Alt + Shift + Vim direction keys
 !+h::
-Run, komorebic.exe move left, , Hide
+Move("left")
 return
 
 !+j::
-Run, komorebic.exe move down, , Hide
+Move("down")
 return
 
 !+k::
+Move("up")
 Run, komorebic.exe move up, , Hide
 return
 
 !+l::
-Run, komorebic.exe move right, , Hide
+Move("right")
 return
 
 ; Stack the focused window in a given direction, Ctrl + Shift + direction keys
 ^+Left::
-Run, komorebic.exe stack left, , Hide
+Stack("left")
 return
 
 ^+Right::
-Run, komorebic.exe stack right, , Hide
+Stack("right")
 return
 
 ^+Up::
+Stack("up")
 Run, komorebic.exe stack up, , Hide
 return
 
 ^+Down::
-Run, komorebic.exe stack down, , Hide
+Stack("down")
 return
 
 ; Cycle through stacked windows, Alt + []
 !]::
-Run, komorebic.exe cycle-stack next, , Hide
+CycleStack("next")
 return
-
 ![::
-Run, komorebic.exe cycle-stack previous, , Hide
+CycleStack("previous")
 return
 
 ; Unstack the focused window, Alt + Shift + D
 !+d::
-Run, komorebic.exe unstack, , Hide
+Unstack()
 return
 
 ; Promote the focused window to the top of the tree, Alt + Shift + Enter
 !+Enter::
-Run, komorebic.exe promote, , Hide
+Promote()
 return
 
 ; Switch to ultrawide-vertical-stack layout on the main workspace, Alt + Shift + W
 !+w::
-Run, komorebic.exe change-layout ultrawide-vertical-stack, , Hide
+ChangeLayout("ultrawide-vertical-stack")
 return
 
 ; Switch to an equal-width, max-height column layout on the main workspace, Alt + Shift + C
 !+c::
-Run, komorebic.exe change-layout columns, , Hide
+ChangeLayout("columns")
 return
 
 ; Switch to the default bsp tiling layout on the main workspace, Alt + Shift + B
 !+b::
-Run, komorebic.exe change-layout bsp, , Hide
+ChangeLayout("bsp")
 return
 
 ; Switch to the horizontal stack layout on the main workspace, Alt + Shift + S
 !+s::
-Run, komorebic.exe change-layout horizontal-stack, , Hide
+ChangeLayout("horizontal-stack")
 return
 
 ; Switch to the vertical stack layout on the main workspace, Alt + Shift + V
 !+v::
-Run, komorebic.exe change-layout vertical-stack, , Hide
+ChangeLayout("vertical-stack")
 return
 
 ; Toggle the Monocle layout for the focused window, Alt + Shift + F
 !+f::
-Run, komorebic.exe toggle-monocle, , Hide
+ToggleMonocle()
 return
 
 ; Toggle native maximize for the focused window, Alt + Shift + =
 !+=::
-Run, komorebic.exe toggle-maximize, , Hide
+ToggleMaximize()
 return
 
 ; Flip horizontally, Alt + X
 !x::
-Run, komorebic.exe flip-layout horizontal, , Hide
+FlipLayout("horizontal")
 return
 
 ; Flip vertically, Alt + Y
 !y::
-Run, komorebic.exe flip-layout vertical, , Hide
+FlipLayout("vertical")
 return
 
 ; Force a retile if things get janky, Alt + Shift + R
 !+r::
-Run, komorebic.exe retile, , Hide
+Retile()
 return
 
 ; Float the focused window, Alt + F
 !f::
-Run, komorebic.exe toggle-float, , Hide
+ToggleFloat()
+return
+
+; Toggle window tiling, Alt + T
+!t::
+ToggleTiling()
 return
 
 ; Reload ~/komorebi.ahk, Alt + O
 !o::
-Run, komorebic.exe reload-configuration, , Hide
+ReloadConfiguration()
 return
 
 ; Pause responding to any window events or komorebic commands, Alt + P
 !p::
-Run, komorebic.exe toggle-pause, , Hide
+TogglePause()
 return
 
 ; Switch to workspace, Alt + NUM
 !1::
 Send !
-Run, komorebic.exe focus-workspace 0, , Hide
+FocusWorkspace(0)
 return
-
 !2::
 Send !
-Run, komorebic.exe focus-workspace 1, , Hide
+FocusWorkspace(1)
 return
 
 !3::
 Send !
-Run, komorebic.exe focus-workspace 2, , Hide
+FocusWorkspace(2)
 return
-
 !4::
 Send !
-Run, komorebic.exe focus-workspace 3, , Hide
+FocusWorkspace(3)
 return
-
 !5::
 Send !
-Run, komorebic.exe focus-workspace 4, , Hide
+FocusWorkspace(4)
+return
+!6::
+Send !
+FocusWorkspace(5)
+return
+!7::
+Send !
+FocusWorkspace(6)
+return
+!8::
+Send !
+FocusWorkspace(7)
+Run, komorebic.exe focus-workspace 7, , Hide
+return
+!9::
+Send !
+FocusWorkspace(8)
+return
+!0::
+Send !
+FocusWorkspace(9)
 return
 
 ; Move window to workspace, Alt + Shift + NUM
 !+1::
-Run, komorebic.exe move-to-workspace 0, , Hide
+MoveToWorkspace(0)
 return
-
 !+2::
-Run, komorebic.exe move-to-workspace 1, , Hide
+MoveToWorkspace(1)
 return
-
 !+3::
-Run, komorebic.exe move-to-workspace 2, , Hide
+MoveToWorkspace(2)
 return
-
 !+4::
-Run, komorebic.exe move-to-workspace 3, , Hide
+MoveToWorkspace(3)
 return
-
 !+5::
-Run, komorebic.exe move-to-workspace 4, , Hide
+MoveToWorkspace(4)
+return
+!+6::
+MoveToWorkspace(5)
+return
+!+7::
+MoveToWorkspace(6)
+return
+!+8::
+MoveToWorkspace(7)
+return
+!+9::
+MoveToWorkspace(8)
+return
+!+0::
+MoveToWorkspace(9)
 return
 
 ; Cycle next focus, Alt + Shift + N
 !+n::
-Run, komorebic.exe cycle-focus next, , Hide
+CycleFocus("next")
 return
 
 ; Cycle previous focus, Alt + Shift + P
 !+p::
-Run, komorebic.exe cycle-focus previous, , Hide
+CycleFocus("previous")
 return
 
 ; Increase the edge of the focused window, Alt + Ctrl + Arrow keys
 !^Left::
-Run, komorebic.exe resize-edge left increase, , Hide
+Resize("left", "increase")
 return
-
 !^Right::
-Run, komorebic.exe resize-edge right increase, , Hide
+Resize("right", "increase")
 return
-
 !^Up::
-Run, komorebic.exe resize-edge up increase, , Hide
+Resize("up", "increase")
 return
-
 !^Down::
-Run, komorebic.exe resize-edge down increase, , Hide
+Resize("down", "increase")
 return
 
-; Increase the edge of the focused window, Shift + Alt + Ctrl + Arrow keys
+; Increase the column of the focused window, Shift + Alt + Ctrl + Arrow keys
 !+^Left::
-Run, komorebic.exe resize-edge left decrease, , Hide
+ResizeAxis("left", "decrease")
 return
-
 !+^Right::
-Run, komorebic.exe resize-edge right decrease, , Hide
+ResizeAxis("right", "decrease")
 return
-
 !+^Up::
-Run, komorebic.exe resize-edge up decrease, , Hide
+ResizeAxis("up", "decrease")
 return
-
 !+^Down::
-Run, komorebic.exe resize-edge down decrease, , Hide
+ResizeAxis("down", "decrease")
 return
 
+; Force to manage the focused window
 ^!=::
-Run, komorebic.exe manage
+Manage()
 return
 
+; Unmanage a window that was forcibly managed
 ^!-::
-Run, komorebic.exe unmanage
+Unmanage()
 return
 
 ; Close windows using Alt + Q
