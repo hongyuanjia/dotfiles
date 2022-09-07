@@ -1,0 +1,5 @@
+linters: linters_with_defaults(
+    line_length_linter(120),
+    brace_linter(allow_single_line = TRUE),
+    semicolon_linter = NULL
+  )
