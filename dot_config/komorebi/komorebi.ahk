@@ -81,6 +81,7 @@ FloatRule("class", "ChatContactMenu")
 FloatRule("class", "ImagePreviewLayerWnd")
 FloatRule("class", "ImagePreviewWnd")
 FloatRule("class", "MsgFileWnd")
+FloatRule("class", "EmotionTipWnd")
 
 ; -- Tim --
 ManageRule("exe", "TIM.exe")
@@ -91,11 +92,15 @@ IdentifyTrayApplication("exe", "TIM.exe")
 ManageRule("exe", "DingTalk.exe")
 ; IdentifyTrayApplication("exe", "DingTalk.exe")
 IdentifyBorderOverflowApplication("exe", "DingTalk.exe")
+FloatRule("class", "DingtalkMsgComming")
+FloatRule("class", "DingEAppWnd")
+FloatRule("class", "DingImgViewWnd")
 
 ; -- WeCom --
 ManageRule("exe", "WXWork.exe")
 IdentifyTrayApplication("exe", "WXWork.exe")
 IdentifyBorderOverflowApplication("exe", "WXWork.exe")
+FloatRule("class", "WeWorkNewTipsWindow")
 
 ; -- Microsoft Office --
 FloatRule("class", "_WwB")
@@ -128,13 +133,13 @@ IdentifyObjectNameChangeApplication("exe", "clion64.exe")
 IdentifyTrayApplication("exe", "clion64.exe")
 
 ; -- Total Commander --
-FloatRule("AHK_CLASS", "TOverWriteForm")
-FloatRule("AHK_CLASS", "TFsPluginConfigForm")
-FloatRule("AHK_CLASS", "TDlgCustomColors")
-FloatRule("AHK_CLASS", "TExtMsgForm")
-FloatRule("AHK_CLASS", "TDLG2FILEACTIONMIN")
-FloatRule("AHK_CLASS", "TFindFile")
-FloatRule("AHK_CLASS", "TDriveSelBox")
+FloatRule("class", "TOverWriteForm")
+FloatRule("class", "TFsPluginConfigForm")
+FloatRule("class", "TDlgCustomColors")
+FloatRule("class", "TExtMsgForm")
+FloatRule("class", "TDLG2FILEACTIONMIN")
+FloatRule("class", "TFindFile")
+FloatRule("class", "TDriveSelBox")
 
 ; -- Mozilla Firefox
 IdentifyObjectNameChangeApplication("exe", "firefox.exe")
