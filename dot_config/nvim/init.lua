@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-09-02 22:55
+-- Last Modified: 2022-09-13 09:07
 
 -- Basic Settings
 local options = {
@@ -341,7 +341,11 @@ packer.startup(function(use)
     use {
         "folke/tokyonight.nvim",
         config = function()
-            vim.g.tokyonight_italic_comments = false
+            require("tokyonight").setup({
+                styles = {
+                    comments = { italic = false }
+                }
+            })
             vim.cmd [[colorscheme tokyonight]]
         end
     }
