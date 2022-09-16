@@ -3,32 +3,32 @@
     {
       "Name": "main",
       "Source": "https://github.com/ScoopInstaller/Main",
-      "Updated": "2022-09-07T21:09:23+08:00"
+      "Updated": "2022-09-16T20:55:54+08:00"
     },
     {
       "Name": "extras",
       "Source": "https://github.com/ScoopInstaller/Extras",
-      "Updated": "2022-09-07T20:36:20+08:00"
+      "Updated": "2022-09-16T20:32:37+08:00"
     },
     {
       "Name": "nerd-fonts",
       "Source": "https://github.com/matthewjberger/scoop-nerd-fonts",
-      "Updated": "2022-09-06T23:16:14+08:00"
+      "Updated": "2022-09-10T14:12:29+08:00"
     },
     {
       "Name": "dorado",
       "Source": "https://github.com/chawyehsu/dorado",
-      "Updated": "2022-09-07T08:14:02+08:00"
+      "Updated": "2022-09-16T08:17:09+08:00"
     },
     {
       "Name": "lemon",
       "Source": "https://github.com/hoilc/scoop-lemon",
-      "Updated": "2022-09-07T23:22:55+08:00"
+      "Updated": "2022-09-16T23:21:28+08:00"
     },
     {
       "Name": "r-bucket",
       "Source": "https://github.com/cderv/r-bucket",
-      "Updated": "2022-09-07T20:58:00+08:00"
+      "Updated": "2022-09-16T22:34:45+08:00"
     }
   ],
   "app": [
@@ -39,7 +39,7 @@
     },
     {
       "Name": "bat",
-      "Version": "0.21.0",
+      "Version": "0.22.1",
       "Source": "main"
     },
     {
@@ -49,7 +49,7 @@
     },
     {
       "Name": "cmake",
-      "Version": "3.24.1",
+      "Version": "3.24.2",
       "Source": "main"
     },
     {
@@ -64,7 +64,7 @@
     },
     {
       "Name": "docker",
-      "Version": "20.10.17",
+      "Version": "20.10.18",
       "Source": "main"
     },
     {
@@ -94,7 +94,7 @@
     },
     {
       "Name": "nodejs",
-      "Version": "18.8.0",
+      "Version": "18.9.0",
       "Source": "main"
     },
     {
@@ -129,22 +129,12 @@
     },
     {
       "Name": "starship",
-      "Version": "1.10.2",
+      "Version": "1.10.3",
       "Source": "main"
     },
     {
       "Name": "sudo",
       "Version": "0.2020.01.26",
-      "Source": "main"
-    },
-    {
-      "Name": "v2ray",
-      "Version": "4.45.2",
-      "Source": "main"
-    },
-    {
-      "Name": "xray",
-      "Version": "1.5.5",
       "Source": "main"
     },
     {
@@ -159,7 +149,12 @@
     },
     {
       "Name": "clion",
-      "Version": "2022.2.1-222.3739.54",
+      "Version": "2022.2.3-222.4167.35",
+      "Source": "extras"
+    },
+    {
+      "Name": "dbeaver",
+      "Version": "22.2.0",
       "Source": "extras"
     },
     {
@@ -179,7 +174,7 @@
     },
     {
       "Name": "gitkraken",
-      "Version": "8.8.0",
+      "Version": "8.9.1",
       "Source": "extras"
     },
     {
@@ -233,28 +228,23 @@
       "Source": "extras"
     },
     {
-      "Name": "v2rayn",
-      "Version": "5.34",
-      "Source": "extras"
-    },
-    {
       "Name": "vcxsrv",
       "Version": "1.20.14.0",
       "Source": "extras"
     },
     {
       "Name": "vscode",
-      "Version": "1.71.0",
+      "Version": "1.71.2",
       "Source": "extras"
     },
     {
       "Name": "webstorm",
-      "Version": "2022.2.1-222.3739.57",
+      "Version": "2022.2.2-222.4167.31",
       "Source": "extras"
     },
     {
       "Name": "windows-terminal",
-      "Version": "1.14.2281.0",
+      "Version": "1.15.2524.0",
       "Source": "extras"
     },
     {
@@ -274,12 +264,12 @@
     },
     {
       "Name": "JetBrainsMono-NF",
-      "Version": "2.2.1",
+      "Version": "2.2.2",
       "Source": "nerd-fonts"
     },
     {
       "Name": "drawio",
-      "Version": "20.2.8",
+      "Version": "20.3.0",
       "Source": "lemon"
     },
     {
@@ -289,7 +279,7 @@
     },
     {
       "Name": "quarto",
-      "Version": "1.1.189",
+      "Version": "1.1.245",
       "Source": "r-bucket"
     },
     {
