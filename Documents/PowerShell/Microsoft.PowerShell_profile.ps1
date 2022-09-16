@@ -18,6 +18,8 @@ Remove-Item Alias:r -ErrorAction SilentlyContinue
 
 # Invoke starship
 if (Get-Command starship -ErrorAction SilentlyContinue | Test-Path) {
+    # Currently, starship did not support XDG standard
+    Set-EnvironmentVariable "STARSHIP_CONFIG" "$HOME\.config\starship\config.toml"
     Invoke-Expression (&starship init powershell)
 }
 
