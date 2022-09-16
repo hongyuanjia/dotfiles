@@ -101,6 +101,7 @@ ManageRule("exe", "WXWork.exe")
 IdentifyTrayApplication("exe", "WXWork.exe")
 IdentifyBorderOverflowApplication("exe", "WXWork.exe")
 FloatRule("class", "WeWorkNewTipsWindow")
+FloatRule("class", "DuiMenuWnd")
 
 ; -- Microsoft Office --
 FloatRule("class", "_WwB")
@@ -199,6 +200,9 @@ FloatRule("exe", "Rterm.exe")
 
 ; -- Setup --
 FloatRule("exe", "msiexec.exe")
+
+; -- Clash for Windows
+FloatRule("exe", "Clash for Windows.exe")
 
 ; Allow komorebi to start managing windows
 CompleteConfiguration()
@@ -469,16 +473,16 @@ return
 
 ; Increase the column of the focused window, Shift + Alt + Ctrl + Arrow keys
 !+^Left::
-ResizeAxis("left", "decrease")
+ResizeAxis("left", "increase")
 return
 !+^Right::
-ResizeAxis("right", "decrease")
+ResizeAxis("right", "increase")
 return
 !+^Up::
-ResizeAxis("up", "decrease")
+ResizeAxis("up", "increase")
 return
 !+^Down::
-ResizeAxis("down", "decrease")
+ResizeAxis("down", "increase")
 return
 
 ; Force to manage the focused window
