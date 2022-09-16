@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-09-13 09:07
+-- Last Modified: 2022-09-16 23:41
 
 -- Basic Settings
 local options = {
@@ -637,7 +637,45 @@ packer.startup(function(use)
         },
         config = function()
             local cmp = require("cmp")
+            local compare = require('cmp.config.compare')
             local luasnip = require("luasnip")
+
+            -- -- better support for cmp-path for Windows
+            -- -- check if on Windows
+            -- local cmp_path = require("cmp_path")
+            -- local is_windows = (vim.fn.has("windows") == 1) and (vim.fn.has("unix") == 0)
+            -- cmp_path.get_trigger_characters = function()
+            --     if is_windows then
+            --         return { "/", ".", "\\" }
+            --     else
+            --         return { "/", "." }
+            --     end
+            -- end
+            --
+            -- -- start with '.', '..', '~', '$HOME', any word character, or
+            -- -- 'C:'-like
+            -- local PATH_REGEX_ROOT = "\\%(\\.\\{0,2}\\|~\\|\\$HOME\\|\\([\\w]\\+\\)\\|[a-zA-Z]:\\|\\)"
+            -- -- follow by '/' or '\'
+            -- local PATH_REGEX_SEP = "\\(\\/\\|\\\\\\+\\)"
+            -- -- dir/file name could be Chinese, extended latin-1, any word
+            -- -- character, spaces, '.', '@', '(', ')', and '-'
+            -- local PATH_REGEX_NAME = "\\%([\\%u4E00-\\%u9FA5\\%u00A0-\\%u024F\\w .@()-]\\)"
+            -- -- local PATH_REGEX = PATH_REGEX_ROOT .. PATH_REGEX_SEP .. "\\(" .. PATH_REGEX_NAME .. "\\+" .. PATH_REGEX_SEP .. "\\)*" .. PATH_REGEX_NAME .. "*$"
+            -- local PATH_REGEX = vim.regex(
+            --     PATH_REGEX_ROOT .. PATH_REGEX_SEP ..
+            --     "\\(" .. PATH_REGEX_NAME .. "\\+" .. PATH_REGEX_SEP .. "\\)*" ..
+            --     PATH_REGEX_NAME .. "*$"
+            -- )
+            -- local get_dirname = function(str)
+            --     local s = PATH_REGEX:match_str(str)
+            --     if not s then return nil end
+            --
+            --     return string.sub(str, s[1], s[2])
+            -- end
+            --
+            -- local str = "../R/win-library/4.2/"
+            -- PATH_REGEX:match_str("../R/win-library/4.2")
+
 
             local has_words_before = function()
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -664,7 +702,7 @@ packer.startup(function(use)
                         i = cmp.mapping.abort(),
                         c = cmp.mapping.close()
                     }),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+                    ["<CR>"] = cmp.mapping.confirm({ select = false }),
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
@@ -733,6 +771,20 @@ packer.startup(function(use)
                         return vim_item
                     end
                 },
+                sorting = {
+                    priority_weight = 2,
+                    comparators = {
+                        compare.kind,
+                        compare.offset,
+                        compare.exact,
+                        compare.score,
+                        compare.recently_used,
+                        compare.locality,
+                        compare.sort_text,
+                        compare.length,
+                        compare.order
+                    }
+                },
                 experimental = {
                     ghost_text = true,
                     native_menu = false
@@ -757,19 +809,30 @@ packer.startup(function(use)
     }
 
     -- lsp
+    use "neovim/nvim-lspconfig"
     use {
-        "neovim/nvim-lspconfig",
-        requires = {
-            "williamboman/nvim-lsp-installer",
-            "jose-elias-alvarez/null-ls.nvim",
-            "folke/lua-dev.nvim",
-            "simrat39/rust-tools.nvim"
-        },
-        event = { "BufReadPre", "BufNewFile" },
+        "williamboman/mason.nvim",
+        after = "nvim-lspconfig",
         config = function()
-            require("nvim-lsp-installer").setup({
-                ensure_installed = {
-                    "sumneko_lua"
+            require("mason").setup()
+        end
+    }
+    use {
+        "williamboman/mason-lspconfig.nvim",
+        after = "mason.nvim",
+        requires = {
+            "folke/lua-dev.nvim",
+            "simrat39/rust-tools.nvim",
+            "jose-elias-alvarez/null-ls.nvim"
+        },
+        config = function()
+            require("mason-lspconfig").setup({
+                ensure_installed = { "sumneko_lua" }
+            })
+
+            require("null-ls").setup({
+                sources = {
+                    require("null-ls").builtins.completion.spell
                 }
             })
 
@@ -866,52 +929,37 @@ packer.startup(function(use)
 
             local lspconfig = require("lspconfig")
 
-            -- lua
-            lspconfig.sumneko_lua.setup(
-                require("lua-dev").setup({
-                    lspconfig = {
-                        on_attach = on_attach,
-                        settings = {
-                            Lua = {
-                                runtime = {
-                                    version = "LuaJIT"
-                                },
-                                diagnostics = {
-                                    globals = { "packer_plugins" }
+            require("mason-lspconfig").setup_handlers({
+                function(server_name)
+                    require("lspconfig")[server_name].setup({ on_attach = on_attach })
+                end,
+
+                -- lua
+                ["sumneko_lua"] = function()
+                    lspconfig.sumneko_lua.setup(
+                        require("lua-dev").setup({
+                            lspconfig = {
+                                on_attach = on_attach,
+                                settings = {
+                                    Lua = {
+                                        runtime = {
+                                            version = "LuaJIT"
+                                        },
+                                        diagnostics = {
+                                            globals = { "packer_plugins" }
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }
-                })
-            )
+                        })
+                    )
+                end,
 
-            -- r
-            lspconfig.r_language_server.setup({ on_attach = on_attach })
-
-            -- powershell
-            lspconfig.powershell_es.setup({ on_attach = on_attach })
-
-            -- rust
-            require('rust-tools').setup({
-                server = {
-                    on_attach = on_attach
-                }
+                -- rust
+                ["rust_analyzer"] = function()
+                    require('rust-tools').setup({ server = { on_attach = on_attach } })
+                end
             })
-
-            -- c++
-            lspconfig.clangd.setup({ on_attach = on_attach })
-
-            -- python
-            lspconfig.jedi_language_server.setup({ on_attach = on_attach })
-
-            -- javascript
-            lspconfig.html.setup({ on_attach = on_attach })
-            lspconfig.jsonls.setup({ on_attach = on_attach })
-            lspconfig.tsserver.setup({ on_attach = on_attach })
-            lspconfig.tailwindcss.setup({ on_attach = on_attach })
-            lspconfig.eslint.setup({ on_attach = on_attach })
-            lspconfig.emmet_ls.setup({ on_attach = on_attach })
-            lspconfig.svelte.setup({ on_attach = on_attach })
         end
     }
     use {
@@ -1062,18 +1110,16 @@ packer.startup(function(use)
         end
     }
     use {
-        "wellle/targets.vim",
-        event = "BufRead"
+        "ggandor/leap.nvim",
+        config = function()
+            require("leap").set_default_keymaps()
+        end
     }
     use {
-        "ggandor/lightspeed.nvim",
-        requires = "tpope/vim-repeat"
-    }
-    use {
-        "machakann/vim-sandwich",
+        "kylechui/nvim-surround",
         event = "BufRead",
         config = function()
-            vim.cmd [[runtime macros/sandwich/keymap/surround.vim]]
+            require("nvim-surround").setup()
         end
     }
     use {
@@ -1147,15 +1193,29 @@ packer.startup(function(use)
                 ensure_installed = {
                     "bash", "c", "cmake", "comment", "cpp", "css",
                     "fish", "html", "javascript", "jsonc", "latex",
-                    "lua", "markdown", "python", "regex", "rust",
+                    "lua", "markdown", "python", "query", "r", "rust",
                     "toml", "tsx", "typescript", "vue", "yaml"
                 },
-                highlight = { enable = true, disable = { "r" } },
+                highlight = { enable = true },
                 autopairs = { enable = true },
                 indent = { enable = true, disable = { "r" } },
                 incremental_selection = { enable = true },
-                context_commentstring = { enable = true, enable_autocmd = false }
             })
+
+            -- treesitter based folding
+            vim.wo.foldexpr = "expr"
+            vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+        end
+    }
+    use {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        event = "BufRead",
+    }
+    use {
+        "nvim-treesitter/nvim-treesitter-context",
+        event = "BufRead",
+        config = function()
+            require("treesitter-context").setup()
         end
     }
 
