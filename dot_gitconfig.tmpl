@@ -31,8 +31,3 @@
 [merge]
     conflictstyle = diff3
 {{- end }}
-{{- if eq .chezmoi.os "windows" }}
-[http]
-    sslVerify = false
-    proxy = 127.0.0.1:7890
-{{- end }}
