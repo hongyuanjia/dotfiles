@@ -1214,6 +1214,68 @@ packer.startup(function(use)
     use {
         "nvim-treesitter/nvim-treesitter-textobjects",
         event = "BufRead",
+        requires = "nvim-treesitter/nvim-treesitter",
+        config = function()
+            require('nvim-treesitter.configs').setup({
+                textobjects = {
+                    select = {
+                        enable = true,
+                        -- automatically jump forward to textobj, similar to targets.vim
+                        lookahead = true,
+                        keymaps = {
+                            -- capture groups defined in textobjects.scm
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            ["ic"] = "@class.inner",
+                            ["ai"] = "@conditional.outer",
+                            ["ii"] = "@conditional.inner",
+                            ["al"] = "@loop.outer",
+                            ["il"] = "@loop.inner",
+                            ["ap"] = "@parameter.outer",
+                            ["ip"] = "@parameter.inner"
+                        },
+                    },
+                    swap = {
+                        enable = true,
+                        swap_next = {
+                            ["<Leader>an"] = "@parameter.inner"
+                        },
+                        swap_previous = {
+                            ["<Leader>ap"] = "@parameter.inner"
+                        }
+                    },
+                    move = {
+                        enable = true,
+                        set_jumps = true, -- whether to set jumps in the jumplist
+                        goto_next_start = {
+                            ["]f"] = "@function.outer",
+                            ["]]"] = "@class.outer",
+                            ["]i"] = "@conditional.outer",
+                            ["]l"] = "@loop.outer"
+                        },
+                        goto_next_end = {
+                            ["]F"] = "@function.outer",
+                            ["]["] = "@class.outer",
+                            ["]I"] = "@conditional.outer",
+                            ["]L"] = "@loop.outer"
+                        },
+                        goto_previous_start = {
+                            ["[f"] = "@function.outer",
+                            ["[["] = "@class.outer",
+                            ["[i"] = "@conditional.outer",
+                            ["[l"] = "@loop.outer"
+                        },
+                        goto_previous_end = {
+                            ["[F"] = "@function.outer",
+                            ["[]"] = "@class.outer",
+                            ["[I"] = "@conditional.outer",
+                            ["[L"] = "@loop.outer"
+                        },
+                    },
+                },
+            })
+        end
     }
     use {
         "nvim-treesitter/nvim-treesitter-context",
@@ -1221,6 +1283,12 @@ packer.startup(function(use)
         config = function()
             require("treesitter-context").setup()
         end
+    }
+    use {
+        'nvim-treesitter/playground',
+        cmd = {
+            "TSPlaygroundToggle"
+        }
     }
 
     -- Git
