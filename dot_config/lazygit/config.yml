@@ -2,12 +2,24 @@ gui:
   language: 'en'
   timeFormat: '2015-02-25 11:06'
   showIcons: true
-
+  theme:
+    lightTheme: false
+    activeBorderColor:
+      - cyan
+      - bold
+    inactiveBorderColor:
+      - white
+    optionsTextColor:
+      - blue
+    selectedLineBgColor:
+      - default
+    selectedRangeBgColor:
+      - blue
 git:
+  autofetch: true
   paging:
-    colorArg: always
-    pager: delta --dark --paging=never
-
+    colorArg: 'always'
+    pager: 'delta --dark --paging=never --24-bit-color=never'
 os:
-  editCommand: 'vim'
+  editCommand: 'nvim'
   editCommandTemplate: '{{editor}} +{{line}} -- {{filename}}'
