@@ -3,14 +3,11 @@ gui:
   timeFormat: '2015-02-25 11:06'
   showIcons: true
 
-{{- if lookPath "delta" }}
 git:
   paging:
     colorArg: always
     pager: delta --dark --paging=never
 
-{{- end }}
 os:
   editCommand: 'vim'
   editCommandTemplate: '{{editor}} +{{line}} -- {{filename}}'
-

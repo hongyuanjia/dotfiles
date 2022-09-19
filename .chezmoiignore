@@ -23,6 +23,7 @@ bin/update_proxy.sh
 {{ else }}
 .config/nvim
 .config/rstudio
+.config/lazygit
 bin
 .bashrc
 .bash_profile
