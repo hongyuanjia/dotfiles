@@ -12,6 +12,10 @@ if (Get-Command chezmoi -ErrorAction SilentlyContinue | Test-Path) {
     ${function:cm-cd} = { Set-Location $HOME\.local\share\chezmoi }
 }
 
+if (Get-Command lazygit -ErrorAction SilentlyContinue | Test-Path) {
+    Set-Alias lg lazygit
+}
+
 # Remove powershell default alias to enable to run R by tying 'r'
 # Note: Remove-Alias only works on PowerShell v6
 Remove-Item Alias:r -ErrorAction SilentlyContinue
