@@ -14,8 +14,6 @@ export PATH
 
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
     export hostip=$(cat /etc/resolv.conf | grep -oP '(?<=nameserver\ ).*')
-    export http_proxy="http://${hostip}:7890"
-    export https_proxy="http://${hostip}:7890"
 
     export DISPLAY="$hostip:0.0"
     export LIBGL_ALWAYS_INDIRECT=1
