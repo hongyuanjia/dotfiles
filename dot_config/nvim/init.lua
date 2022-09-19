@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-09-16 23:41
+-- Last Modified: 2022-09-19 11:15
 
 -- Basic Settings
 local options = {
@@ -530,16 +530,20 @@ packer.startup(function(use)
                     shell = "powershell -NoLogo"
                 end
             end
-            local terminal = require("toggleterm.terminal").Terminal:new({ cmd = shell, direction = "horizontal" })
-            _G.toggle_terminal = function(direction)
+            _G.toggle_terminal = function(cmd, direction)
+                local terminal = require("toggleterm.terminal").Terminal:new({ cmd = cmd, direction = "horizontal" })
                 terminal.direction = direction
                 terminal:toggle()
             end
 
             -- <Leader>t[erminal]
-            keymap("n", "<Leader>tf", "<cmd>lua toggle_terminal('float')<CR>")
-            keymap("n", "<Leader>th", "<cmd>lua toggle_terminal('horizontal')<CR>")
-            keymap("n", "<Leader>tv", "<cmd>lua toggle_terminal('vertical')<CR>")
+            keymap("n", "<Leader>tf", "<cmd>lua toggle_terminal('" .. shell .. "', float')<CR>")
+            keymap("n", "<Leader>th", "<cmd>lua toggle_terminal('" .. shell .. "', 'horizontal')<CR>")
+            keymap("n", "<Leader>tv", "<cmd>lua toggle_terminal('" .. shell .. "', 'vertical')<CR>")
+
+            if vim.fn.executable("lazygit") == 1 then
+                keymap("n", "<Leader>g=", "<cmd>lua toggle_terminal('lazygit', 'float')<CR>")
+            end
         end
     }
     use {
