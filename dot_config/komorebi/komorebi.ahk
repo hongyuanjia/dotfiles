@@ -52,7 +52,7 @@ WorkspaceTiling(0, 9, "disable")
 WorkspaceRule("exe", "TIM.exe",        0, 1)
 WorkspaceRule("exe", "WXWork.exe",     0, 1)
 WorkspaceRule("exe", "WeChat.exe",     0, 1)
-WorkspaceRule("exe", "DingTalk.exe",   0, 1)
+; WorkspaceRule("exe", "DingTalk.exe",   0, 1)
 ; Mails
 WorkspaceRule("exe", "OUTLOOK.EXE",    0, 2)
 ; File manager
