@@ -1232,8 +1232,8 @@ packer.startup(function(use)
                             ["ii"] = "@conditional.inner",
                             ["al"] = "@loop.outer",
                             ["il"] = "@loop.inner",
-                            ["ap"] = "@parameter.outer",
-                            ["ip"] = "@parameter.inner"
+                            ["aa"] = "@parameter.outer",
+                            ["ia"] = "@parameter.inner"
                         },
                     },
                     swap = {
