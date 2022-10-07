@@ -18,6 +18,7 @@
     {{- if lookPath "delta" }}
     pager = delta
     {{- end }}
+    excludesFile = ~/.gitignore
 {{- if lookPath "delta" }}
 [interactive]
     diffFilter = delta --color-only
