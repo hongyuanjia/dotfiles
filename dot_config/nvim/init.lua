@@ -644,43 +644,6 @@ packer.startup(function(use)
             local compare = require('cmp.config.compare')
             local luasnip = require("luasnip")
 
-            -- -- better support for cmp-path for Windows
-            -- -- check if on Windows
-            -- local cmp_path = require("cmp_path")
-            -- local is_windows = (vim.fn.has("windows") == 1) and (vim.fn.has("unix") == 0)
-            -- cmp_path.get_trigger_characters = function()
-            --     if is_windows then
-            --         return { "/", ".", "\\" }
-            --     else
-            --         return { "/", "." }
-            --     end
-            -- end
-            --
-            -- -- start with '.', '..', '~', '$HOME', any word character, or
-            -- -- 'C:'-like
-            -- local PATH_REGEX_ROOT = "\\%(\\.\\{0,2}\\|~\\|\\$HOME\\|\\([\\w]\\+\\)\\|[a-zA-Z]:\\|\\)"
-            -- -- follow by '/' or '\'
-            -- local PATH_REGEX_SEP = "\\(\\/\\|\\\\\\+\\)"
-            -- -- dir/file name could be Chinese, extended latin-1, any word
-            -- -- character, spaces, '.', '@', '(', ')', and '-'
-            -- local PATH_REGEX_NAME = "\\%([\\%u4E00-\\%u9FA5\\%u00A0-\\%u024F\\w .@()-]\\)"
-            -- -- local PATH_REGEX = PATH_REGEX_ROOT .. PATH_REGEX_SEP .. "\\(" .. PATH_REGEX_NAME .. "\\+" .. PATH_REGEX_SEP .. "\\)*" .. PATH_REGEX_NAME .. "*$"
-            -- local PATH_REGEX = vim.regex(
-            --     PATH_REGEX_ROOT .. PATH_REGEX_SEP ..
-            --     "\\(" .. PATH_REGEX_NAME .. "\\+" .. PATH_REGEX_SEP .. "\\)*" ..
-            --     PATH_REGEX_NAME .. "*$"
-            -- )
-            -- local get_dirname = function(str)
-            --     local s = PATH_REGEX:match_str(str)
-            --     if not s then return nil end
-            --
-            --     return string.sub(str, s[1], s[2])
-            -- end
-            --
-            -- local str = "../R/win-library/4.2/"
-            -- PATH_REGEX:match_str("../R/win-library/4.2")
-
-
             local has_words_before = function()
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
                 return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -1144,6 +1107,12 @@ packer.startup(function(use)
     use {
         "mg979/vim-visual-multi",
         keys = { "<C-n>", "<C-Up>", "<C-Down>", "\\\\", "g/" }
+    }
+    use {
+        "chentoast/marks.nvim",
+        config = function()
+            require("marks").setup()
+        end
     }
 
     -- file management
