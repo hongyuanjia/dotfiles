@@ -1128,6 +1128,21 @@ packer.startup(function(use)
         "wsdjeg/vim-fetch",
         keys = { { "n", "gF" } }
     }
+    use {
+        "ThePrimeagen/harpoon",
+        requires = "nvim-lua/plenary.nvim",
+        keys = { { "n", "<Leader>m"} },
+        config = function()
+            require("harpoon").setup({})
+
+            -- <Leader>m[ark]
+            vim.keymap.set("n", "<Leader>mf", require("harpoon.mark").add_file)
+            vim.keymap.set("n", "<Leader>mm", require("harpoon.ui").toggle_quick_menu)
+            vim.keymap.set("n", "<Leader>mn", require("harpoon.ui").nav_next)
+            vim.keymap.set("n", "<Leader>mp", require("harpoon.ui").nav_prev)
+            vim.keymap.set("n", "<Leader>mt", require("harpoon.cmd-ui").toggle_quick_menu)
+        end
+    }
 
     -- file management
     use {
