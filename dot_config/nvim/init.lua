@@ -878,23 +878,26 @@ packer.startup(function(use)
 
                 -- lua
                 ["sumneko_lua"] = function()
-                    lspconfig.sumneko_lua.setup(
-                        require("lua-dev").setup({
-                            lspconfig = {
-                                on_attach = on_attach,
-                                settings = {
-                                    Lua = {
-                                        runtime = {
-                                            version = "LuaJIT"
-                                        },
-                                        diagnostics = {
-                                            globals = { "packer_plugins" }
-                                        }
-                                    }
+                    lspconfig.sumneko_lua.setup({
+                        on_attach = on_attach,
+                        settings = {
+                            Lua = {
+                                runtime = {
+                                    version = "LuaJIT"
+                                },
+                                diagnostics = {
+                                    globals = { "vim", "packer_plugins" }
+                                },
+                                workspace = {
+                                    library = {
+                                        vim.fn.expand("$VIMRUNTIME")
+                                    },
+                                    maxPreload = 5000,
+                                    preloadFileSize = 10000
                                 }
                             }
-                        })
-                    )
+                        }
+                    })
                 end,
 
                 -- rust
