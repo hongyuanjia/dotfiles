@@ -1546,7 +1546,7 @@ packer.startup(function(use)
                     pattern = { "*.rmd", "*.Rmd" },
                     callback = function()
                         -- wrap long lines
-                        vim.opt_local.wrap = true
+                        vim.wo.wrap = true
 
                         function RToggleRmdEnv()
                             -- get current value
