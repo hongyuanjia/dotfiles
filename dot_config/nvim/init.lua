@@ -1014,6 +1014,7 @@ packer.startup(function(use)
             keymap("n", "<Leader>sm", "<cmd>lua require('telescope.builtin').marks()<CR>")
             keymap("n", "<Leader>ss", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
             keymap("n", "<Leader>sS", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
+            keymap("n", "<Leader>sP", "<cmd>lua require('telescope.builtin').resume()<CR>")
         end,
         config = function()
             local actions = require("telescope.actions")
