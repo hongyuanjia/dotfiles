@@ -280,7 +280,7 @@ vim.api.nvim_create_autocmd(
     {
         pattern = "PackerCompileDone",
         callback = function()
-            vim.notify("Packer Configuration recompleted.", 3)
+            vim.notify("Packer Configuration recompiled.", 3)
         end
     }
 )
