@@ -864,9 +864,7 @@ packer.startup(function(use)
                     "force",
                     require("lspconfig.util").default_config,
                     {
-                        capabilities = require("cmp_nvim_lsp").update_capabilities(
-                            vim.lsp.protocol.make_client_capabilities()
-                        )
+                        capabilities = require("cmp_nvim_lsp").default_capabilities()
                     }
                 )
             end
