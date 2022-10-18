@@ -1385,7 +1385,8 @@ packer.startup(function(use)
                     S = "Status",
                     B = "Branches",
                     C = "Commits",
-                    P = "Push"
+                    P = "Push",
+                    l = "Changes to loclist"
                 },
                 l = {
                     name = "List",
@@ -1421,7 +1422,13 @@ packer.startup(function(use)
                     c = "Commands",
                     g = "Live Grep",
                     p = "Projects",
-                    n = "No Search Highlight"
+                    n = "No Search Highlight",
+                    m = "Marks",
+                    P = "Resume",
+                    s = "Symbols",
+                    S = "Workspace Symbols",
+                    ["/"] = "Search History",
+                    ["*"] = "Grep String"
                 },
                 t = {
                     name = "Toggle",
@@ -1431,7 +1438,9 @@ packer.startup(function(use)
                     t = "Trouble",
                     f = "Float Terminal",
                     h = "Horizontal Terminal",
-                    v = "Vertical Terminal"
+                    v = "Vertical Terminal",
+                    l = "Linenumber",
+                    ["\\"] = "Path Slash",
                 },
                 w = {
                     name = "Windows",
