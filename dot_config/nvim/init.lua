@@ -280,7 +280,7 @@ vim.api.nvim_create_autocmd(
     {
         pattern = "PackerCompileDone",
         callback = function()
-            vim.notify("Packer Configuration recompleted.")
+            vim.notify("Packer Configuration recompleted.", 3)
         end
     }
 )
@@ -1203,7 +1203,7 @@ packer.startup(function(use)
                 },
                 highlight = { enable = true },
                 autopairs = { enable = true },
-                indent = { enable = true, disable = { "r" } },
+                indent = { enable = true },
                 incremental_selection = { enable = true },
             })
 
