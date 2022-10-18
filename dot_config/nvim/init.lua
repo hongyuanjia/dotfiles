@@ -1559,11 +1559,7 @@ packer.startup(function(use)
                             end
                             vim.g.R_rmd_environment = env
 
-                            if packer_plugins["nvim-notify"] then
-                                require("notify").notify("Rmd will be rendered in an empty environment.", "info")
-                            else
-                                print("Rmd will be rendered in an empty environment.")
-                            end
+                            print("Rmd will be rendered in an empty environment.")
                         end
 
                         vim.keymap.set("n", "<LocalLeader>re", RToggleRmdEnv, { buffer = 0 })
