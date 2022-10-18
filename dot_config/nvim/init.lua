@@ -1143,6 +1143,15 @@ packer.startup(function(use)
             vim.keymap.set("n", "<Leader>mt", require("harpoon.cmd-ui").toggle_quick_menu)
         end
     }
+    use {
+        "windwp/nvim-spectre",
+        requires = "nvim-lua/plenary.nvim",
+        -- keys = { { "n", "<Leader>s"} },
+        config = function()
+            require("spectre").setup({})
+            vim.keymap.set("n", "<Leader>s-", require("spectre").open)
+        end
+    }
 
     -- file management
     use {
