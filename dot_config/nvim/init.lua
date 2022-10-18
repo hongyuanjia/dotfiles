@@ -1522,6 +1522,10 @@ packer.startup(function(use)
                 autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
             ]]
 
+            -- nvim-lspconfig set formatexpr to use lsp formatting, which breaks
+            -- gq for comments
+            vim.opt_local.formatexpr = nil
+
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "BufWinEnter" },
                 {
