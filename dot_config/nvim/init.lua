@@ -93,19 +93,7 @@ vim.cmd([[
     autocmd TextYankPost * lua vim.highlight.on_yank {}
 ]])
 
--- Key maps
--- shorten function name
-function _G.keymap(mode, lhs, rhs, opts)
-    opts = vim.tbl_extend("force", {noremap = true, silent = true}, opts or {})
-    vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
-end
-
-function _G.bufkeymap(mode, lhs, rhs, opts, bufnr)
-    opts = vim.tbl_extend("force", {noremap = true, silent = true}, opts or {})
-    bufnr = bufnr or 0
-    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-end
-
+-- short name for printing
 function _G.P(...)
     vim.pretty_print(...)
 end
@@ -113,65 +101,65 @@ end
 -- remap space as the leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
-keymap("", "<Space>", "<Nop>")
+vim.keymap.set("", "<Space>", "<Nop>")
 
 -- use jk to go back to normal mode in insert mode
-keymap("i", "jk", "<Esc>")
+vim.keymap.set("i", "jk", "<Esc>")
 
 -- remap j and k to move across display lines and not real lines
-keymap("n", "k", "gk")
-keymap("n", "gk", "k")
-keymap("n", "j", "gj")
-keymap("n", "gj", "j")
+vim.keymap.set("n", "k", "gk")
+vim.keymap.set("n", "gk", "k")
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "gj", "j")
 
 -- use <C-[UDLR]> for window resizing
-keymap("n", "<C-j>", "<cmd>resize -2<CR>")
-keymap("n", "<C-k>", "<cmd>resize +2<CR>")
-keymap("n", "<C-l>", "<cmd>vertical resize -2<CR>")
-keymap("n", "<C-h>", "<cmd>vertical resize +2<CR>")
+vim.keymap.set("n", "<C-j>", "<cmd>resize -2<CR>")
+vim.keymap.set("n", "<C-k>", "<cmd>resize +2<CR>")
+vim.keymap.set("n", "<C-l>", "<cmd>vertical resize -2<CR>")
+vim.keymap.set("n", "<C-h>", "<cmd>vertical resize +2<CR>")
 
 -- move text up and down
-keymap("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi<Esc>")
-keymap("n", "<A-k>", "<Esc><cmd>m .-2<CR>==gi<Esc>")
+vim.keymap.set("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi<Esc>")
+vim.keymap.set("n", "<A-k>", "<Esc><cmd>m .-2<CR>==gi<Esc>")
 
 -- stay in indent mode
-keymap("v", "<", "<gv")
-keymap("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
 
 -- move text up and down
-keymap("v", "<A-j>", "<cmd>m .+1<CR>==")
-keymap("v", "<A-k>", "<cmd>m .-2<CR>==")
+vim.keymap.set("v", "<A-j>", "<cmd>m .+1<CR>==")
+vim.keymap.set("v", "<A-k>", "<cmd>m .-2<CR>==")
 
 -- jump to beginning or end using H and L
-keymap("n", "H", "^")
-keymap("n", "L", "$")
-keymap("v", "H", "^")
-keymap("v", "L", "$")
+vim.keymap.set("n", "H", "^")
+vim.keymap.set("n", "L", "$")
+vim.keymap.set("v", "H", "^")
+vim.keymap.set("v", "L", "$")
 
 -- use Y to yank to the end of line
-keymap("n", "Y", "y$")
-keymap("v", "Y", "'+y")
+vim.keymap.set("n", "Y", "y$")
+vim.keymap.set("v", "Y", "'+y")
 
 -- buffer & tab navigation
-keymap("n", "]b", "<cmd>bnext<CR>")
-keymap("n", "[b", "<cmd>bprev<CR>")
-keymap("n", "]t", "<cmd>tabnext<CR>")
-keymap("n", "[t", "<cmd>tabprev<CR>")
+vim.keymap.set("n", "]b", "<cmd>bnext<CR>")
+vim.keymap.set("n", "[b", "<cmd>bprev<CR>")
+vim.keymap.set("n", "]t", "<cmd>tabnext<CR>")
+vim.keymap.set("n", "[t", "<cmd>tabprev<CR>")
 
 -- <Leader>b[uffer]
-keymap("n", "<Leader>bd", "<cmd>bdelete<CR>")
-keymap("n", "<Leader>bn", "<cmd>bnext<CR>")
-keymap("n", "<Leader>bp", "<cmd>bprev<CR>")
-keymap("n", "<Leader>bN", "<cmd>enew <BAR> startinsert <CR>")
+vim.keymap.set("n", "<Leader>bd", "<cmd>bdelete<CR>")
+vim.keymap.set("n", "<Leader>bn", "<cmd>bnext<CR>")
+vim.keymap.set("n", "<Leader>bp", "<cmd>bprev<CR>")
+vim.keymap.set("n", "<Leader>bN", "<cmd>enew <BAR> startinsert <CR>")
 
 -- <Leader>f[ile]
-keymap("n", "<Leader>fs", "<cmd>update<CR>")
-keymap("n", "<Leader>fR", "<cmd>source $MYVIMRC<CR>")
-keymap("n", "<Leader>fv", "<cmd>e $MYVIMRC<CR>")
+vim.keymap.set("n", "<Leader>fs", "<cmd>update<CR>")
+vim.keymap.set("n", "<Leader>fR", "<cmd>source $MYVIMRC<CR>")
+vim.keymap.set("n", "<Leader>fv", "<cmd>e $MYVIMRC<CR>")
 
 -- <Leader>o[pen]
-keymap("n", "<Leader>oq", "<cmd>qopen<CR>")
-keymap("n", "<Leader>ol", "<cmd>lopen<CR>")
+vim.keymap.set("n", "<Leader>oq", "<cmd>qopen<CR>")
+vim.keymap.set("n", "<Leader>ol", "<cmd>lopen<CR>")
 
 -- <Leader>t[oggle]
 function _G.toggle_colorcolumn()
@@ -199,42 +187,42 @@ function _G.toggle_slash()
     line = string.gsub(line, first, oppsite)
     vim.api.nvim_set_current_line(line)
 end
-keymap("n", "<Leader>tc", "<cmd>lua toggle_colorcolumn()<CR>")
-keymap("n", "<Leader>tl", "<cmd>lua toggle_linenumber()<CR>")
-keymap("n", "<Leader>t\\", "<cmd>lua toggle_slash()<CR>")
+vim.keymap.set("n", "<Leader>tc", toggle_colorcolumn)
+vim.keymap.set("n", "<Leader>tl", toggle_linenumber)
+vim.keymap.set("n", "<Leader>t\\", toggle_slash)
 
 -- <Leader>q[uit]
-keymap("n", "<Leader>q", "<cmd>q<CR>")
-keymap("n", "<Leader>Q", "<cmd>qa!<CR>")
+vim.keymap.set("n", "<Leader>q", "<cmd>q<CR>")
+vim.keymap.set("n", "<Leader>Q", "<cmd>qa!<CR>")
 
 -- <Leader>s[earch]
-keymap("n", "<Leader>sn", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Leader>sn", "<cmd>nohlsearch<CR>")
 
 -- <Leader>w[indow]
-keymap("n", "<Leader>ww", "<C-w>w")
-keymap("n", "<Leader>wc", "<C-w>c")
-keymap("n", "<Leader>w-", "<C-w>s")
-keymap("n", "<Leader>w|", "<C-w>v")
-keymap("n", "<Leader>wh", "<C-w>h")
-keymap("n", "<Leader>wj", "<C-w>j")
-keymap("n", "<Leader>wl", "<C-w>l")
-keymap("n", "<Leader>wk", "<C-w>k")
-keymap("n", "<Leader>wH", "<C-w>5<")
-keymap("n", "<Leader>wL", "<C-w>5>")
-keymap("n", "<Leader>wJ", "<cmd>resize +5<CR>")
-keymap("n", "<Leader>wK", "<cmd>resize -5<CR>")
-keymap("n", "<Leader>w=", "<C-w>=")
-keymap("n", "<Leader>wv", "<C-w>v")
-keymap("n", "<Leader>ws", "<C-w>s")
-keymap("n", "<Leader>wo", "<cmd>only<CR>")
-keymap("n", "<Leader>wp", "<C-w><C-p>")
+vim.keymap.set("n", "<Leader>ww", "<C-w>w")
+vim.keymap.set("n", "<Leader>wc", "<C-w>c")
+vim.keymap.set("n", "<Leader>w-", "<C-w>s")
+vim.keymap.set("n", "<Leader>w|", "<C-w>v")
+vim.keymap.set("n", "<Leader>wh", "<C-w>h")
+vim.keymap.set("n", "<Leader>wj", "<C-w>j")
+vim.keymap.set("n", "<Leader>wl", "<C-w>l")
+vim.keymap.set("n", "<Leader>wk", "<C-w>k")
+vim.keymap.set("n", "<Leader>wH", "<C-w>5<")
+vim.keymap.set("n", "<Leader>wL", "<C-w>5>")
+vim.keymap.set("n", "<Leader>wJ", "<cmd>resize +5<CR>")
+vim.keymap.set("n", "<Leader>wK", "<cmd>resize -5<CR>")
+vim.keymap.set("n", "<Leader>w=", "<C-w>=")
+vim.keymap.set("n", "<Leader>wv", "<C-w>v")
+vim.keymap.set("n", "<Leader>ws", "<C-w>s")
+vim.keymap.set("n", "<Leader>wo", "<cmd>only<CR>")
+vim.keymap.set("n", "<Leader>wp", "<C-w><C-p>")
 
-keymap("t", "<Esc>", [[<C-\><C-n>]])
-keymap("t", "jk",    [[<C-\><C-n>]])
-keymap("t", "<C-h>", [[<C-\><C-n><C-W>h]])
-keymap("t", "<C-j>", [[<C-\><C-n><C-W>j]])
-keymap("t", "<C-k>", [[<C-\><C-n><C-W>k]])
-keymap("t", "<C-l>", [[<C-\><C-n><C-W>l]])
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+vim.keymap.set("t", "jk",    [[<C-\><C-n>]])
+vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-W>h]])
+vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-W>j]])
+vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-W>k]])
+vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-W>l]])
 
 -- File type specific settings
 vim.api.nvim_create_autocmd(
@@ -303,11 +291,11 @@ packer.startup(function(use)
         "wbthomason/packer.nvim",
         config = function()
             -- <Leader>P[acker]
-            keymap("n", "<Leader>Pc", "<cmd>PackerCompile<CR>")
-            keymap("n", "<Leader>Pi", "<cmd>PackerInstall<CR>")
-            keymap("n", "<Leader>Ps", "<cmd>PackerSync<CR>")
-            keymap("n", "<Leader>Pl", "<cmd>PackerStatus<CR>")
-            keymap("n", "<Leader>Pu", "<cmd>PackerUpdate<CR>")
+            vim.keymap.set("n", "<Leader>Pc", "<cmd>PackerCompile<CR>")
+            vim.keymap.set("n", "<Leader>Pi", "<cmd>PackerInstall<CR>")
+            vim.keymap.set("n", "<Leader>Ps", "<cmd>PackerSync<CR>")
+            vim.keymap.set("n", "<Leader>Pl", "<cmd>PackerStatus<CR>")
+            vim.keymap.set("n", "<Leader>Pu", "<cmd>PackerUpdate<CR>")
         end
     }
     use { "nvim-lua/popup.nvim", module = "popup" }
@@ -432,9 +420,7 @@ packer.startup(function(use)
     use {
         "moll/vim-bbye",
         cmd = "Bdelete",
-        setup = function()
-            keymap("n", "<Leader>bd", "<cmd>Bdelete<CR>")
-        end,
+        keys = { { "n", "<Leader>b"} },
         config = function()
             if packer_plugins["bufferline.nvim"] then
                 require("bufferline").setup({
@@ -444,6 +430,8 @@ packer.startup(function(use)
                     }
                 })
             end
+
+            vim.keymap.set("n", "<Leader>bd", "<cmd>Bdelete<CR>")
         end
     }
     use {
@@ -472,7 +460,6 @@ packer.startup(function(use)
     }
     use {
         "goolord/alpha-nvim",
-        requires = "nvim-telescope/telescope.nvim",
         config = function()
             local alpha = require("alpha")
             local dashboard = require("alpha.themes.dashboard")
@@ -490,7 +477,7 @@ packer.startup(function(use)
             alpha.setup(dashboard.config)
 
             -- <Leader>b[uffer]
-            keymap("n", "<Leader>ba", "<cmd>Alpha<CR>")
+            vim.keymap.set("n", "<Leader>ba", "<cmd>Alpha<CR>")
         end
     }
     use {
@@ -537,74 +524,66 @@ packer.startup(function(use)
             end
 
             -- <Leader>t[erminal]
-            keymap("n", "<Leader>tf", "<cmd>lua toggle_terminal('" .. shell .. "', float')<CR>")
-            keymap("n", "<Leader>th", "<cmd>lua toggle_terminal('" .. shell .. "', 'horizontal')<CR>")
-            keymap("n", "<Leader>tv", "<cmd>lua toggle_terminal('" .. shell .. "', 'vertical')<CR>")
+            vim.keymap.set("n", "<Leader>tf", function() toggle_terminal(shell, "float") end)
+            vim.keymap.set("n", "<Leader>th", function() toggle_terminal(shell, "horizontal") end)
+            vim.keymap.set("n", "<Leader>tv", function() toggle_terminal(shell, "vertical") end)
 
             if vim.fn.executable("lazygit") == 1 then
-                keymap("n", "<Leader>g=", "<cmd>lua toggle_terminal('lazygit', 'float')<CR>")
+                vim.keymap.set("n", "<Leader>g=", function() toggle_terminal("lazygit", "float") end)
             end
         end
     }
     use {
         "simrat39/symbols-outline.nvim",
         cmd = "SymbolsOutline",
-        setup = function()
-            vim.g.symbols_outline = {
-                auto_preview = false
-            }
+        keys = { { "n", "<Leader>l"} },
+        config = function()
+            require("symbols-outline").setup({})
 
             -- <Leader>l[ist]
-            keymap("n", "<Leader>lo", "<cmd>SymbolsOutline<CR>")
+            vim.keymap.set("n", "<Leader>lo", "<cmd>SymbolsOutline<CR>")
         end
     }
     use {
         "t9md/vim-choosewin",
         cmd = { "ChooseWin", "ChooseWinSwap", "ChooseWinSwapStay" },
-        setup = function()
+        keys = {
+            { "n", "-" }
+        },
+        config = function()
             -- use - to choose window
-            keymap("n", "-", "<cmd>ChooseWin<CR>")
+            vim.keymap.set("n", "-", "<Plug>(choosewin)")
         end
     }
     use {
         "sindrets/winshift.nvim",
         cmd = { "WinShift" },
-        setup = function()
-            -- use <Leader>wS to change window position
-            keymap("n", "<Leader>wS", "<cmd>WinShift<cr>")
-        end,
+        keys = { { "n", "<Leader>w" } },
         config = function()
             require("winshift").setup({ focused_hl_groups = "Search" })
+
+            -- use <Leader>wS to change window position
+            vim.keymap.set("n", "<Leader>wS", "<cmd>WinShift<cr>")
         end
     }
     use {
         "dstein64/nvim-scrollview",
         event = "BufRead"
     }
-    use {
-        "rcarriga/nvim-notify",
-        event = "VimEnter",
-        config = function()
-            vim.notify = require("notify")
-            require("telescope").load_extension("notify")
-        end
-    }
 
     -- session management
     use {
         "olimorris/persisted.nvim",
-        setup = function()
-            -- <Leader>l[ist]
-            keymap("n", "<Leader>ls", "<cmd>lua require('telescope').extensions.persisted.persisted()<CR>")
-
-            -- <Leader>S[ession]
-            keymap("n", "<Leader>Sl", "<cmd>SessionLoad<CR>")
-            keymap("n", "<Leader>SL", "<cmd>SessionLoadLast<CR>")
-            keymap("n", "<Leader>Ss", "<cmd>SessionSave<CR>")
-        end,
+        cmd = { "SessionLoad", "SessionLoadLast", "SessionSave" },
+        keys = { { "n", "<Leader>S"} },
         config = function()
             require("persisted").setup({})
             require("telescope").load_extension("persisted")
+
+            -- <Leader>S[ession]
+            vim.keymap.set("n", "<Leader>Sl", "<cmd>SessionLoad<CR>")
+            vim.keymap.set("n", "<Leader>SL", "<cmd>SessionLoadLast<CR>")
+            vim.keymap.set("n", "<Leader>Ss", "<cmd>SessionSave<CR>")
         end,
     }
 
@@ -612,6 +591,7 @@ packer.startup(function(use)
     use {
         "ahmedkhalf/project.nvim",
         event = "VimEnter",
+        after = "telescope.nvim",
         config = function()
             require("project_nvim").setup({
                 detection_methods = {"pattern", "lsp"},
@@ -619,7 +599,7 @@ packer.startup(function(use)
             })
 
             require('telescope').load_extension("projects")
-            keymap("n", "<Leader>sp", "<cmd>lua require('telescope').extensions.projects.projects()<CR>")
+            vim.keymap.set("n", "<Leader>sp", require("telescope").extensions.projects.projects)
         end
     }
 
@@ -788,11 +768,13 @@ packer.startup(function(use)
         "williamboman/mason-lspconfig.nvim",
         after = "mason.nvim",
         requires = {
-            "folke/lua-dev.nvim",
+            "folke/neodev.nvim",
             "simrat39/rust-tools.nvim",
             "jose-elias-alvarez/null-ls.nvim"
         },
         config = function()
+            require("neodev").setup({})
+
             require("mason-lspconfig").setup({
                 ensure_installed = { "sumneko_lua" }
             })
@@ -851,32 +833,27 @@ packer.startup(function(use)
             )
 
             local on_attach = function(client, bufnr)
-                local function bufkeymap(mode, lhs, rhs, opts)
-                    opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
-                    vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-                end
-
-                bufkeymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-                bufkeymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-                bufkeymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-                bufkeymap("n", "gh", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-                bufkeymap("n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>")
-                bufkeymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-                bufkeymap("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-                bufkeymap("n", "gl", "<cmd>lua vim.diagnostic.open_float(0, {scope = 'line'})<CR>")
-                bufkeymap("n", "K",  "<cmd>lua vim.lsp.buf.hover()<CR>")
-                bufkeymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ border = 'rounded' })<CR>")
-                bufkeymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next({ border = 'rounded' })<CR>")
+                vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr })
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
+                vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr })
+                vim.keymap.set("n", "gh", vim.lsp.buf.signature_help, { buffer = bufnr })
+                vim.keymap.set("n", "gR", vim.lsp.buf.rename, { buffer = bufnr })
+                vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr })
+                vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { buffer = bufnr })
+                vim.keymap.set("n", "gl", function() vim.diagnostic.open_float(nil, { scope = "line" }) end, { buffer = bufnr })
+                vim.keymap.set("n", "K",  vim.lsp.buf.hover, { buffer = bufnr })
+                vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr })
+                vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr })
 
                 -- <Leader>l[sp]
-                bufkeymap("n", "<Leader>li", "<cmd>LspInfo<CR>")
-                bufkeymap("n", "<Leader>lI", "<cmd>LspInstallInfo<CR>")
-                bufkeymap("n", "<Leader>lj", "<cmd>lua vim.diagnostic.goto_next({ border = 'rounded' })<CR>")
-                bufkeymap("n", "<Leader>lk", "<cmd>lua vim.diagnostic.goto_prev({ border = 'rounded' })<CR>")
-                bufkeymap("n", "<Leader>ll", "<cmd>lua vim.lsp.codelens.run()<CR>")
-                bufkeymap("n", "<Leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-                bufkeymap("n", "<Leader>lF", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-                bufkeymap("n", "<Leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>")
+                vim.keymap.set("n", "<Leader>li", "<cmd>LspInfo<CR>", { buffer = bufnr })
+                vim.keymap.set("n", "<Leader>lI", "<cmd>LspInstallInfo<CR>", { buffer = bufnr })
+                vim.keymap.set("n", "<Leader>lj", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr })
+                vim.keymap.set("n", "<Leader>lk", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr })
+                vim.keymap.set("n", "<Leader>ll", vim.lsp.codelens.run, { buffer = bufnr })
+                vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, { buffer = bufnr })
+                vim.keymap.set("n", "<Leader>lF", vim.lsp.buf.formatting, { buffer = bufnr })
+                vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, { buffer = bufnr })
 
                 vim.cmd[[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
             end
@@ -943,93 +920,111 @@ packer.startup(function(use)
         "folke/trouble.nvim",
         event = "BufReadPre",
         cmd = { "TroubleToggle", "Trouble" },
+        keys = {
+            { "n", "<Leader>t" },
+            { "n", "<Leader>l" },
+            { "n", "<Leader>o" },
+            { "n", "gr" },
+        },
         config = function()
-            require("trouble").setup({
-                use_diagnostic_signs = true
-            })
+            require("trouble").setup({ use_diagnostic_signs = true })
 
             -- <Leader>t[oggle]
-            keymap("n", "<Leader>tt", "<cmd>TroubleToggle<CR>")
+            vim.keymap.set("n", "<Leader>tt", "<cmd>TroubleToggle<CR>")
+            vim.keymap.set("n", "<Leader>tt", "<cmd>TroubleToggle<CR>")
 
             -- use trouble to replace gr
-            keymap("n", "gr", "<cmd>TroubleToggle lsp_references<CR>")
+            vim.keymap.set("n", "gr", "<cmd>TroubleToggle lsp_references<CR>")
 
             -- <Leader>l[ist]
-            keymap("n", "<Leader>ld", "<cmd>TroubleToggle document_diagnostics<CR>")
-            keymap("n", "<Leader>lw", "<cmd>TroubleToggle workspace_diagnostics<CR>")
+            vim.keymap.set("n", "<Leader>ld", "<cmd>TroubleToggle document_diagnostics<CR>")
+            vim.keymap.set("n", "<Leader>lw", "<cmd>TroubleToggle workspace_diagnostics<CR>")
 
             -- <Leader>o[pen]
-            keymap("n", "<Leader>oq", "<cmd>TroubleToggle quickfix<CR>")
-            keymap("n", "<Leader>ol", "<cmd>TroubleToggle loclist<CR>")
-
-            local trouble = require("trouble.providers.telescope")
-            require("telescope").setup({
-                defaults = {
-                    mappings = {
-                        i = { ["<C-t>"] = trouble.open_with_trouble },
-                        n = { ["<C-t>"] = trouble.open_with_trouble }
-                    }
-                }
-            })
+            vim.keymap.set("n", "<Leader>oq", "<cmd>TroubleToggle quickfix<CR>")
+            vim.keymap.set("n", "<Leader>ol", "<cmd>TroubleToggle loclist<CR>")
         end
     }
 
     -- Telescope
     use {
         "nvim-telescope/telescope.nvim",
+        requires = {
+            "nvim-lua/plenary.nvim"
+        },
         cmd = "Telescope",
         module = "telescope",
-        setup = function()
-            -- <Leader>b[uffer]
-            keymap("n", "<Leader>bb", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<CR>")
-
-            -- <Leader>f[ile]
-            keymap("n", "<Leader>ff", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false, hidden = true})<CR>")
-            keymap("n", "<Leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<CR>")
-
-            -- <Leader>g[it]
-            keymap("n", "<Leader>gS", "<cmd>lua require('telescope.builtin').git_status()<CR>")
-            keymap("n", "<Leader>gB", "<cmd>lua require('telescope.builtin').git_branches()<CR>")
-            keymap("n", "<Leader>gC", "<cmd>lua require('telescope.builtin').git_commits()<CR>")
-
-            -- <Leader>l[ist]
-            keymap("n", "<Leader>ld", "<cmd>lua require('telescope.builtin').diagnostics({bufnr=0})<CR>")
-            keymap("n", "<Leader>lw", "<cmd>lua require('telescope.builtin').diagnostics()<CR>")
-
-            -- <Leader>s[earch]
-            keymap("n", "<Leader>sl", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>")
-            keymap("n", "<Leader>sf", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<CR>")
-            keymap("n", "<Leader>sb", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<CR>")
-            keymap("n", "<Leader>sB", "<cmd>lua require('telescope.builtin').git_branches()<CR>")
-            keymap("n", "<Leader>sC", "<cmd>lua require('telescope.builtin').colorscheme({enable_preview=true})<CR>")
-            keymap("n", "<Leader>sh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
-            keymap("n", "<Leader>sM", "<cmd>lua require('telescope.builtin').man_pages()<CR>")
-            keymap("n", "<Leader>sr", "<cmd>lua require('telescope.builtin').oldfiles()<CR>")
-            keymap("n", "<Leader>sR", "<cmd>lua require('telescope.builtin').registers()<CR>")
-            keymap("n", "<Leader>sk", "<cmd>lua require('telescope.builtin').keymaps()<CR>")
-            keymap("n", "<Leader>sc", "<cmd>lua require('telescope.builtin').commands()<CR>")
-            keymap("n", "<Leader>sg", "<cmd>lua require('telescope.builtin').live_grep({theme=ivy})<CR>")
-            keymap("n", "<Leader>s*", "<cmd>lua require('telescope.builtin').grep_string()<CR>")
-            keymap("n", "<Leader>s/", "<cmd>lua require('telescope.builtin').search_history()<CR>")
-            keymap("n", "<Leader>sm", "<cmd>lua require('telescope.builtin').marks()<CR>")
-            keymap("n", "<Leader>ss", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
-            keymap("n", "<Leader>sS", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
-            keymap("n", "<Leader>sP", "<cmd>lua require('telescope.builtin').resume()<CR>")
-        end,
+        keys = {
+            { "n", "<Leader>b" },
+            { "n", "<Leader>f" },
+            { "n", "<Leader>g" },
+            { "n", "<Leader>l" },
+            { "n", "<Leader>s" }
+        },
         config = function()
-            local actions = require("telescope.actions")
-            require("telescope").setup({
-                defaults = {
-                    mappings = {
+            -- use <Ctrl-l> to send selected to quickfix list
+            local mappings = {
+                i = {
+                    ["<C-l>"] = "send_selected_to_qflist",
+                },
+                n = {
+                    ["<C-l>"] = "send_selected_to_qflist"
+                }
+            }
+
+            -- use <Ctrl-o> to open all items with trouble
+            if packer_plugins["trouble.nvim"] and packer_plugins["trouble.nvim"].loaded then
+                local trouble = require("trouble.providers.telescope")
+
+                vim.tbl_extend("force", mappings,
+                    {
                         i = {
-                            ["<C-l>"] = actions.send_selected_to_qflist + actions.open_qflist
+                            ["<C-o>"] = trouble.open_with_trouble
                         },
                         n = {
-                            ["<C-l>"] = actions.send_selected_to_qflist + actions.open_qflist
+                            ["<C-o>"] = trouble.open_with_trouble
                         }
                     }
-                }
-            })
+                )
+            end
+
+            require("telescope").setup({ defaults = { mappings = mappings } })
+
+            -- <Leader>b[uffer]
+            vim.keymap.set("n", "<Leader>bb", require("telescope.builtin").buffers)
+
+            -- <Leader>f[ile]
+            vim.keymap.set("n", "<Leader>ff", require("telescope.builtin").find_files)
+            vim.keymap.set("n", "<Leader>fr", require("telescope.builtin").oldfiles)
+
+            -- <Leader>g[it]
+            vim.keymap.set("n", "<Leader>gS", require("telescope.builtin").git_status)
+            vim.keymap.set("n", "<Leader>gB", require("telescope.builtin").git_branches)
+            vim.keymap.set("n", "<Leader>gC", require("telescope.builtin").git_commits)
+
+            -- <Leader>l[ist]
+            vim.keymap.set("n", "<Leader>ld", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end)
+            vim.keymap.set("n", "<Leader>lw", require("telescope.builtin").diagnostics)
+
+            -- <Leader>s[earch]
+            vim.keymap.set("n", "<Leader>sl", require("telescope.builtin").current_buffer_fuzzy_find)
+            vim.keymap.set("n", "<Leader>sf", function() require("telescope.builtin").find_files(require("telescope.themes").get_dropdown{ previewer = false }) end)
+            vim.keymap.set("n", "<Leader>sb", function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{ previewer = false }) end)
+            vim.keymap.set("n", "<Leader>sB", require("telescope.builtin").git_branches)
+            vim.keymap.set("n", "<Leader>sC", function() require("telescope.builtin").colorscheme({ enable_preview = true }) end)
+            vim.keymap.set("n", "<Leader>sh", require("telescope.builtin").help_tags)
+            vim.keymap.set("n", "<Leader>sM", require("telescope.builtin").man_pages)
+            vim.keymap.set("n", "<Leader>sr", require("telescope.builtin").oldfiles)
+            vim.keymap.set("n", "<Leader>sR", require("telescope.builtin").registers)
+            vim.keymap.set("n", "<Leader>sk", require("telescope.builtin").keymaps)
+            vim.keymap.set("n", "<Leader>sc", require("telescope.builtin").commands)
+            vim.keymap.set("n", "<Leader>sg", require("telescope.builtin").live_grep)
+            vim.keymap.set("n", "<Leader>s*", require("telescope.builtin").grep_string)
+            vim.keymap.set("n", "<Leader>s/", require("telescope.builtin").search_history)
+            vim.keymap.set("n", "<Leader>sm", require("telescope.builtin").marks)
+            vim.keymap.set("n", "<Leader>ss", require("telescope.builtin").lsp_document_symbols)
+            vim.keymap.set("n", "<Leader>sS", require("telescope.builtin").lsp_workspace_symbols)
+            vim.keymap.set("n", "<Leader>sP", require("telescope.builtin").resume)
         end
     }
     use {
@@ -1066,7 +1061,10 @@ packer.startup(function(use)
     }
     use {
         "terrortylor/nvim-comment",
-        keys = { "gcc", "gc" },
+        keys = {
+            { "n", "gcc" },
+            { "n", "gc" }
+        },
         config = function()
             require('nvim_comment').setup({})
         end
@@ -1099,15 +1097,25 @@ packer.startup(function(use)
             "ToggleWhitespace",
             "ToggleStripWhitespaceOnSave"
         },
-        setup = function()
+        keys = { { "n", "<Leader>t"} },
+        config = function()
             -- <Leader>t[oggle]
-            keymap("n", "<Leader>tS", "<cmd>ToggleWhitespace<CR>")
-            keymap("n", "<Leader>tX", "<cmd>ToggleStripWhitespaceOnSave<CR>")
+            vim.keymap.set("n", "<Leader>tS", "<cmd>ToggleWhitespace<CR>")
+            vim.keymap.set("n", "<Leader>tX", "<cmd>ToggleStripWhitespaceOnSave<CR>")
         end
     }
     use {
         "mg979/vim-visual-multi",
-        keys = { "<C-n>", "<C-Up>", "<C-Down>", "\\\\", "g/" }
+        keys = {
+            {"n", "<C-n>"},
+            {"n", "<C-Up>"},
+            {"n", "<C-Down>"},
+            {"n", "g/"},
+            {"x", "<C-n>"},
+            {"x", "<C-Up>"},
+            {"x", "<C-Down>"},
+            {"x", "g/"}
+        }
     }
     use {
         "chentoast/marks.nvim",
@@ -1120,14 +1128,10 @@ packer.startup(function(use)
     use {
         "kyazdani42/nvim-tree.lua",
         cmd = { "NvimTree", "NvimTreeToggle", "NvimTreeFindFileToggle" },
-        setup = function()
-            -- <Leader>f[iles]
-            keymap("n", "<Leader>fe", "<cmd>NvimTreeToggle<CR>")
-            keymap("n", "<Leader>fl", "<cmd>NvimTreeFindFileToggle<CR>")
-
-            -- <Leader>t[oggle]
-            keymap("n", "<Leader>te", "<cmd>NvimTreeToggle<CR>")
-        end,
+        keys = {
+            { "n", "<Leader>t" },
+            { "n", "<Leader>f" }
+        },
         config = function()
             require("nvim-tree").setup({
                 hijack_netrw = true,
@@ -1154,6 +1158,13 @@ packer.startup(function(use)
                     }
                 }
             })
+
+            -- <Leader>f[iles]
+            vim.keymap.set("n", "<Leader>fe", "<cmd>NvimTreeToggle<CR>")
+            vim.keymap.set("n", "<Leader>fl", "<cmd>NvimTreeFindFileToggle<CR>")
+
+            -- <Leader>t[oggle]
+            vim.keymap.set("n", "<Leader>te", "<cmd>NvimTreeToggle<CR>")
         end
     }
 
@@ -1268,38 +1279,40 @@ packer.startup(function(use)
         require = { "nvim-lua/plenary.nvim" },
         config = function()
             require("gitsigns").setup()
+
             -- ][c to navigate hunks
-            keymap("n", "]c", "&diff ? ']c' : '<cmd>lua require(\"gitsigns\").next_hunk({preview=true})<CR>'", { expr = true })
-            keymap("n", "[c", "&diff ? '[c' : '<cmd>lua require(\"gitsigns\").prev_hunk({preview=true})<CR>'", { expr = true })
+            vim.keymap.set("n", "]c", "&diff ? ']c' : '<cmd>lua require(\"gitsigns\").next_hunk({preview=true})<CR>'", { expr = true })
+            vim.keymap.set("n", "[c", "&diff ? '[c' : '<cmd>lua require(\"gitsigns\").prev_hunk({preview=true})<CR>'", { expr = true })
 
             -- <Leader>g[it]
-            keymap("n", "<Leader>gj", "<cmd>lua require('gitsigns').next_hunk({preview = true})<CR>")
-            keymap("n", "<Leader>gk", "<cmd>lua require('gitsigns').prev_hunk({preview = true})<CR>")
-            keymap("n", "<Leader>gs", "<cmd>Gitsigns stage_hunk<CR>")
-            keymap("v", "<Leader>gs", "<cmd>lua require('gitsigns').stage_hunk({vim.fn.line('.'), vim.fn.line('v')})<CR>")
-            keymap("n", "<Leader>gr", "<cmd>Gitsigns reset_hunk<CR>")
-            keymap("v", "<Leader>gr", "<cmd>lua require('gitsigns').reset_hunk({vim.fn.line('.'), vim.fn.line('v')})<CR>")
-            keymap("n", "<Leader>gl", "<cmd>Gitsigns setloclist<CR>")
-            keymap("n", "<Leader>gp", "<cmd>Gitsigns preview_hunk<CR>")
-            keymap("n", "<Leader>gu", "<cmd>Gitsigns undo_stage_hunk<CR>")
-            keymap("n", "<Leader>gR", "<cmd>Gitsigns reset_buffer<CR>")
-            keymap("n", "<Leader>gb", "<cmd>lua require('gitsigns').blame_line({full=true})<CR>")
+            vim.keymap.set("n", "<Leader>gj", function() require("gitsigns").next_hunk({ preview = true }) end)
+            vim.keymap.set("n", "<Leader>gk", function() require("gitsigns").prev_hunk({ preview = true }) end)
+            vim.keymap.set("n", "<Leader>gs", require("gitsigns").stage_hunk)
+            vim.keymap.set("v", "<Leader>gs", function() require("gitsigns").stage_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
+            vim.keymap.set("n", "<Leader>gr", require("gitsigns").reset_hunk)
+            vim.keymap.set("v", "<Leader>gr", function() require("gitsigns").reset_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
+            vim.keymap.set("n", "<Leader>gl", require("gitsigns").setloclist)
+            vim.keymap.set("n", "<Leader>gp", require("gitsigns").preview_hunk)
+            vim.keymap.set("n", "<Leader>gu", require("gitsigns").undo_stage_hunk)
+            vim.keymap.set("n", "<Leader>gR", require("gitsigns").reset_buffer)
+            vim.keymap.set("n", "<Leader>gb", function() require("gitsigns").blame_line({ full = true }) end)
 
             -- ih for text object
-            keymap("o", "ih", "<cmd>Gitsigns select_hunk<CR>")
-            keymap("x", "ih", "<cmd>Gitsigns select_hunk<CR>")
+            vim.keymap.set("o", "ih", require("gitsigns").select_hunk)
+            vim.keymap.set("x", "ih", require("gitsigns").select_hunk)
         end
     }
     use {
         "tpope/vim-fugitive",
         requires = "tpope/vim-rhubarb",
         cmd = { "Git", "Gdiffsplit", "Gwrite" },
-        setup = function()
-            keymap("n", "<Leader>gg", "<cmd>Git<CR>")
-            keymap("n", "<Leader>gc", "<cmd>Git commit<CR>")
-            keymap("n", "<Leader>gd", "<cmd>Gdiffsplit<CR>")
-            keymap("n", "<Leader>gw", "<cmd>Gwrite<CR>")
-            keymap("n", "<Leader>gP", "<cmd>Git push<CR>")
+        keys = { { "n", "<Leader>g"} },
+        config = function()
+            vim.keymap.set("n", "<Leader>gg", "<cmd>Git<CR>")
+            vim.keymap.set("n", "<Leader>gc", "<cmd>Git commit<CR>")
+            vim.keymap.set("n", "<Leader>gd", "<cmd>Gdiffsplit<CR>")
+            vim.keymap.set("n", "<Leader>gw", "<cmd>Gwrite<CR>")
+            vim.keymap.set("n", "<Leader>gP", "<cmd>Git push<CR>")
         end
     }
 
@@ -1483,30 +1496,13 @@ packer.startup(function(use)
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "BufWinEnter" },
                 {
-                    pattern = {"*.r", "*.R"},
+                    pattern = { "*.r", "*.R", "*.rmd", "*.Rmd", "*.qmd" },
                     callback = function()
-                        vim.wo.colorcolumn = "80"
-
                         -- set roxygen comment string
                         vim.opt_local.comments:append("b:#'")
 
                         -- insert current comment leader
                         vim.opt_local.formatoptions:append("r")
-
-                        -- assign, pipe and data.table assign
-                        bufkeymap("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>")
-                        bufkeymap("i", "<M-->", "<C-v><Space>:=<C-v><Space>")
-
-                        -- {targets}
-                        bufkeymap("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>")
-                        bufkeymap("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>")
-                        bufkeymap("n", "<LocalLeader>tf", "<cmd>RSend targets::tar_make_future(workers = parallelly::availableCores() - 1L)<CR>")
-
-                        -- debug
-                        bufkeymap("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>")
-                        bufkeymap("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>")
-                        bufkeymap("n", "<LocalLeader>sc", "<cmd>RSend c<CR>")
-                        bufkeymap("n", "<LocalLeader>sn", "<cmd>RSend n<CR>")
                     end
                 }
             )
@@ -1517,16 +1513,24 @@ packer.startup(function(use)
                 {
                     pattern = { "*.r", "*.R", "*.rmd", "*.Rmd", "*.qmd" },
                     callback = function()
-                        -- pipe and data.table assign
-                        bufkeymap("i", "<M-->", "<C-v><Space><-<C-v><Space>")
-                        bufkeymap("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>")
-                        bufkeymap("i", "<M-;>", "<C-v><Space>:=<C-v><Space>")
+                        vim.wo.colorcolumn = "80"
+
+                        -- assign, pipe and data.table assign
+                        vim.keymap.set("i", "<M-->", "<C-v><Space><-<C-v><Space>", { buffer = 0 })
+                        vim.keymap.set("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>", { buffer = 0 })
+                        vim.keymap.set("i", "<M-\\>", "<C-v><Space>|><C-v><Space>", { buffer = 0 })
+                        vim.keymap.set("i", "<M-;>", "<C-v><Space>:=<C-v><Space>", { buffer = 0 })
+
+                        -- {targets}
+                        vim.keymap.set("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>tf", "<cmd>RSend targets::tar_make_future(workers = parallelly::availableCores() - 1L)<CR>", { buffer = 0 })
 
                         -- debug
-                        bufkeymap("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>")
-                        bufkeymap("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>")
-                        bufkeymap("n", "<LocalLeader>sc", "<cmd>RSend c<CR>")
-                        bufkeymap("n", "<LocalLeader>sn", "<cmd>RSend n<CR>")
+                        vim.keymap.set("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>sc", "<cmd>RSend c<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>sn", "<cmd>RSend n<CR>", { buffer = 0 })
                     end
                 }
             )
@@ -1557,7 +1561,7 @@ packer.startup(function(use)
                             end
                         end
 
-                        bufkeymap("n", "<LocalLeader>re", "<cmd>lua RToggleRmdEnv()<CR>")
+                        vim.keymap.set("n", "<LocalLeader>re", RToggleRmdEnv, { buffer = 0 })
                     end
                 }
             )
@@ -1577,13 +1581,13 @@ packer.startup(function(use)
                 {
                     pattern = { "*.r", "*.R" },
                     callback = function()
-                        bufkeymap("n", "<LocalLeader>da", "<cmd>RLoadPackage<CR>")
-                        bufkeymap("n", "<LocalLeader>dd", "<cmd>RDocumentPackage<CR>")
-                        bufkeymap("n", "<LocalLeader>dt", "<cmd>RTestPackage<CR>")
-                        bufkeymap("n", "<LocalLeader>df", "<cmd>RTestFile<CR>")
-                        bufkeymap("n", "<LocalLeader>dc", "<cmd>RCheckPackage<CR>")
-                        bufkeymap("n", "<LocalLeader>dr", "<cmd>RSend devtools::build_readme()<CR>")
-                        bufkeymap("n", "<LocalLeader>dI", "<cmd>RInstallPackage<CR>")
+                        vim.keymap.set("n", "<LocalLeader>da", "<cmd>RLoadPackage<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>dd", "<cmd>RDocumentPackage<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>dt", "<cmd>RTestPackage<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>df", "<cmd>RTestFile<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>dc", "<cmd>RCheckPackage<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>dr", "<cmd>RSend devtools::build_readme()<CR>", { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>dI", "<cmd>RInstallPackage<CR>", { buffer = 0 })
                     end
                 }
             )
