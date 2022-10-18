@@ -57,6 +57,8 @@ WorkspaceRule("exe", "WeChat.exe",     0, 1)
 WorkspaceRule("exe", "OUTLOOK.EXE",    0, 2)
 ; File manager
 WorkspaceRule("exe", "TotalCMD64.exe", 0, 3)
+; Gitkraken
+WorkspaceRule("exe", "gitkraken.exe", 0, 4)
 
 ; Specific settings for applications
 ; -- Slack --
@@ -187,7 +189,8 @@ IdentifyBorderOverflowApplication("exe", "Obsidian.exe")
 FloatRule("exe", "Zoom.exe")
 
 ; -- GitKraken --
-FloatRule("exe", "gitkraken.exe")
+ManageRule("exe", "gitkraken.exe")
+IdentifyBorderOverflowApplication("exe", "gitkraken.exe")
 
 ; -- WinSpy --
 FloatRule("exe", "WinSpy64.exe")
