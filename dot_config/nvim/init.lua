@@ -1124,6 +1124,10 @@ packer.startup(function(use)
             require("marks").setup()
         end
     }
+    use {
+        "wsdjeg/vim-fetch",
+        keys = { { "n", "gF" } }
+    }
 
     -- file management
     use {
