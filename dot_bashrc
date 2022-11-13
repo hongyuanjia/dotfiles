@@ -18,6 +18,13 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
     export DISPLAY="$hostip:0.0"
     export LIBGL_ALWAYS_INDIRECT=1
 
+    # to explore web pages in HOST browser using 'wslview' from
+    # 'wslu' (https://github.com/wslutilities/wslu)
+    if command -v wslview &> /dev/null && [[ $BROWSER != "wslview" ]]; then
+        export WSLVIEW_DEFAULT_ENGINE="cmd_explorer"
+        export BROWSER="wslview"
+    fi
+
     # needed for GUI with dbus-x11 installed
     if grep -qEi "FedoraRemix" /etc/os-release &> /dev/null && command -v dbus-launch &> /dev/null ; then
         eval "$(timeout 2s dbus-launch --auto-syntax)"
