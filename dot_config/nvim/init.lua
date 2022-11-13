@@ -991,9 +991,11 @@ packer.startup(function(use)
             local mappings = {
                 i = {
                     ["<C-l>"] = "send_selected_to_qflist",
+                    ["<C-d>"] = "delete_buffer"
                 },
                 n = {
-                    ["<C-l>"] = "send_selected_to_qflist"
+                    ["<C-l>"] = "send_selected_to_qflist",
+                    ["<C-d>"] = "delete_buffer"
                 }
             }
 
