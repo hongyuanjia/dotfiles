@@ -2,6 +2,10 @@
 [diff]
     command = "delta"
     pager = "delta"
+{{- else if lookPath "nvim" }}
+[diff]
+    command = "nvim"
+    args = ["-d", "{{`{{ .Destination }}`}}", "{{`{{ .Target }}`}}"]
 {{- end }}
 encryption = "age"
 [age]
@@ -9,4 +13,4 @@ encryption = "age"
     symmetric = true
 [merge]
     command = "nvim"
-    args = ["-d", "{{ .Destination }}", "{{ .Source }}", "{{ .Target }}"]
+    args = ["-d", "{{`{{ .Destination }}`}}", "{{`{{ .Source }}", "{{ .Target }}`}}"]
