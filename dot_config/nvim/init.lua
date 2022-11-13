@@ -420,7 +420,7 @@ packer.startup(function(use)
     use {
         "moll/vim-bbye",
         cmd = "Bdelete",
-        keys = { { "n", "<Leader>b"} },
+        keys = { { "n", "<Leader>bd"} },
         config = function()
             if packer_plugins["bufferline.nvim"] then
                 require("bufferline").setup({
@@ -536,7 +536,7 @@ packer.startup(function(use)
     use {
         "simrat39/symbols-outline.nvim",
         cmd = "SymbolsOutline",
-        keys = { { "n", "<Leader>l"} },
+        keys = { { "n", "<Leader>lo"} },
         config = function()
             require("symbols-outline").setup({})
 
@@ -547,9 +547,7 @@ packer.startup(function(use)
     use {
         "t9md/vim-choosewin",
         cmd = { "ChooseWin", "ChooseWinSwap", "ChooseWinSwapStay" },
-        keys = {
-            { "n", "-" }
-        },
+        keys = { { "n", "-" } },
         config = function()
             -- use - to choose window
             vim.keymap.set("n", "-", "<Plug>(choosewin)")
@@ -558,7 +556,7 @@ packer.startup(function(use)
     use {
         "sindrets/winshift.nvim",
         cmd = { "WinShift" },
-        keys = { { "n", "<Leader>w" } },
+        keys = { { "n", "<Leader>wS" } },
         config = function()
             require("winshift").setup({ focused_hl_groups = "Search" })
 
@@ -575,7 +573,11 @@ packer.startup(function(use)
     use {
         "olimorris/persisted.nvim",
         cmd = { "SessionLoad", "SessionLoadLast", "SessionSave" },
-        keys = { { "n", "<Leader>S"} },
+        keys = {
+            { "n", "<Leader>Sl"},
+            { "n", "<Leader>SL"},
+            { "n", "<Leader>Ss"}
+        },
         config = function()
             require("persisted").setup({})
             require("telescope").load_extension("persisted")
@@ -919,19 +921,20 @@ packer.startup(function(use)
     }
     use {
         "folke/trouble.nvim",
-        event = "BufReadPre",
+        event = "BufRead",
         cmd = { "TroubleToggle", "Trouble" },
         keys = {
-            { "n", "<Leader>t" },
-            { "n", "<Leader>l" },
-            { "n", "<Leader>o" },
+            { "n", "<Leader>tt" },
+            { "n", "<Leader>ld" },
+            { "n", "<Leader>lw" },
+            { "n", "<Leader>oq" },
+            { "n", "<Leader>ol" },
             { "n", "gr" },
         },
         config = function()
             require("trouble").setup({ use_diagnostic_signs = true })
 
             -- <Leader>t[oggle]
-            vim.keymap.set("n", "<Leader>tt", "<cmd>TroubleToggle<CR>")
             vim.keymap.set("n", "<Leader>tt", "<cmd>TroubleToggle<CR>")
 
             -- use trouble to replace gr
@@ -956,11 +959,32 @@ packer.startup(function(use)
         cmd = "Telescope",
         module = "telescope",
         keys = {
-            { "n", "<Leader>b" },
-            { "n", "<Leader>f" },
-            { "n", "<Leader>g" },
-            { "n", "<Leader>l" },
-            { "n", "<Leader>s" }
+            { "n", "<Leader>bb" },
+            { "n", "<Leader>ff" },
+            { "n", "<Leader>fr" },
+            { "n", "<Leader>gS" },
+            { "n", "<Leader>gB" },
+            { "n", "<Leader>gC" },
+            { "n", "<Leader>ld" },
+            { "n", "<Leader>lw" },
+            { "n", "<Leader>sl" },
+            { "n", "<Leader>sf" },
+            { "n", "<Leader>sb" },
+            { "n", "<Leader>sB" },
+            { "n", "<Leader>sC" },
+            { "n", "<Leader>sh" },
+            { "n", "<Leader>sM" },
+            { "n", "<Leader>sr" },
+            { "n", "<Leader>sR" },
+            { "n", "<Leader>sk" },
+            { "n", "<Leader>sc" },
+            { "n", "<Leader>sg" },
+            { "n", "<Leader>s*" },
+            { "n", "<Leader>s/" },
+            { "n", "<Leader>sm" },
+            { "n", "<Leader>ss" },
+            { "n", "<Leader>sS" },
+            { "n", "<Leader>sP" }
         },
         config = function()
             -- use <Ctrl-l> to send selected to quickfix list
@@ -1078,6 +1102,13 @@ packer.startup(function(use)
     }
     use {
         "ggandor/leap.nvim",
+        module = { "leap" },
+        keys = {
+            { "n", "s" },
+            { "n", "S" },
+            { "n", "f" },
+            { "n", "F" },
+        },
         config = function()
             require("leap").set_default_keymaps()
         end
@@ -1098,10 +1129,14 @@ packer.startup(function(use)
             "ToggleWhitespace",
             "ToggleStripWhitespaceOnSave"
         },
-        keys = { { "n", "<Leader>t"} },
+        keys = {
+            { "n", "<Leader>tS"},
+            { "n", "<Leader>tX"}
+        },
         config = function()
             -- <Leader>t[oggle]
             vim.keymap.set("n", "<Leader>tS", "<cmd>ToggleWhitespace<CR>")
+            vim.keymap.set("n", "<Leader>tx", "<cmd>StripWhitespace<CR>")
             vim.keymap.set("n", "<Leader>tX", "<cmd>ToggleStripWhitespaceOnSave<CR>")
         end
     }
@@ -1131,7 +1166,13 @@ packer.startup(function(use)
     use {
         "ThePrimeagen/harpoon",
         requires = "nvim-lua/plenary.nvim",
-        keys = { { "n", "<Leader>m"} },
+        keys = {
+            { "n", "<Leader>mf" },
+            { "n", "<Leader>mm" },
+            { "n", "<Leader>mn" },
+            { "n", "<Leader>mp" },
+            { "n", "<Leader>mt" }
+        },
         config = function()
             require("harpoon").setup({})
 
@@ -1146,7 +1187,7 @@ packer.startup(function(use)
     use {
         "windwp/nvim-spectre",
         requires = "nvim-lua/plenary.nvim",
-        -- keys = { { "n", "<Leader>s"} },
+        keys = { { "n", "<Leader>s-"} },
         config = function()
             require("spectre").setup({})
             vim.keymap.set("n", "<Leader>s-", require("spectre").open)
@@ -1158,8 +1199,9 @@ packer.startup(function(use)
         "kyazdani42/nvim-tree.lua",
         cmd = { "NvimTree", "NvimTreeToggle", "NvimTreeFindFileToggle" },
         keys = {
-            { "n", "<Leader>t" },
-            { "n", "<Leader>f" }
+            { "n", "<Leader>fe" },
+            { "n", "<Leader>fl" },
+            { "n", "<Leader>te" }
         },
         config = function()
             require("nvim-tree").setup({
@@ -1335,7 +1377,13 @@ packer.startup(function(use)
         "tpope/vim-fugitive",
         requires = "tpope/vim-rhubarb",
         cmd = { "Git", "Gdiffsplit", "Gwrite" },
-        keys = { { "n", "<Leader>g"} },
+        keys = {
+            { "n", "<Leader>gg" },
+            { "n", "<Leader>gc" },
+            { "n", "<Leader>gd" },
+            { "n", "<Leader>gw" },
+            { "n", "<Leader>gP" }
+        },
         config = function()
             vim.keymap.set("n", "<Leader>gg", "<cmd>Git<CR>")
             vim.keymap.set("n", "<Leader>gc", "<cmd>Git commit<CR>")
@@ -1480,16 +1528,19 @@ packer.startup(function(use)
     }
 
     -- Lua
-    use "milisims/nvim-luaref"
+    use {
+        "milisims/nvim-luaref",
+        ft = { "lua" }
+    }
 
     -- R
     use {
         "jalvesaq/R-Vim-runtime",
-        ft = {"r", "rmd", "rnoweb", "rout"}
+        ft = { "r", "rmd", "rnoweb", "rout" }
     }
     use {
         "jalvesaq/Nvim-R",
-        ft = {"r", "rmd", "rnoweb", "rout"},
+        ft = { "r", "rmd", "rnoweb", "rout" },
         config = function()
             -- do not update $HOME on Windows since I set it manually
             if vim.fn.has('win32') == 1 then
@@ -1608,7 +1659,7 @@ packer.startup(function(use)
     use {
         "mllg/vim-devtools-plugin",
         requires = "jalvesaq/Nvim-R",
-        ft = {"r", "rmd", "rnoweb", "rout"},
+        ft = { "r", "rmd", "rnoweb", "rout" },
         config = function()
             -- redefine test current file
             vim.cmd[[ command! -nargs=0 RTestFile :call devtools#test_file() ]]
