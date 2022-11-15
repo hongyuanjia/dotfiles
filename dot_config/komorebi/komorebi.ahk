@@ -9,6 +9,8 @@ SendMode Input
 
 ; Load the AHK helper libaray
 #Include %A_ScriptDir%\komorebic.lib.ahk
+; Load utility functions
+#Include %A_ScriptDir%\utils.ahk
 
 ; Enable hot reloading of changes to this file
 WatchConfiguration("enable")
@@ -507,3 +509,8 @@ return
 
 ; Remap CpasLock to ESC
 CapsLock::Send, {ESC}
+
+; Toggle TotalCMD
+#t::
+ToggleTotalCMD()
+return
