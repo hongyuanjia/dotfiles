@@ -209,6 +209,9 @@ FloatRule("exe", "msiexec.exe")
 ; -- Clash for Windows
 FloatRule("exe", "Clash for Windows.exe")
 
+; -- Foxit PDF Editor
+ManageRule("exe", "FoxitPDFEditor.exe")
+
 ; Allow komorebi to start managing windows
 CompleteConfiguration()
 
