@@ -1090,7 +1090,8 @@ packer.startup(function(use)
         "terrortylor/nvim-comment",
         keys = {
             { "n", "gcc" },
-            { "n", "gc" }
+            { "n", "gc" },
+            { "v", "gc" }
         },
         config = function()
             require('nvim_comment').setup({})
