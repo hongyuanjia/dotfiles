@@ -26,6 +26,25 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
     fi
 fi
 
+proxy_enable ()
+{
+    if ps -aux | grep clash &> /dev/null && [-f $HOME/.cargo/env]; then
+        export HTTP_PROXY=127.0.0.1:7890
+        export HTTPS_PROXY=127.0.0.1:7890
+        export SOCKS_PROXY=127.0.0.1:7890
+        export ALL_PROXY=127.0.0.1:7890
+    fi
+}
+
+proxy_disable ()
+{
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset SOCKS_PROXY
+    unset ALL_PROXY
+}
+proxy_enable()
+
 ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to enable command auto-correction.
