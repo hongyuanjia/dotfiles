@@ -144,48 +144,6 @@
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "\u547d\u4ee4\u63d0\u793a\u7b26"
-            },
-            {
-                "guid": "{d3f31bee-5823-5ed8-8e04-f31ed54f2cd9}",
-                "hidden": false,
-                "name": "fedoraremix",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "guid": "{43bc384b-e99b-50c0-9482-6fb1f3dbc45f}",
-                "hidden": false,
-                "name": "Fedora Remix for WSL (SystemD)",
-                "source": "WhitewaterFoundryLtd.Co.FedoraRemixforWSL_kd1vv0z0vy70w"
-            },
-            {
-                "guid": "{e1c32bd6-c3c8-5a48-b7d0-99124a8756eb}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{ae557227-c358-529b-8fb5-84596ec824cc}",
-                "hidden": false,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "guid": "{17bf3de4-5353-5709-bcf9-835bd952a95e}",
-                "hidden": true,
-                "name": "Ubuntu-22.04",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "guid": "{f9ceaf27-504c-58d7-927c-d1d6a7ac7d3c}",
-                "hidden": false,
-                "name": "Ubuntu 22.04.1 LTS",
-                "source": "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc"
             }
         ]
     },
