@@ -91,7 +91,7 @@
   "WindowLeft": 478.40000000000003,
   "WindowTop": 195.20000000000002,
   "MaxResultsToShow": 5,
-  "ActivateTimes": 803,
+  "ActivateTimes": 816,
   "CustomPluginHotkeys": [],
   "DontPromptUpdateMsg": false,
   "EnableUpdateLog": false,
@@ -103,8 +103,8 @@
   "RememberLastLaunchLocation": false,
   "IgnoreHotkeysOnFullscreen": false,
   "Proxy": {
-    "Enabled": false,
-    "Server": "",
+    "Enabled": true,
+    "Server": "127.0.0.1",
     "Port": 7890,
     "UserName": null,
     "Password": null

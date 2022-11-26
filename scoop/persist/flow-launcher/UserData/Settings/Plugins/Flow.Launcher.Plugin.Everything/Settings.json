@@ -1,7 +1,7 @@
 {
   "EditorPath": "",
   "MaxSearchCount": 50,
-  "UseLocationAsWorkingDir": false,
+  "UseLocationAsWorkingDir": true,
   "LaunchHidden": false,
   "ShowWindowsContextMenu": true,
   "EverythingInstalledPath": "C:\\Program Files\\Everything\\Everything.exe",
