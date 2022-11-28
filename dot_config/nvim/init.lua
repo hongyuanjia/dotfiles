@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-09-19 11:15
+-- Last Modified: 2022-11-28 18:05
 
 -- Basic Settings
 local options = {
@@ -854,10 +854,10 @@ packer.startup(function(use)
                 vim.keymap.set("n", "<Leader>lk", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr })
                 vim.keymap.set("n", "<Leader>ll", vim.lsp.codelens.run, { buffer = bufnr })
                 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, { buffer = bufnr })
-                vim.keymap.set("n", "<Leader>lF", vim.lsp.buf.formatting, { buffer = bufnr })
+                vim.keymap.set("n", "<Leader>lF", vim.lsp.buf.format, { buffer = bufnr })
                 vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, { buffer = bufnr })
 
-                vim.cmd[[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+                vim.cmd[[ command! Format execute 'lua vim.lsp.buf.format()' ]]
             end
 
             -- add lsp auto-completion source
