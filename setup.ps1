@@ -20,7 +20,9 @@ if (-not (Get-Command "scoop" -ErrorAction SilentlyContinue | Test-Path)) {
 }
 # Restore scoop buckets and install apps
 . $PSScriptRoot\Documents\PowerShell\utils.ps1
-Import-ScoopData $PSScriptRoot\scoop.json
+# have to install git first to add buckets
+scoop install git
+scoop import $PSScriptRoot\scoop.json
 
 # Install chocolatey in a separate powershell
 if (-not (Get-Command "choco" -ErrorAction SilentlyContinue | Test-Path)) {
