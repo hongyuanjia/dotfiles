@@ -111,7 +111,7 @@
   },
   "LastQueryMode": "Selected",
   "PluginSettings": {
-    "PythonDirectory": "C:\\Users\\hongy\\scoop\\apps\\python\\current",
+    "PythonDirectory": "C:\\Users\\hongyuanjia\\scoop\\apps\\python\\current",
     "Plugins": {
       "0ECADE17459B49F587BF81DC3A125110": {
         "ID": "0ECADE17459B49F587BF81DC3A125110",
@@ -283,16 +283,6 @@
         "Version": "2.0.2",
         "ActionKeywords": [
           "w"
-        ],
-        "Priority": 0,
-        "Disabled": false
-      },
-      "8025ce8b-b1ce-49cd-af48-b343a0df8606": {
-        "ID": "8025ce8b-b1ce-49cd-af48-b343a0df8606",
-        "Name": "Clipboard History",
-        "Version": "1.1.1",
-        "ActionKeywords": [
-          "cb"
         ],
         "Priority": 0,
         "Disabled": false
