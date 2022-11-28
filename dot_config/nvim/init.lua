@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-11-28 18:05
+-- Last Modified: 2022-11-28 18:09
 
 -- Basic Settings
 local options = {
@@ -317,7 +317,6 @@ packer.startup(function(use)
             require("impatient").enable_profile()
         end
     }
-    use "nathom/filetype.nvim"
 
     -- UI
     use {
