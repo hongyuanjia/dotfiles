@@ -1354,8 +1354,22 @@ packer.startup(function(use)
             require("gitsigns").setup()
 
             -- ][c to navigate hunks
-            vim.keymap.set("n", "]c", "&diff ? ']c' : '<cmd>lua require(\"gitsigns\").next_hunk({preview=true})<CR>'", { expr = true })
-            vim.keymap.set("n", "[c", "&diff ? '[c' : '<cmd>lua require(\"gitsigns\").prev_hunk({preview=true})<CR>'", { expr = true })
+            vim.keymap.set("n", "]c",
+                function()
+                    if vim.wo.diff then return ']c' end
+                    vim.schedule(function() require("gitsigns").next_hunk({ preview = true }) end)
+                    return '<Ignore>'
+                end,
+                { expr = true }
+            )
+            vim.keymap.set("n", "[c",
+                function()
+                    if vim.wo.diff then return '[c' end
+                    vim.schedule(function() require("gitsigns").prev_hunk({ preview = true }) end)
+                    return '<Ignore>'
+                end,
+                { expr = true }
+            )
 
             -- <Leader>g[it]
             vim.keymap.set("n", "<Leader>gj", function() require("gitsigns").next_hunk({ preview = true }) end)
