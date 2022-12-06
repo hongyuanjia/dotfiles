@@ -1677,22 +1677,30 @@ packer.startup(function(use)
         requires = "jalvesaq/Nvim-R",
         ft = { "r", "rmd", "rnoweb", "rout" },
         config = function()
-            -- redefine test current file
-            vim.cmd[[ command! -nargs=0 RTestFile :call devtools#test_file() ]]
-
             -- keymap for package development
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "BufWinEnter" },
                 {
-                    pattern = { "*.r", "*.R" },
+                    pattern = { "*.r" },
                     callback = function()
                         vim.keymap.set("n", "<LocalLeader>da", "<cmd>RLoadPackage<CR>", { buffer = 0 })
                         vim.keymap.set("n", "<LocalLeader>dd", "<cmd>RDocumentPackage<CR>", { buffer = 0 })
                         vim.keymap.set("n", "<LocalLeader>dt", "<cmd>RTestPackage<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>df", "<cmd>RTestFile<CR>", { buffer = 0 })
                         vim.keymap.set("n", "<LocalLeader>dc", "<cmd>RCheckPackage<CR>", { buffer = 0 })
                         vim.keymap.set("n", "<LocalLeader>dr", "<cmd>RSend devtools::build_readme()<CR>", { buffer = 0 })
                         vim.keymap.set("n", "<LocalLeader>dI", "<cmd>RInstallPackage<CR>", { buffer = 0 })
+                        -- redefine test current file
+                        vim.keymap.set("n", "<LocalLeader>df",
+                            function()
+                                local curfile = vim.fn.substitute(vim.fn.expand('%:p'), '\\', '/', "g")
+                                if vim.bo.filetype ~= "r" then
+                                    vim.fn['RWarningMsg']("Current file is not an R script.")
+                                    return
+                                end
+                                vim.fn['devtools#send_cmd']('devtools::test_active_file("' .. curfile .. '")')
+                            end,
+                            { buffer = 0 }
+                        )
                     end
                 }
             )
