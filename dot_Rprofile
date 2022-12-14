@@ -25,7 +25,7 @@ local({
                 # default author name
                 "Hongyuan", "Jia",
                 # default author email
-                email = "hongyuanjia@outlook.com",
+                email = "hongyuanjia@cqust.edu.cn",
                 # default role, i.e. aut = author, cre = creator
                 role = c("aut", "cre"),
                 # default ORCID
