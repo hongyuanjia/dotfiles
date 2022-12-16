@@ -596,7 +596,7 @@ packer.startup(function(use)
         config = function()
             require("project_nvim").setup({
                 detection_methods = {"pattern", "lsp"},
-                patterns = {".git", ".svn", ".Rproj", ".here", "package.json"}
+                patterns = {".git", ".svn", ".Rproj", ".here", "package.json", "DESCRIPTION"}
             })
 
             require('telescope').load_extension("projects")
