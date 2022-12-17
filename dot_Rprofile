@@ -39,7 +39,11 @@ local({
     )
 
     # always use English
-    Sys.setenv(LANG = "en")
+    if (.Platform$OS.type == "windows") {
+        Sys.setenv(LANG = "en")
+    } else {
+        Sys.setenv(LANG = "en_US.UTF-8")
+    }
 }
 
 .setup_pak <- function(update = FALSE) {
