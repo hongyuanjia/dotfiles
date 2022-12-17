@@ -1563,6 +1563,8 @@ packer.startup(function(use)
                 vim.g.R_set_home_env = 0
             end
 
+            -- show R buffer in buffer list
+            vim.g.R_buffer_opts = "winfixwidth winfixheight"
             -- disable debugging support
             vim.g.R_debug = 0
             -- do not align function arguments
