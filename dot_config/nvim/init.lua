@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-11-28 18:09
+-- Last Modified: 2022-12-17 15:38
 
 -- Basic Settings
 local options = {
@@ -1552,11 +1552,11 @@ packer.startup(function(use)
     -- R
     use {
         "jalvesaq/R-Vim-runtime",
-        ft = { "r", "rmd", "rnoweb", "rout" }
+        ft = { "r", "rmd", "rnoweb", "rout", "rhelp" }
     }
     use {
         "jalvesaq/Nvim-R",
-        ft = { "r", "rmd", "rnoweb", "rout" },
+        ft = { "r", "rmd", "rnoweb", "rout", "rhelp" },
         config = function()
             -- do not update $HOME on Windows since I set it manually
             if vim.fn.has('win32') == 1 then
@@ -1677,7 +1677,7 @@ packer.startup(function(use)
     use {
         "mllg/vim-devtools-plugin",
         requires = "jalvesaq/Nvim-R",
-        ft = { "r", "rmd", "rnoweb", "rout" },
+        ft = { "r", "rmd", "rnoweb", "rout", "rhelp" },
         config = function()
             -- keymap for package development
             vim.api.nvim_create_autocmd(
