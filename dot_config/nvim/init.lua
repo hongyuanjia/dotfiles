@@ -317,6 +317,27 @@ packer.startup(function(use)
     use { "nvim-lua/popup.nvim", module = "popup" }
     use { "nvim-lua/plenary.nvim", module = "plenary" }
 
+    -- plugin lazy loading
+    use {
+        "lewis6991/impatient.nvim",
+        config = function()
+            require("impatient").enable_profile()
+        end
+    }
+
+    -- colorscheme
+    use {
+        "folke/tokyonight.nvim",
+        config = function()
+            require("tokyonight").setup({
+                styles = {
+                    comments = { italic = false }
+                }
+            })
+            vim.cmd.colorscheme("tokyonight")
+        end
+    }
+
     -- chezmoi for dot file management
     use "alker0/chezmoi.vim"
 
@@ -774,13 +795,10 @@ packer.startup(function(use)
         "williamboman/mason-lspconfig.nvim",
         after = "mason.nvim",
         requires = {
-            "folke/neodev.nvim",
             "simrat39/rust-tools.nvim",
             "jose-elias-alvarez/null-ls.nvim"
         },
         config = function()
-            require("neodev").setup({})
-
             require("mason-lspconfig").setup({
                 ensure_installed = { "sumneko_lua" }
             })
@@ -860,8 +878,6 @@ packer.startup(function(use)
                 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, { buffer = bufnr })
                 vim.keymap.set("n", "<Leader>lF", vim.lsp.buf.format, { buffer = bufnr })
                 vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, { buffer = bufnr })
-
-                vim.cmd[[ command! Format execute 'lua vim.lsp.buf.format()' ]]
             end
 
             -- add lsp auto-completion source
@@ -1546,12 +1562,6 @@ packer.startup(function(use)
 
             }, { prefix = "<leader>" })
         end
-    }
-
-    -- Lua
-    use {
-        "milisims/nvim-luaref",
-        ft = { "lua" }
     }
 
     -- R
