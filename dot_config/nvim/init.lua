@@ -1246,6 +1246,16 @@ packer.startup(function(use)
             vim.keymap.set("n", "<Leader>s-", require("spectre").open)
         end
     }
+    use{
+        "mbbill/undotree",
+        cmd = { "UndotreeToggle" },
+        keys = {
+            { "n", "<Leader>tu" }
+        },
+        config = function()
+            vim.keymap.set("n", "<Leader>tu", vim.cmd.UndotreeToggle)
+        end
+    }
 
     -- file management
     use {
