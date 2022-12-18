@@ -89,9 +89,16 @@ vim.cmd([[
 ]])
 
 -- highlight on yank
-vim.cmd([[
-    autocmd TextYankPost * lua vim.highlight.on_yank {}
-]])
+vim.api.nvim_create_autocmd("TextYankPost", {
+    group = vim.api.nvim_create_augroup("HighlightYank", {}),
+    pattern = "*",
+    callback = function()
+        vim.highlight.on_yank({
+            higroup = "IncSearch",
+            timeout = 40
+        })
+    end
+})
 
 -- short name for printing
 function _G.P(...)
