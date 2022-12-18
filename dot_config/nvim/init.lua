@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-12-18 15:10
+-- Last Modified: 2022-12-18 21:14
 
 -- Basic Settings
 local options = {
@@ -1190,6 +1190,7 @@ packer.startup(function(use)
         },
         keys = {
             { "n", "<Leader>tS"},
+            { "n", "<Leader>tx"},
             { "n", "<Leader>tX"}
         },
         config = function()
@@ -1778,3 +1779,4 @@ packer.startup(function(use)
         require("packer").sync()
     end
 end)
+
