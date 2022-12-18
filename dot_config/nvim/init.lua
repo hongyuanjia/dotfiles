@@ -1011,11 +1011,13 @@ packer.startup(function(use)
             local mappings = {
                 i = {
                     ["<C-l>"] = "send_selected_to_qflist",
-                    ["<C-d>"] = "delete_buffer"
+                    ["<C-d>"] = "delete_buffer",
+                    ["<C-a>"] = "select_all"
                 },
                 n = {
                     ["<C-l>"] = "send_selected_to_qflist",
-                    ["<C-d>"] = "delete_buffer"
+                    ["<C-d>"] = "delete_buffer",
+                    ["<C-a>"] = "select_all"
                 }
             }
 
@@ -1065,13 +1067,41 @@ packer.startup(function(use)
             vim.keymap.set("n", "<Leader>sR", require("telescope.builtin").registers)
             vim.keymap.set("n", "<Leader>sk", require("telescope.builtin").keymaps)
             vim.keymap.set("n", "<Leader>sc", require("telescope.builtin").commands)
-            vim.keymap.set("n", "<Leader>sg", require("telescope.builtin").live_grep)
-            vim.keymap.set("n", "<Leader>s*", require("telescope.builtin").grep_string)
             vim.keymap.set("n", "<Leader>s/", require("telescope.builtin").search_history)
             vim.keymap.set("n", "<Leader>sm", require("telescope.builtin").marks)
             vim.keymap.set("n", "<Leader>ss", require("telescope.builtin").lsp_document_symbols)
             vim.keymap.set("n", "<Leader>sS", require("telescope.builtin").lsp_workspace_symbols)
             vim.keymap.set("n", "<Leader>sP", require("telescope.builtin").resume)
+
+            -- change comma input text into a lua table
+            local input_to_table = function(txt)
+                -- trim spaces
+                local inputs = vim.fn.input(txt):gsub("^%s*(.-)%s*$", "%1")
+
+                -- return nil if empty string
+                if inputs == "" then return nil end
+
+                -- accept comma-separated inputs
+                local tbl = {}
+                for m in string.gmatch(inputs, "[^,]+") do
+                    local tmp = m
+                    tmp = tmp:gsub("^%s*(.-)%s*$", "%1")
+                    table.insert(tbl, tmp)
+                end
+                return tbl
+            end
+
+            vim.keymap.set("n", "<Leader>s*", function()
+                require("telescope.builtin").grep_string({
+                    search_dirs = input_to_table("Search Dirs > ")
+                })
+            end)
+            vim.keymap.set("n", "<Leader>sg", function()
+                require("telescope.builtin").live_grep({
+                    search_dirs = input_to_table("Search Dirs > "),
+                    glob_pattern = input_to_table("Globs > ")
+                })
+            end)
         end
     }
     use {
@@ -1274,6 +1304,9 @@ packer.startup(function(use)
                     "html", "javascript", "latex", "lua", "markdown", "python",
                     "r", "toml", "tsx", "typescript", "vue", "yaml"
                 },
+                sync_install = false,
+                auto_install = true,
+                additional_vim_regex_highlighting = false,
                 highlight = { enable = true },
                 autopairs = { enable = true },
                 indent = { enable = true },
