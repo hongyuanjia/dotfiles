@@ -113,6 +113,15 @@ vim.keymap.set("", "<Space>", "<Nop>")
 -- use jk to go back to normal mode in insert mode
 vim.keymap.set("i", "jk", "<Esc>")
 
+-- keep the cursor always at the middle when jumping lines
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+-- keep the cursor stay when joining lines
+vim.keymap.set("n", "J", "mzJ`z")
+
 -- remap j and k to move across display lines and not real lines
 vim.keymap.set("n", "k", "gk")
 vim.keymap.set("n", "gk", "k")
