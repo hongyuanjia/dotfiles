@@ -326,17 +326,6 @@ packer.startup(function(use)
         end
     }
     use {
-        "folke/tokyonight.nvim",
-        config = function()
-            require("tokyonight").setup({
-                styles = {
-                    comments = { italic = false }
-                }
-            })
-            vim.cmd [[colorscheme tokyonight]]
-        end
-    }
-    use {
         "nvim-lualine/lualine.nvim",
         event = "VimEnter",
         config = function()
