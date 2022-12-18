@@ -139,12 +139,12 @@ vim.keymap.set("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi<Esc>")
 vim.keymap.set("n", "<A-k>", "<Esc><cmd>m .-2<CR>==gi<Esc>")
 
 -- stay in indent mode
-vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
 
 -- move text up and down
-vim.keymap.set("v", "<A-j>", "<cmd>m .+1<CR>==")
-vim.keymap.set("v", "<A-k>", "<cmd>m .-2<CR>==")
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv")
 
 -- jump to beginning or end using H and L
 vim.keymap.set("n", "H", "^")
