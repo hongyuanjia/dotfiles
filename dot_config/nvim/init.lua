@@ -969,6 +969,12 @@ packer.startup(function(use)
             vim.keymap.set("n", "<Leader>ol", "<cmd>TroubleToggle loclist<CR>")
         end
     }
+    use {
+        "j-hui/fidget.nvim",
+        config = function()
+            require("fidget").setup()
+        end
+    }
 
     -- Telescope
     use {
