@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-12-17 15:38
+-- Last Modified: 2022-12-18 15:10
 
 -- Basic Settings
 local options = {
@@ -81,7 +81,7 @@ vim.opt.formatoptions:append("m")
 -- remove a comment leader when joining
 vim.opt.formatoptions:append("j")
 -- don't auto format text
-vim.opt.formatoptions:append("t")
+vim.opt.formatoptions:remove("t")
 
 -- go to last loc when opening a buffer
 vim.cmd([[
