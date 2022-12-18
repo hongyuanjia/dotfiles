@@ -1270,10 +1270,9 @@ packer.startup(function(use)
         config = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
-                    "bash", "c", "cmake", "comment", "cpp", "css",
-                    "fish", "html", "javascript", "jsonc", "latex",
-                    "lua", "markdown", "python", "query", "r", "rust",
-                    "toml", "tsx", "typescript", "vue", "yaml"
+                    "bash", "jsonc", "rust", "c", "cmake", "cpp", "css", "help",
+                    "html", "javascript", "latex", "lua", "markdown", "python",
+                    "r", "toml", "tsx", "typescript", "vue", "yaml"
                 },
                 highlight = { enable = true },
                 autopairs = { enable = true },
