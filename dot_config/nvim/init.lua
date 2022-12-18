@@ -347,14 +347,6 @@ packer.startup(function(use)
         cmd = "StartupTime"
     }
 
-    -- plugin lazy loading
-    use {
-        "lewis6991/impatient.nvim",
-        config = function()
-            require("impatient").enable_profile()
-        end
-    }
-
     -- UI
     use {
         "kyazdani42/nvim-web-devicons",
