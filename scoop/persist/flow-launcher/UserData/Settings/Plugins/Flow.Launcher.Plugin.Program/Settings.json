@@ -1,23 +1,33 @@
 {
-  "LastIndexTime": "2022-11-26T00:00:00+08:00",
+  "LastIndexTime": "2022-12-16T00:00:00+08:00",
   "ProgramSources": [
     {
       "Location": "C:\\Users\\hongy\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Scoop Apps",
       "Name": "Scoop Apps",
       "Enabled": true,
-      "UniqueIdentifier": "C:\\Users\\hongy\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Scoop Apps"
+      "UniqueIdentifier": "c:\\users\\hongy\\appdata\\roaming\\microsoft\\windows\\start menu\\programs\\scoop apps"
     }
   ],
   "DisabledProgramSources": [],
-  "ProgramSuffixes": [
-    "appref-ms",
-    "exe",
-    "lnk"
-  ],
+  "CustomSuffixes": [],
+  "CustomProtocols": [],
+  "BuiltinSuffixesStatus": {
+    "exe": true,
+    "appref-ms": true,
+    "lnk": true
+  },
+  "BuiltinProtocolsStatus": {
+    "steam": true,
+    "epic": true,
+    "http": false
+  },
+  "UseCustomSuffixes": false,
+  "UseCustomProtocols": false,
   "EnableStartMenuSource": true,
   "EnableDescription": true,
   "HideAppsPath": false,
   "EnableRegistrySource": true,
+  "EnablePATHSource": true,
   "CustomizedExplorer": "explorer",
   "CustomizedArgs": "%s"
 }

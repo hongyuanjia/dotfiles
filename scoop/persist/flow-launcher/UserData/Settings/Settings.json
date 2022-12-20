@@ -18,7 +18,16 @@
   "UseGlyphIcons": true,
   "UseAnimation": true,
   "UseSound": true,
+  "UseClock": true,
+  "UseDate": false,
+  "TimeFormat": "hh:mm tt",
+  "DateFormat": "MM\u0027/\u0027dd ddd",
   "FirstLaunch": false,
+  "SettingWindowWidth": 1109,
+  "SettingWindowHeight": 1020,
+  "SettingWindowTop": 10,
+  "SettingWindowLeft": 1441,
+  "SettingWindowState": 0,
   "CustomExplorerIndex": 1,
   "CustomExplorerList": [
     {
@@ -86,13 +95,15 @@
     }
   ],
   "ShouldUsePinyin": true,
+  "AlwaysPreview": false,
   "QuerySearchPrecision": "Regular",
   "AutoUpdates": false,
-  "WindowLeft": 478.40000000000003,
-  "WindowTop": 195.20000000000002,
+  "WindowLeft": 990,
+  "WindowTop": 250,
   "MaxResultsToShow": 5,
-  "ActivateTimes": 816,
+  "ActivateTimes": 1049,
   "CustomPluginHotkeys": [],
+  "CustomShortcuts": [],
   "DontPromptUpdateMsg": false,
   "EnableUpdateLog": false,
   "StartFlowLauncherOnSystemStartup": true,
@@ -100,7 +111,7 @@
   "HideNotifyIcon": false,
   "LeaveCmdOpen": false,
   "HideWhenDeactive": true,
-  "RememberLastLaunchLocation": false,
+  "SearchWindowPosition": 1,
   "IgnoreHotkeysOnFullscreen": false,
   "Proxy": {
     "Enabled": true,
@@ -111,7 +122,7 @@
   },
   "LastQueryMode": "Selected",
   "PluginSettings": {
-    "PythonDirectory": "C:\\Users\\hongyuanjia\\scoop\\apps\\python\\current",
+    "PythonDirectory": "C:\\Users\\hongyuanjia\\scoop\\apps\\flow-launcher\\current\\app-1.9.5\\UserData\\PythonEmbeddable",
     "Plugins": {
       "0ECADE17459B49F587BF81DC3A125110": {
         "ID": "0ECADE17459B49F587BF81DC3A125110",

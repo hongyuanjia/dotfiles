@@ -1,9 +1,11 @@
 {
   "MaxResult": 100,
   "QuickAccessLinks": [],
-  "QuickFolderAccessLinks": [],
-  "UseWindowsIndexForDirectorySearch": true,
   "IndexSearchExcludedSubdirectoryPaths": [],
+  "EditorPath": "",
+  "ShellPath": "cmd",
+  "UseLocationAsWorkingDir": false,
+  "ShowWindowsContextMenu": true,
   "SearchActionKeyword": "*",
   "SearchActionKeywordEnabled": true,
   "FileContentSearchActionKeyword": "doc:",
@@ -14,5 +16,12 @@
   "IndexSearchKeywordEnabled": false,
   "QuickAccessActionKeyword": "*",
   "QuickAccessKeywordEnabled": false,
-  "WarnWindowsSearchServiceOff": true
+  "WarnWindowsSearchServiceOff": true,
+  "IndexSearchEngine": 0,
+  "PathEnumerationEngine": 0,
+  "ContentSearchEngine": 0,
+  "EverythingInstalledPath": null,
+  "SortOption": 1,
+  "EnableEverythingContentSearch": false,
+  "EverythingEnabled": false
 }
