@@ -465,14 +465,7 @@ packer.startup(function(use)
                 "NvimTree"
             }
 
-            -- don't displays a trailing indentation guide on blank lines
-            vim.g.indent_blankline_show_trailing_blankline_indent = false
-            -- use treesitter to calculate indentation when possible
-            vim.g.indent_blankline_use_treesitter = true
-
-            require("indent_blankline").setup({
-                show_current_context = true
-            })
+            require("indent_blankline").setup()
         end
     }
     use {
