@@ -1161,7 +1161,7 @@ packer.startup(function(use)
         "kylechui/nvim-surround",
         event = "BufRead",
         config = function()
-            require("nvim-surround").setup()
+            require("nvim-surround").setup({ move_cursor = false })
         end
     }
     use {
