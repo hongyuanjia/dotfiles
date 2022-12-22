@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-12-18 21:14
+-- Last Modified: 2022-12-22 23:01
 
 -- Basic Settings
 local options = {
@@ -134,10 +134,6 @@ vim.keymap.set("n", "<C-k>", "<cmd>resize +2<CR>")
 vim.keymap.set("n", "<C-l>", "<cmd>vertical resize -2<CR>")
 vim.keymap.set("n", "<C-h>", "<cmd>vertical resize +2<CR>")
 
--- move text up and down
-vim.keymap.set("n", "<A-j>", "<Esc><cmd>m .+1<CR>==gi<Esc>")
-vim.keymap.set("n", "<A-k>", "<Esc><cmd>m .-2<CR>==gi<Esc>")
-
 -- stay in indent mode
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
@@ -244,6 +240,7 @@ vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-W>l]])
 vim.api.nvim_create_autocmd(
     { "BufEnter", "BufWinEnter" },
     {
+        group = vim.api.nvim_create_augroup("AutoHotkeyComment", {}),
         pattern = { "*.ahk", "*.ahk2" },
         callback = function()
             vim.bo.commentstring = ";%s"
@@ -294,6 +291,7 @@ packer.init {
 vim.api.nvim_create_autocmd(
     { "User" },
     {
+        group = vim.api.nvim_create_augroup("PackerCompileNotify", {}),
         pattern = "PackerCompileDone",
         callback = function()
             vim.notify("Packer Configuration recompiled.", 3)
@@ -1003,7 +1001,9 @@ packer.startup(function(use)
                 i = {
                     ["<C-l>"] = "send_selected_to_qflist",
                     ["<C-d>"] = "delete_buffer",
-                    ["<C-a>"] = "select_all"
+                    ["<C-a>"] = "select_all",
+                    ["<C-Down>"] = "cycle_history_next",
+                    ["<C-Up>"] = "cycle_history_prev",
                 },
                 n = {
                     ["<C-l>"] = "send_selected_to_qflist",
@@ -1649,13 +1649,74 @@ packer.startup(function(use)
                 autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
             ]]
 
-            -- nvim-lspconfig set formatexpr to use lsp formatting, which breaks
-            -- gq for comments
-            vim.opt_local.formatexpr = nil
+            -- helper function to detect if current buffer is an R terminal
+            -- created by Nvim-R
+            local IsRTerm = function(buffer)
+                local buf = buffer == nil and 0 or buffer
+
+                if vim.api.nvim_buf_get_option(buf, "buftype") == "terminal" then
+                    local bufname = vim.api.nvim_buf_get_name(buf)
+                    -- this is a R termial created by NVim-R
+                    if string.find(bufname, "^term://.+//%d+:R%s?$") then
+                        return true
+                    else
+                        return false
+                    end
+                else
+                    return false
+                end
+            end
+
+            -- assign and pipe
+            local r_set_keymap_pipe = function (buffer)
+                local buf = buffer == nil and 0 or buffer
+                vim.keymap.set("i", "<M-->", "<C-v><Space><-<C-v><Space>", { buffer = buf })
+                vim.keymap.set("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>", { buffer = buf })
+                vim.keymap.set("i", "<M-\\>", "<C-v><Space>|><C-v><Space>", { buffer = buf })
+                vim.keymap.set("i", "<M-;>", "<C-v><Space>:=<C-v><Space>", { buffer = buf })
+            end
+
+            -- {targets}
+            local r_set_keymap_targets = function (buffer)
+                local buf = buffer == nil and 0 or buffer
+                vim.keymap.set("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>tf", "<cmd>RSend targets::tar_make_future(workers = parallelly::availableCores() - 1L)<CR>", { buffer = buf })
+            end
+
+            -- debug
+            local r_set_keymap_debug = function (buffer)
+                local buf = buffer == nil and 0 or buffer
+                vim.keymap.set("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>sc", "<cmd>RSend c<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>sn", "<cmd>RSend n<CR>", { buffer = buf })
+            end
+
+            -- add keymap for quit R if current window is an R terminal
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "BufWinEnter" },
+                {
+                    group = vim.api.nvim_create_augroup("RTermSetup", {}),
+                    pattern = "*",
+                    callback = function(args)
+                        -- if current buffer is an R terminal
+                        if IsRTerm(args.buf) then
+                            -- set keymap to quit R
+                            vim.keymap.set("n", "<LocalLeader>rq", "<cmd>call RQuit('nosave')<CR>", { buffer = args.buf })
+
+                            -- set other keymap
+                            r_set_keymap_targets(args.buf)
+                            r_set_keymap_debug(args.buf)
+                        end
+                    end
+                }
+            )
 
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "BufWinEnter" },
                 {
+                    group = vim.api.nvim_create_augroup("RCommonSetup", {}),
                     pattern = { "*.r", "*.R", "*.rmd", "*.Rmd", "*.qmd" },
                     callback = function()
                         -- set roxygen comment string
@@ -1663,6 +1724,10 @@ packer.startup(function(use)
 
                         -- insert current comment leader
                         vim.opt_local.formatoptions:append("r")
+
+                        -- nvim-lspconfig set formatexpr to use lsp formatting,
+                        -- which breaks gq for comments
+                        vim.opt_local.formatexpr = nil
                     end
                 }
             )
@@ -1671,26 +1736,13 @@ packer.startup(function(use)
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "BufWinEnter" },
                 {
+                    group = vim.api.nvim_create_augroup("RKeymapSetup", {}),
                     pattern = { "*.r", "*.R", "*.rmd", "*.Rmd", "*.qmd" },
                     callback = function()
                         vim.wo.colorcolumn = "80"
-
-                        -- assign, pipe and data.table assign
-                        vim.keymap.set("i", "<M-->", "<C-v><Space><-<C-v><Space>", { buffer = 0 })
-                        vim.keymap.set("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>", { buffer = 0 })
-                        vim.keymap.set("i", "<M-\\>", "<C-v><Space>|><C-v><Space>", { buffer = 0 })
-                        vim.keymap.set("i", "<M-;>", "<C-v><Space>:=<C-v><Space>", { buffer = 0 })
-
-                        -- {targets}
-                        vim.keymap.set("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>tf", "<cmd>RSend targets::tar_make_future(workers = parallelly::availableCores() - 1L)<CR>", { buffer = 0 })
-
-                        -- debug
-                        vim.keymap.set("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>sc", "<cmd>RSend c<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>sn", "<cmd>RSend n<CR>", { buffer = 0 })
+                        r_set_keymap_pipe()
+                        r_set_keymap_targets()
+                        r_set_keymap_debug()
                     end
                 }
             )
@@ -1698,6 +1750,7 @@ packer.startup(function(use)
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "BufWinEnter" },
                 {
+                    group = vim.api.nvim_create_augroup("RMarkdownSetup", {}),
                     pattern = { "*.rmd", "*.Rmd" },
                     callback = function()
                         -- wrap long lines
@@ -1727,19 +1780,54 @@ packer.startup(function(use)
         "mllg/vim-devtools-plugin",
         requires = "jalvesaq/Nvim-R",
         ft = { "r", "rmd", "rnoweb", "rout", "rhelp" },
+        keys = {
+            { "n", "<LocalLeader>da" },
+            { "n", "<LocalLeader>dd" },
+            { "n", "<LocalLeader>dt" },
+            { "n", "<LocalLeader>dc" },
+            { "n", "<LocalLeader>dI" },
+            { "n", "<LocalLeader>df" }
+        },
         config = function()
+            -- helper function to detect if current buffer is an R terminal
+            -- created by Nvim-R
+            local IsRTerm = function(buffer)
+                local buf = buffer == nil and 0 or buffer
+
+                if vim.api.nvim_buf_get_option(buf, "buftype") == "terminal" then
+                    local bufname = vim.api.nvim_buf_get_name(buf)
+                    -- this is a R termial created by NVim-R
+                    if string.find(bufname, "^term://.+//%d+:R%s?$") then
+                        return true
+                    else
+                        return false
+                    end
+                else
+                    return false
+                end
+            end
+
+            -- devtools
+            local r_set_keymap_devtools = function(buffer)
+                local buf = buffer == nil and 0 or buffer
+                vim.keymap.set("n", "<LocalLeader>da", "<cmd>RLoadPackage<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>dd", "<cmd>RDocumentPackage<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>dt", "<cmd>RTestPackage<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>dc", "<cmd>RCheckPackage<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>dr", "<cmd>RSend devtools::build_readme()<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>dI", "<cmd>RInstallPackage<CR>", { buffer = buf })
+            end
+
             -- keymap for package development
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "BufWinEnter" },
                 {
-                    pattern = { "*.r" },
-                    callback = function()
-                        vim.keymap.set("n", "<LocalLeader>da", "<cmd>RLoadPackage<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>dd", "<cmd>RDocumentPackage<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>dt", "<cmd>RTestPackage<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>dc", "<cmd>RCheckPackage<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>dr", "<cmd>RSend devtools::build_readme()<CR>", { buffer = 0 })
-                        vim.keymap.set("n", "<LocalLeader>dI", "<cmd>RInstallPackage<CR>", { buffer = 0 })
+                    group = vim.api.nvim_create_augroup("RDevtoolsSetup", {}),
+                    pattern = { "*.r", "*.R" },
+                    callback = function(args)
+                        -- {devtools}
+                        r_set_keymap_devtools(args.buf)
+
                         -- redefine test current file
                         vim.keymap.set("n", "<LocalLeader>df",
                             function()
@@ -1752,6 +1840,21 @@ packer.startup(function(use)
                             end,
                             { buffer = 0 }
                         )
+                    end
+                }
+            )
+
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "BufWinEnter" },
+                {
+                    group = vim.api.nvim_create_augroup("RTermDevtoolsSetup", {}),
+                    pattern = "*",
+                    callback = function(args)
+                        -- if current buffer is an R terminal
+                        if IsRTerm(args.buf) then
+                            -- {devtool}
+                            r_set_keymap_devtools(args.buf)
+                        end
                     end
                 }
             )
