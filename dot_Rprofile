@@ -2,7 +2,7 @@ local({
     # set a CRAN mirror
     r <- getOption("repos")
     r["CRAN"] <- "https://mirrors.tuna.tsinghua.edu.cn/CRAN/"
-    options(repos=r)
+    options(repos = r)
 
     # unset R_LIBS_SITE and R_LIBS_USER if R is installed using scoop
     path_scoop_r <- normalizePath(file.path(Sys.getenv("USERPROFILE"), "scoop/apps/r/current"), "/", FALSE)
@@ -12,7 +12,7 @@ local({
     }
 })
 
-.First <- function () {
+.First <- function() {
     options(
         # use multiple cores
         Ncpus = parallel::detectCores() - 1L,
@@ -43,6 +43,15 @@ local({
         Sys.setenv(LANG = "en")
     } else {
         Sys.setenv(LANG = "en_US.UTF-8")
+    }
+
+    # use {pak} to handle package not found error
+    if (interactive() && getRversion() >= "4.0.0") {
+        globalCallingHandlers(
+            packageNotFoundError = function(err) {
+                try(pak::handle_package_not_found(err))
+            }
+        )
     }
 }
 
