@@ -250,111 +250,68 @@ vim.api.nvim_create_autocmd(
 )
 
 -- Plugins
--- automatically install packer
-local packer_install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-if vim.fn.empty(vim.fn.glob(packer_install_path)) > 0 then
+-- automatically bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
     if vim.fn.executable("git") == 0 then
         print "Git was not installed. Please install Git first. All plugins will be not installed."
         return
     end
-
-    PACKER_BOOTSTRAP = vim.fn.system {
-        "git",
-        "clone",
-        "--depth",
-        "1",
-        "https://github.com/wbthomason/packer.nvim",
-        packer_install_path,
-    }
-    print "Installing 'packer.nvim'... Please close and reopen Neovim after installing."
-    vim.cmd("packadd packer.nvim")
+    vim.fn.system({
+        "git", "clone", "--filter=blob:none", "--single-branch",
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath
+    })
 end
+vim.opt.runtimepath:prepend(lazypath)
 
--- stop loading plugin configs if packer is not installed
-local packer_status_ok, packer = pcall(require, "packer")
-if not packer_status_ok then
+-- stop loading plugin configs if lazy is not installed
+local lazy_status_ok, lazy = pcall(require, "lazy")
+if not lazy_status_ok then
     return
 end
 
--- use a popup window for packer
-packer.init {
-    display = {
-        open_fn = function()
-            return require("packer.util").float {
-                border = "rounded"
-            }
-        end,
-    }
-}
-
--- issue a message when packer compilation finishses
-vim.api.nvim_create_autocmd(
-    { "User" },
-    {
-        group = vim.api.nvim_create_augroup("PackerCompileNotify", {}),
-        pattern = "PackerCompileDone",
-        callback = function()
-            vim.notify("Packer Configuration recompiled.", 3)
-        end
-    }
-)
-
-packer.startup(function(use)
-    -- packer and basics
-    use {
-        "wbthomason/packer.nvim",
-        config = function()
-            -- <Leader>P[acker]
-            vim.keymap.set("n", "<Leader>Pc", "<cmd>PackerCompile<CR>")
-            vim.keymap.set("n", "<Leader>Pi", "<cmd>PackerInstall<CR>")
-            vim.keymap.set("n", "<Leader>Ps", "<cmd>PackerSync<CR>")
-            vim.keymap.set("n", "<Leader>Pl", "<cmd>PackerStatus<CR>")
-            vim.keymap.set("n", "<Leader>Pu", "<cmd>PackerUpdate<CR>")
-        end
-    }
-    use { "nvim-lua/popup.nvim", module = "popup" }
-    use { "nvim-lua/plenary.nvim", module = "plenary" }
-
-    -- plugin lazy loading
-    use {
-        "lewis6991/impatient.nvim",
-        config = function()
-            require("impatient").enable_profile()
-        end
-    }
+lazy.setup({
+    "nvim-lua/popup.nvim",
+    "nvim-lua/plenary.nvim",
 
     -- colorscheme
-    use {
+    {
         "folke/tokyonight.nvim",
         config = function()
-            require("tokyonight").setup({
-                styles = {
-                    comments = { italic = false }
-                }
-            })
+            require("tokyonight").setup({ styles = { comments = { italic = false } } })
             vim.cmd.colorscheme("tokyonight")
         end
-    }
+    },
 
     -- chezmoi for dot file management
-    use "alker0/chezmoi.vim"
+    "alker0/chezmoi.vim",
 
     -- start tim profile
-    use {
-        "tweekmonster/startuptime.vim",
-        cmd = "StartupTime"
-    }
+    { "tweekmonster/startuptime.vim", cmd = "StartupTime" },
 
     -- UI
-    use {
+    {
         "kyazdani42/nvim-web-devicons",
         config = function()
             require("nvim-web-devicons").setup({ default = true })
         end
-    }
-    use {
+    },
+    {
         "nvim-lualine/lualine.nvim",
-        event = "VimEnter",
+        event = "BufEnter",
+        init = function()
+            vim.keymap.set("n", "<Local>rt", function()
+                vim.ui.input(
+                    { prompt = "Tab name: " },
+                    function(input)
+                        if input == nil then return end
+                        if input == "" then return end
+                        vim.fn["LualineRenameTab"]({input})
+                    end
+                )
+            end)
+        end,
         config = function()
             local status_ok, _ = pcall(require, "tokyonight")
             local theme = "auto"
@@ -393,63 +350,33 @@ packer.startup(function(use)
                             cond = function()
                                 return vim.fn.winwidth(0) > 80
                             end
-                        },
-                        "encoding",
-                        {
-                            "filetype",
-                            icons_enabled = false
                         }
-
-                    }
+                    },
+                    lualine_y = { "encoding", "filetype" }
+                },
+                tabline = {
+                    lualine_c = { "buffers" },
+                    lualine_x = { "tabs" }
                 }
             })
-        end,
-    }
-    use {
-        "akinsho/bufferline.nvim",
-        event = "BufReadPre",
-        config = function()
-            require("bufferline").setup {
-                options = {
-                    numbers = "none",
-                    close_command = "bdelete! %d",
-                    left_mouse_command = "buffer %d",
-                    middle_mouse_command = "bdelete %d",
-                    right_mouse_command = nil,
-                    max_name_length = 30,
-                    max_prefix_length = 15,
-                    seperator_style = "thick",
-                    enforce_regular_tabs = true,
-                }
-            }
         end
-    }
-    use {
+    },
+    {
         "RRethy/vim-illuminate",
         event = "CursorHold",
-        module = "illuminate",
         config = function()
-            vim.g.Illuminate_delay = 200
+            require("illuminate").configure({ delay = 200 })
         end
-    }
-    use {
+    },
+    {
         "moll/vim-bbye",
         cmd = "Bdelete",
         keys = { { "n", "<Leader>bd"} },
-        config = function()
-            if packer_plugins["bufferline.nvim"] then
-                require("bufferline").setup({
-                    options = {
-                        close_command = "Bdelete! %d",
-                        middle_mouse_command = "Bdelete %d"
-                    }
-                })
-            end
-
+        init = function()
             vim.keymap.set("n", "<Leader>bd", "<cmd>Bdelete<CR>")
         end
-    }
-    use {
+    },
+    {
         "lukas-reineke/indent-blankline.nvim",
         event = "BufRead",
         config = function()
@@ -459,14 +386,13 @@ packer.startup(function(use)
                 "alpha",
                 "checkhealth",
                 "dashboard",
-                "packer",
-                "NvimTree"
+                "NvimTree",
             }
 
             require("indent_blankline").setup()
         end
-    }
-    use {
+    },
+    {
         "goolord/alpha-nvim",
         config = function()
             local alpha = require("alpha")
@@ -487,15 +413,15 @@ packer.startup(function(use)
             -- <Leader>b[uffer]
             vim.keymap.set("n", "<Leader>ba", "<cmd>Alpha<CR>")
         end
-    }
-    use {
+    },
+    {
         "norcalli/nvim-colorizer.lua",
         event = "BufReadPre",
         config = function()
             require("colorizer").setup()
         end
-    }
-    use {
+    },
+    {
         "akinsho/toggleterm.nvim",
         event = "BufWinEnter",
         config = function()
@@ -540,89 +466,81 @@ packer.startup(function(use)
                 vim.keymap.set("n", "<Leader>g=", function() toggle_terminal("lazygit", "float") end)
             end
         end
-    }
-    use {
+    },
+    {
         "simrat39/symbols-outline.nvim",
         cmd = "SymbolsOutline",
-        keys = { { "n", "<Leader>lo"} },
-        config = function()
-            require("symbols-outline").setup({})
-
+        init = function()
             -- <Leader>l[ist]
             vim.keymap.set("n", "<Leader>lo", "<cmd>SymbolsOutline<CR>")
+        end,
+        config = function()
+            require("symbols-outline").setup({})
         end
-    }
-    use {
+    },
+    {
         "t9md/vim-choosewin",
         cmd = { "ChooseWin", "ChooseWinSwap", "ChooseWinSwapStay" },
-        keys = { { "n", "-" } },
-        config = function()
+        init = function()
             -- use - to choose window
             vim.keymap.set("n", "-", "<Plug>(choosewin)")
         end
-    }
-    use {
+    },
+    {
         "sindrets/winshift.nvim",
         cmd = { "WinShift" },
-        keys = { { "n", "<Leader>wS" } },
-        config = function()
-            require("winshift").setup({ focused_hl_groups = "Search" })
-
+        init = function()
             -- use <Leader>wS to change window position
             vim.keymap.set("n", "<Leader>wS", "<cmd>WinShift<cr>")
+        end,
+        config = function()
+            require("winshift").setup({ focused_hl_groups = "Search" })
         end
-    }
-    use {
-        "dstein64/nvim-scrollview",
-        event = "BufRead"
-    }
+    },
 
     -- session management
-    use {
+    {
         "olimorris/persisted.nvim",
         cmd = { "SessionLoad", "SessionLoadLast", "SessionSave" },
-        keys = {
-            { "n", "<Leader>Sl"},
-            { "n", "<Leader>SL"},
-            { "n", "<Leader>Ss"}
-        },
-        config = function()
-            require("persisted").setup({})
-            require("telescope").load_extension("persisted")
-
+        init = function()
             -- <Leader>S[ession]
             vim.keymap.set("n", "<Leader>Sl", "<cmd>SessionLoad<CR>")
             vim.keymap.set("n", "<Leader>SL", "<cmd>SessionLoadLast<CR>")
             vim.keymap.set("n", "<Leader>Ss", "<cmd>SessionSave<CR>")
         end,
-    }
+        config = function()
+            require("persisted").setup()
+            require("telescope").load_extension("persisted")
+        end
+    },
 
     -- project
-    use {
+    {
         "ahmedkhalf/project.nvim",
         event = "VimEnter",
-        after = "telescope.nvim",
+        init = function()
+            vim.keymap.set("n", "<Leader>sp", require("telescope").extensions.projects.projects)
+        end,
         config = function()
             require("project_nvim").setup({
                 detection_methods = {"pattern", "lsp"},
                 patterns = {".git", ".svn", ".Rproj", ".here", "package.json", "DESCRIPTION"}
             })
 
-            require('telescope').load_extension("projects")
-            vim.keymap.set("n", "<Leader>sp", require("telescope").extensions.projects.projects)
+            require("telescope").load_extension("projects")
         end
-    }
+    },
 
     -- autocompletion
-    use {
+    {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
-        requires = {
+        dependencies = {
             -- completion sources
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
-            { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
+            "hrsh7th/cmp-nvim-lsp",
 
             -- snippets
             "saadparwaiz1/cmp_luasnip",
@@ -763,21 +681,19 @@ packer.startup(function(use)
                 })
             })
         end
-    }
+    },
 
     -- lsp
-    use "neovim/nvim-lspconfig"
-    use {
+    "neovim/nvim-lspconfig",
+    {
         "williamboman/mason.nvim",
-        after = "nvim-lspconfig",
         config = function()
             require("mason").setup()
         end
-    }
-    use {
+    },
+    {
         "williamboman/mason-lspconfig.nvim",
-        after = "mason.nvim",
-        requires = {
+        dependencies = {
             "simrat39/rust-tools.nvim",
             "jose-elias-alvarez/null-ls.nvim"
         },
@@ -864,15 +780,13 @@ packer.startup(function(use)
             end
 
             -- add lsp auto-completion source
-            if packer_plugins["cmp-nvim-lsp"] then
-                require("lspconfig.util").default_config = vim.tbl_extend(
-                    "force",
-                    require("lspconfig.util").default_config,
-                    {
-                        capabilities = require("cmp_nvim_lsp").default_capabilities()
-                    }
-                )
-            end
+            require("lspconfig.util").default_config = vim.tbl_extend(
+                "force",
+                require("lspconfig.util").default_config,
+                {
+                    capabilities = require("cmp_nvim_lsp").default_capabilities()
+                }
+            )
 
             local lspconfig = require("lspconfig")
 
@@ -888,10 +802,13 @@ packer.startup(function(use)
                         settings = {
                             Lua = {
                                 runtime = {
-                                    version = "LuaJIT"
+                                    version = "LuaJIT",
+                                    special = {
+                                        reload = "require"
+                                    }
                                 },
                                 diagnostics = {
-                                    globals = { "vim", "packer_plugins" }
+                                    globals = { "vim" }
                                 },
                                 workspace = {
                                     library = {
@@ -911,32 +828,11 @@ packer.startup(function(use)
                 end
             })
         end
-    }
-    use {
-        "ray-x/lsp_signature.nvim",
-        after = "nvim-lspconfig",
-        config = function()
-            require("lsp_signature").setup({
-                hint_enable = false,
-                toggle_key = "<M-`>"
-            })
-        end
-    }
-    use {
+    },
+    {
         "folke/trouble.nvim",
         event = "BufRead",
-        cmd = { "TroubleToggle", "Trouble" },
-        keys = {
-            { "n", "<Leader>tt" },
-            { "n", "<Leader>ld" },
-            { "n", "<Leader>lw" },
-            { "n", "<Leader>oq" },
-            { "n", "<Leader>ol" },
-            { "n", "gr" },
-        },
-        config = function()
-            require("trouble").setup({ use_diagnostic_signs = true })
-
+        init = function()
             -- <Leader>t[oggle]
             vim.keymap.set("n", "<Leader>tt", "<cmd>TroubleToggle<CR>")
 
@@ -950,86 +846,20 @@ packer.startup(function(use)
             -- <Leader>o[pen]
             vim.keymap.set("n", "<Leader>oq", "<cmd>TroubleToggle quickfix<CR>")
             vim.keymap.set("n", "<Leader>ol", "<cmd>TroubleToggle loclist<CR>")
-        end
-    }
-    use {
-        "j-hui/fidget.nvim",
+        end,
         config = function()
-            require("fidget").setup()
+            require("trouble").setup({ use_diagnostic_signs = true })
         end
-    }
+    },
 
     -- Telescope
-    use {
+    {
         "nvim-telescope/telescope.nvim",
-        requires = {
+        dependencies = {
             "nvim-lua/plenary.nvim"
         },
         cmd = "Telescope",
-        module = "telescope",
-        keys = {
-            { "n", "<Leader>bb" },
-            { "n", "<Leader>ff" },
-            { "n", "<Leader>fr" },
-            { "n", "<Leader>gS" },
-            { "n", "<Leader>gB" },
-            { "n", "<Leader>gC" },
-            { "n", "<Leader>ld" },
-            { "n", "<Leader>lw" },
-            { "n", "<Leader>sl" },
-            { "n", "<Leader>sf" },
-            { "n", "<Leader>sb" },
-            { "n", "<Leader>sB" },
-            { "n", "<Leader>sC" },
-            { "n", "<Leader>sh" },
-            { "n", "<Leader>sM" },
-            { "n", "<Leader>sr" },
-            { "n", "<Leader>sR" },
-            { "n", "<Leader>sk" },
-            { "n", "<Leader>sc" },
-            { "n", "<Leader>sg" },
-            { "n", "<Leader>s*" },
-            { "n", "<Leader>s/" },
-            { "n", "<Leader>sm" },
-            { "n", "<Leader>ss" },
-            { "n", "<Leader>sS" },
-            { "n", "<Leader>sP" }
-        },
-        config = function()
-            -- use <Ctrl-l> to send selected to quickfix list
-            local mappings = {
-                i = {
-                    ["<C-l>"] = "send_selected_to_qflist",
-                    ["<C-d>"] = "delete_buffer",
-                    ["<C-a>"] = "select_all",
-                    ["<C-Down>"] = "cycle_history_next",
-                    ["<C-Up>"] = "cycle_history_prev",
-                },
-                n = {
-                    ["<C-l>"] = "send_selected_to_qflist",
-                    ["<C-d>"] = "delete_buffer",
-                    ["<C-a>"] = "select_all"
-                }
-            }
-
-            -- use <Ctrl-o> to open all items with trouble
-            if packer_plugins["trouble.nvim"] and packer_plugins["trouble.nvim"].loaded then
-                local trouble = require("trouble.providers.telescope")
-
-                vim.tbl_extend("force", mappings,
-                    {
-                        i = {
-                            ["<C-o>"] = trouble.open_with_trouble
-                        },
-                        n = {
-                            ["<C-o>"] = trouble.open_with_trouble
-                        }
-                    }
-                )
-            end
-
-            require("telescope").setup({ defaults = { mappings = mappings } })
-
+        init = function()
             -- <Leader>b[uffer]
             vim.keymap.set("n", "<Leader>bb", require("telescope.builtin").buffers)
 
@@ -1093,23 +923,49 @@ packer.startup(function(use)
                     glob_pattern = input_to_table("Globs > ")
                 })
             end)
+        end,
+        config = function()
+            -- use <Ctrl-l> to send selected to quickfix list
+            local mappings = {
+                i = {
+                    ["<C-l>"] = "send_selected_to_qflist",
+                    ["<C-d>"] = "delete_buffer",
+                    ["<C-a>"] = "select_all",
+                    ["<C-Down>"] = "cycle_history_next",
+                    ["<C-Up>"] = "cycle_history_prev",
+                },
+                n = {
+                    ["<C-l>"] = "send_selected_to_qflist",
+                    ["<C-d>"] = "delete_buffer",
+                    ["<C-a>"] = "select_all"
+                }
+            }
+
+            -- use <Ctrl-o> to open all items with trouble
+            local trouble = require("trouble.providers.telescope")
+
+            vim.tbl_extend("force", mappings,
+                {
+                    i = { ["<C-o>"] = trouble.open_with_trouble },
+                    n = { ["<C-o>"] = trouble.open_with_trouble }
+                }
+            )
         end
-    }
-    use {
+    },
+    {
         "stevearc/dressing.nvim",
         event = "BufReadPre"
-    }
-    use {
+    },
+    {
         "nvim-telescope/telescope-fzf-native.nvim",
-        after = "telescope.nvim",
-        run = "make",
+        build = "make",
         config = function()
             require("telescope").load_extension("fzf")
         end
-    }
+    },
 
     -- editing
-    use {
+    {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         config = function()
@@ -1120,51 +976,38 @@ packer.startup(function(use)
             })
 
             local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-
             local cmp_status_ok, cmp = pcall(require, "cmp")
             if cmp_status_ok then
                 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
             end
         end
-    }
-    use {
+    },
+    {
         "terrortylor/nvim-comment",
-        keys = {
-            { "n", "gcc" },
-            { "n", "gc" },
-            { "v", "gc" }
-        },
         config = function()
             require('nvim_comment').setup({})
         end
-    }
-    use {
-        "antoinemadec/FixCursorHold.nvim",
-        config = function()
-            vim.g.curshold_updatime = 1000
-        end
-    }
-    use {
+    },
+    {
         "ggandor/leap.nvim",
-        module = { "leap" },
-        keys = {
-            { "n", "s" },
-            { "n", "S" },
-            { "n", "f" },
-            { "n", "F" },
-        },
         config = function()
             require("leap").set_default_keymaps()
         end
-    }
-    use {
+    },
+    {
+        "ggandor/flit.nvim",
+        config = function()
+            require("flit").setup()
+        end
+    },
+    {
         "kylechui/nvim-surround",
         event = "BufRead",
         config = function()
             require("nvim-surround").setup({ move_cursor = false })
         end
-    }
-    use {
+    },
+    {
         "ntpeters/vim-better-whitespace",
         cmd = {
             "EnableWhitespace",
@@ -1173,19 +1016,16 @@ packer.startup(function(use)
             "ToggleWhitespace",
             "ToggleStripWhitespaceOnSave"
         },
-        keys = {
-            { "n", "<Leader>tS"},
-            { "n", "<Leader>tx"},
-            { "n", "<Leader>tX"}
-        },
-        config = function()
+        init = function()
             -- <Leader>t[oggle]
             vim.keymap.set("n", "<Leader>tS", "<cmd>ToggleWhitespace<CR>")
             vim.keymap.set("n", "<Leader>tx", "<cmd>StripWhitespace<CR>")
             vim.keymap.set("n", "<Leader>tX", "<cmd>ToggleStripWhitespaceOnSave<CR>")
+        end,
+        config = function()
         end
-    }
-    use {
+    },
+    {
         "mg979/vim-visual-multi",
         keys = {
             {"n", "<C-n>"},
@@ -1197,67 +1037,49 @@ packer.startup(function(use)
             {"x", "<C-Down>"},
             {"x", "g/"}
         }
-    }
-    use {
+    },
+    {
         "chentoast/marks.nvim",
         config = function()
             require("marks").setup()
         end
-    }
-    use {
+    },
+    {
         "wsdjeg/vim-fetch",
         keys = { { "n", "gF" } }
-    }
-    use {
-        "ThePrimeagen/harpoon",
-        requires = "nvim-lua/plenary.nvim",
-        keys = {
-            { "n", "<Leader>mf" },
-            { "n", "<Leader>mm" },
-            { "n", "<Leader>mn" },
-            { "n", "<Leader>mp" },
-            { "n", "<Leader>mt" }
-        },
-        config = function()
-            require("harpoon").setup({})
-
-            -- <Leader>m[ark]
-            vim.keymap.set("n", "<Leader>mf", require("harpoon.mark").add_file)
-            vim.keymap.set("n", "<Leader>mm", require("harpoon.ui").toggle_quick_menu)
-            vim.keymap.set("n", "<Leader>mn", require("harpoon.ui").nav_next)
-            vim.keymap.set("n", "<Leader>mp", require("harpoon.ui").nav_prev)
-            vim.keymap.set("n", "<Leader>mt", require("harpoon.cmd-ui").toggle_quick_menu)
-        end
-    }
-    use {
+    },
+    {
         "windwp/nvim-spectre",
-        requires = "nvim-lua/plenary.nvim",
+        dependencies = "nvim-lua/plenary.nvim",
         keys = { { "n", "<Leader>s-"} },
+        init = function()
+            vim.keymap.set("n", "<Leader>s-", function() require("spectre").open() end)
+            vim.keymap.set("n", "<Leader>s-", function() require("spectre").open() end)
+        end,
         config = function()
-            require("spectre").setup({})
-            vim.keymap.set("n", "<Leader>s-", require("spectre").open)
+            require("spectre").setup()
         end
-    }
-    use{
+    },
+    {
         "mbbill/undotree",
         cmd = { "UndotreeToggle" },
-        keys = {
-            { "n", "<Leader>tu" }
-        },
-        config = function()
-            vim.keymap.set("n", "<Leader>tu", vim.cmd.UndotreeToggle)
+        init = function()
+            vim.keymap.set("n", "<Leader>tu", function() vim.cmd.UndotreeToggle() end)
         end
-    }
+    },
 
     -- file management
-    use {
+    {
         "kyazdani42/nvim-tree.lua",
         cmd = { "NvimTree", "NvimTreeToggle", "NvimTreeFindFileToggle" },
-        keys = {
-            { "n", "<Leader>fe" },
-            { "n", "<Leader>fl" },
-            { "n", "<Leader>te" }
-        },
+        init = function()
+            -- <Leader>f[iles]
+            vim.keymap.set("n", "<Leader>fe", "<cmd>NvimTreeToggle<CR>")
+            vim.keymap.set("n", "<Leader>fl", "<cmd>NvimTreeFindFileToggle<CR>")
+
+            -- <Leader>t[oggle]
+            vim.keymap.set("n", "<Leader>te", "<cmd>NvimTreeToggle<CR>")
+        end,
         config = function()
             require("nvim-tree").setup({
                 hijack_netrw = true,
@@ -1284,21 +1106,14 @@ packer.startup(function(use)
                     }
                 }
             })
-
-            -- <Leader>f[iles]
-            vim.keymap.set("n", "<Leader>fe", "<cmd>NvimTreeToggle<CR>")
-            vim.keymap.set("n", "<Leader>fl", "<cmd>NvimTreeFindFileToggle<CR>")
-
-            -- <Leader>t[oggle]
-            vim.keymap.set("n", "<Leader>te", "<cmd>NvimTreeToggle<CR>")
         end
-    }
+    },
 
     -- Treesitter
-    use {
+    {
         "nvim-treesitter/nvim-treesitter",
         event = "BufRead",
-        run = ":TSUpdate",
+        build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
@@ -1319,11 +1134,11 @@ packer.startup(function(use)
             vim.wo.foldexpr = "expr"
             vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
         end
-    }
-    use {
+    },
+    {
         "nvim-treesitter/nvim-treesitter-textobjects",
         event = "BufRead",
-        requires = "nvim-treesitter/nvim-treesitter",
+        dependencies = "nvim-treesitter/nvim-treesitter",
         config = function()
             require('nvim-treesitter.configs').setup({
                 textobjects = {
@@ -1380,34 +1195,19 @@ packer.startup(function(use)
                             ["[]"] = "@class.outer",
                             ["[I"] = "@conditional.outer",
                             ["[L"] = "@loop.outer"
-                        },
-                    },
-                },
+                        }
+                    }
+                }
             })
         end
-    }
-    use {
-        "nvim-treesitter/nvim-treesitter-context",
-        event = "BufRead",
-        config = function()
-            require("treesitter-context").setup()
-        end
-    }
-    use {
-        'nvim-treesitter/playground',
-        cmd = {
-            "TSPlaygroundToggle"
-        }
-    }
+    },
 
     -- Git
-    use {
+    {
         "lewis6991/gitsigns.nvim",
         event = "BufReadPre",
-        require = { "nvim-lua/plenary.nvim" },
-        config = function()
-            require("gitsigns").setup()
-
+        dependencies = { "nvim-lua/plenary.nvim" },
+        init = function()
             -- ][c to navigate hunks
             vim.keymap.set("n", "]c",
                 function()
@@ -1429,43 +1229,39 @@ packer.startup(function(use)
             -- <Leader>g[it]
             vim.keymap.set("n", "<Leader>gj", function() require("gitsigns").next_hunk({ preview = true }) end)
             vim.keymap.set("n", "<Leader>gk", function() require("gitsigns").prev_hunk({ preview = true }) end)
-            vim.keymap.set("n", "<Leader>gs", require("gitsigns").stage_hunk)
+            vim.keymap.set("n", "<Leader>gs", function() require("gitsigns").stage_hunk() end)
             vim.keymap.set("v", "<Leader>gs", function() require("gitsigns").stage_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
-            vim.keymap.set("n", "<Leader>gr", require("gitsigns").reset_hunk)
+            vim.keymap.set("n", "<Leader>gr", function() require("gitsigns").reset_hunk() end)
             vim.keymap.set("v", "<Leader>gr", function() require("gitsigns").reset_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
-            vim.keymap.set("n", "<Leader>gl", require("gitsigns").setloclist)
-            vim.keymap.set("n", "<Leader>gp", require("gitsigns").preview_hunk)
-            vim.keymap.set("n", "<Leader>gu", require("gitsigns").undo_stage_hunk)
-            vim.keymap.set("n", "<Leader>gR", require("gitsigns").reset_buffer)
+            vim.keymap.set("n", "<Leader>gl", function() require("gitsigns").setloclist() end)
+            vim.keymap.set("n", "<Leader>gp", function() require("gitsigns").preview_hunk() end)
+            vim.keymap.set("n", "<Leader>gu", function() require("gitsigns").undo_stage_hunk() end)
+            vim.keymap.set("n", "<Leader>gR", function() require("gitsigns").reset_buffer() end)
             vim.keymap.set("n", "<Leader>gb", function() require("gitsigns").blame_line({ full = true }) end)
 
             -- ih for text object
-            vim.keymap.set("o", "ih", require("gitsigns").select_hunk)
-            vim.keymap.set("x", "ih", require("gitsigns").select_hunk)
-        end
-    }
-    use {
-        "tpope/vim-fugitive",
-        requires = "tpope/vim-rhubarb",
-        cmd = { "Git", "Gdiffsplit", "Gwrite" },
-        keys = {
-            { "n", "<Leader>gg" },
-            { "n", "<Leader>gc" },
-            { "n", "<Leader>gd" },
-            { "n", "<Leader>gw" },
-            { "n", "<Leader>gP" }
-        },
+            vim.keymap.set("o", "ih", function() require("gitsigns").select_hunk() end)
+            vim.keymap.set("x", "ih", function() require("gitsigns").select_hunk() end)
+        end,
         config = function()
+            require("gitsigns").setup()
+        end
+    },
+    {
+        "tpope/vim-fugitive",
+        dependencies = "tpope/vim-rhubarb",
+        cmd = { "Git", "Gdiffsplit", "Gwrite" },
+        init = function()
             vim.keymap.set("n", "<Leader>gg", "<cmd>Git<CR>")
             vim.keymap.set("n", "<Leader>gc", "<cmd>Git commit<CR>")
             vim.keymap.set("n", "<Leader>gd", "<cmd>Gdiffsplit<CR>")
             vim.keymap.set("n", "<Leader>gw", "<cmd>Gwrite<CR>")
             vim.keymap.set("n", "<Leader>gP", "<cmd>Git push<CR>")
         end
-    }
+    },
 
     -- WhichKey
-    use {
+    {
         "folke/which-key.nvim",
         event = "VimEnter",
         config = function()
@@ -1596,25 +1392,25 @@ packer.startup(function(use)
 
             }, { prefix = "<leader>" })
         end
-    }
+    },
 
     -- R
-    use {
+    {
         "jalvesaq/R-Vim-runtime",
         ft = { "r", "rmd", "rnoweb", "rout", "rhelp" }
-    }
-    use {
+    },
+    {
         "jalvesaq/Nvim-R",
         ft = { "r", "rmd", "rnoweb", "rout", "rhelp" },
         config = function()
             -- do not update $HOME on Windows since I set it manually
-            if vim.fn.has('win32') == 1 then
+            if vim.fn.has("win32") == 1 then
                 vim.g.R_set_home_env = 0
             end
 
             -- show R buffer in buffer list
             vim.g.R_buffer_opts = "winfixwidth winfixheight"
-            -- disable debugging support
+            -- disable debugging support,
             vim.g.R_debug = 0
             -- do not align function arguments
             vim.g.r_indent_align_args = 0
@@ -1775,19 +1571,11 @@ packer.startup(function(use)
                 }
             )
         end
-    }
-    use {
+    },
+    {
         "mllg/vim-devtools-plugin",
-        requires = "jalvesaq/Nvim-R",
+        dependencies = "jalvesaq/Nvim-R",
         ft = { "r", "rmd", "rnoweb", "rout", "rhelp" },
-        keys = {
-            { "n", "<LocalLeader>da" },
-            { "n", "<LocalLeader>dd" },
-            { "n", "<LocalLeader>dt" },
-            { "n", "<LocalLeader>dc" },
-            { "n", "<LocalLeader>dI" },
-            { "n", "<LocalLeader>df" }
-        },
         config = function()
             -- helper function to detect if current buffer is an R terminal
             -- created by Nvim-R
@@ -1860,11 +1648,4 @@ packer.startup(function(use)
             )
         end
     }
-
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if PACKER_BOOTSTRAP then
-        require("packer").sync()
-    end
-end)
-
+})
