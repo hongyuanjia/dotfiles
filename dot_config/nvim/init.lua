@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-12-23 18:49
+-- Last Modified: 2022-12-23 22:46
 
 -- Basic Settings
 local options = {
@@ -73,7 +73,25 @@ end
 
 if vim.fn.has("nvim-0.8") == 1 then
     vim.opt.spell = true
+    vim.api.nvim_create_autocmd("TermOpen", {
+        group = vim.api.nvim_create_augroup("SpellCheckOverwrite", {}),
+        pattern = "*",
+        callback = function()
+            vim.opt.spell = false
+        end
+    })
 end
+
+-- disable line number in terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = vim.api.nvim_create_augroup("LinenumberOverwrite", {}),
+    pattern = "*",
+    callback = function()
+        vim.opt.number = false
+        vim.opt.relativenumber = false
+    end
+})
+
 
 if vim.fn.has("nvim-0.9.0") == 1 then
     vim.opt.splitkeep = "screen"
@@ -140,9 +158,6 @@ end
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 vim.keymap.set("", "<Space>", "<Nop>")
-
--- use jk to go back to normal mode in insert mode
-vim.keymap.set("i", "jk", "<Esc>")
 
 -- keep the cursor always at the middle when jumping lines
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
@@ -343,17 +358,52 @@ lazy.setup({
     -- UI
     {
         "rcarriga/nvim-notify",
+        lazy = false,
+        config = function()
+            require("notify").setup({
+                timeout = 3000,
+                level = vim.log.levels.INFO,
+                fps = 20,
+                max_height = function()
+                    return math.floor(vim.o.lines * 0.75)
+                end,
+                max_wdith = function()
+                    return math.floor(vim.o.columns * 0.75)
+                end
+            })
+
+            vim.notify = require("notify")
+        end
+    },
+    {
+        "folke/noice.nvim",
         event = "VeryLazy",
-        config = {
-            timeout = 3000,
-            level = vim.log.levels.INFO,
-            fps = 20,
-            max_height = function()
-                return math.floor(vim.o.lines * 0.75)
-            end,
-            max_wdith = function()
-                return math.floor(vim.o.columns * 0.75)
-            end
+        init = function()
+            vim.keymap.set("n", "<Leader>nl", function() require("noice").cmd("last") end)
+            vim.keymap.set("n", "<Leader>nh", function() require("noice").cmd("history") end)
+            vim.keymap.set("n", "<Leader>nh", function() require("noice").cmd("all") end)
+        end,
+        config = function()
+            require("noice").setup({
+                lsp = {
+                    override = {
+                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                        ["vim.lsp.util.stylize_markdown"] = true,
+                        ["cmp.entry.get_documentation"] = true,
+                    }
+                },
+                presets = {
+                    bottom_search = true,
+                    command_palette = true,
+                    long_message_to_split = true,
+                    inc_rename = true,
+                    lsp_doc_border = true
+                }
+            })
+        end,
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
         }
     },
     { "kyazdani42/nvim-web-devicons", config = { default = true } },
@@ -639,9 +689,6 @@ lazy.setup({
             require("luasnip/loaders/from_vscode").lazy_load()
 
             cmp.setup({
-                completion = {
-                    completeopt = "menu,menuone,noinsert",
-                },
                 snippet = {
                     expand = function(args)
                         luasnip.lsp_expand(args.body)
@@ -818,11 +865,6 @@ lazy.setup({
                 pcall(vim.diagnostic.reset, ns)
                 return true
             end
-
-            -- don't wrap long lines for hover
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-                vim.lsp.handlers.hover, {  wrap = false }
-            )
 
             local on_attach = function(client, bufnr)
                 require("nvim-navic").attach(client, bufnr)
@@ -1479,9 +1521,9 @@ lazy.setup({
     },
     {
         "jalvesaq/Nvim-R",
+        event = "VeryLazy",
         dependencies = { "jalvesaq/R-Vim-runtime" },
         ft = { "r", "rmd", "rnoweb", "rout", "rhelp" },
-        lazy = false,
         config = function()
             -- do not update $HOME on Windows since I set it manually
             if vim.fn.has("win32") == 1 then
