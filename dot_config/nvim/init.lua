@@ -272,8 +272,8 @@ function _G.toggle_slash()
     line = string.gsub(line, first, oppsite)
     vim.api.nvim_set_current_line(line)
 end
-vim.keymap.set("n", "<Leader>tc", toggle_colorcolumn)
-vim.keymap.set("n", "<Leader>tl", toggle_linenumber)
+vim.keymap.set("n", "<Leader>tC", toggle_colorcolumn)
+vim.keymap.set("n", "<Leader>tL", toggle_linenumber)
 vim.keymap.set("n", "<Leader>t\\", toggle_slash)
 
 -- <Leader>q[uit]
@@ -1385,6 +1385,7 @@ lazy.setup({
         cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
         config = true
     },
+    { "pwntester/octo.nvim", config = true, cmd = { "Octo" } },
     {
         "tpope/vim-fugitive",
         dependencies = "tpope/vim-rhubarb",
@@ -1483,7 +1484,6 @@ lazy.setup({
                     k = "Key Maps",
                     c = "Commands",
                     g = "Live Grep",
-                    p = "Projects",
                     n = "No Search Highlight",
                     m = "Marks",
                     P = "Resume",
