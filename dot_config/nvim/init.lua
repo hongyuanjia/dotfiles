@@ -689,6 +689,8 @@ lazy.setup({
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-nvim-lsp-signature-help",
+            "petertriho/cmp-git",
+            "uga-rosa/cmp-dictionary",
 
             -- snippets
             "saadparwaiz1/cmp_luasnip",
@@ -707,6 +709,15 @@ lazy.setup({
             require("cmp_im").setup({
                 tables = require("cmp_im_zh").tables({ "wubi", "pinyin" })
             })
+            require("cmp_git").setup()
+
+            require("cmp_dictionary").setup({
+                dic = {
+                    ["*"] = vim.fn.expand(vim.fn.stdpath("data") .. "/dictionary/en.dict")
+                },
+                async = true
+            })
+            require("cmp_dictionary").update()
 
             vim.keymap.set({"n", "v", "c", "i"}, "<M-;>", function()
                 vim.notify(string.format("IM is %s", require("cmp_im").toggle() and "enabled" or "disabled"))
@@ -750,10 +761,10 @@ lazy.setup({
                         end
                     end, { "i", "s" }),
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
+                        if luasnip.jumpable(-1) then
                             luasnip.jump(-1)
+                        elseif cmp.visible() then
+                            cmp.select_prev_item()
                         else
                             fallback()
                         end
@@ -766,6 +777,8 @@ lazy.setup({
                     { name = "nvim_lsp_signature_help" },
                     { name = "luasnip" },
                     { name = "nvim_lua" },
+                    { name = "git" },
+                    { name = "dictionary", keyword_length = 2 },
                     { name = "buffer" },
                     { name = "path" }
                 }),
@@ -816,10 +829,10 @@ lazy.setup({
                         compare.kind,
                         compare.offset,
                         compare.exact,
+                        compare.sort_text,
                         compare.score,
                         compare.recently_used,
                         compare.locality,
-                        compare.sort_text,
                         compare.length,
                         compare.order
                     }
