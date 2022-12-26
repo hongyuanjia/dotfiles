@@ -552,15 +552,55 @@ lazy.setup({
         config = function()
             local alpha = require("alpha")
             local dashboard = require("alpha.themes.dashboard")
+
+            dashboard.section.footer = {
+                type = "text",
+                val = {
+                    os.date("%Y-%m-%d %H:%M"),
+                    "Plugin: " .. require("lazy").stats().count
+                },
+                opts = { position = "center", hl = "Comment" }
+            }
+
             dashboard.section.buttons.val = {
                 dashboard.button("SPC b N", "  New file"),
                 dashboard.button("SPC s f", "  Find file"),
-                dashboard.button("SPC s p", "  Find project"),
+                dashboard.button("SPC p s", "  Find project"),
                 dashboard.button("SPC f r", "  Recently used files"),
                 dashboard.button("SPC s g", "  Find text"),
                 dashboard.button("SPC S l", "  Load Session"),
                 dashboard.button("SPC f v", "  Configuration"),
                 dashboard.button("SPC Q",   "  Quit Neovim")
+            }
+
+            dashboard.config.layout = {
+                { type = "padding", val = 2 },
+                dashboard.section.header,
+                { type = "padding", val = 2 },
+                dashboard.section.buttons,
+                { type = "padding", val = 2 },
+                dashboard.section.footer
+            }
+
+            dashboard.config.opts = {
+                margin = 5,
+                setup = function()
+                    vim.api.nvim_create_autocmd("User", {
+                        pattern = "AlphaReady",
+                        desc = "Disable status and tabline for alhpa",
+                        callback = function()
+                            vim.opt.showtabline = 0
+                        end
+                    })
+
+                    vim.api.nvim_create_autocmd("BufUnload", {
+                        buffer = 0,
+                        desc = "Enable status and tabline after alhpa",
+                        callback = function()
+                            vim.opt.showtabline = 2
+                        end
+                    })
+                end
             }
 
             alpha.setup(dashboard.config)
