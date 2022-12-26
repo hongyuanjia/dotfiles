@@ -348,13 +348,11 @@ lazy.setup({
         init = function()
             vim.cmd.colorscheme("tokyonight")
         end,
-        config = function()
-            require("tokyonight").setup()
-        end
+        config = true
     },
 
     -- chezmoi for dot file management
-    "alker0/chezmoi.vim",
+    { "alker0/chezmoi.vim", lazy = false },
 
     -- start tim profile
     { "tweekmonster/startuptime.vim", cmd = "StartupTime" },
