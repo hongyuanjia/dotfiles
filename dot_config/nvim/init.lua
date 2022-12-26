@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-12-23 22:46
+-- Last Modified: 2022-12-26 11:47
 
 -- Basic Settings
 local options = {
@@ -388,37 +388,24 @@ lazy.setup({
     },
     { "kyazdani42/nvim-web-devicons", config = { default = true } },
     {
-        "akinsho/nvim-bufferline.lua",
-        event = "BufReadPre",
-        keys = {
-            -- <Leader>b[uffer]
-            { "<Leader>bp", "<cmd>:BufferLineCyclePrev<CR>" },
-            { "<Leader>bn", "<cmd>:BufferLineCycleNext<CR>" },
-            { "<Leader>bP", "<cmd>:BufferLineMovePrev<CR>" },
-            { "<Leader>bN", "<cmd>:BufferLineMoveNext<CR>" },
-            { "<Leader>bg", "<cmd>:BufferLinePick<CR>" },
-            { "<Leader>bG", "<cmd>:BufferLineClose<CR>" },
-
-            -- <Leader>1-0 for quick switch buffer
-            { "<Leader>1", "<cmd>:BufferLineGoToBuffer 1<CR>" },
-            { "<Leader>2", "<cmd>:BufferLineGoToBuffer 2<CR>" },
-            { "<Leader>3", "<cmd>:BufferLineGoToBuffer 3<CR>" },
-            { "<Leader>4", "<cmd>:BufferLineGoToBuffer 4<CR>" },
-            { "<Leader>5", "<cmd>:BufferLineGoToBuffer 5<CR>" },
-            { "<Leader>6", "<cmd>:BufferLineGoToBuffer 6<CR>" },
-            { "<Leader>7", "<cmd>:BufferLineGoToBuffer 7<CR>" },
-            { "<Leader>8", "<cmd>:BufferLineGoToBuffer 8<CR>" },
-            { "<Leader>9", "<cmd>:BufferLineGoToBuffer 9<CR>" },
-            { "<Leader>$", "<cmd>:BufferLineGoToBuffer -1<CR>" }
-        },
-        config = {
-            options = {
-                always_show_bufferline = false,
-                numbers = "none",
-                diagnostics = false,
-                separator_style = "thick"
-            }
-        }
+        "nanozuki/tabby.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.keymap.set("n", "<Leader>tR", function()
+                vim.ui.input(
+                    {
+                        prompt = "Tab Name > ",
+                        default = nil
+                    },
+                    function(input)
+                        if input and input ~= "" then
+                            vim.cmd.TabRename(input)
+                        end
+                    end
+                )
+            end)
+        end,
+        config = true
     },
     {
         "nvim-lualine/lualine.nvim",
