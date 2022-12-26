@@ -97,6 +97,9 @@ if vim.fn.has("nvim-0.9.0") == 1 then
     vim.opt.splitkeep = "screen"
 end
 
+-- disable intro
+vim.opt.shortmess:append("I")
+
 -- treat '-' as word separator
 vim.opt.iskeyword:append("-")
 
