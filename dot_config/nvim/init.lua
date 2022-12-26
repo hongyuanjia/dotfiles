@@ -502,7 +502,26 @@ lazy.setup({
     { "norcalli/nvim-colorizer.lua", event = "BufReadPre", config = true },
     {
         "akinsho/toggleterm.nvim",
-        init = function()
+        keys = { "<Leader>tf", "<Leader>th", "<Leader>tv" },
+        config = function()
+            require("toggleterm").setup({
+                size = function(term)
+                    if term.direction == "vertical" then
+                        return vim.o.columns * 0.3
+                    else
+                        return 20
+                    end
+                end,
+                float_opts = {
+                    border = "curved",
+                    winblend = 0,
+                    highlights = {
+                        border = "Normal",
+                        background = "Normal"
+                    }
+                }
+            })
+
             local shell = vim.o.shell
             if string.lower(jit.os) == "windows" then
                 if vim.fn.executable("pwsh") == 1 then
@@ -525,24 +544,7 @@ lazy.setup({
             if vim.fn.executable("lazygit") == 1 then
                 vim.keymap.set("n", "<Leader>g=", function() toggle_terminal("lazygit", "float") end)
             end
-        end,
-        config = {
-            size = function(term)
-                if term.direction == "vertical" then
-                    return vim.o.columns * 0.3
-                else
-                    return 20
-                end
-            end,
-            float_opts = {
-                border = "curved",
-                winblend = 0,
-                highlights = {
-                    border = "Normal",
-                    background = "Normal"
-                }
-            }
-        }
+        end
     },
     {
         "goolord/alpha-nvim",
