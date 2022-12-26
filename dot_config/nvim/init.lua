@@ -357,54 +357,30 @@ lazy.setup({
 
     -- UI
     {
-        "rcarriga/nvim-notify",
-        lazy = false,
-        config = function()
-            require("notify").setup({
-                timeout = 3000,
-                level = vim.log.levels.INFO,
-                fps = 20,
-                max_height = function()
-                    return math.floor(vim.o.lines * 0.75)
-                end,
-                max_wdith = function()
-                    return math.floor(vim.o.columns * 0.75)
-                end
-            })
-
-            vim.notify = require("notify")
-        end
-    },
-    {
-        "folke/noice.nvim",
-        event = "VeryLazy",
+        "anuvyklack/windows.nvim",
+        dependencies = {
+            "anuvyklack/middleclass",
+            "anuvyklack/animation.nvim"
+        },
+        event = "WinEnter",
         init = function()
-            vim.keymap.set("n", "<Leader>nl", function() require("noice").cmd("last") end)
-            vim.keymap.set("n", "<Leader>nh", function() require("noice").cmd("history") end)
-            vim.keymap.set("n", "<Leader>nh", function() require("noice").cmd("all") end)
+            -- <Leader>w[indows]
+            vim.keymap.set("n", "<Leader>wm", "<cmd>WindowsMaximize<CR>")
+            vim.keymap.set("n", "<Leader>wV", "<cmd>WindowsMaximizeVertically<CR>")
+            vim.keymap.set("n", "<Leader>wH", "<cmd>WindowsMaximizeHorizontally<CR>")
+            vim.keymap.set("n", "<Leader>w=", "<cmd>WindowsEqualize<CR>")
+            vim.keymap.set("n", "<Leader>wC", "<cmd>WindowsToggleAutowidth<CR>")
         end,
         config = function()
-            require("noice").setup({
-                lsp = {
-                    override = {
-                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                        ["vim.lsp.util.stylize_markdown"] = true,
-                        ["cmp.entry.get_documentation"] = true,
-                    }
-                },
-                presets = {
-                    bottom_search = true,
-                    command_palette = true,
-                    long_message_to_split = true,
-                    inc_rename = true,
-                    lsp_doc_border = true
+            vim.o.winwidth = 10
+            vim.o.winminwidth = 10
+            vim.o.equalalways = false
+            require("windows").setup({
+                ignore = {
+                    filetype = { "NvimTree", "DiffviewFiles" }
                 }
             })
-        end,
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
-        }
+        end
     },
     { "kyazdani42/nvim-web-devicons", config = { default = true } },
     {
@@ -413,7 +389,23 @@ lazy.setup({
         keys = {
             -- <Leader>b[uffer]
             { "<Leader>bp", "<cmd>:BufferLineCyclePrev<CR>" },
-            { "<Leader>bn", "<cmd>:BufferLineCycleNext<CR>" }
+            { "<Leader>bn", "<cmd>:BufferLineCycleNext<CR>" },
+            { "<Leader>bP", "<cmd>:BufferLineMovePrev<CR>" },
+            { "<Leader>bN", "<cmd>:BufferLineMoveNext<CR>" },
+            { "<Leader>bg", "<cmd>:BufferLinePick<CR>" },
+            { "<Leader>bG", "<cmd>:BufferLineClose<CR>" },
+
+            -- <Leader>1-0 for quick switch buffer
+            { "<Leader>1", "<cmd>:BufferLineGoToBuffer 1<CR>" },
+            { "<Leader>2", "<cmd>:BufferLineGoToBuffer 2<CR>" },
+            { "<Leader>3", "<cmd>:BufferLineGoToBuffer 3<CR>" },
+            { "<Leader>4", "<cmd>:BufferLineGoToBuffer 4<CR>" },
+            { "<Leader>5", "<cmd>:BufferLineGoToBuffer 5<CR>" },
+            { "<Leader>6", "<cmd>:BufferLineGoToBuffer 6<CR>" },
+            { "<Leader>7", "<cmd>:BufferLineGoToBuffer 7<CR>" },
+            { "<Leader>8", "<cmd>:BufferLineGoToBuffer 8<CR>" },
+            { "<Leader>9", "<cmd>:BufferLineGoToBuffer 9<CR>" },
+            { "<Leader>$", "<cmd>:BufferLineGoToBuffer -1<CR>" }
         },
         config = {
             options = {
@@ -428,20 +420,6 @@ lazy.setup({
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
         dependencies = "SmiteshP/nvim-navic",
-        keys = {
-            {
-                "<Leader>rt", function()
-                vim.ui.input(
-                    { prompt = "Tab name: " },
-                    function(input)
-                        if input == nil then return end
-                        if input == "" then return end
-                        vim.fn["LualineRenameTab"]({input})
-                    end
-                )
-                end
-            }
-        },
         config = function()
             require("lualine").setup({
                 options = {
