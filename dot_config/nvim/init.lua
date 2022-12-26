@@ -673,12 +673,24 @@ lazy.setup({
             -- snippets
             "saadparwaiz1/cmp_luasnip",
             "L3MON4D3/LuaSnip",
-            "rafamadriz/friendly-snippets"
+            "rafamadriz/friendly-snippets",
+
+            -- Chinese input method
+            "yehuohan/cmp-im",
+            "yehuohan/cmp-im-zh"
         },
         config = function()
             local cmp = require("cmp")
             local compare = require("cmp.config.compare")
             local luasnip = require("luasnip")
+
+            require("cmp_im").setup({
+                tables = require("cmp_im_zh").tables({ "wubi", "pinyin" })
+            })
+
+            vim.keymap.set({"n", "v", "c", "i"}, "<M-;>", function()
+                vim.notify(string.format("IM is %s", require("cmp_im").toggle() and "enabled" or "disabled"))
+            end)
 
             local has_words_before = function()
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -726,6 +738,7 @@ lazy.setup({
                             fallback()
                         end
                     end, { "i", "s" }),
+                    ['<Space>'] = cmp.mapping(require("cmp_im").select(), { 'i' })
                 },
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
