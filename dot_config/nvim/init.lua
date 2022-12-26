@@ -989,12 +989,12 @@ lazy.setup({
         dependencies = {
             "nvim-lua/plenary.nvim",
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-            "ahmedkhalf/project.nvim"
+            "tsakirist/telescope-lazy.nvim"
         },
         cmd = "Telescope",
         init = function()
-            -- <Leader>sp[roject]
-            vim.keymap.set("n", "<Leader>sp", function() require("telescope").extensions.projects.projects() end )
+            -- <Leader>sL[roject]
+            vim.keymap.set("n", "<Leader>sL", function() require("telescope").extensions.lazy.lazy() end )
 
             -- <Leader>b[uffer]
             vim.keymap.set("n", "<Leader>bb", function() require("telescope.builtin").buffers() end)
@@ -1096,11 +1096,6 @@ lazy.setup({
                     },
                     sorting_strategy = "ascending"
                 }
-            })
-
-            require("project_nvim").setup({
-                detection_methods = { "pattern", "lsp" },
-                patterns = { ".git", ".svn", ".hg", ".Rproj", ".here", "package.json", "DESCRIPTION" }
             })
 
             require("telescope").load_extension("fzf")
