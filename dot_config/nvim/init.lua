@@ -544,11 +544,6 @@ lazy.setup({
             use_treesitter_scope = false
         }
     },
-    {
-        "karb94/neoscroll.nvim",
-        keys = { "<C-u>", "<C-d>", "gg", "G" },
-        config = true
-    },
     { "norcalli/nvim-colorizer.lua", event = "BufReadPre", config = true },
     {
         "akinsho/toggleterm.nvim",
