@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-12-26 11:47
+-- Last Modified: 2022-12-26 21:45
 
 -- Basic Settings
 local options = {
@@ -646,7 +646,11 @@ lazy.setup({
         cmd = { "ChooseWin", "ChooseWinSwap", "ChooseWinSwapStay" },
         keys = {
             { "-", "<Plug>(choosewin)" }
-        }
+        },
+        init = function ()
+            vim.g.choosewin_statusline_replace = 0
+            vim.g.choosewin_overlay_enable = 1
+        end
     },
     {
         "sindrets/winshift.nvim",
@@ -673,7 +677,7 @@ lazy.setup({
                         if input and input ~= "" then
                             require("sessions").save(input)
                         end
-                    )
+                    end
                 )
             end)
             vim.keymap.set("n", "<Leader>Sl", function() require("sessions").load() end)
@@ -696,7 +700,7 @@ lazy.setup({
                         if input and input ~= "" then
                             require("workspaces").add(nil, input)
                         end
-                    )
+                    end
                 )
             end)
             vim.keymap.set("n", "<Leader>pl", function() require("workspaces").list() end)
@@ -1170,6 +1174,7 @@ lazy.setup({
     { "stevearc/dressing.nvim", event = "VeryLazy" },
 
     -- editing
+    { "max397574/better-escape.nvim", event = "InsertEnter", config = true },
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
