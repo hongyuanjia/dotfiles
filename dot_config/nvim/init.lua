@@ -876,7 +876,8 @@ lazy.setup({
         config = function()
             require("null-ls").setup({
                 sources = {
-                    require("null-ls").builtins.completion.spell
+                    require("null-ls").builtins.completion.spell,
+                    require("null-ls").builtins.code_actions.gitsigns
                 }
             })
         end
