@@ -664,14 +664,14 @@ lazy.setup({
         cmd = { "SessionLoad", "SessionStop", "SessionSave" },
         init = function()
             vim.keymap.set("n", "<Leader>Ss", function()
-                require("sessions").save(
-                    vim.ui.input(
-                        {
-                            prompt = "Session Name > ",
-                            default = nil
-                        },
-                        function(input)
-                            return input
+                vim.ui.input(
+                    {
+                        prompt = "Session Name > ",
+                        default = nil
+                    },
+                    function(input)
+                        if input and input ~= "" then
+                            require("sessions").save(input)
                         end
                     )
                 )
@@ -687,14 +687,14 @@ lazy.setup({
         "natecraddock/workspaces.nvim",
         init = function()
             vim.keymap.set("n", "<Leader>pa", function()
-                require("workspaces").add(nil,
-                    vim.ui.input(
-                        {
-                            prompt = "Project Name > ",
-                            default = nil
-                        },
-                        function(input)
-                            return input
+                vim.ui.input(
+                    {
+                        prompt = "Project Name > ",
+                        default = nil
+                    },
+                    function(input)
+                        if input and input ~= "" then
+                            require("workspaces").add(nil, input)
                         end
                     )
                 )
@@ -1164,7 +1164,7 @@ lazy.setup({
             })
 
             require("telescope").load_extension("fzf")
-            require("telescope").load_extension("projects")
+            require("telescope").load_extension("lazy")
         end
     },
     { "stevearc/dressing.nvim", event = "VeryLazy" },
