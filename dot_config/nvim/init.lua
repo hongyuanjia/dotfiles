@@ -1187,11 +1187,10 @@ lazy.setup({
             end
         end
     },
-    {
-        "terrortylor/nvim-comment",
-        keys = { "gcc", "gc", {"gc", nil, "v"} },
+    { "terrortylor/nvim-comment",
+        keys = { "gcc", "gc" },
         config = function()
-            require("nvim_comment").setup()
+            require('nvim_comment').setup()
         end
     },
     {
