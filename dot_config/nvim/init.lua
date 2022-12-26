@@ -645,17 +645,59 @@ lazy.setup({
 
     -- session management
     {
-        "olimorris/persisted.nvim",
-        cmd = { "SessionLoad", "SessionLoadLast", "SessionSave" },
-        keys = {
-            -- <Leader>S[ession]
-            { "<Leader>Sl", "<cmd>SessionLoad<CR>" },
-            { "<Leader>SL", "<cmd>SessionLoadLast<CR>" },
-            { "<Leader>Ss", "<cmd>SessionSave<CR>" }
-        },
+        "natecraddock/sessions.nvim",
+        cmd = { "SessionLoad", "SessionStop", "SessionSave" },
+        init = function()
+            vim.keymap.set("n", "<Leader>Ss", function()
+                require("sessions").save(
+                    vim.ui.input(
+                        {
+                            prompt = "Session Name > ",
+                            default = nil
+                        },
+                        function(input)
+                            return input
+                        end
+                    )
+                )
+            end)
+            vim.keymap.set("n", "<Leader>Sl", function() require("sessions").load() end)
+        end,
+        config = {
+            session_filepath = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions"),
+            absolute = true
+        }
+    },
+    {
+        "natecraddock/workspaces.nvim",
+        init = function()
+            vim.keymap.set("n", "<Leader>pa", function()
+                require("workspaces").add(nil,
+                    vim.ui.input(
+                        {
+                            prompt = "Project Name > ",
+                            default = nil
+                        },
+                        function(input)
+                            return input
+                        end
+                    )
+                )
+            end)
+            vim.keymap.set("n", "<Leader>pl", function() require("workspaces").list() end)
+            vim.keymap.set("n", "<Leader>ps", function() require("telescope").extensions.workspaces.workspaces() end )
+        end,
         config = function()
-            require("persisted").setup()
-            require("telescope").load_extension("persisted")
+            require("workspaces").setup({
+                hooks = {
+                    open = function()
+                        if not require("sessions").load(nil, { silent = true }) then
+                            require("telescope.builtin").find_files()
+                        end
+                    end,
+                }
+            })
+            require("telescope").load_extension("workspaces")
         end
     },
 
