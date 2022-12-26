@@ -227,7 +227,13 @@ vim.keymap.set("n", "<Leader>oq", "<cmd>qopen<CR>")
 vim.keymap.set("n", "<Leader>ol", "<cmd>lopen<CR>")
 
 -- <Leader>t[ab]
-vim.keymap.set("n", "<Leader>tN", "<cmd>tabnew<CR>")
+vim.keymap.set("n", "<Leader>tN", "<cmd>$tabnew<CR>")
+vim.keymap.set("n", "<Leader>tc", "<cmd>tabclose<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>to", "<cmd>tabonly<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>tn", "<cmd>tabn<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>tp", "<cmd>tabp<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>tmp", ":-tabmove<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>tmn", ":+tabmove<CR>", { noremap = true })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 vim.keymap.set("n", "n", "'Nn'[v:searchforward]", { expr = true })
@@ -416,7 +422,10 @@ lazy.setup({
                     component_separators = { left = "", right = "" },
                     section_separators = { left = "", right = "" },
                     globalstatus = true,
-                    disabled_filetypes = { "NvimTree", "Outline" },
+                    disabled_filetypes = {
+                        statusline = { "alpha", "NvimTree", "Outline" },
+                        winbar = {  "alpha", "NvimTree", "toggleterm" }
+                    },
                 },
                 sections = {
                     lualine_a = { "mode" },
@@ -432,7 +441,9 @@ lazy.setup({
                             sections = { "error", "warn" },
                             symbols = { error = " ", warn = " " },
                             colored = true,
-                        },
+                        }
+                    },
+                    lualine_c = {
                         {
                             function()
                                 local navic = require("nvim-navic")
@@ -460,30 +471,7 @@ lazy.setup({
             })
         end
     },
-    {
-        "b0o/incline.nvim",
-        event = "BufReadPre",
-        config = function()
-            require("incline").setup({
-                window = {
-                    margin = {
-                        vertical = 0,
-                        horizontal = 1,
-                    },
-                },
-                render = function(props)
-                    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-                    local icon, color = require("nvim-web-devicons").get_icon_color(filename)
-                    return {
-                        { icon, guifg = color },
-                        { " " },
-                        { filename },
-                    }
-                end,
-            })
-        end
-    },
-    { "tiagovla/scope.nvim", event = "TabNew", config = true },
+    { "tiagovla/scope.nvim", event = "VeryLazy", config = true },
     {
         "RRethy/vim-illuminate",
         event = "BufReadPost",
