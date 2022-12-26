@@ -711,6 +711,7 @@ lazy.setup({
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
 
             -- snippets
             "saadparwaiz1/cmp_luasnip",
@@ -783,7 +784,9 @@ lazy.setup({
                     ['<Space>'] = cmp.mapping(require("cmp_im").select(), { 'i' })
                 },
                 sources = cmp.config.sources({
+                    { name = "IM"},
                     { name = "nvim_lsp" },
+                    { name = "nvim_lsp_signature_help" },
                     { name = "luasnip" },
                     { name = "nvim_lua" },
                     { name = "buffer" },
@@ -825,6 +828,7 @@ lazy.setup({
                             luasnip = "[Snippet]",
                             buffer = "[Buffer]",
                             path = "[Path]",
+                            IM = "[IM]",
                         })[entry.source.name]
                         return vim_item
                     end
