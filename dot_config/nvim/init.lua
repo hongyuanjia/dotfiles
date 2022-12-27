@@ -665,7 +665,7 @@ lazy.setup({
     -- session management
     {
         "natecraddock/sessions.nvim",
-        cmd = { "SessionLoad", "SessionStop", "SessionSave" },
+        cmd = { "SessionsLoad", "SessionsStop", "SessionsSave" },
         init = function()
             vim.keymap.set("n", "<Leader>Ss", function()
                 vim.ui.input(
