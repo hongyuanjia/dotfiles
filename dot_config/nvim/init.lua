@@ -733,6 +733,7 @@ lazy.setup({
             "hrsh7th/cmp-nvim-lsp-signature-help",
             "petertriho/cmp-git",
             "uga-rosa/cmp-dictionary",
+            "jalvesaq/cmp-nvim-r",
 
             -- snippets
             "saadparwaiz1/cmp_luasnip",
@@ -815,6 +816,7 @@ lazy.setup({
                 },
                 sources = cmp.config.sources({
                     { name = "IM"},
+                    { name = "cmp_nvim_r" },
                     { name = "nvim_lsp" },
                     { name = "nvim_lsp_signature_help" },
                     { name = "luasnip" },
@@ -868,10 +870,10 @@ lazy.setup({
                 sorting = {
                     priority_weight = 2,
                     comparators = {
+                        compare.sort_text,
                         compare.kind,
                         compare.offset,
                         compare.exact,
-                        compare.sort_text,
                         compare.score,
                         compare.recently_used,
                         compare.locality,
