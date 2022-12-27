@@ -1176,7 +1176,12 @@ lazy.setup({
     { "stevearc/dressing.nvim", event = "VeryLazy" },
 
     -- editing
-    { "max397574/better-escape.nvim", event = "InsertEnter", config = true },
+    { "max397574/better-escape.nvim",
+        event = "InsertEnter",
+        config = {
+            mapping = { "jk" }
+        }
+    },
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
