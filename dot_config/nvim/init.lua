@@ -668,6 +668,19 @@ lazy.setup({
         cmd = { "SessionsLoad", "SessionsStop", "SessionsSave" },
         init = function()
             vim.keymap.set("n", "<Leader>Ss", function()
+                -- detect if an R terminal is started by NVim-R
+                if vim.g.rplugin and vim.g.rplugin.R_bufname then
+                    -- quite R sessions
+                    vim.call("RQuit", "nosave")
+                    local rbuf = vim.g.rplugin.R_bufname
+
+                    -- delete the buffer
+                    for i, buf in ipairs(vim.api.nvim_list_bufs()) do
+                        if vim.api.nvim_buf_get_name(buf) == rbuf then
+                            vim.cmd("bdelete " .. buf)
+                        end
+                    end
+                end
                 vim.ui.input(
                     {
                         prompt = "Session Name > ",
