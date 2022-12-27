@@ -642,15 +642,11 @@ lazy.setup({
         config = true
     },
     {
-        "t9md/vim-choosewin",
-        cmd = { "ChooseWin", "ChooseWinSwap", "ChooseWinSwapStay" },
+        "tkmpypy/chowcho.nvim",
         keys = {
-            { "-", "<Plug>(choosewin)" }
+            { "-", function() require("chowcho").run() end, "n", { remap = true } }
         },
-        init = function ()
-            vim.g.choosewin_statusline_replace = 0
-            vim.g.choosewin_overlay_enable = 1
-        end
+        config = { icon_enabled = true, border_style = "rounded" }
     },
     {
         "sindrets/winshift.nvim",
