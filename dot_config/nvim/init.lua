@@ -64,7 +64,7 @@ local options = {
     softtabstop = 4,
 
     -- session
-    sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+    sessionoptions = { "buffers", "curdir", "winsize", "localoptions" }
 }
 
 for k, v in pairs(options) do
