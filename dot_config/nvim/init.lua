@@ -967,7 +967,8 @@ lazy.setup({
         event = "BufReadPre",
         dependencies = {
             "simrat39/rust-tools.nvim",
-            "hrsh7th/cmp-nvim-lsp"
+            "hrsh7th/cmp-nvim-lsp",
+            { "folke/neodev.nvim", config = true }
         },
         config = function()
             require("mason").setup()
@@ -1055,6 +1056,7 @@ lazy.setup({
                                         reload = "require"
                                     }
                                 },
+                                completion = { callSnippet = "Replace" },
                                 diagnostics = {
                                     globals = { "vim" }
                                 },
@@ -1063,7 +1065,12 @@ lazy.setup({
                                         vim.fn.expand("$VIMRUNTIME")
                                     },
                                     maxPreload = 5000,
-                                    preloadFileSize = 10000
+                                    preloadFileSize = 10000,
+                                    -- Diable the message "Do you need to configure your environment as luassert"
+                                    checkThirdParty = false
+                                },
+                                telemetry = {
+                                    enable = false
                                 }
                             }
                         }
