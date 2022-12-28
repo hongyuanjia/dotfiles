@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2022-12-26 21:45
+-- Last Modified: 2022-12-28 09:22
 
 -- Basic Settings
 local options = {
@@ -665,17 +665,11 @@ lazy.setup({
         init = function()
             vim.keymap.set("n", "<Leader>Ss", function()
                 -- detect if an R terminal is started by NVim-R
-                if vim.g.rplugin and vim.g.rplugin.R_bufname then
+                if vim.g.rplugin and vim.g.rplugin.R_bufnr then
                     -- quite R sessions
                     vim.call("RQuit", "nosave")
-                    local rbuf = vim.g.rplugin.R_bufname
-
                     -- delete the buffer
-                    for i, buf in ipairs(vim.api.nvim_list_bufs()) do
-                        if vim.api.nvim_buf_get_name(buf) == rbuf then
-                            vim.cmd("bdelete " .. buf)
-                        end
-                    end
+                    vim.cmd("bdelete " .. vim.g.rplugin.R_bufnr)
                 end
                 vim.ui.input(
                     {
@@ -688,8 +682,10 @@ lazy.setup({
                         end
                     end
                 )
-            end)
-            vim.keymap.set("n", "<Leader>Sl", function() require("sessions").load() end)
+            end,
+            { desc = "Session save" }
+            )
+            vim.keymap.set("n", "<Leader>Sl", function() require("sessions").load() end, { desc = "Session load" })
         end,
         config = {
             session_filepath = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions"),
@@ -867,6 +863,7 @@ lazy.setup({
                         }
                         vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
                         vim_item.menu = ({
+                            cmp_nvim_r = "[Nvim-R]",
                             nvim_lsp = "[LSP]",
                             luasnip = "[Snippet]",
                             buffer = "[Buffer]",
@@ -1668,24 +1665,6 @@ lazy.setup({
                 autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
             ]]
 
-            -- helper function to detect if current buffer is an R terminal
-            -- created by Nvim-R
-            local IsRTerm = function(buffer)
-                local buf = buffer == nil and 0 or buffer
-
-                if vim.api.nvim_buf_get_option(buf, "buftype") == "terminal" then
-                    local bufname = vim.api.nvim_buf_get_name(buf)
-                    -- this is a R termial created by NVim-R
-                    if string.find(bufname, "^term://.+//%d+:R%s?$") then
-                        return true
-                    else
-                        return false
-                    end
-                else
-                    return false
-                end
-            end
-
             -- assign and pipe
             local r_set_keymap_pipe = function (buffer)
                 local buf = buffer == nil and 0 or buffer
@@ -1720,7 +1699,7 @@ lazy.setup({
                     pattern = "*",
                     callback = function(args)
                         -- if current buffer is an R terminal
-                        if IsRTerm(args.buf) then
+                        if vim.g.rplugin and vim.g.rplugin.R_bufnr == args.buf then
                             -- set keymap to quit R
                             vim.keymap.set("n", "<LocalLeader>rq", "<cmd>call RQuit('nosave')<CR>", { buffer = args.buf })
 
@@ -1757,11 +1736,11 @@ lazy.setup({
                 {
                     group = vim.api.nvim_create_augroup("RKeymapSetup", {}),
                     pattern = { "*.r", "*.R", "*.rmd", "*.Rmd", "*.qmd" },
-                    callback = function()
+                    callback = function(args)
                         vim.wo.colorcolumn = "80"
-                        r_set_keymap_pipe()
-                        r_set_keymap_targets()
-                        r_set_keymap_debug()
+                        r_set_keymap_pipe(args.buf)
+                        r_set_keymap_targets(args.buf)
+                        r_set_keymap_debug(args.buf)
                     end
                 }
             )
@@ -1771,7 +1750,7 @@ lazy.setup({
                 {
                     group = vim.api.nvim_create_augroup("RMarkdownSetup", {}),
                     pattern = { "*.rmd", "*.Rmd" },
-                    callback = function()
+                    callback = function(args)
                         -- wrap long lines
                         vim.wo.wrap = true
 
@@ -1789,7 +1768,7 @@ lazy.setup({
                             print("Rmd will be rendered in an empty environment.")
                         end
 
-                        vim.keymap.set("n", "<LocalLeader>re", RToggleRmdEnv, { buffer = 0 })
+                        vim.keymap.set("n", "<LocalLeader>re", RToggleRmdEnv, { buffer = args.buf })
                     end
                 }
             )
@@ -1800,24 +1779,6 @@ lazy.setup({
         dependencies = "jalvesaq/Nvim-R",
         ft = { "r", "rmd", "rnoweb", "rout", "rhelp" },
         config = function()
-            -- helper function to detect if current buffer is an R terminal
-            -- created by Nvim-R
-            local IsRTerm = function(buffer)
-                local buf = buffer == nil and 0 or buffer
-
-                if vim.api.nvim_buf_get_option(buf, "buftype") == "terminal" then
-                    local bufname = vim.api.nvim_buf_get_name(buf)
-                    -- this is a R termial created by NVim-R
-                    if string.find(bufname, "^term://.+//%d+:R%s?$") then
-                        return true
-                    else
-                        return false
-                    end
-                else
-                    return false
-                end
-            end
-
             -- devtools
             local r_set_keymap_devtools = function(buffer)
                 local buf = buffer == nil and 0 or buffer
@@ -1849,7 +1810,7 @@ lazy.setup({
                                 end
                                 vim.fn['devtools#send_cmd']('devtools::test_active_file("' .. curfile .. '")')
                             end,
-                            { buffer = 0 }
+                            { buffer = args.buf }
                         )
                     end
                 }
@@ -1862,7 +1823,7 @@ lazy.setup({
                     pattern = "*",
                     callback = function(args)
                         -- if current buffer is an R terminal
-                        if IsRTerm(args.buf) then
+                        if vim.g.rplugin and vim.g.rplugin.R_bufnr == args.buf then
                             -- {devtools}
                             r_set_keymap_devtools(args.buf)
                         end
