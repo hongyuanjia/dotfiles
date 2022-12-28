@@ -248,6 +248,10 @@ vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true })
 -- save in insert mode
 vim.keymap.set("i", "<C-s>", "<cmd>update<CR><esc>", { desc = "Save file" })
 
+-- move cursor using <C-h> and <C-l>
+vim.keymap.set("i", "<C-h>", "<left>", { desc = "Move cursor left" })
+vim.keymap.set("i", "<C-l>", "<right>", { desc = "Move cursor right" })
+
 -- <Leader>t[oggle]
 vim.keymap.set("n", "<Leader>tC", function()
     if vim.wo.colorcolumn ~= "" then
