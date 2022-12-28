@@ -358,10 +358,11 @@ lazy.setup({
     -- colorscheme
     {
         "folke/tokyonight.nvim",
-        init = function()
+        event = "VimEnter",
+        config = function()
+            require("tokyonight").setup()
             vim.cmd.colorscheme("tokyonight")
-        end,
-        config = true
+        end
     },
 
     -- chezmoi for dot file management
