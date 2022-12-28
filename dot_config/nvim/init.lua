@@ -160,7 +160,6 @@ end
 -- remap space as the leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
-vim.keymap.set("", "<Space>", "<Nop>")
 
 -- keep the cursor always at the middle when jumping lines
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
@@ -178,62 +177,62 @@ vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "gj", "j")
 
 -- use <C-[UDLR]> for window resizing
-vim.keymap.set("n", "<C-j>", "<cmd>resize -2<CR>")
-vim.keymap.set("n", "<C-k>", "<cmd>resize +2<CR>")
-vim.keymap.set("n", "<C-l>", "<cmd>vertical resize -2<CR>")
-vim.keymap.set("n", "<C-h>", "<cmd>vertical resize +2<CR>")
+vim.keymap.set("n", "<C-j>", "<cmd>resize -2<CR>", { desc = "Shrink window horizontally" })
+vim.keymap.set("n", "<C-k>", "<cmd>resize +2<CR>", { desc = "Enlarge window horizontally" })
+vim.keymap.set("n", "<C-l>", "<cmd>vertical resize -2<CR>", { desc = "Enlarge window vertically" })
+vim.keymap.set("n", "<C-h>", "<cmd>vertical resize +2<CR>", { desc = "Shrink window vertically" })
 
 -- stay in indent mode
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
 
 -- move text up and down
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv")
-vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi")
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==")
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv")
-vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==",        { desc = "Move line down" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv",    { desc = "Move line down" })
+vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move line down" })
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==",        { desc = "Move line up" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv",    { desc = "Move line up" })
+vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move line up" })
 
 -- jump to beginning or end using H and L
-vim.keymap.set("n", "H", "^")
-vim.keymap.set("n", "L", "$")
-vim.keymap.set("v", "H", "^")
-vim.keymap.set("v", "L", "$")
+vim.keymap.set("n", "H", "^", { desc = "To line first non-blank character" })
+vim.keymap.set("n", "L", "$", { desc = "To line end" })
+vim.keymap.set("v", "H", "^", { desc = "To line first non-blank character" })
+vim.keymap.set("v", "L", "$", { desc = "To line end" })
 
 -- use Y to yank to the end of line
-vim.keymap.set("n", "Y", "y$")
-vim.keymap.set("v", "Y", "'+y")
+vim.keymap.set("n", "Y", "y$",  { desc = "Yank to line end" })
+vim.keymap.set("v", "Y", "'+y", { desc = "Yank to line end" })
 
 -- buffer & tab navigation
-vim.keymap.set("n", "]b", "<cmd>bnext<CR>")
-vim.keymap.set("n", "[b", "<cmd>bprev<CR>")
-vim.keymap.set("n", "]t", "<cmd>tabnext<CR>")
-vim.keymap.set("n", "[t", "<cmd>tabprev<CR>")
+vim.keymap.set("n", "]b", "<cmd>bnext<CR>",   { desc = "Next buffer" })
+vim.keymap.set("n", "[b", "<cmd>bprev<CR>",   { desc = "Previous buffer" })
+vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { desc = "Next tab"  })
+vim.keymap.set("n", "[t", "<cmd>tabprev<CR>", { desc = "Previous tab"  })
 
 -- <Leader>b[uffer]
-vim.keymap.set("n", "<Leader>bd", "<cmd>bdelete<CR>")
-vim.keymap.set("n", "<Leader>bn", "<cmd>bnext<CR>")
-vim.keymap.set("n", "<Leader>bp", "<cmd>bprev<CR>")
-vim.keymap.set("n", "<Leader>bN", "<cmd>enew <BAR> startinsert <CR>")
+vim.keymap.set("n", "<Leader>bd", "<cmd>bdelete<CR>",                 { desc = "Delete buffer"})
+vim.keymap.set("n", "<Leader>bn", "<cmd>bnext<CR>",                   { desc = "Next buffer"})
+vim.keymap.set("n", "<Leader>bp", "<cmd>bprev<CR>",                   { desc = "Previous buffer"})
+vim.keymap.set("n", "<Leader>bN", "<cmd>enew <BAR> startinsert <CR>", { desc = "New buffer"})
 
 -- <Leader>f[ile]
-vim.keymap.set("n", "<Leader>fs", "<cmd>update<CR>")
-vim.keymap.set("n", "<Leader>fR", "<cmd>source $MYVIMRC<CR>")
-vim.keymap.set("n", "<Leader>fv", "<cmd>e $MYVIMRC<CR>")
+vim.keymap.set("n", "<Leader>fs", "<cmd>update<CR>",          { desc = "Save file" })
+vim.keymap.set("n", "<Leader>fR", "<cmd>source $MYVIMRC<CR>", { desc = "Source $MYVIMRC" })
+vim.keymap.set("n", "<Leader>fv", "<cmd>e $MYVIMRC<CR>",      { desc = "Edit $MYVIMRC" })
 
 -- <Leader>o[pen]
-vim.keymap.set("n", "<Leader>oq", "<cmd>qopen<CR>")
-vim.keymap.set("n", "<Leader>ol", "<cmd>lopen<CR>")
+vim.keymap.set("n", "<Leader>oq", "<cmd>qopen<CR>", { desc = "Open quickfix list"})
+vim.keymap.set("n", "<Leader>ol", "<cmd>lopen<CR>", { desc = "Open location list"})
 
 -- <Leader>t[ab]
-vim.keymap.set("n", "<Leader>tN", "<cmd>$tabnew<CR>")
-vim.keymap.set("n", "<Leader>tc", "<cmd>tabclose<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>to", "<cmd>tabonly<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>tn", "<cmd>tabn<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>tp", "<cmd>tabp<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>tmp", ":-tabmove<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>tmn", ":+tabmove<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>tN",  "<cmd>$tabnew<CR>",  { desc = "New tab" })
+vim.keymap.set("n", "<Leader>tc",  "<cmd>tabclose<CR>", { desc = "Close tab" })
+vim.keymap.set("n", "<Leader>to",  "<cmd>tabonly<CR>",  { desc = "Close other tabs" })
+vim.keymap.set("n", "<Leader>tn",  "<cmd>tabn<CR>",     { desc = "Next tab" })
+vim.keymap.set("n", "<Leader>tp",  "<cmd>tabp<CR>",     { desc = "Previous tab" })
+vim.keymap.set("n", "<Leader>tmp", "<cmd>-tabmove<CR>", { desc = "Move tab left" })
+vim.keymap.set("n", "<Leader>tmn", "<cmd>+tabmove<CR>", { desc = "Move tab right" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 vim.keymap.set("n", "n", "'Nn'[v:searchforward]", { expr = true })
@@ -244,70 +243,78 @@ vim.keymap.set("x", "N", "'nN'[v:searchforward]", { expr = true })
 vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true })
 
 -- save in insert mode
-vim.keymap.set("i", "<C-s>", "<cmd>:w<cr><esc>")
+vim.keymap.set("i", "<C-s>", "<cmd>update<CR><esc>", { desc = "Save file" })
 
 -- <Leader>t[oggle]
-function _G.toggle_colorcolumn()
+vim.keymap.set("n", "<Leader>tC", function()
     if vim.wo.colorcolumn ~= "" then
         vim.wo.colorcolumn = ""
     else
         vim.wo.colorcolumn = "80"
     end
-end
-function _G.toggle_linenumber()
-    vim.cmd[[
-        execute {
-            \ '00': 'set relativenumber   | set number',
-            \ '01': 'set norelativenumber | set number',
-            \ '10': 'set norelativenumber | set nonumber',
-            \ '11': 'set norelativenumber | set number'
-            \ }[&number . &relativenumber]
-    ]]
-end
-function _G.toggle_slash()
+end, { desc = "Toggle color column" })
+
+vim.keymap.set("n", "<Leader>tL", function()
+    -- if not number nor relativenumber, enable both
+    if (not vim.wo.number) and (not vim.wo.relativenumber) then
+        vim.wo.number = true
+        vim.wo.relativenumber = true
+    -- if not number but relativenumber, enable number
+    elseif (not vim.wo.number) and vim.wo.relativenumber then
+        vim.wo.number = true
+        vim.wo.relativenumber = false
+    -- if number but not relativenumber, disable all
+    elseif vim.wo.number and (not vim.wo.relativenumber) then
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+    -- if both number and relativenumber, enable number
+    elseif vim.wo.number and vim.wo.relativenumber then
+        vim.wo.number = true
+        vim.wo.relativenumber = false
+    end
+end,  { desc = "Toggle line number" })
+
+vim.keymap.set("n", "<Leader>t\\", function()
     local line = vim.api.nvim_get_current_line()
     local first = string.match(line, "[/\\]")
     if first == nil then return end
     local oppsite = first == "\\" and "/" or "\\"
     line = string.gsub(line, first, oppsite)
     vim.api.nvim_set_current_line(line)
-end
-vim.keymap.set("n", "<Leader>tC", toggle_colorcolumn)
-vim.keymap.set("n", "<Leader>tL", toggle_linenumber)
-vim.keymap.set("n", "<Leader>t\\", toggle_slash)
+end, { desc = "Toggle path separator" })
 
 -- <Leader>q[uit]
-vim.keymap.set("n", "<Leader>q", "<cmd>q<CR>")
-vim.keymap.set("n", "<Leader>Q", "<cmd>qa!<CR>")
+vim.keymap.set("n", "<Leader>q", "<cmd>q<CR>",   { desc = "Quit" })
+vim.keymap.set("n", "<Leader>Q", "<cmd>qa!<CR>", { desc = "Quit without save" })
 
 -- <Leader>s[earch]
-vim.keymap.set("n", "<Leader>sn", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Leader>sn", "<cmd>nohlsearch<CR>", { desc = "Disable highlight search" })
 
 -- <Leader>w[indow]
-vim.keymap.set("n", "<Leader>ww", "<C-w>w")
-vim.keymap.set("n", "<Leader>wc", "<C-w>c")
-vim.keymap.set("n", "<Leader>w-", "<C-w>s")
-vim.keymap.set("n", "<Leader>w|", "<C-w>v")
-vim.keymap.set("n", "<Leader>wh", "<C-w>h")
-vim.keymap.set("n", "<Leader>wj", "<C-w>j")
-vim.keymap.set("n", "<Leader>wl", "<C-w>l")
-vim.keymap.set("n", "<Leader>wk", "<C-w>k")
-vim.keymap.set("n", "<Leader>wH", "<C-w>5<")
-vim.keymap.set("n", "<Leader>wL", "<C-w>5>")
-vim.keymap.set("n", "<Leader>wJ", "<cmd>resize +5<CR>")
-vim.keymap.set("n", "<Leader>wK", "<cmd>resize -5<CR>")
-vim.keymap.set("n", "<Leader>w=", "<C-w>=")
-vim.keymap.set("n", "<Leader>wv", "<C-w>v")
-vim.keymap.set("n", "<Leader>ws", "<C-w>s")
-vim.keymap.set("n", "<Leader>wo", "<cmd>only<CR>")
-vim.keymap.set("n", "<Leader>wp", "<C-w><C-p>")
+vim.keymap.set("n", "<Leader>ww", "<C-w>w",             { desc = "Cycyle window" })
+vim.keymap.set("n", "<Leader>wc", "<C-w>c",             { desc = "Close window" })
+vim.keymap.set("n", "<Leader>w-", "<C-w>s",             { desc = "Split window horizontally" })
+vim.keymap.set("n", "<Leader>w|", "<C-w>v",             { desc = "Split window vertically" })
+vim.keymap.set("n", "<Leader>wh", "<C-w>h",             { desc = "Window left" })
+vim.keymap.set("n", "<Leader>wj", "<C-w>j",             { desc = "Window below" })
+vim.keymap.set("n", "<Leader>wl", "<C-w>l",             { desc = "Window right" })
+vim.keymap.set("n", "<Leader>wk", "<C-w>k",             { desc = "Window above" })
+vim.keymap.set("n", "<Leader>wH", "<C-w>5<",            { desc = "Shrink window vertically" })
+vim.keymap.set("n", "<Leader>wL", "<C-w>5>",            { desc = "Enlarge window vertically" })
+vim.keymap.set("n", "<Leader>wJ", "<cmd>resize +5<CR>", { desc = "Enlarge window horizontally" })
+vim.keymap.set("n", "<Leader>wK", "<cmd>resize -5<CR>", { desc = "Shrink window horizontally" })
+vim.keymap.set("n", "<Leader>w=", "<C-w>=",             { desc = "Equal-size windows" })
+vim.keymap.set("n", "<Leader>wv", "<C-w>v",             { desc = "Split window vertically" })
+vim.keymap.set("n", "<Leader>ws", "<C-w>s",             { desc = "Split window horizontally" })
+vim.keymap.set("n", "<Leader>wo", "<cmd>only<CR>",      { desc = "Close other windows" })
+vim.keymap.set("n", "<Leader>wp", "<C-w><C-p>",         { desc = "Previous window" })
 
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
-vim.keymap.set("t", "jk",    [[<C-\><C-n>]])
-vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-W>h]])
-vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-W>j]])
-vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-W>k]])
-vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-W>l]])
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]],       { desc = "Normal mode" })
+vim.keymap.set("t", "jk",    [[<C-\><C-n>]],       { desc = "Normal mode" })
+vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-W>h]], { desc = "Window left" })
+vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-W>j]], { desc = "Window below" })
+vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-W>k]], { desc = "Window above" })
+vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-W>l]], { desc = "Window right" })
 
 -- File type specific settings
 vim.api.nvim_create_autocmd(
@@ -373,11 +380,11 @@ lazy.setup({
         event = "WinEnter",
         init = function()
             -- <Leader>w[indows]
-            vim.keymap.set("n", "<Leader>wm", "<cmd>WindowsMaximize<CR>")
-            vim.keymap.set("n", "<Leader>wV", "<cmd>WindowsMaximizeVertically<CR>")
-            vim.keymap.set("n", "<Leader>wH", "<cmd>WindowsMaximizeHorizontally<CR>")
-            vim.keymap.set("n", "<Leader>w=", "<cmd>WindowsEqualize<CR>")
-            vim.keymap.set("n", "<Leader>wC", "<cmd>WindowsToggleAutowidth<CR>")
+            vim.keymap.set("n", "<Leader>wm", "<cmd>WindowsMaximize<CR>",             { desc = "Maximize window" })
+            vim.keymap.set("n", "<Leader>wV", "<cmd>WindowsMaximizeVertically<CR>",   { desc = "Maximize window vertically" })
+            vim.keymap.set("n", "<Leader>wH", "<cmd>WindowsMaximizeHorizontally<CR>", { desc = "Maximize window horizontally" })
+            vim.keymap.set("n", "<Leader>w=", "<cmd>WindowsEqualize<CR>",             { desc = "Equal-size windows" })
+            vim.keymap.set("n", "<Leader>wC", "<cmd>WindowsToggleAutowidth<CR>",      { desc = "Toggle window auto-width" })
         end,
         config = function()
             vim.o.winwidth = 10
@@ -385,7 +392,7 @@ lazy.setup({
             vim.o.equalalways = false
             require("windows").setup({
                 ignore = {
-                    filetype = { "NvimTree", "DiffviewFiles" }
+                    filetype = { "NvimTree", "DiffviewFiles", "alpha", "Outline" }
                 }
             })
         end
@@ -407,7 +414,8 @@ lazy.setup({
                         end
                     end
                 )
-            end)
+            end,
+            { desc = "Tab rename" })
         end,
         config = true
     },
@@ -476,8 +484,8 @@ lazy.setup({
         "RRethy/vim-illuminate",
         event = "BufReadPost",
         keys = {
-            { "]]", function() require("illuniate").goto_next_reference(false) end },
-            { "[[", function() require("illuniate").goto_prev_reference(false) end }
+            { "]n", function() require("illuminate").goto_next_reference(false) end, desc = "Next word under-cursor" },
+            { "[n", function() require("illuminate").goto_prev_reference(false) end, desc = "Previous word under-cursor" }
         },
         config = function()
             require("illuminate").configure({ delay = 200 })
@@ -486,7 +494,9 @@ lazy.setup({
     {
         "moll/vim-bbye",
         cmd = "Bdelete",
-        keys = { { "<Leader>bd", "<cmd>Bdelete<CR>" } }
+        keys = {
+            { "<Leader>bd", "<cmd>Bdelete<CR>", desc = "Delete buffer" }
+        }
     },
     {
         "lukas-reineke/indent-blankline.nvim",
@@ -494,7 +504,7 @@ lazy.setup({
         config = {
             buftype_exclude = { "terminal", "nofile" },
             filetype_exclude = {
-                "help", "checkhealth", "dashboard", "NvimTree", "Trouble"
+                "alpha", "help", "checkhealth", "dashboard", "NvimTree", "Trouble"
             },
             use_treesitter_scope = false
         }
@@ -537,12 +547,12 @@ lazy.setup({
             end
 
             -- <Leader>t[erminal]
-            vim.keymap.set("n", "<Leader>tf", function() toggle_terminal(shell, "float") end)
-            vim.keymap.set("n", "<Leader>th", function() toggle_terminal(shell, "horizontal") end)
-            vim.keymap.set("n", "<Leader>tv", function() toggle_terminal(shell, "vertical") end)
+            vim.keymap.set("n", "<Leader>tf", function() toggle_terminal(shell, "float") end,      { desc = "Toggle float terminal" })
+            vim.keymap.set("n", "<Leader>th", function() toggle_terminal(shell, "horizontal") end, { desc = "Toggle horizontal terminal" })
+            vim.keymap.set("n", "<Leader>tv", function() toggle_terminal(shell, "vertical") end,   { desc = "Toggle vertical terminal" })
 
             if vim.fn.executable("lazygit") == 1 then
-                vim.keymap.set("n", "<Leader>g=", function() toggle_terminal("lazygit", "float") end)
+                vim.keymap.set("n", "<Leader>g=", function() toggle_terminal("lazygit", "float") end, { desc = "Toggle Lazygit" })
             end
         end
     },
@@ -606,7 +616,7 @@ lazy.setup({
             alpha.setup(dashboard.config)
 
             -- <Leader>b[uffer]
-            vim.keymap.set("n", "<Leader>ba", "<cmd>Alpha<CR>")
+            vim.keymap.set("n", "<Leader>ba", "<cmd>Alpha<CR>", { desc = "Alpha" })
         end
     },
     {
@@ -637,14 +647,14 @@ lazy.setup({
         cmd = "SymbolsOutline",
         keys = {
             -- <Leader>l[ist]
-            { "<Leader>lo", "<cmd>SymbolsOutline<CR>" }
+            { "<Leader>lo", "<cmd>SymbolsOutline<CR>", desc = "List symbols outline" }
         },
         config = true
     },
     {
         "tkmpypy/chowcho.nvim",
         keys = {
-            { "-", function() require("chowcho").run() end, "n", { remap = true } }
+            { "-", function() require("chowcho").run() end, "n", remap = true, desc = "Choose windows"  }
         },
         config = { icon_enabled = true, border_style = "rounded" }
     },
@@ -653,7 +663,7 @@ lazy.setup({
         cmd = "WinShift",
         keys = {
             -- use <Leader>wS to change window position
-            { "<Leader>wS", "<cmd>WinShift<CR>" }
+            { "<Leader>wS", "<cmd>WinShift<CR>", desc = "Resize window" }
         },
         config = { focused_hl_groups = "Search" }
     },
@@ -769,7 +779,7 @@ lazy.setup({
 
             vim.keymap.set({"n", "v", "c", "i"}, "<M-;>", function()
                 vim.notify(string.format("IM is %s", require("cmp_im").toggle() and "enabled" or "disabled"))
-            end)
+            end, { desc = "Toggle Chinese input method" })
 
             local has_words_before = function()
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -968,27 +978,27 @@ lazy.setup({
 
             local on_attach = function(client, bufnr)
                 require("nvim-navic").attach(client, bufnr)
-                vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr })
-                vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
-                vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr })
-                vim.keymap.set("n", "gh", vim.lsp.buf.signature_help, { buffer = bufnr })
-                vim.keymap.set("n", "gR", vim.lsp.buf.rename, { buffer = bufnr })
-                vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr })
-                vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { buffer = bufnr })
-                vim.keymap.set("n", "gl", function() vim.diagnostic.open_float(nil, { scope = "line" }) end, { buffer = bufnr })
-                vim.keymap.set("n", "K",  vim.lsp.buf.hover, { buffer = bufnr })
-                vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr })
-                vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr })
+                vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Lsp: Go to declaration" })
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Lsp: Go to definition" })
+                vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Lsp: Go to implementation" })
+                vim.keymap.set("n", "gh", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Lsp: Signature help" })
+                vim.keymap.set("n", "gR", vim.lsp.buf.rename, { buffer = bufnr, desc = "Lsp: Rename under cursor" })
+                vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Lsp: List references" })
+                vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Lsp: Code actions" })
+                vim.keymap.set("n", "gl", function() vim.diagnostic.open_float(nil, { scope = "line" }) end, { buffer = bufnr, desc = "Lsp: Current diagnostic" })
+                vim.keymap.set("n", "K",  vim.lsp.buf.hover, { buffer = bufnr, desc = "Lsp: Hover" })
+                vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Previous diagnostic" })
+                vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Next diagnostic" })
 
                 -- <Leader>l[sp]
-                vim.keymap.set("n", "<Leader>li", "<cmd>LspInfo<CR>", { buffer = bufnr })
-                vim.keymap.set("n", "<Leader>lI", "<cmd>LspInstallInfo<CR>", { buffer = bufnr })
-                vim.keymap.set("n", "<Leader>lj", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr })
-                vim.keymap.set("n", "<Leader>lk", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr })
-                vim.keymap.set("n", "<Leader>ll", vim.lsp.codelens.run, { buffer = bufnr })
-                vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, { buffer = bufnr })
-                vim.keymap.set("n", "<Leader>lF", vim.lsp.buf.format, { buffer = bufnr })
-                vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, { buffer = bufnr })
+                vim.keymap.set("n", "<Leader>li", "<cmd>LspInfo<CR>", { buffer = bufnr, desc = "Lsp: Info" })
+                vim.keymap.set("n", "<Leader>lI", "<cmd>LspInstallInfo<CR>", { buffer = bufnr, desc = "Lsp: Install info" })
+                vim.keymap.set("n", "<Leader>lj", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Next diagnostic" })
+                vim.keymap.set("n", "<Leader>lk", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Previous diagnostic" })
+                vim.keymap.set("n", "<Leader>ll", vim.lsp.codelens.run, { buffer = bufnr, desc = "Lsp: Code lens" })
+                vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Lsp: Code action" })
+                vim.keymap.set("n", "<Leader>lF", vim.lsp.buf.format, { buffer = bufnr, desc = "Lsp: Format buffer" })
+                vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, { buffer = bufnr, desc = "Lsp: Rename under cursor" })
             end
 
 
@@ -1044,18 +1054,18 @@ lazy.setup({
         "folke/trouble.nvim",
         keys = {
             -- <Leader>t[oggle]
-            { "<Leader>tt", "<cmd>TroubleToggle<CR>" },
+            { "<Leader>tt", "<cmd>TroubleToggle<CR>", desc = "Toggle Trouble" },
 
             -- use trouble to replace gr
-            { "gr", "<cmd>TroubleToggle lsp_references<CR>" },
+            { "gr", "<cmd>TroubleToggle lsp_references<CR>", desc = "List references" },
 
             -- <Leader>l[ist]
-            { "<Leader>ld", "<cmd>TroubleToggle document_diagnostics<CR>" },
-            { "<Leader>lw", "<cmd>TroubleToggle workspace_diagnostics<CR>" },
+            { "<Leader>ld", "<cmd>TroubleToggle document_diagnostics<CR>", desc = "Lsp: Buffer diagnostic" },
+            { "<Leader>lw", "<cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Lsp: Workspace diagnostic" },
 
             -- <Leader>o[pen]
-            { "<Leader>oq", "<cmd>TroubleToggle quickfix<CR>" },
-            { "<Leader>ol", "<cmd>TroubleToggle loclist<CR>"}
+            { "<Leader>oq", "<cmd>TroubleToggle quickfix<CR>", desc = "Open quickfix list" },
+            { "<Leader>ol", "<cmd>TroubleToggle loclist<CR>", desc = "Open location list"}
         },
         config = { use_diagnostic_signs = true }
     },
@@ -1070,42 +1080,42 @@ lazy.setup({
         },
         cmd = "Telescope",
         init = function()
-            -- <Leader>sL[roject]
-            vim.keymap.set("n", "<Leader>sL", function() require("telescope").extensions.lazy.lazy() end )
+            -- <Leader>sL[azy]
+            vim.keymap.set("n", "<Leader>sL", function() require("telescope").extensions.lazy.lazy() end, { desc = "Search plugins"} )
 
             -- <Leader>b[uffer]
-            vim.keymap.set("n", "<Leader>bb", function() require("telescope.builtin").buffers() end)
+            vim.keymap.set("n", "<Leader>bb", function() require("telescope.builtin").buffers() end, { desc = "Search buffer"})
 
             -- <Leader>f[ile]
-            vim.keymap.set("n", "<Leader>ff", function() require("telescope.builtin").find_files() end)
-            vim.keymap.set("n", "<Leader>fr", function() require("telescope.builtin").oldfiles() end)
+            vim.keymap.set("n", "<Leader>ff", function() require("telescope.builtin").find_files() end, { desc = "Search file" })
+            vim.keymap.set("n", "<Leader>fr", function() require("telescope.builtin").oldfiles() end, { desc = "Search recent files" })
 
             -- <Leader>g[it]
-            vim.keymap.set("n", "<Leader>gS", function() require("telescope.builtin").git_status() end)
-            vim.keymap.set("n", "<Leader>gB", function() require("telescope.builtin").git_branches() end)
-            vim.keymap.set("n", "<Leader>gC", function() require("telescope.builtin").git_commits() end)
+            vim.keymap.set("n", "<Leader>gS", function() require("telescope.builtin").git_status() end, { desc = "Search Git status" })
+            vim.keymap.set("n", "<Leader>gB", function() require("telescope.builtin").git_branches() end, { desc = "Search Git branches" })
+            vim.keymap.set("n", "<Leader>gC", function() require("telescope.builtin").git_commits() end, { desc = "Search Git commits" })
 
             -- <Leader>l[ist]
-            vim.keymap.set("n", "<Leader>ld", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end)
-            vim.keymap.set("n", "<Leader>lw", function() require("telescope.builtin").diagnostics() end)
+            vim.keymap.set("n", "<Leader>ld", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, { desc = "List buffer diagnostics" })
+            vim.keymap.set("n", "<Leader>lw", function() require("telescope.builtin").diagnostics() end, { desc = "List all diagnostics" })
 
             -- <Leader>s[earch]
-            vim.keymap.set("n", "<Leader>sl", function() require("telescope.builtin").current_buffer_fuzzy_find() end)
-            vim.keymap.set("n", "<Leader>sf", function() require("telescope.builtin").find_files(require("telescope.themes").get_dropdown{ previewer = false }) end)
-            vim.keymap.set("n", "<Leader>sb", function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{ previewer = false }) end)
-            vim.keymap.set("n", "<Leader>sB", function() require("telescope.builtin").git_branches() end)
-            vim.keymap.set("n", "<Leader>sC", function() require("telescope.builtin").colorscheme({ enable_preview = true }) end)
-            vim.keymap.set("n", "<Leader>sh", function() require("telescope.builtin").help_tags() end)
-            vim.keymap.set("n", "<Leader>sM", function() require("telescope.builtin").man_pages() end)
-            vim.keymap.set("n", "<Leader>sr", function() require("telescope.builtin").oldfiles() end)
-            vim.keymap.set("n", "<Leader>sR", function() require("telescope.builtin").registers() end)
-            vim.keymap.set("n", "<Leader>sk", function() require("telescope.builtin").keymaps() end)
-            vim.keymap.set("n", "<Leader>sc", function() require("telescope.builtin").commands() end)
-            vim.keymap.set("n", "<Leader>s/", function() require("telescope.builtin").search_history() end)
-            vim.keymap.set("n", "<Leader>sm", function() require("telescope.builtin").marks() end)
-            vim.keymap.set("n", "<Leader>ss", function() require("telescope.builtin").lsp_document_symbols() end)
-            vim.keymap.set("n", "<Leader>sS", function() require("telescope.builtin").lsp_workspace_symbols() end)
-            vim.keymap.set("n", "<Leader>sP", function() require("telescope.builtin").resume() end)
+            vim.keymap.set("n", "<Leader>sl", function() require("telescope.builtin").current_buffer_fuzzy_find() end, { desc = "Search buffer words" })
+            vim.keymap.set("n", "<Leader>sf", function() require("telescope.builtin").find_files(require("telescope.themes").get_dropdown{ previewer = false }) end, { desc = "Search files (no preview)" })
+            vim.keymap.set("n", "<Leader>sb", function() require("telescope.builtin").buffers(require("telescope.themes").get_dropdown{ previewer = false }) end, { desc = "Search themes" })
+            vim.keymap.set("n", "<Leader>sB", function() require("telescope.builtin").git_branches() end, { desc = "Search Git branches" })
+            vim.keymap.set("n", "<Leader>sC", function() require("telescope.builtin").colorscheme({ enable_preview = true }) end, { desc = "Search Git commits" })
+            vim.keymap.set("n", "<Leader>sh", function() require("telescope.builtin").help_tags() end, { desc = "Search helps" })
+            vim.keymap.set("n", "<Leader>sM", function() require("telescope.builtin").man_pages() end, { desc = "Search manuals" })
+            vim.keymap.set("n", "<Leader>sr", function() require("telescope.builtin").oldfiles() end, { desc = "Search recent files" })
+            vim.keymap.set("n", "<Leader>sR", function() require("telescope.builtin").registers() end, { desc = "Search registers" })
+            vim.keymap.set("n", "<Leader>sk", function() require("telescope.builtin").keymaps() end, { desc = "Search keymaps" })
+            vim.keymap.set("n", "<Leader>sc", function() require("telescope.builtin").commands() end, { desc = "Search commands" })
+            vim.keymap.set("n", "<Leader>s/", function() require("telescope.builtin").search_history() end, { desc = "Search search history" })
+            vim.keymap.set("n", "<Leader>sm", function() require("telescope.builtin").marks() end, { desc = "Search marks" })
+            vim.keymap.set("n", "<Leader>ss", function() require("telescope.builtin").lsp_document_symbols() end, { desc = "Search buffer Lsp symbols" })
+            vim.keymap.set("n", "<Leader>sS", function() require("telescope.builtin").lsp_workspace_symbols() end, { desc = "Search workspace Lsp symbols" })
+            vim.keymap.set("n", "<Leader>sP", function() require("telescope.builtin").resume() end, { desc = "Resume last serach" })
 
             -- change comma input text into a lua table
             local input_to_table = function(txt)
@@ -1129,13 +1139,13 @@ lazy.setup({
                 require("telescope.builtin").grep_string({
                     search_dirs = input_to_table("Search Dirs > ")
                 })
-            end)
+            end, { desc = "Grep current word" })
             vim.keymap.set("n", "<Leader>sg", function()
                 require("telescope.builtin").live_grep({
                     search_dirs = input_to_table("Search Dirs > "),
                     glob_pattern = input_to_table("Globs > ")
                 })
-            end)
+            end, { desc = "Grep search" })
         end,
         config = function()
             -- use <Ctrl-l> to send selected to quickfix list
@@ -1206,7 +1216,21 @@ lazy.setup({
         end
     },
     { "terrortylor/nvim-comment",
-        keys = { "gcc", "gc" },
+        cmd = "CommentToggle",
+        init = function()
+            -- a hack to get it lazy loaded
+            local vim_func = [[
+            function! CommentOperatorFake(type) abort
+                let reg_save = @@
+                execute "lua require('nvim_comment').operator('" . a:type. "')"
+                let @@ = reg_save
+            endfunction ]]
+            vim.api.nvim_call_function("execute", { vim_func })
+
+            vim.keymap.set("n", "gcc", "<cmd>set operatorfunc=CommentOperatorFake<CR>g@l", { desc = "Comment/uncomment line" })
+            vim.keymap.set("n", "gc", "<cmd>set operatorfunc=CommentOperatorFake<CR>g@", { desc = "Comment/uncomment line" })
+            vim.keymap.set("x", "gc", ":<C-u>call CommentOperatorFake(visualmode())<CR>", { desc = "Comment/uncomment line" })
+        end,
         config = function()
             require('nvim_comment').setup()
         end
@@ -1223,7 +1247,7 @@ lazy.setup({
             require("flit").setup({
                 labeled_modes = "nv"
             })
-            vim.keymap.set({"n", "x", "o"}, "M", function() require("leap-ast").leap() end)
+            vim.keymap.set({"n", "x", "o"}, "M", function() require("leap-ast").leap() end, { desc = "Jump AST" })
         end
     },
     {
@@ -1245,9 +1269,9 @@ lazy.setup({
         },
         keys = {
             -- <Leader>t[oggle]
-            { "<Leader>tS", "<cmd>ToggleWhitespace<CR>" },
-            { "<Leader>tx", "<cmd>StripWhitespace<CR>" },
-            { "<Leader>tX", "<cmd>ToggleStripWhitespaceOnSave<CR>" }
+            { "<Leader>tS", "<cmd>ToggleWhitespace<CR>", desc = "Whitespace toggle" },
+            { "<Leader>tx", "<cmd>StripWhitespace<CR>", desc = "Whitespace strip" },
+            { "<Leader>tX", "<cmd>ToggleStripWhitespaceOnSave<CR>", desc = "whitespace strip on save" }
         }
     },
     {
@@ -1269,7 +1293,7 @@ lazy.setup({
         "windwp/nvim-spectre",
         dependencies = "nvim-lua/plenary.nvim",
         keys = {
-            { "<Leader>s-", function() require("spectre").open() end }
+            { "<Leader>s-", function() require("spectre").open() end, desc = "Open Spectre search" }
         },
         config = true
     },
@@ -1277,7 +1301,7 @@ lazy.setup({
         "mbbill/undotree",
         cmd = "UndotreeToggle" ,
         keys = {
-            { "<Leader>tu", "<cmd>UndotreeToggle<CR>" }
+            { "<Leader>tu", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undotree" }
         }
     },
 
@@ -1287,11 +1311,11 @@ lazy.setup({
         cmd = { "NvimTree", "NvimTreeToggle", "NvimTreeFindFileToggle" },
         keys = {
             -- <Leader>f[iles]
-            { "<Leader>fe", "<cmd>NvimTreeToggle<CR>" },
-            { "<Leader>fl", "<cmd>NvimTreeFindFileToggle<CR>" },
+            { "<Leader>fe", "<cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree" },
+            { "<Leader>fl", "<cmd>NvimTreeFindFileToggle<CR>", desc = "Locate buffer in NvimTree" },
 
             -- <Leader>t[oggle]
-            { "<Leader>te", "<cmd>NvimTreeToggle<CR>" }
+            { "<Leader>te", "<cmd>NvimTreeToggle<CR>", desc ="Toggle NvimTree" }
         },
         config = {
             hijack_netrw = true,
@@ -1432,7 +1456,7 @@ lazy.setup({
                     vim.schedule(function() require("gitsigns").next_hunk({ preview = true }) end)
                     return '<Ignore>'
                 end,
-                { expr = true }
+                { expr = true, desc = "Next diff" }
             )
             vim.keymap.set("n", "[c",
                 function()
@@ -1440,25 +1464,25 @@ lazy.setup({
                     vim.schedule(function() require("gitsigns").prev_hunk({ preview = true }) end)
                     return '<Ignore>'
                 end,
-                { expr = true }
+                { expr = true, desc = "Previous diff" }
             )
 
             -- <Leader>g[it]
-            vim.keymap.set("n", "<Leader>gj", function() require("gitsigns").next_hunk({ preview = true }) end)
-            vim.keymap.set("n", "<Leader>gk", function() require("gitsigns").prev_hunk({ preview = true }) end)
-            vim.keymap.set("n", "<Leader>gs", function() require("gitsigns").stage_hunk() end)
-            vim.keymap.set("v", "<Leader>gs", function() require("gitsigns").stage_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
-            vim.keymap.set("n", "<Leader>gr", function() require("gitsigns").reset_hunk() end)
-            vim.keymap.set("v", "<Leader>gr", function() require("gitsigns").reset_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
-            vim.keymap.set("n", "<Leader>gl", function() require("gitsigns").setloclist() end)
-            vim.keymap.set("n", "<Leader>gp", function() require("gitsigns").preview_hunk() end)
-            vim.keymap.set("n", "<Leader>gu", function() require("gitsigns").undo_stage_hunk() end)
-            vim.keymap.set("n", "<Leader>gR", function() require("gitsigns").reset_buffer() end)
-            vim.keymap.set("n", "<Leader>gb", function() require("gitsigns").blame_line({ full = true }) end)
+            vim.keymap.set("n", "<Leader>gj", function() require("gitsigns").next_hunk({ preview = true }) end, { desc = "Next hunk" })
+            vim.keymap.set("n", "<Leader>gk", function() require("gitsigns").prev_hunk({ preview = true }) end, { desc = "Previous hunk" })
+            vim.keymap.set("n", "<Leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Stage hunk" })
+            vim.keymap.set("v", "<Leader>gs", function() require("gitsigns").stage_hunk({vim.fn.line("."), vim.fn.line("v")}) end, { desc = "Stage selected" })
+            vim.keymap.set("n", "<Leader>gr", function() require("gitsigns").reset_hunk() end, { desc = "Reset hunk" })
+            vim.keymap.set("v", "<Leader>gr", function() require("gitsigns").reset_hunk({vim.fn.line("."), vim.fn.line("v")}) end, { desc = "Reset selected" })
+            vim.keymap.set("n", "<Leader>gl", function() require("gitsigns").setloclist() end, { desc = "List all changes in location list" })
+            vim.keymap.set("n", "<Leader>gp", function() require("gitsigns").preview_hunk() end, { desc = "Preview hunk" })
+            vim.keymap.set("n", "<Leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Undo stage hunk" })
+            vim.keymap.set("n", "<Leader>gR", function() require("gitsigns").reset_buffer() end, { desc = "Reset buffer" })
+            vim.keymap.set("n", "<Leader>gb", function() require("gitsigns").blame_line({ full = true }) end, { desc = "Blame line" })
 
             -- ih for text object
-            vim.keymap.set("o", "ih", function() require("gitsigns").select_hunk() end)
-            vim.keymap.set("x", "ih", function() require("gitsigns").select_hunk() end)
+            vim.keymap.set("o", "ih", function() require("gitsigns").select_hunk() end, { desc = "Select hunk" })
+            vim.keymap.set("x", "ih", function() require("gitsigns").select_hunk() end, { desc = "Select hunk" })
         end,
         config = true
     },
@@ -1473,11 +1497,11 @@ lazy.setup({
         dependencies = "tpope/vim-rhubarb",
         cmd = { "Git", "Gdiffsplit", "Gwrite" },
         keys = {
-            { "<Leader>gg", "<cmd>Git<CR>" },
-            { "<Leader>gc", "<cmd>Git commit<CR>" },
-            { "<Leader>gd", "<cmd>Gdiffsplit<CR>" },
-            { "<Leader>gw", "<cmd>Gwrite<CR>" },
-            { "<Leader>gP", "<cmd>Git push<CR>" }
+            { "<Leader>gg", "<cmd>Git<CR>", desc = "Git status" },
+            { "<Leader>gc", "<cmd>Git commit<CR>", desc = "Git commit" },
+            { "<Leader>gd", "<cmd>Gdiffsplit<CR>", desc = "Git diff" },
+            { "<Leader>gw", "<cmd>Gwrite<CR>", desc = "Git stage buffer" },
+            { "<Leader>gP", "<cmd>Git push<CR>", desc = "Git push" }
         }
     },
 
@@ -1494,123 +1518,17 @@ lazy.setup({
             })
 
             whichkey.register({
-                b = {
-                    name = "Buffer",
-                    a = "Alpha",
-                    b = "Search",
-                    d = "Delete",
-                    n = "Next",
-                    p = "Previous",
-                    N = "New",
-                },
-                f = {
-                    name = "File",
-                    f = "Search",
-                    e = "NvimTree",
-                    l = "Locate in NvimTree",
-                    r = "Recent",
-                    s = "Save",
-                    R = "Source $MYVIMRC",
-                    v = "Edit $MYVIMRC"
-                },
-                g = {
-                    name = "Git",
-                    c = "Commit",
-                    g = "Status",
-                    j = "Next Hunk",
-                    k = "Prev Hunk",
-                    s = "Stage Hunk",
-                    r = "Reset Hunk",
-                    p = "preview Hunk",
-                    u = "Undo Hunk",
-                    w = "Stage Buffer",
-                    R = "Reset Buffer",
-                    b = "Blame line",
-                    d = "Diff",
-                    S = "Status",
-                    B = "Branches",
-                    C = "Commits",
-                    P = "Push",
-                    l = "Changes to loclist"
-                },
-                l = {
-                    name = "List",
-                    a = "Code Action",
-                    i = "Lsp Info",
-                    I = "Lsp Install",
-                    j = "Prev Diagnostic",
-                    k = "Next Diagnostic",
-                    l = "Codelens",
-                    d = "Buffer Diagnostics",
-                    w = "Workspace Diagnostics",
-                    o = "Symbol Outline",
-                    F = "Format Buffer",
-                    r = "Rename in Buffer",
-                },
-                o = {
-                    name = "Open",
-                    q = "Quickfix",
-                    l = "Location List"
-                },
-                s = {
-                    name = "Search",
-                    l = "Lines",
-                    f = "Files",
-                    b = "Buffers",
-                    B = "Git Branches",
-                    C = "Colorschemes",
-                    h = "Help Tags",
-                    M = "Manuals",
-                    r = "Rencent Files",
-                    R = "Registers",
-                    k = "Key Maps",
-                    c = "Commands",
-                    g = "Live Grep",
-                    n = "No Search Highlight",
-                    m = "Marks",
-                    P = "Resume",
-                    s = "Symbols",
-                    S = "Workspace Symbols",
-                    ["/"] = "Search History",
-                    ["*"] = "Grep String"
-                },
-                t = {
-                    name = "Toggle",
-                    e = "NvimTree",
-                    c = "Colorcolumn",
-                    s = "WhiteSpace",
-                    t = "Trouble",
-                    f = "Float Terminal",
-                    h = "Horizontal Terminal",
-                    v = "Vertical Terminal",
-                    l = "Linenumber",
-                    ["\\"] = "Path Slash",
-                },
-                w = {
-                    name = "Windows",
-                    w = "Next",
-                    c = "Close",
-                    ["-"] = "Split Horizontal",
-                    ["|"] = "Split Vertical",
-                    s = "Split Horizontal",
-                    v = "Split Vertical",
-                    h = "Left",
-                    j = "Below",
-                    l = "Right",
-                    k = "Below",
-                    o = "Only",
-                    H = "Resize Left",
-                    L = "Resize Right",
-                    J = "Resize Above",
-                    K = "Resize Below",
-                    S = "Shift Window",
-                    ["="] = "Resize Equally",
-                },
-                q = {
-                    name = "Quit"
-                }
+                b = { name = "Buffer" },
+                f = { name = "File" },
+                g = { name = "Git" },
+                l = { name = "List" },
+                o = { name = "Open" },
+                s = { name = "Search" },
+                t = { name = "Toggle/Tab" },
+                w = { name = "Windows" },
+                q = { name = "Quit" }
 
-            }, { prefix = "<leader>" })
+            }, { prefix = "<Leader>" })
         end
     },
 
@@ -1668,27 +1586,27 @@ lazy.setup({
             -- assign and pipe
             local r_set_keymap_pipe = function (buffer)
                 local buf = buffer == nil and 0 or buffer
-                vim.keymap.set("i", "<M-->", "<C-v><Space><-<C-v><Space>", { buffer = buf })
-                vim.keymap.set("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>", { buffer = buf })
-                vim.keymap.set("i", "<M-\\>", "<C-v><Space>|><C-v><Space>", { buffer = buf })
-                vim.keymap.set("i", "<M-;>", "<C-v><Space>:=<C-v><Space>", { buffer = buf })
+                vim.keymap.set("i", "<M-->", "<C-v><Space><-<C-v><Space>", { buffer = buf, desc = "Insert assign" })
+                vim.keymap.set("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>", { buffer = buf, desc = "Insert {magrittr} pipe" })
+                vim.keymap.set("i", "<M-\\>", "<C-v><Space>|><C-v><Space>", { buffer = buf, desc = "Insert base pipe" })
+                vim.keymap.set("i", "<M-;>", "<C-v><Space>:=<C-v><Space>", { buffer = buf, desc = "Insert {data.table} assign" })
             end
 
             -- {targets}
             local r_set_keymap_targets = function (buffer)
                 local buf = buffer == nil and 0 or buffer
-                vim.keymap.set("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>", { buffer = buf })
-                vim.keymap.set("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>", { buffer = buf })
-                vim.keymap.set("n", "<LocalLeader>tf", "<cmd>RSend targets::tar_make_future(workers = parallelly::availableCores() - 1L)<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>", { buffer = buf, desc = "Make targets"} )
+                vim.keymap.set("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>", { buffer = buf, desc = "Make targets in current session" })
+                vim.keymap.set("n", "<LocalLeader>tf", "<cmd>RSend targets::tar_make_future(workers = parallelly::availableCores() - 1L)<CR>", { buffer = buf, desc = "Make targets in parallel" })
             end
 
             -- debug
             local r_set_keymap_debug = function (buffer)
                 local buf = buffer == nil and 0 or buffer
-                vim.keymap.set("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>", { buffer = buf })
-                vim.keymap.set("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>", { buffer = buf })
-                vim.keymap.set("n", "<LocalLeader>sc", "<cmd>RSend c<CR>", { buffer = buf })
-                vim.keymap.set("n", "<LocalLeader>sn", "<cmd>RSend n<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>", { buffer = buf, desc = "Send 'trackback()'" })
+                vim.keymap.set("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>", { buffer = buf, desc = "Send 'Q' in debug mode" })
+                vim.keymap.set("n", "<LocalLeader>sc", "<cmd>RSend c<CR>", { buffer = buf, desc = "Send 'c' in debug mode" })
+                vim.keymap.set("n", "<LocalLeader>sn", "<cmd>RSend n<CR>", { buffer = buf, desc = "Send 'n' in debug mode" })
             end
 
             -- add keymap for quit R if current window is an R terminal
@@ -1701,7 +1619,7 @@ lazy.setup({
                         -- if current buffer is an R terminal
                         if vim.g.rplugin and vim.g.rplugin.R_bufnr == args.buf then
                             -- set keymap to quit R
-                            vim.keymap.set("n", "<LocalLeader>rq", "<cmd>call RQuit('nosave')<CR>", { buffer = args.buf })
+                            vim.keymap.set("n", "<LocalLeader>rq", "<cmd>call RQuit('nosave')<CR>", { buffer = args.buf, desc = "Quit R" })
 
                             -- set other keymap
                             r_set_keymap_targets(args.buf)
@@ -1760,15 +1678,15 @@ lazy.setup({
 
                             if env == ".GlobalEnv" then
                                 env = "new.env()"
+                                print("Rmd will be rendered in an empty environment.")
                             else
                                 env = ".GlobalEnv"
+                                print("Rmd will be rendered in global environment.")
                             end
                             vim.g.R_rmd_environment = env
-
-                            print("Rmd will be rendered in an empty environment.")
                         end
 
-                        vim.keymap.set("n", "<LocalLeader>re", RToggleRmdEnv, { buffer = args.buf })
+                        vim.keymap.set("n", "<LocalLeader>re", RToggleRmdEnv, { buffer = args.buf, desc = "Toggle Rmd render environment" })
                     end
                 }
             )
@@ -1782,12 +1700,12 @@ lazy.setup({
             -- devtools
             local r_set_keymap_devtools = function(buffer)
                 local buf = buffer == nil and 0 or buffer
-                vim.keymap.set("n", "<LocalLeader>da", "<cmd>RLoadPackage<CR>", { buffer = buf })
-                vim.keymap.set("n", "<LocalLeader>dd", "<cmd>RDocumentPackage<CR>", { buffer = buf })
-                vim.keymap.set("n", "<LocalLeader>dt", "<cmd>RTestPackage<CR>", { buffer = buf })
-                vim.keymap.set("n", "<LocalLeader>dc", "<cmd>RCheckPackage<CR>", { buffer = buf })
-                vim.keymap.set("n", "<LocalLeader>dr", "<cmd>RSend devtools::build_readme()<CR>", { buffer = buf })
-                vim.keymap.set("n", "<LocalLeader>dI", "<cmd>RInstallPackage<CR>", { buffer = buf })
+                vim.keymap.set("n", "<LocalLeader>da", "<cmd>RLoadPackage<CR>",                   { buffer = buf, desc = "Load package" })
+                vim.keymap.set("n", "<LocalLeader>dd", "<cmd>RDocumentPackage<CR>",               { buffer = buf, desc = "Document package" })
+                vim.keymap.set("n", "<LocalLeader>dt", "<cmd>RTestPackage<CR>",                   { buffer = buf, desc = "Test package" })
+                vim.keymap.set("n", "<LocalLeader>dc", "<cmd>RCheckPackage<CR>",                  { buffer = buf, desc = "Check package" })
+                vim.keymap.set("n", "<LocalLeader>dr", "<cmd>RSend devtools::build_readme()<CR>", { buffer = buf, desc = "Build package README" })
+                vim.keymap.set("n", "<LocalLeader>dI", "<cmd>RInstallPackage<CR>",                { buffer = buf, desc = "Install package" })
             end
 
             -- keymap for package development
@@ -1810,7 +1728,7 @@ lazy.setup({
                                 end
                                 vim.fn['devtools#send_cmd']('devtools::test_active_file("' .. curfile .. '")')
                             end,
-                            { buffer = args.buf }
+                            { buffer = args.buf, desc = "Test current file" }
                         )
                     end
                 }
