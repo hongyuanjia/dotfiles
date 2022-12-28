@@ -922,17 +922,7 @@ lazy.setup({
     },
 
     -- lsp
-    {
-        "jose-elias-alvarez/null-ls.nvim",
-        config = function()
-            require("null-ls").setup({
-                sources = {
-                    require("null-ls").builtins.completion.spell,
-                    require("null-ls").builtins.code_actions.gitsigns
-                }
-            })
-        end
-    },
+    {  "jose-elias-alvarez/null-ls.nvim" },
     {
         "SmiteshP/nvim-navic",
         config = function()
@@ -955,6 +945,13 @@ lazy.setup({
                 ensure_installed = { "sumneko_lua" }
             })
             local lspconfig = require("lspconfig")
+
+            require("null-ls").setup({
+                sources = {
+                    require("null-ls").builtins.completion.spell,
+                    require("null-ls").builtins.code_actions.gitsigns
+                }
+            })
 
             -- update diagnostic config
             local signs = { Error = "" , Warn = "" , Hint = "" , Info = "" }
@@ -1277,7 +1274,11 @@ lazy.setup({
             {"g/",       nil, "x"}
         }
     },
-    { "chentoast/marks.nvim", config = true },
+    {
+        "chentoast/marks.nvim",
+        keys = { "m", "dm" },
+        config = true
+    },
     {
         "wsdjeg/vim-fetch",
         keys = { "gF" }
@@ -1528,15 +1529,11 @@ lazy.setup({
     },
 
     -- R
-    {
-        "jalvesaq/R-Vim-runtime",
-        ft = { "r", "rmd", "rnoweb", "rout", "rhelp" }
-    },
+    { "jalvesaq/R-Vim-runtime", lazy = false },
     {
         "jalvesaq/Nvim-R",
-        event = "VeryLazy",
         dependencies = { "jalvesaq/R-Vim-runtime" },
-        ft = { "r", "rmd", "rnoweb", "rout", "rhelp" },
+        ft = { "r", "rmd", "rnoweb", "rout", "rhelp", "quarto" },
         config = function()
             -- do not update $HOME on Windows since I set it manually
             if vim.fn.has("win32") == 1 then
