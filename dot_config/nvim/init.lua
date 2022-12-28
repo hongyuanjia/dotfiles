@@ -1417,7 +1417,8 @@ lazy.setup({
                             ["[L"] = "@loop.outer"
                         }
                     }
-                }
+                },
+                playground = { enable = true }
             })
         end
     },
@@ -1428,6 +1429,7 @@ lazy.setup({
             require("treesitter-context").setup()
         end,
     },
+    { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
     {
         "andymass/vim-matchup",
         event = "BufReadPost",
