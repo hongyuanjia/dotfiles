@@ -1239,16 +1239,8 @@ lazy.setup({
     {
         "ggandor/leap.nvim",
         event = "VeryLazy",
-        dependencies = {
-            "ggandor/flit.nvim",
-            "ggandor/leap-ast.nvim"
-        },
         config = function()
             require("leap").set_default_keymaps()
-            require("flit").setup({
-                labeled_modes = "nv"
-            })
-            vim.keymap.set({"n", "x", "o"}, "M", function() require("leap-ast").leap() end, { desc = "Jump AST" })
         end
     },
     {
