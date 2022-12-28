@@ -71,6 +71,9 @@ for k, v in pairs(options) do
     vim.opt[k] = v
 end
 
+-- already use filetype.nvim to handle this
+vim.g.did_load_filetypes = 1
+
 if vim.fn.has("nvim-0.8") == 1 then
     vim.opt.spell = true
     vim.api.nvim_create_autocmd("TermOpen", {
@@ -370,6 +373,33 @@ lazy.setup({
 
     -- start tim profile
     { "tweekmonster/startuptime.vim", cmd = "StartupTime" },
+
+    -- filetype detect
+    {
+        "nathom/filetype.nvim",
+        init = function()
+            vim.g.did_load_filetypes = 1
+        end,
+        lazy = false,
+        config = function()
+            require("filetype").setup({
+                extensions = {
+                    qmd = "quarto",
+                    R = "r",
+                    r = "r",
+                    Rprofile = "r",
+                    Rhsitory = "r",
+                    Rmd = "rmd",
+                    rmd = "rmd",
+                    Rrst = "rrst",
+                    rrst = "rrst",
+                    Rout = "rout",
+                    ["Rout.fail"] = "rout",
+                    ["Rout.save"] = "rout"
+                }
+            })
+        end,
+    },
 
     -- UI
     {
@@ -1190,7 +1220,8 @@ lazy.setup({
     { "stevearc/dressing.nvim", event = "VeryLazy" },
 
     -- editing
-    { "max397574/better-escape.nvim",
+    {
+        "max397574/better-escape.nvim",
         event = "InsertEnter",
         config = {
             mapping = { "jk" }
@@ -1529,11 +1560,14 @@ lazy.setup({
     },
 
     -- R
-    { "jalvesaq/R-Vim-runtime", lazy = false },
+    {
+        "jalvesaq/R-Vim-runtime",
+        ft = { "r", "rhelp", "rmd", "rnoweb", "rrst", "quarto" },
+    },
     {
         "jalvesaq/Nvim-R",
         dependencies = { "jalvesaq/R-Vim-runtime" },
-        ft = { "r", "rmd", "rnoweb", "rout", "rhelp", "quarto" },
+        ft = { "r", "rhelp", "rmd", "rnoweb", "rrst", "quarto" },
         config = function()
             -- do not update $HOME on Windows since I set it manually
             if vim.fn.has("win32") == 1 then
