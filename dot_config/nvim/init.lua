@@ -385,7 +385,12 @@ lazy.setup({
             vim.g.did_load_filetypes = 1
         end,
         lazy = false,
-        config = true
+        config = true,
+    },
+    {
+        "nmac427/guess-indent.nvim",
+        event = "BufReadPre",
+        config = true,
     },
 
     -- UI
