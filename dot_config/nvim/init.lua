@@ -958,6 +958,13 @@ lazy.setup({
     -- lsp
     {  "jose-elias-alvarez/null-ls.nvim" },
     {
+        "dnlhc/glance.nvim",
+        cmd = { "Glance" },
+        config = function()
+            require("glance").setup()
+        end
+    },
+    {
         "SmiteshP/nvim-navic",
         config = function()
             vim.g.navic_silence = true
@@ -1011,6 +1018,9 @@ lazy.setup({
 
             local on_attach = function(client, bufnr)
                 require("nvim-navic").attach(client, bufnr)
+                vim.keymap.set("n", "gpi", "<cmd>Glance implementations<CR>", { buffer = bufnr, desc = "Glance: Preview implementations" })
+                vim.keymap.set("n", "gpr", "<cmd>Glance references<CR>", { buffer = bufnr, desc = "Glance: Preview references" })
+                vim.keymap.set("n", "gpd", "<cmd>Glance definitions<CR>", { buffer = bufnr, desc = "Glance: Preview definitions" })
                 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Lsp: Go to declaration" })
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Lsp: Go to definition" })
                 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Lsp: Go to implementation" })
