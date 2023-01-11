@@ -385,24 +385,7 @@ lazy.setup({
             vim.g.did_load_filetypes = 1
         end,
         lazy = false,
-        config = function()
-            require("filetype").setup({
-                extensions = {
-                    qmd = "quarto",
-                    R = "r",
-                    r = "r",
-                    Rprofile = "r",
-                    Rhsitory = "r",
-                    Rmd = "rmd",
-                    rmd = "rmd",
-                    Rrst = "rrst",
-                    rrst = "rrst",
-                    Rout = "rout",
-                    ["Rout.fail"] = "rout",
-                    ["Rout.save"] = "rout"
-                }
-            })
-        end,
+        config = true
     },
 
     -- UI
