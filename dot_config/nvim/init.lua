@@ -783,7 +783,6 @@ lazy.setup({
             "hrsh7th/cmp-nvim-lsp-signature-help",
             "petertriho/cmp-git",
             "uga-rosa/cmp-dictionary",
-            "jalvesaq/cmp-nvim-r",
 
             -- snippets
             "saadparwaiz1/cmp_luasnip",
@@ -866,7 +865,6 @@ lazy.setup({
                 },
                 sources = cmp.config.sources({
                     { name = "IM"},
-                    { name = "cmp_nvim_r" },
                     { name = "nvim_lsp" },
                     { name = "nvim_lsp_signature_help" },
                     { name = "luasnip" },
@@ -908,7 +906,6 @@ lazy.setup({
                         }
                         vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
                         vim_item.menu = ({
-                            cmp_nvim_r = "[Nvim-R]",
                             nvim_lsp = "[LSP]",
                             luasnip = "[Snippet]",
                             buffer = "[Buffer]",
