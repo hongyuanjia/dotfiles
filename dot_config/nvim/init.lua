@@ -1042,7 +1042,7 @@ lazy.setup({
                 vim.keymap.set("n", "<Leader>lk", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Previous diagnostic" })
                 vim.keymap.set("n", "<Leader>ll", vim.lsp.codelens.run, { buffer = bufnr, desc = "Lsp: Code lens" })
                 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Lsp: Code action" })
-                vim.keymap.set("n", "<Leader>lF", vim.lsp.buf.format, { buffer = bufnr, desc = "Lsp: Format buffer" })
+                vim.keymap.set("n", "<Leader>lF", function() vim.lsp.buf.format{ timeout_ms = 10000 } end, { buffer = bufnr, desc = "Lsp: Format buffer" })
                 vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, { buffer = bufnr, desc = "Lsp: Rename under cursor" })
             end
 
