@@ -1273,6 +1273,15 @@ lazy.setup({
         end
     },
     {
+        "folke/todo-comments.nvim",
+        cmd = { "TodoTrouble", "TodoTelescope" },
+        init = function()
+            vim.keymap.set("n", "]T", function() require("todo-comments").jump_next() end, { desc = "Next todo comment" })
+            vim.keymap.set("n", "[T", function() require("todo-comments").jump_prev() end, { desc = "Previous todo comment" })
+        end,
+        config = true
+    },
+    {
         "ggandor/leap.nvim",
         event = "VeryLazy",
         config = function()
