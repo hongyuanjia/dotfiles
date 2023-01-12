@@ -64,3 +64,12 @@ if ($null -ne (Get-Module -ListAvailable Terminal-Icons -ErrorAction SilentlyCon
 if ($null -ne (Get-Module -ListAvailable scoop-completion -ErrorAction SilentlyContinue)) {
     Import-Module -Name scoop-completion
 }
+
+if (Get-Command lua -ErrorAction SilentlyContinue | Test-Path) {
+    if (Get-Command scoop -ErrorAction SilentlyContinue | Test-Path) {
+        $zlua = (scoop prefix z.lua -ErrorAction SilentlyContinue)
+        if ($null -ne $zlua) {
+            Invoke-Expression (& { (lua $zlua/z.lua --init powershell) -join "`n" })
+        }
+    }
+}
