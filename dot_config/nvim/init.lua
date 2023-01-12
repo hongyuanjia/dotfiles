@@ -1229,13 +1229,6 @@ lazy.setup({
 
     -- editing
     {
-        "max397574/better-escape.nvim",
-        event = "InsertEnter",
-        config = {
-            mapping = { "jk" }
-        }
-    },
-    {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         config = function()
