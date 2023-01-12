@@ -522,7 +522,7 @@ lazy.setup({
     { "norcalli/nvim-colorizer.lua", event = "BufReadPre", config = true },
     {
         "akinsho/toggleterm.nvim",
-        keys = { "<Leader>tf", "<Leader>th", "<Leader>tv" },
+        keys = { "<Leader>tf", "<Leader>th", "<Leader>tv", "<Leader>g=" },
         config = function()
             require("toggleterm").setup({
                 size = function(term)
