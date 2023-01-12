@@ -314,7 +314,6 @@ vim.keymap.set("n", "<Leader>wo", "<cmd>only<CR>",      { desc = "Close other wi
 vim.keymap.set("n", "<Leader>wp", "<C-w><C-p>",         { desc = "Previous window" })
 
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]],       { desc = "Normal mode" })
-vim.keymap.set("t", "jk",    [[<C-\><C-n>]],       { desc = "Normal mode" })
 vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-W>h]], { desc = "Window left" })
 vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-W>j]], { desc = "Window below" })
 vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-W>k]], { desc = "Window above" })
