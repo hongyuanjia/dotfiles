@@ -71,9 +71,6 @@ for k, v in pairs(options) do
     vim.opt[k] = v
 end
 
--- already use filetype.nvim to handle this
-vim.g.did_load_filetypes = 1
-
 if vim.fn.has("nvim-0.8") == 1 then
     vim.opt.spell = true
     vim.api.nvim_create_autocmd("TermOpen", {
@@ -378,15 +375,6 @@ lazy.setup({
     -- start tim profile
     { "tweekmonster/startuptime.vim", cmd = "StartupTime" },
 
-    -- filetype detect
-    {
-        "nathom/filetype.nvim",
-        init = function()
-            vim.g.did_load_filetypes = 1
-        end,
-        lazy = false,
-        config = true,
-    },
     {
         "nmac427/guess-indent.nvim",
         event = "BufReadPre",
