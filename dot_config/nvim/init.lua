@@ -1401,7 +1401,10 @@ lazy.setup({
                 ensure_installed = {
                     "bash", "jsonc", "rust", "c", "cmake", "cpp", "css", "help",
                     "html", "javascript", "latex", "lua", "markdown", "python",
-                    "r", "toml", "tsx", "typescript", "vue", "yaml"
+                    -- have to make sure parsers for 'c', 'vim', 'lua' and
+                    -- 'help' have been installed
+                    -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/3970
+                    "r", "toml", "tsx", "typescript", "vue", "yaml", "vim"
                 },
                 sync_install = false,
                 auto_install = false,
