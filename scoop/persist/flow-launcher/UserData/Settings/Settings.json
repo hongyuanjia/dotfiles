@@ -4,6 +4,7 @@
   "ColorScheme": "System",
   "ShowOpenResultHotkey": true,
   "WindowSize": 580,
+  "PreviewHotkey": "F1",
   "Language": "zh-cn",
   "Theme": "Win11Dark",
   "UseDropShadowEffect": true,
@@ -96,6 +97,7 @@
   ],
   "ShouldUsePinyin": true,
   "AlwaysPreview": false,
+  "AlwaysStartEn": false,
   "QuerySearchPrecision": "Regular",
   "AutoUpdates": false,
   "WindowLeft": 990,
@@ -122,6 +124,8 @@
   },
   "LastQueryMode": "Selected",
   "PluginSettings": {
+    "PythonExecutablePath": "",
+    "NodeExecutablePath": "",
     "PythonDirectory": "C:\\Users\\hongyuanjia\\scoop\\apps\\flow-launcher\\current\\app-1.9.5\\UserData\\PythonEmbeddable",
     "Plugins": {
       "0ECADE17459B49F587BF81DC3A125110": {
