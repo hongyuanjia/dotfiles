@@ -723,12 +723,12 @@ lazy.setup({
                     },
                     function(input)
                         if input and input ~= "" then
-                            require("workspaces").add(nil, input)
+                            require("workspaces").add(input, nil)
                         end
                     end
                 )
             end)
-            vim.keymap.set("n", "<Leader>pl", function() require("workspaces").list() end)
+            vim.keymap.set("n", "<Leader>pl", "<cmd>WorkspacesList<CR>")
             vim.keymap.set("n", "<Leader>ps", function() require("telescope").extensions.workspaces.workspaces() end )
         end,
         config = function()
