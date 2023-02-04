@@ -407,7 +407,7 @@ lazy.setup({
             })
         end
     },
-    { "kyazdani42/nvim-web-devicons", config = { default = true } },
+    { "kyazdani42/nvim-web-devicons", opts = { default = true } },
     {
         "nanozuki/tabby.nvim",
         event = "VeryLazy",
@@ -511,7 +511,7 @@ lazy.setup({
     {
         "lukas-reineke/indent-blankline.nvim",
         event = "BufReadPre",
-        config = {
+        opts = {
             buftype_exclude = { "terminal", "nofile" },
             filetype_exclude = {
                 "alpha", "help", "checkhealth", "dashboard", "NvimTree", "Trouble"
@@ -666,7 +666,7 @@ lazy.setup({
         keys = {
             { "-", function() require("chowcho").run() end, "n", remap = true, desc = "Choose windows"  }
         },
-        config = { icon_enabled = true, border_style = "rounded" }
+        opts = { icon_enabled = true, border_style = "rounded" }
     },
     {
         "sindrets/winshift.nvim",
@@ -675,7 +675,7 @@ lazy.setup({
             -- use <Leader>wS to change window position
             { "<Leader>wS", "<cmd>WinShift<CR>", desc = "Resize window" }
         },
-        config = { focused_hl_groups = "Search" }
+        opts = { focused_hl_groups = "Search" }
     },
 
     -- session management
@@ -707,7 +707,7 @@ lazy.setup({
             )
             vim.keymap.set("n", "<Leader>Sl", function() require("sessions").load() end, { desc = "Session load" })
         end,
-        config = {
+        opts = {
             session_filepath = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions"),
             absolute = true
         }
@@ -728,7 +728,7 @@ lazy.setup({
                     end
                 )
             end)
-            vim.keymap.set("n", "<Leader>pl", "<cmd>WorkspacesList<CR>")
+            vim.keymap.set("n", "<Leader>pl", function() require("workspaces").list() end)
             vim.keymap.set("n", "<Leader>ps", function() require("telescope").extensions.workspaces.workspaces() end )
         end,
         config = function()
@@ -1090,7 +1090,7 @@ lazy.setup({
             { "<Leader>oq", "<cmd>TroubleToggle quickfix<CR>", desc = "Open quickfix list" },
             { "<Leader>ol", "<cmd>TroubleToggle loclist<CR>", desc = "Open location list"}
         },
-        config = { use_diagnostic_signs = true }
+        opts = { use_diagnostic_signs = true }
     },
 
     -- Telescope
@@ -1280,7 +1280,7 @@ lazy.setup({
             require("inc_rename").setup()
         end,
     },
-    { "kylechui/nvim-surround", event = "BufRead", config = { move_cursor = false } },
+    { "kylechui/nvim-surround", event = "BufRead", opts = { move_cursor = false } },
     {
         "ntpeters/vim-better-whitespace",
         cmd = {
@@ -1344,7 +1344,7 @@ lazy.setup({
             -- <Leader>t[oggle]
             { "<Leader>te", "<cmd>NvimTreeToggle<CR>", desc ="Toggle NvimTree" }
         },
-        config = {
+        opts = {
             hijack_netrw = true,
             hijack_cursor = true,
 
