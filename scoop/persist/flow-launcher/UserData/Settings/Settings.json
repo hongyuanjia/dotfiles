@@ -103,7 +103,7 @@
   "WindowLeft": 990,
   "WindowTop": 250,
   "MaxResultsToShow": 5,
-  "ActivateTimes": 1049,
+  "ActivateTimes": 1108,
   "CustomPluginHotkeys": [],
   "CustomShortcuts": [],
   "DontPromptUpdateMsg": false,
@@ -112,7 +112,7 @@
   "HideOnStartup": true,
   "HideNotifyIcon": false,
   "LeaveCmdOpen": false,
-  "HideWhenDeactive": true,
+  "HideWhenDeactivated": true,
   "SearchWindowPosition": 1,
   "IgnoreHotkeysOnFullscreen": false,
   "Proxy": {
