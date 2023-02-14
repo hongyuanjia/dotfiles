@@ -1622,6 +1622,7 @@ lazy.setup({
                 vim.keymap.set("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>", { buffer = buf, desc = "Make targets"} )
                 vim.keymap.set("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>", { buffer = buf, desc = "Make targets in current session" })
                 vim.keymap.set("n", "<LocalLeader>tf", "<cmd>RSend targets::tar_make_future(workers = parallelly::availableCores() - 1L)<CR>", { buffer = buf, desc = "Make targets in parallel" })
+                vim.keymap.set("n", "<LocalLeader>tc", "<cmd>RSend targets::tar_make_clustermq(workers = parallelly::availableCores() - 1L)<CR>", { buffer = buf, desc = "Make targets in parallel (clustermq)" })
             end
 
             -- debug
