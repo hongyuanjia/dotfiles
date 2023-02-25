@@ -1,413 +1,413 @@
 {
+    "apps": [
+        {
+            "Version": "22.01",
+            "Info": "",
+            "Name": "7zip",
+            "Source": "main",
+            "Updated": "2022-11-28T01:21:02.3720286+08:00"
+        },
+        {
+            "Version": "1.1.1",
+            "Info": "",
+            "Name": "age",
+            "Source": "extras",
+            "Updated": "2023-01-06T22:42:07.281813+08:00"
+        },
+        {
+            "Version": "0.22.1",
+            "Info": "",
+            "Name": "bat",
+            "Source": "main",
+            "Updated": "2022-11-28T08:14:26.3867675+08:00"
+        },
+        {
+            "Version": "0.5.0",
+            "Info": "",
+            "Name": "castxml",
+            "Source": "main",
+            "Updated": "2023-01-13T10:28:19.3756745+08:00"
+        },
+        {
+            "Version": "2.31.0",
+            "Info": "",
+            "Name": "chezmoi",
+            "Source": "main",
+            "Updated": "2023-02-23T23:47:55.5952096+08:00"
+        },
+        {
+            "Version": "3.25.2",
+            "Info": "",
+            "Name": "cmake",
+            "Source": "main",
+            "Updated": "2023-02-14T10:25:23.3536142+08:00"
+        },
+        {
+            "Version": "3.11.2",
+            "Info": "",
+            "Name": "dark",
+            "Source": "main",
+            "Updated": "2022-11-28T08:39:25.32956+08:00"
+        },
+        {
+            "Version": "0.15.1",
+            "Info": "",
+            "Name": "delta",
+            "Source": "main",
+            "Updated": "2022-12-13T10:21:15.150617+08:00"
+        },
+        {
+            "Version": "10.1.1002.1",
+            "Info": "",
+            "Name": "dismplusplus",
+            "Source": "extras",
+            "Updated": "2022-11-28T08:14:56.1493682+08:00"
+        },
+        {
+            "Version": "20.8.16",
+            "Info": "",
+            "Name": "drawio",
+            "Source": "lemon",
+            "Updated": "2023-02-14T10:25:41.6632767+08:00"
+        },
+        {
+            "Version": "8.6.0",
+            "Info": "",
+            "Name": "fd",
+            "Source": "main",
+            "Updated": "2022-12-19T00:23:47.7987328+08:00"
+        },
+        {
+            "Version": "110.0",
+            "Info": "",
+            "Name": "firefox",
+            "Source": "extras",
+            "Updated": "2023-02-23T23:48:07.1978405+08:00"
+        },
+        {
+            "Version": "1.13.0",
+            "Info": "",
+            "Name": "flow-launcher",
+            "Source": "extras",
+            "Updated": "2023-02-14T10:50:57.9042985+08:00"
+        },
+        {
+            "Version": "11.1",
+            "Info": "",
+            "Name": "gdb",
+            "Source": "main",
+            "Updated": "2023-01-22T15:18:40.8190569+08:00"
+        },
+        {
+            "Version": "2.23.0",
+            "Info": "",
+            "Name": "gh",
+            "Source": "main",
+            "Updated": "2023-02-14T10:26:34.4731512+08:00"
+        },
+        {
+            "Version": "10.0.0",
+            "Info": "",
+            "Name": "ghostscript",
+            "Source": "main",
+            "Updated": "2022-12-17T01:03:06.9620126+08:00"
+        },
+        {
+            "Version": "2.39.2.windows.1",
+            "Info": "",
+            "Name": "git",
+            "Source": "main",
+            "Updated": "2023-02-23T23:48:35.7299393+08:00"
+        },
+        {
+            "Version": "9.1.1",
+            "Info": "",
+            "Name": "gitkraken",
+            "Source": "extras",
+            "Updated": "2023-02-23T23:49:09.8414041+08:00"
+        },
+        {
+            "Version": "0.50",
+            "Info": "",
+            "Name": "innounp",
+            "Source": "main",
+            "Updated": "2022-11-28T08:39:34.8165302+08:00"
+        },
+        {
+            "Version": "2.3.3",
+            "Info": "",
+            "Name": "JetBrainsMono-NF",
+            "Source": "nerd-fonts",
+            "Updated": "2023-02-14T10:27:31.3541863+08:00"
+        },
+        {
+            "Version": "0.37.0",
+            "Info": "",
+            "Name": "lazygit",
+            "Source": "extras",
+            "Updated": "2023-02-14T10:27:36.9557665+08:00"
+        },
+        {
+            "Version": "608",
+            "Info": "",
+            "Name": "less",
+            "Source": "main",
+            "Updated": "2022-11-28T08:16:10.7987673+08:00"
+        },
+        {
+            "Version": "5.4.2",
+            "Info": "",
+            "Name": "lua",
+            "Source": "main",
+            "Updated": "2023-01-12T15:24:05.6857044+08:00"
+        },
+        {
+            "Version": "12.2.0-rt_v10-rev1",
+            "Info": "",
+            "Name": "mingw",
+            "Source": "main",
+            "Updated": "2022-12-18T11:23:27.2403859+08:00"
+        },
+        {
+            "Version": "0.8.3",
+            "Info": "",
+            "Name": "neovim",
+            "Source": "main",
+            "Updated": "2023-02-14T10:27:48.3251107+08:00"
+        },
+        {
+            "Version": "29.0.2",
+            "Info": "",
+            "Name": "obs-studio",
+            "Source": "extras",
+            "Updated": "2023-02-14T10:28:21.0361203+08:00"
+        },
+        {
+            "Version": "3.1",
+            "Info": "",
+            "Name": "pandoc",
+            "Source": "main",
+            "Updated": "2023-02-14T10:28:28.1579168+08:00"
+        },
+        {
+            "Version": "230207",
+            "Info": "",
+            "Name": "potplayer",
+            "Source": "extras",
+            "Updated": "2023-02-14T10:28:36.7427043+08:00"
+        },
+        {
+            "Version": "2.2.6",
+            "Info": "",
+            "Name": "psreadline",
+            "Source": "extras",
+            "Updated": "2022-11-28T08:17:11.2852105+08:00"
+        },
+        {
+            "Version": "7.3.2",
+            "Info": "",
+            "Name": "pwsh",
+            "Source": "main",
+            "Updated": "2023-02-14T10:28:52.8454838+08:00"
+        },
+        {
+            "Version": "3.11.2",
+            "Info": "",
+            "Name": "python",
+            "Source": "main",
+            "Updated": "2023-02-14T10:29:22.1331399+08:00"
+        },
+        {
+            "Version": "1.2.335",
+            "Info": "",
+            "Name": "quarto",
+            "Source": "extras",
+            "Updated": "2023-02-14T10:29:54.4576514+08:00"
+        },
+        {
+            "Version": "0.5.2",
+            "Info": "",
+            "Name": "rig",
+            "Source": "r-bucket",
+            "Updated": "2022-11-28T09:47:12.9751473+08:00"
+        },
+        {
+            "Version": "13.0.0",
+            "Info": "",
+            "Name": "ripgrep",
+            "Source": "main",
+            "Updated": "2022-11-28T08:17:41.287296+08:00"
+        },
+        {
+            "Version": "2022.12.0-353",
+            "Info": "",
+            "Name": "rstudio",
+            "Source": "extras",
+            "Updated": "2023-01-10T23:34:53.3735032+08:00"
+        },
+        {
+            "Version": "4.2.5355.5357",
+            "Info": "",
+            "Name": "rtools",
+            "Source": "main",
+            "Updated": "2022-12-16T17:42:05.3627356+08:00"
+        },
+        {
+            "Version": "1.25.2",
+            "Info": "",
+            "Name": "rustup",
+            "Source": "main",
+            "Updated": "2023-02-14T10:30:41.9535433+08:00"
+        },
+        {
+            "Version": "2.37.2",
+            "Info": "",
+            "Name": "screentogif",
+            "Source": "extras",
+            "Updated": "2023-02-14T10:30:55.8209297+08:00"
+        },
+        {
+            "Version": "4.29.149",
+            "Info": "",
+            "Name": "slack",
+            "Source": "extras",
+            "Updated": "2022-11-28T08:19:56.3375835+08:00"
+        },
+        {
+            "Version": "1.16.2",
+            "Info": "",
+            "Name": "snipaste",
+            "Source": "extras",
+            "Updated": "2022-11-28T08:20:14.8055148+08:00"
+        },
+        {
+            "Version": "1.12.0",
+            "Info": "",
+            "Name": "starship",
+            "Source": "main",
+            "Updated": "2022-12-19T00:23:57.9581779+08:00"
+        },
+        {
+            "Version": "0.10.0",
+            "Info": "",
+            "Name": "terminal-icons",
+            "Source": "extras",
+            "Updated": "2022-11-28T08:20:29.5978228+08:00"
+        },
+        {
+            "Version": "2023.02",
+            "Info": "",
+            "Name": "tinytex",
+            "Source": "r-bucket",
+            "Updated": "2023-02-14T10:32:11.0386048+08:00"
+        },
+        {
+            "Version": "0.6.1",
+            "Info": "",
+            "Name": "tldr",
+            "Source": "main",
+            "Updated": "2022-11-30T18:09:47.3793174+08:00"
+        },
+        {
+            "Version": "1.20.14.0",
+            "Info": "",
+            "Name": "vcxsrv",
+            "Source": "extras",
+            "Updated": "2022-11-28T16:09:31.4168282+08:00"
+        },
+        {
+            "Version": "1.75.1",
+            "Info": "",
+            "Name": "vscode",
+            "Source": "extras",
+            "Updated": "2023-02-14T10:51:20.8193154+08:00"
+        },
+        {
+            "Version": "1.16.10261.0",
+            "Info": "",
+            "Name": "windows-terminal",
+            "Source": "extras",
+            "Updated": "2023-02-14T10:51:29.7323777+08:00"
+        },
+        {
+            "Version": "2.9.3",
+            "Info": "",
+            "Name": "xmllint",
+            "Source": "extras",
+            "Updated": "2023-01-02T23:11:07.3081093+08:00"
+        },
+        {
+            "Version": "1.8.16",
+            "Info": "",
+            "Name": "z.lua",
+            "Source": "main",
+            "Updated": "2023-01-12T15:24:07.2148896+08:00"
+        },
+        {
+            "Version": "1.2.12",
+            "Info": "",
+            "Name": "zlib",
+            "Source": "extras",
+            "Updated": "2022-12-18T22:49:50.1372975+08:00"
+        },
+        {
+            "Version": "5.13.7.12602",
+            "Info": "",
+            "Name": "zoom",
+            "Source": "extras",
+            "Updated": "2023-02-14T10:51:43.0032439+08:00"
+        },
+        {
+            "Version": "6.0.20",
+            "Info": "",
+            "Name": "zotero",
+            "Source": "extras",
+            "Updated": "2023-01-22T14:46:59.0786691+08:00"
+        },
+        {
+            "Version": "1.5.4",
+            "Info": "",
+            "Name": "zstd",
+            "Source": "main",
+            "Updated": "2023-02-23T23:49:14.2514817+08:00"
+        }
+    ],
     "buckets": [
         {
             "Name": "extras",
             "Source": "https://github.com/ScoopInstaller/Extras",
-            "Updated": "2023-01-28T20:30:33+08:00",
-            "Manifests": 1766
+            "Updated": "2023-02-23T20:30:21+08:00",
+            "Manifests": 1783
         },
         {
             "Name": "lemon",
             "Source": "https://github.com/hoilc/scoop-lemon",
-            "Updated": "2023-01-28T20:29:01+08:00",
-            "Manifests": 651
+            "Updated": "2023-02-23T20:34:06+08:00",
+            "Manifests": 660
         },
         {
             "Name": "main",
             "Source": "https://github.com/ScoopInstaller/Main",
-            "Updated": "2023-01-28T16:28:25+08:00",
-            "Manifests": 1149
+            "Updated": "2023-02-23T20:31:40+08:00",
+            "Manifests": 1169
         },
         {
             "Name": "nerd-fonts",
             "Source": "https://github.com/matthewjberger/scoop-nerd-fonts",
-            "Updated": "2023-01-25T03:14:56+08:00",
+            "Updated": "2023-02-21T00:16:09+08:00",
             "Manifests": 214
         },
         {
             "Name": "r-bucket",
             "Source": "https://github.com/cderv/r-bucket",
-            "Updated": "2023-01-28T14:24:37+08:00",
+            "Updated": "2023-02-23T22:23:59+08:00",
             "Manifests": 23
         },
         {
             "Name": "versions",
             "Source": "https://github.com/ScoopInstaller/Versions",
-            "Updated": "2023-01-28T16:34:31+08:00",
-            "Manifests": 412
-        }
-    ],
-    "apps": [
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "7zip",
-            "Updated": "2022-11-28T01:21:02.3720286+08:00",
-            "Version": "22.01"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "age",
-            "Updated": "2023-01-06T22:42:07.281813+08:00",
-            "Version": "1.1.1"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "bat",
-            "Updated": "2022-11-28T08:14:26.3867675+08:00",
-            "Version": "0.22.1"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "castxml",
-            "Updated": "2023-01-13T10:28:19.3756745+08:00",
-            "Version": "0.5.0"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "chezmoi",
-            "Updated": "2023-01-22T14:48:05.22835+08:00",
-            "Version": "2.29.3"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "cmake",
-            "Updated": "2022-12-27T11:21:25.3973304+08:00",
-            "Version": "3.25.1"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "dark",
-            "Updated": "2022-11-28T08:39:25.32956+08:00",
-            "Version": "3.11.2"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "delta",
-            "Updated": "2022-12-13T10:21:15.150617+08:00",
-            "Version": "0.15.1"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "dismplusplus",
-            "Updated": "2022-11-28T08:14:56.1493682+08:00",
-            "Version": "10.1.1002.1"
-        },
-        {
-            "Info": "",
-            "Source": "lemon",
-            "Name": "drawio",
-            "Updated": "2022-12-27T11:21:39.1888445+08:00",
-            "Version": "20.7.4"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "fd",
-            "Updated": "2022-12-19T00:23:47.7987328+08:00",
-            "Version": "8.6.0"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "firefox",
-            "Updated": "2022-12-27T11:21:47.2467652+08:00",
-            "Version": "108.0.1"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "flow-launcher",
-            "Updated": "2023-01-06T22:43:03.8817995+08:00",
-            "Version": "1.11.0"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "gdb",
-            "Updated": "2023-01-22T15:18:40.8190569+08:00",
-            "Version": "11.1"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "gh",
-            "Updated": "2023-01-06T22:43:12.378241+08:00",
-            "Version": "2.21.2"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "ghostscript",
-            "Updated": "2022-12-17T01:03:06.9620126+08:00",
-            "Version": "10.0.0"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "git",
-            "Updated": "2023-01-22T14:47:48.8394623+08:00",
-            "Version": "2.39.1.windows.1"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "gitkraken",
-            "Updated": "2023-01-05T16:44:09.8041074+08:00",
-            "Version": "9.0.1"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "innounp",
-            "Updated": "2022-11-28T08:39:34.8165302+08:00",
-            "Version": "0.50"
-        },
-        {
-            "Info": "",
-            "Source": "nerd-fonts",
-            "Name": "JetBrainsMono-NF",
-            "Updated": "2022-11-28T08:16:07.0170701+08:00",
-            "Version": "2.2.2"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "lazygit",
-            "Updated": "2022-11-28T08:16:08.7408477+08:00",
-            "Version": "0.36.0"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "less",
-            "Updated": "2022-11-28T08:16:10.7987673+08:00",
-            "Version": "608"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "lua",
-            "Updated": "2023-01-12T15:24:05.6857044+08:00",
-            "Version": "5.4.2"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "mingw",
-            "Updated": "2022-12-18T11:23:27.2403859+08:00",
-            "Version": "12.2.0-rt_v10-rev1"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "neovim",
-            "Updated": "2023-01-06T22:43:27.331577+08:00",
-            "Version": "0.8.2"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "obs-studio",
-            "Updated": "2023-01-11T11:49:43.5999955+08:00",
-            "Version": "29.0"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "pandoc",
-            "Updated": "2022-11-29T10:39:39.4169545+08:00",
-            "Version": "2.19.2"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "potplayer",
-            "Updated": "2023-01-06T22:43:43.5906721+08:00",
-            "Version": "221215"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "psreadline",
-            "Updated": "2022-11-28T08:17:11.2852105+08:00",
-            "Version": "2.2.6"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "pwsh",
-            "Updated": "2022-12-19T00:23:19.4051646+08:00",
-            "Version": "7.3.1"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "python",
-            "Updated": "2022-11-28T14:37:12.3722575+08:00",
-            "Version": "3.11.0"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "quarto",
-            "Updated": "2023-01-13T10:25:38.1331316+08:00",
-            "Version": "1.2.313"
-        },
-        {
-            "Info": "",
-            "Source": "r-bucket",
-            "Name": "rig",
-            "Updated": "2022-11-28T09:47:12.9751473+08:00",
-            "Version": "0.5.2"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "ripgrep",
-            "Updated": "2022-11-28T08:17:41.287296+08:00",
-            "Version": "13.0.0"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "rstudio",
-            "Updated": "2023-01-10T23:34:53.3735032+08:00",
-            "Version": "2022.12.0-353"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "rtools",
-            "Updated": "2022-12-16T17:42:05.3627356+08:00",
-            "Version": "4.2.5355.5357"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "rustup",
-            "Updated": "2023-01-28T20:37:06.7043981+08:00",
-            "Version": "1.25.1"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "screentogif",
-            "Updated": "2022-11-28T08:17:51.9460085+08:00",
-            "Version": "2.37.1"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "slack",
-            "Updated": "2022-11-28T08:19:56.3375835+08:00",
-            "Version": "4.29.149"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "snipaste",
-            "Updated": "2022-11-28T08:20:14.8055148+08:00",
-            "Version": "1.16.2"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "starship",
-            "Updated": "2022-12-19T00:23:57.9581779+08:00",
-            "Version": "1.12.0"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "terminal-icons",
-            "Updated": "2022-11-28T08:20:29.5978228+08:00",
-            "Version": "0.10.0"
-        },
-        {
-            "Info": "",
-            "Source": "r-bucket",
-            "Name": "tinytex",
-            "Updated": "2023-01-06T22:45:05.1017609+08:00",
-            "Version": "2023.01"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "tldr",
-            "Updated": "2022-11-30T18:09:47.3793174+08:00",
-            "Version": "0.6.1"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "vcxsrv",
-            "Updated": "2022-11-28T16:09:31.4168282+08:00",
-            "Version": "1.20.14.0"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "vscode",
-            "Updated": "2023-01-13T10:26:52.8620529+08:00",
-            "Version": "1.74.3"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "windows-terminal",
-            "Updated": "2022-12-19T00:24:27.8166217+08:00",
-            "Version": "1.15.3465.0"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "xmllint",
-            "Updated": "2023-01-02T23:11:07.3081093+08:00",
-            "Version": "2.9.3"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "z.lua",
-            "Updated": "2023-01-12T15:24:07.2148896+08:00",
-            "Version": "1.8.16"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "zlib",
-            "Updated": "2022-12-18T22:49:50.1372975+08:00",
-            "Version": "1.2.12"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "zoom",
-            "Updated": "2023-01-13T10:27:43.029929+08:00",
-            "Version": "5.13.4.11835"
-        },
-        {
-            "Info": "",
-            "Source": "extras",
-            "Name": "zotero",
-            "Updated": "2023-01-22T14:46:59.0786691+08:00",
-            "Version": "6.0.20"
-        },
-        {
-            "Info": "",
-            "Source": "main",
-            "Name": "zstd",
-            "Updated": "2022-12-26T16:11:35.3452443+08:00",
-            "Version": "1.5.2"
+            "Updated": "2023-02-23T20:55:03+08:00",
+            "Manifests": 414
         }
     ]
 }
