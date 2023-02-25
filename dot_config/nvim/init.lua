@@ -402,7 +402,7 @@ lazy.setup({
             vim.o.equalalways = false
             require("windows").setup({
                 ignore = {
-                    filetype = { "NvimTree", "DiffviewFiles", "alpha", "Outline" }
+                    filetype = { "NvimTree", "DiffviewFiles", "alpha", "Outline", "rbrowser" }
                 }
             })
         end
