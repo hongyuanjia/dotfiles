@@ -395,7 +395,9 @@ lazy.setup({
         "anuvyklack/windows.nvim",
         dependencies = {
             "anuvyklack/middleclass",
-            "anuvyklack/animation.nvim"
+            -- this cause a lot of issues
+            -- https://github.com/anuvyklack/windows.nvim/issues/23
+            -- "anuvyklack/animation.nvim"
         },
         event = "WinEnter",
         init = function()
