@@ -210,6 +210,16 @@ vim.keymap.set("n", "[b", "<cmd>bprev<CR>",   { desc = "Previous buffer" })
 vim.keymap.set("n", "]t", "<cmd>tabnext<CR>", { desc = "Next tab"  })
 vim.keymap.set("n", "[t", "<cmd>tabprev<CR>", { desc = "Previous tab"  })
 
+-- quickfix list & location list navigation
+vim.keymap.set("n", "]q", "<cmd>cnext<CR>",   { desc = "Next item in quickfix list" })
+vim.keymap.set("n", "[q", "<cmd>cprev<CR>",   { desc = "Previous item in quickfix list" })
+vim.keymap.set("n", "]Q", "<cmd>clast<CR>",   { desc = "Last item in quickfix list"  })
+vim.keymap.set("n", "[Q", "<cmd>cfirst<CR>",  { desc = "First item in quickfix list"  })
+vim.keymap.set("n", "]l", "<cmd>lnext<CR>",   { desc = "Next item in location list" })
+vim.keymap.set("n", "[l", "<cmd>lprev<CR>",   { desc = "Previous item in location list" })
+vim.keymap.set("n", "]L", "<cmd>llast<CR>",   { desc = "Last item in location list"  })
+vim.keymap.set("n", "[L", "<cmd>lfirst<CR>",  { desc = "First item in location list"  })
+
 -- <Leader>b[uffer]
 vim.keymap.set("n", "<Leader>bd", "<cmd>bdelete<CR>",                 { desc = "Delete buffer"})
 vim.keymap.set("n", "<Leader>bn", "<cmd>bnext<CR>",                   { desc = "Next buffer"})
@@ -1267,11 +1277,6 @@ lazy.setup({
         config = function()
             require("leap").set_default_keymaps()
         end
-    },
-    {
-        "ggandor/flit.nvim",
-        event = "VeryLazy",
-        config = true
     },
     {
         "smjonas/inc-rename.nvim",
