@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2023-01-12 15:05
+-- Last Modified: 2023-03-09 23:25
 
 -- Basic Settings
 local options = {
@@ -1337,6 +1337,12 @@ lazy.setup({
         keys = {
             { "<Leader>tu", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undotree" }
         }
+    },
+    {
+        "lambdalisue/suda.vim",
+        -- do not load for Windows
+        cond = jit.os ~= "Windows",
+        cmd = { "SudaRead", "SudaWrite" }
     },
 
     -- file management
