@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2023-03-09 23:25
+-- Last Modified: 2023-03-15 23:22
 
 -- Basic Settings
 local options = {
@@ -968,7 +968,7 @@ lazy.setup({
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup({
-                ensure_installed = { "sumneko_lua" }
+                ensure_installed = { "lua_ls" }
             })
             local lspconfig = require("lspconfig")
 
@@ -1045,8 +1045,8 @@ lazy.setup({
                 end,
 
                 -- lua
-                ["sumneko_lua"] = function()
-                    lspconfig.sumneko_lua.setup({
+                ["lua_ls"] = function()
+                    lspconfig.lua_ls.setup({
                         on_attach = on_attach,
                         settings = {
                             Lua = {
