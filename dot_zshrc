@@ -67,8 +67,8 @@ bindkey '^[l'  autosuggest-accept
 export LANG=en_US.UTF-8
 
 # Rustup mirror
-export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
-export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
+export RUSTUP_DIST_SERVER="https://rsproxy.cn"
 if [ -f $HOME/.cargo/env ]; then
     . $HOME/.cargo/env
 fi
