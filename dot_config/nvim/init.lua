@@ -1351,7 +1351,7 @@ lazy.setup({
 
     -- file management
     {
-        "kyazdani42/nvim-tree.lua",
+        "nvim-tree/nvim-tree.lua",
         cmd = { "NvimTree", "NvimTreeToggle", "NvimTreeFindFileToggle" },
         keys = {
             -- <Leader>f[iles]
@@ -1359,7 +1359,7 @@ lazy.setup({
             { "<Leader>fl", "<cmd>NvimTreeFindFileToggle<CR>", desc = "Locate buffer in NvimTree" },
 
             -- <Leader>t[oggle]
-            { "<Leader>te", "<cmd>NvimTreeToggle<CR>", desc ="Toggle NvimTree" }
+            { "<Leader>te", "<cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree" }
         },
         opts = {
             hijack_netrw = true,
