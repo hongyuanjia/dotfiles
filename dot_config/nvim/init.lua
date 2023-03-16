@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2023-03-15 23:22
+-- Last Modified: 2023-03-16 15:34
 
 -- Basic Settings
 local options = {
@@ -963,9 +963,13 @@ lazy.setup({
         dependencies = {
             "simrat39/rust-tools.nvim",
             "hrsh7th/cmp-nvim-lsp",
+            { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
             { "folke/neodev.nvim", config = true }
         },
         config = function()
+            -- load neoconf before lspconfig
+            require("neoconf").setup()
+
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed = { "lua_ls" }
