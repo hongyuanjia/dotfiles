@@ -28,7 +28,7 @@ fi
 
 proxy_enable ()
 {
-    if ps -aux | grep clash &> /dev/null && [-f $HOME/.cargo/env]; then
+    if ps -aux | grep clash &> /dev/null ; then
         export HTTP_PROXY=127.0.0.1:7890
         export HTTPS_PROXY=127.0.0.1:7890
         export SOCKS_PROXY=127.0.0.1:7890
@@ -43,7 +43,7 @@ proxy_disable ()
     unset SOCKS_PROXY
     unset ALL_PROXY
 }
-proxy_enable()
+proxy_enable
 
 ZSH_THEME="robbyrussell"
 
