@@ -593,3 +593,8 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- Auto-start {{{
+local cfw = os.getenv("HOME") .. "/.local/bin/clash/cfw"
+if gears.filesystem.file_executable(cfw) then awful.spawn(cfw) end
+-- }}}
