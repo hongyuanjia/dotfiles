@@ -79,8 +79,8 @@ if command -v starship &> /dev/null ; then
 fi
 
 # fzf and fd integration
-if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
-    . /usr/share/fzf/shell/key-bindings.bash
+if [ -f /usr/share/fzf/shell/key-bindings.zsh ]; then
+    . /usr/share/fzf/shell/key-bindings.zsh
 fi
 if command -v fd &> /dev/null && command -v fzf &> /dev/null ; then
     export FZF_DEFAULT_COMMAND='fd --type file --hidden --exclude .git --color=always'
