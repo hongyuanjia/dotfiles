@@ -1,4 +1,0 @@
-xrandr --output HDMI-2 --mode 3840x2160 --pos 0x0 \
-    --output DP-1 --mode 2560x1080 --pos 3840x0 --scale 2x2
-
-# vim: ft=bash
