@@ -7,7 +7,7 @@ Xft.hintstyle:                  hintslight
 Xft.rgba:                       rgb
 Xft.lcdfilter:                  lcddefault
 
-#define FONT JetBrains Mono Nerd Font
+#define FONT JetBrainsMono Nerd Font
 #define EMOJI Noto Color Emoji
 !Font Awesome 5 Brands
 #define FONT_SIZE 9
