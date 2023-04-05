@@ -91,3 +91,4 @@ fi
 # alias
 alias la="ls -la"
 alias cm=chezmoi
+alias lg=lazygit
