@@ -17,6 +17,7 @@ config.color_scheme = "tokyonight_storm"
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 
 -- Place the tab bar at the bottom
+config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 
 -- Only show tab bar if multiple tabs
