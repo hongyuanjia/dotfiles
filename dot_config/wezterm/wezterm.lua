@@ -23,8 +23,10 @@ config.tab_bar_at_bottom = true
 -- Only show tab bar if multiple tabs
 config.hide_tab_bar_if_only_one_tab = true
 
-config.disable_default_key_bindings = true
+-- Disable warnings about missing glyphs
+config.warn_about_missing_glyphs = false
 
+config.disable_default_key_bindings = true
 config.keys = {
   -- command palette
   {
