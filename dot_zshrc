@@ -43,7 +43,6 @@ proxy_disable ()
     unset SOCKS_PROXY
     unset ALL_PROXY
 }
-proxy_enable
 
 ZSH_THEME="robbyrussell"
 
