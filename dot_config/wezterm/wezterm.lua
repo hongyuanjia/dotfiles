@@ -186,6 +186,15 @@ config.keys = {
         end
       )
     }
+  },
+  -- scroll pages
+  {
+    mods = "SHIFT", key = "PageUp",
+    action = wezterm.action { ScrollByPage = -1 }
+  },
+  {
+    mods = "SHIFT", key = "PageDown",
+    action = wezterm.action { ScrollByPage = 1 }
   }
 }
 
