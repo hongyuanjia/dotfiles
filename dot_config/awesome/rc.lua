@@ -530,7 +530,10 @@ awful.rules.rules = {
                 "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
                 "Wpa_gui",
                 "veromix",
-                "xtightvncviewer"
+                "xtightvncviewer",
+                "pavcontrol",
+                "Lxappearance",
+                "nm-connection-editor"
             },
 
         -- Note that the name property shown in xprop might be set slightly after creation of the client
@@ -556,6 +559,18 @@ awful.rules.rules = {
             titlebars_enabled = true
         }
     },
+
+    -- Disable maximized firefox
+    {
+        rule = {
+            class = "Firefox",
+        },
+        properties = {
+            maximized = false,
+            float = false
+        }
+    },
+
 }
 -- }}}
 
@@ -576,6 +591,15 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+client.connect_signal("request::manage", function(c)
+    c.maximized = false
+    c.maximized_horizontal = false
+    c.maximized_vertical = false
+
+    -- make floating window always ontop
+    if c.floating then c.ontop = true end
+end)
 -- }}}
 
 -- Auto-start {{{
