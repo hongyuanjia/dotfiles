@@ -1,0 +1,19 @@
+{
+    "lspconfig": {
+        "lua_ls": {
+            "Lua": {
+                "completion": {
+                    "callSnippet": "Replace"
+                },
+                "diagnostics": {
+                    "globals": [ "awesome", "screen", "client", "root" ]
+                },
+                "workspace": {
+                    "library": {
+                        "/usr/local/share/awesome/lib": true
+                    }
+                }
+            }
+        }
+    }
+}
