@@ -5,32 +5,9 @@ local dpi = xresources.apply_dpi
 local gears = require("gears")
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
+local wallpaper_path = gfs.get_configuration_dir() .. "wallpapers"
 
-local pallete = {
-    background   = "#171717",
-    background2  = "#24283b",
-    background3  = "#313131",
-    foreground   = "#D0D0D0",
-    selection    = "#474747",
-    black        = "#151515",
-    red          = "#984936",
-    orange       = "#FFA557",
-    green        = "#90A959",
-    yellow       = "#F4BF75",
-    blue         = "#7E97AB",
-    purple       = "#AA749F",
-    aqua         = "#88afa2",
-    gray         = "#727272",
-    brightblack  = "#373737",
-    brightred    = "#984936",
-    brightorange = "#FFA557",
-    brightgreen  = "#90A959",
-    brightyellow = "#e0af68",
-    brightblue   = "#7E97AB",
-    brightpurple = "#AA759F",
-    brightaqua   = "#88afa2",
-    brightgray   = "#AFAFAF",
-}
+local pallete = require("theme.pallete")
 
 local theme = {}
 
@@ -68,7 +45,7 @@ theme.taglist_fg_focus    = pallete.black
 theme.taglist_fg_occupied = pallete.foreground
 theme.taglist_fg_urgent   = pallete.brightred
 theme.taglist_fg_empty    = pallete.brightblack
-theme.taglist_shape       = gears.shape.rounded_rect
+theme.taglist_shape       = gears.shape.rectangle
 
 theme.tasklist_bg_normal = theme.module_bg
 theme.tasklist_bg_focus  = pallete.blue
@@ -125,7 +102,7 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar
 theme.titlebar_maximized_button_normal_active   = themes_path.."default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = themes_path.."default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = themes_path.."default/background.png"
+theme.wallpaper = wallpaper_path .. "/snowmoutain.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh      = themes_path.."default/layouts/fairhw.png"
