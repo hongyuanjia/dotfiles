@@ -579,6 +579,21 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- Auto-start {{{
+local function run_onece(cmd_arr)
+    for _, cmd in ipairs(cmd_arr) do
+        awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd ,cmd))
+    end
+end
+
 local cfw = os.getenv("HOME") .. "/.local/bin/clash/cfw"
 if gears.filesystem.file_executable(cfw) then awful.spawn(cfw) end
+
+awful.spawn.easy_async_with_shell(
+    'ps x | grep "blueman-applet" | grep -v grep | awe "{print $1}" | xargs kill',
+    function() awful.spawn("blueman-applet") end
+)
+awful.spawn.easy_async_with_shell(
+    'ps x | grep "nm-applet" | grep -v grep | awe "{print $1}" | xargs kill',
+    function() awful.spawn("nm-applet --indicator") end
+)
 -- }}}
