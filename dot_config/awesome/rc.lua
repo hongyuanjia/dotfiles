@@ -639,4 +639,5 @@ awful.spawn.easy_async_with_shell(
     'ps x | grep "picom" | grep -v grep | awe "{print $1}" | xargs kill',
     function() awful.spawn("picom -b") end
 )
+awful.spawn("ibus-daemon -drxR")
 -- }}}
