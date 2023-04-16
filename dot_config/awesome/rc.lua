@@ -73,7 +73,7 @@ awful.layout.layouts = {
     -- awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
-    -- awful.layout.suit.max,
+    awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.magnifier,
     -- awful.layout.suit.corner.nw,
@@ -299,13 +299,27 @@ local globalkeys = gears.table.join(
     ),
     awful.key(
         { modkey }, "l",
-        function() awful.client.focus.bydirection("right") end,
-        { description = "move focus down", group = "client" }
+        function()
+            local l = awful.layout.get(awful.screen.focused())
+            if awful.layout.getname(l) == "max" then
+                awful.client.focus.byidx(-1)
+            else
+                awful.client.focus.bydirection("right")
+            end
+        end,
+        { description = "move focus right", group = "client" }
     ),
     awful.key(
         { modkey }, "h",
-        function() awful.client.focus.bydirection("left") end,
-        { description = "move focus up", group = "client" }
+        function()
+            local l = awful.layout.get(awful.screen.focused())
+            if awful.layout.getname(l) == "max" then
+                awful.client.focus.byidx(1)
+            else
+                awful.client.focus.bydirection("left")
+            end
+        end,
+        { description = "move focus left", group = "client" }
     ),
 
     -- swap client by direction
