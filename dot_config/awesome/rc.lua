@@ -618,7 +618,7 @@ end)
 -- }}}
 
 -- Auto-start {{{
-local function run_onece(cmd_arr)
+local function run_once(cmd_arr)
     for _, cmd in ipairs(cmd_arr) do
         awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd ,cmd))
     end
@@ -634,5 +634,9 @@ awful.spawn.easy_async_with_shell(
 awful.spawn.easy_async_with_shell(
     'ps x | grep "nm-applet" | grep -v grep | awe "{print $1}" | xargs kill',
     function() awful.spawn("nm-applet --indicator") end
+)
+awful.spawn.easy_async_with_shell(
+    'ps x | grep "picom" | grep -v grep | awe "{print $1}" | xargs kill',
+    function() awful.spawn("picom -b") end
 )
 -- }}}
