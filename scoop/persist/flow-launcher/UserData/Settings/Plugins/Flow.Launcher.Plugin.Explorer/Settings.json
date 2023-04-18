@@ -24,5 +24,6 @@
   "EverythingInstalledPath": null,
   "SortOption": 1,
   "EnableEverythingContentSearch": false,
-  "EverythingEnabled": false
+  "EverythingEnabled": false,
+  "EverythingSearchFullPath": false
 }
