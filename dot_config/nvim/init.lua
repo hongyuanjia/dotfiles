@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2023-03-16 15:34
+-- Last Modified: 2023-04-18 20:23
 
 -- Basic Settings
 local options = {
@@ -1282,6 +1282,13 @@ lazy.setup({
         event = "VeryLazy",
         config = function()
             require("leap").set_default_keymaps()
+        end
+    },
+    {
+        "ggandor/flit.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("flit").setup()
         end
     },
     {
