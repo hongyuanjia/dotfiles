@@ -12,19 +12,22 @@ Documents
 *.ahk
 *.ps1
 .config/komorebi
+.glaze-wm
 scoop
-
-# ignore WSL-specific files
-{{ if or ( contains "microsoft" ( lower .chezmoi.kernel.osrelease ) ) ( contains "wsl" ( lower .chezmoi.kernel.osrelease ) ) }}
-bin/update_proxy.sh
-{{ end }}
 
 # on Windows
 {{ else }}
 .config/nvim
 .config/rstudio
 .config/lazygit
-bin
 .bashrc
 .bash_profile
+.zshrc
+.Xnord
+.Xresources
+awesome
+gtk-2.0
+gtk-3.0
+mimeapps.list
+picom.conf
 {{ end }}
