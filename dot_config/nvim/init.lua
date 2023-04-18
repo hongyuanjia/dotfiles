@@ -1408,7 +1408,7 @@ lazy.setup({
         config = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
-                    "bash", "jsonc", "rust", "c", "cmake", "cpp", "css", "help",
+                    "bash", "jsonc", "rust", "c", "cmake", "cpp", "css",
                     "html", "javascript", "latex", "lua", "markdown", "python",
                     -- have to make sure parsers for 'c', 'vim', 'lua' and
                     -- 'help' have been installed
