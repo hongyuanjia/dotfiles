@@ -26,6 +26,17 @@ config.hide_tab_bar_if_only_one_tab = true
 -- Disable warnings about missing glyphs
 config.warn_about_missing_glyphs = false
 
+--
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+  config.default_prog = { "pwsh.exe", "-NoLogo" }
+  config.launch_menu = {
+    {
+      label = "PowerShell Core",
+      args = { "pwsh.exe", "-NoLogo" }
+    }
+  }
+end
+
 config.disable_default_key_bindings = true
 config.keys = {
   -- command palette
