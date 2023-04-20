@@ -955,7 +955,7 @@ lazy.setup({
             require("nvim-navic").setup({ separator = " ", highlight = true, depth_limit = 5 })
         end,
     },
-    { "williamboman/mason.nvim", config = true },
+    { "williamboman/mason.nvim", build = ":MasonUpdate", config = true },
     { "williamboman/mason-lspconfig.nvim", config = true },
     {
         "neovim/nvim-lspconfig",
