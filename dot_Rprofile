@@ -61,9 +61,9 @@ local({
         .Platform$pkgType, R.Version()$os, R.Version()$arch
     )
 
-    if (!update && !requireNamespace('pak', quietly = TRUE)) update <- TRUE
+    if (!update && !requireNamespace("pak", quietly = TRUE)) update <- TRUE
 
-    if (update) install.packages('pak', repos = repos)
+    if (update) install.packages("pak", repos = repos)
 }
 
 .set_proxy <- function(proxy = "127.0.0.1:7890") {
