@@ -91,7 +91,10 @@ window_rules:
   - command: "set floating"
     match_class_name: "TDLG2FILEACTIONMIN"
 
-  - command: "set floating"
+  - command: "ignore"
+    match_class_name: "Chrome_WidgetWin_1"
+
+  - command: "ignore"
     match_process_name: "dropbox"
 
   # Launches system dialogs as floating by default (eg. File Explorer save/open dialog).
