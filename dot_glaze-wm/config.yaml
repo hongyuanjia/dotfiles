@@ -88,7 +88,10 @@ window_rules:
     match_process_name: "TotalCMD64"
     match_class_name: "TTOTAL_CMD"
 
-  - command: "ignore"
+  - command: "set floating"
+    match_class_name: "TDLG2FILEACTIONMIN"
+
+  - command: "set floating"
     match_process_name: "dropbox"
 
   # Launches system dialogs as floating by default (eg. File Explorer save/open dialog).
