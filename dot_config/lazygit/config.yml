@@ -12,9 +12,9 @@ gui:
     optionsTextColor:
       - blue
     selectedLineBgColor:
-      - default
+      - reverse
     selectedRangeBgColor:
-      - blue
+      - reverse
 git:
   autofetch: true
   paging:
