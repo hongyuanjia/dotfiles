@@ -1582,10 +1582,7 @@ lazy.setup({
     },
 
     -- R
-    {
-        "jalvesaq/R-Vim-runtime",
-        ft = { "r", "rhelp", "rmd", "rnoweb", "rrst", "quarto" },
-    },
+    { "jalvesaq/R-Vim-runtime", lazy = false },
     {
         "jalvesaq/Nvim-R",
         dependencies = { "jalvesaq/R-Vim-runtime" },
