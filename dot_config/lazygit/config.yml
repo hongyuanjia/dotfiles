@@ -5,7 +5,7 @@ gui:
   theme:
     lightTheme: false
     activeBorderColor:
-      - cyan
+      - red
       - bold
     inactiveBorderColor:
       - white
