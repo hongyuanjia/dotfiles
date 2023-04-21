@@ -25,6 +25,19 @@ if (Get-Command starship -ErrorAction SilentlyContinue | Test-Path) {
     # Currently, starship did not support XDG standard
     Set-EnvironmentVariable "STARSHIP_CONFIG" "$HOME\.config\starship\config.toml"
     Invoke-Expression (&starship init powershell)
+
+    if ($Env:TERM_PROGRAM -eq "WezTerm") {
+        $prompt = ""
+        function Invoke-Starship-PreCommand {
+            $current_location = $executionContext.SessionState.Path.CurrentLocation
+            if ($current_location.Provider.Name -eq "FileSystem") {
+                $ansi_escape = [char]27
+                $provider_path = $current_location.ProviderPath -replace "\\", "/"
+                $prompt = "$ansi_escape]7;file://${env:COMPUTERNAME}/${provider_path}$ansi_escape\"
+            }
+            $host.ui.Write($prompt)
+        }
+    }
 }
 
 if ($null -ne (Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinue)) {
