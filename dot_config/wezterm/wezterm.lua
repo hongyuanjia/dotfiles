@@ -26,6 +26,9 @@ config.hide_tab_bar_if_only_one_tab = true
 -- Disable warnings about missing glyphs
 config.warn_about_missing_glyphs = false
 
+-- Enable WSL Domain
+config.wsl_domains = wezterm.default_wsl_domains()
+
 --
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   config.default_prog = { "pwsh.exe", "-NoLogo" }
