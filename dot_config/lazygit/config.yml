@@ -21,5 +21,4 @@ git:
     colorArg: 'always'
     pager: 'delta --dark --paging=never --24-bit-color=never'
 os:
-  editCommand: 'nvim'
-  editCommandTemplate: '{{editor}} +{{line}} -- {{filename}}'
+  editPreset: 'nvim'
