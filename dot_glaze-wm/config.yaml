@@ -94,14 +94,14 @@ window_rules:
     match_class_name: "TDLG2FILEACTIONMIN"
 
   - command: "ignore"
-    match_class_name: "Chrome_WidgetWin_1"
-
-  - command: "ignore"
     match_process_name: "dropbox"
 
   # Launches system dialogs as floating by default (eg. File Explorer save/open dialog).
   - command: "set floating"
     match_class_name: "#32770"
+
+  - command: "move to workspace 5"
+    match_process_name: "WINWORD"
 
 binding_modes:
   - name: "resize"
