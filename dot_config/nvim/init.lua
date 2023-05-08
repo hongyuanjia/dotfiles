@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2023-04-18 20:23
+-- Last Modified: 2023-05-06 12:53
 
 -- Basic Settings
 local options = {
@@ -1429,6 +1429,8 @@ lazy.setup({
                         lookahead = true,
                         keymaps = {
                             -- capture groups defined in textobjects.scm
+                            ["ik"] = "@call.inner",
+                            ["ak"] = "@call.outer",
                             ["af"] = "@function.outer",
                             ["if"] = "@function.inner",
                             ["ac"] = "@class.outer",
