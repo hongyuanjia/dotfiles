@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2023-05-06 12:53
+-- Last Modified: 2023-05-17 18:22
 
 -- Basic Settings
 local options = {
@@ -496,7 +496,8 @@ lazy.setup({
                             end
                         }
                     },
-                    lualine_y = { "encoding", "filetype" }
+                    lualine_y = { "encoding", "filetype" },
+                    lualine_z = { "location", "progress" }
                 }
             })
         end
