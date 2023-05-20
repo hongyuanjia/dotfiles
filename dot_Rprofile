@@ -1,7 +1,7 @@
 local({
     # set a CRAN mirror
     r <- getOption("repos")
-    r["CRAN"] <- "https://mirrors.tuna.tsinghua.edu.cn/CRAN/"
+    r["CRAN"] <- "https://mirrors.bfsu.edu.cn/CRAN/"
     options(repos = r)
 
     # unset R_LIBS_SITE and R_LIBS_USER if R is installed using scoop
