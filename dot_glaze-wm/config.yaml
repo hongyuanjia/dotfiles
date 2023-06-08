@@ -43,23 +43,24 @@ bar:
 
 workspaces:
   - name: "1"
-    display_name: " "
+    display_name: "1 Web"
   - name: "2"
-    display_name: " "
+    display_name: "2 CMD"
   - name: "3"
-    display_name: " "
+    display_name: "3 Chat"
     bind_to_monitor: 1
   - name: "4"
-    display_name: " "
+    display_name: "4 File"
   - name: "5"
-    display_name: "󰏆 "
+    display_name: "5 Office"
   - name: "6"
-    display_name: "󰡉 "
+    display_name: "6 Meet"
   - name: "7"
-    display_name: " "
+    display_name: "7 Play"
   - name: "8"
-    display_name: " "
+    display_name: "8 Game"
   - name: "9"
+    display_name: "9 Misc"
 
 window_rules:
   # Task Manager requires admin privileges to manage and should be ignored unless running
