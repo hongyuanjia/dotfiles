@@ -75,7 +75,7 @@ window_rules:
   - command: "resize borders 0px -7px -7px -7px"
     match_process_name: "steam"
 
-  - command: "move to workspace 2"
+  - command: "move to workspace 1"
     match_process_name: "firefox"
     match_class_name: "MozillaWindowClass"
 
@@ -103,6 +103,12 @@ window_rules:
 
   - command: "move to workspace 5"
     match_process_name: "WINWORD"
+
+  - command: "move to workspace 5"
+    match_process_name: "EXCEL"
+
+  - command: "move to workspace 5"
+    match_process_name: "POWERPNT"
 
 binding_modes:
   - name: "resize"
