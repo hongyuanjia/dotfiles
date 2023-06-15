@@ -1657,6 +1657,40 @@ lazy.setup({
                 vim.keymap.set("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>", { buffer = buf, desc = "Send 'Q' in debug mode" })
                 vim.keymap.set("n", "<LocalLeader>sc", "<cmd>RSend c<CR>", { buffer = buf, desc = "Send 'c' in debug mode" })
                 vim.keymap.set("n", "<LocalLeader>sn", "<cmd>RSend n<CR>", { buffer = buf, desc = "Send 'n' in debug mode" })
+                if string.lower(jit.os) == "windows" then
+                    -- check if TotalCMD is installed
+                    local totalcmd = require("plenary.path").new(vim.env.LOCALAPPDATA, "TotalCMD64", "TotalCMD64.exe")
+                    local has_totalcmd = function()
+                        return totalcmd:exists()
+                    end
+                    local totalcmd_open = function(dir)
+                        if not has_totalcmd() then return end
+                        local rcmd = "RSend system2"
+                        rcmd = rcmd .. "('" .. totalcmd.filename:gsub("\\", "/") .. "', "
+                        rcmd = rcmd .. "c('/O', '/P=L', sprintf('/L=\"%s\"', " .. dir .. ")))"
+                        vim.cmd(rcmd)
+                    end
+                    vim.keymap.set("n", "<LocalLeader>sd",
+                        function()
+                            if not has_totalcmd() then
+                                vim.cmd([[RSend shell.exec(getwd())]])
+                            else
+                                totalcmd_open("getwd()")
+                            end
+                        end,
+                        { buffer = buf, desc = "Open current work directory"}
+                    )
+                    vim.keymap.set("n", "<LocalLeader>st",
+                        function()
+                            if not has_totalcmd() then
+                                vim.cmd([[RSend shell.exec(tempdir())]])
+                            else
+                                totalcmd_open("tempdir()")
+                            end
+                        end,
+                        { buffer = buf, desc = "Open R temp directory"}
+                    )
+                end
             end
 
             -- add keymap for quit R if current window is an R terminal
