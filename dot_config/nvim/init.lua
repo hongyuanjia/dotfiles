@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2023-05-17 18:22
+-- Last Modified: 2023-06-15 10:54
 
 -- Basic Settings
 local options = {
@@ -154,7 +154,7 @@ end
 
 -- short name for printing
 function _G.P(...)
-    vim.pretty_print(...)
+    vim.print(...)
 end
 
 -- remap space as the leader key
