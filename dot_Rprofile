@@ -71,6 +71,77 @@ local({
     Sys.setenv(http_proxy = paste0("http://", proxy))
 }
 
+.compiledb <- function(pkg = ".", echo = TRUE) {
+    # this approach only works with clang > v5.0
+    if (Sys.which("clang") == "") stop("Failed to found 'clang' compiler")
+    clangv <- system2("clang", "--version", stdout = TRUE)[1L]
+    clangv <- regmatches(clangv, regexec("clang version (\\d+\\.\\d+)", clangv))[[1L]][[2]]
+    if (numeric_version(clangv) <= 5.0) {
+        stop("Requires a 'clang' compiler > v5.0, but v", clangv, " is found.")
+    }
+
+    # check if there is a src directory and a Makevars file
+    if (!file.exists(file.path(pkg, "DESCRIPTION"))) {
+        stop("Input 'pkg' seems not be an R package directory.")
+    }
+    if (!dir.exists(file.path(pkg, "src"))) {
+        stop("Current R package did not contain a 'src' directory.")
+    }
+    exe <- if (.Platform$OS.type == "windows") ".exe" else ""
+
+    # check if R_MAKEVARS_USER is set
+    if (backup <- Sys.getenv("R_MAKEVARS_USER") != "") {
+        # store the original value
+        ori_makevars_user <- Sys.getenv("R_MAKEVARS_USER")
+    }
+    # create a temporary Makevars to make sure 'clang' is used to compile
+    # R packages instead of G++ and apprend the '-MJ' flag
+    makevars_user <- tempfile()
+    Sys.setenv("R_MAKEVARS_USER" = makevars_user)
+    if (backup) on.exit(Sys.setenv("R_MAKEVARS_USER" = ori_makevars_user), add = TRUE)
+
+    # create a temporary directory to store the output JSON from clang
+    dir_json <- tempfile("json-")
+    dir.create(dir_json)
+
+    writeLines(con = makevars_user, useBytes = TRUE,
+        c(
+            "CC=clang", "CXX=clang++", "CXX11=clang++", "CXX14=clang++",
+            sprintf("PKG_CPPFLAGS+=-MJ \"%s\"", file.path(dir_json, "$@.json"))
+        )
+    )
+
+    if (echo) message("=== Compiling the package using clang ===")
+    system2(
+        # get the rcmd path
+        file.path(R.home("bin"), paste0("Rcmd", exe)),
+        c("INSTALL", "-l", tempdir(), "--clean", "--preclean", pkg),
+        stdout = if (echo) "" else NULL, stderr = if (echo) "" else NULL
+    )
+
+    # combine all JSON files into one
+    file_json <- list.files(dir_json, full.names = TRUE)
+
+    if (!length(file_json)) {
+        message("No compilation databases generated.")
+        return(NULL)
+    }
+    db <- c()
+    for (f in file_json) {
+        l <- readLines(f)
+        l[length(l)] <- paste0(l[length(l)], ",")
+        db <- c(db, readLines(f))
+    }
+    db[length(db)] <- substring(db[length(db)], 1L, nchar(db[length(db)]) - 1L)
+    db <- c("[", db, "]")
+    json <- file.path(pkg, "src/compile_commands.json")
+    if (requireNamespace("jsonlite", quietly = TRUE)) {
+        db <- jsonlite::toJSON(jsonlite::fromJSON(db), pretty = TRUE)
+    }
+    writeLines(db, json, useBytes = TRUE)
+    normalizePath(json, mustWork = TRUE)
+}
+
 # custom start up
 tryCatch(startup::startup(), error = function(ex) message(".Rprofile error: ", conditionMessage(ex)))
 
