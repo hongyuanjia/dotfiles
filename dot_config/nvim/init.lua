@@ -1327,6 +1327,20 @@ lazy.setup({
         }
     },
     {
+        "dhruvasagar/vim-table-mode",
+        cmd = { "TableModeToggle", "TableModeRealign", "Tableize" },
+        keys = {
+            -- <Leader>t[oggle]
+            { "<Leader>tmm", "<cmd>TableModeToggle<CR>",  desc = "Table-mode toggle" },
+            { "<Leader>tmr", "<cmd>TableModeRealign<CR>", desc = "Table-mode realign" },
+            { "<Leader>tmt", "<cmd>Tableize<CR>",         desc = "Table-mode format" },
+        },
+        config = function()
+            vim.g.table_mode_corner = "|"
+            vim.g.table_mode_map_prefix = "<Leader>tm"
+        end
+    },
+    {
         "chentoast/marks.nvim",
         keys = { "m", "dm" },
         config = true
