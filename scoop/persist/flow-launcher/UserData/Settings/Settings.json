@@ -127,10 +127,11 @@
     "Password": null
   },
   "LastQueryMode": "Selected",
+  "AnimationSpeed": "Medium",
+  "CustomAnimationLength": 360,
   "PluginSettings": {
     "PythonExecutablePath": "",
     "NodeExecutablePath": "",
-    "PythonDirectory": "C:\\Users\\hongyuanjia\\scoop\\apps\\flow-launcher\\current\\app-1.9.5\\UserData\\PythonEmbeddable",
     "Plugins": {
       "0ECADE17459B49F587BF81DC3A125110": {
         "ID": "0ECADE17459B49F587BF81DC3A125110",
