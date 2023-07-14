@@ -597,13 +597,13 @@ lazy.setup({
 
             dashboard.section.buttons.val = {
                 dashboard.button("SPC b N", "  New file"),
-                dashboard.button("SPC s f", "  Find file"),
+                dashboard.button("SPC s f", "  Find file"),
                 dashboard.button("SPC p s", "  Find project"),
-                dashboard.button("SPC f r", "  Recently used files"),
-                dashboard.button("SPC s g", "  Find text"),
-                dashboard.button("SPC S l", "  Load Session"),
+                dashboard.button("SPC f r", "  Recently used files"),
+                dashboard.button("SPC s g", "󰈬  Find text"),
+                dashboard.button("SPC S l", "  Load Session"),
                 dashboard.button("SPC f v", "  Configuration"),
-                dashboard.button("SPC Q",   "  Quit Neovim")
+                dashboard.button("SPC Q",   "󰅖  Quit Neovim")
             }
 
             dashboard.config.layout = {
