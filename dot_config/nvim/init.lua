@@ -940,7 +940,6 @@ lazy.setup({
     },
 
     -- lsp
-    {  "jose-elias-alvarez/null-ls.nvim" },
     {
         "dnlhc/glance.nvim",
         cmd = { "Glance" },
@@ -975,15 +974,6 @@ lazy.setup({
                 ensure_installed = { "lua_ls" }
             })
             local lspconfig = require("lspconfig")
-
-            local null_ls = require("null-ls")
-            null_ls.setup({
-                sources = {
-                    null_ls.builtins.completion.spell,
-                    null_ls.builtins.code_actions.gitsigns,
-                    null_ls.builtins.formatting.xmllint
-                }
-            })
 
             -- update diagnostic config
             local signs = { Error = "" , Warn = "" , Hint = "" , Info = "" }
