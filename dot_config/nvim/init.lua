@@ -866,31 +866,31 @@ lazy.setup({
                     fields = { "kind", "abbr", "menu" },
                     format = function(entry, vim_item)
                         local kind_icons = {
-                            Text = "",
+                            Text = "󰊄",
                             Method = "m",
-                            Function = "",
+                            Function = "󰊕",
                             Constructor = "",
                             Field = "",
-                            Variable = "",
-                            Class = "",
+                            Variable = "",
+                            Class = "",
                             Interface = "",
                             Module = "",
                             Property = "",
                             Unit = "",
-                            Value = "",
+                            Value = "",
                             Enum = "",
-                            Keyword = "",
+                            Keyword = "",
                             Snippet = "",
-                            Color = "",
-                            File = "",
+                            Color = "",
+                            File = "",
                             Reference = "",
-                            Folder = "",
+                            Folder = "",
                             EnumMember = "",
-                            Constant = "",
+                            Constant = "",
                             Struct = "",
                             Event = "",
-                            Operator = "",
-                            TypeParameter = "",
+                            Operator = "",
+                            TypeParameter = "",
                         }
                         vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
                         vim_item.menu = ({
@@ -1632,7 +1632,7 @@ lazy.setup({
             -- set encoding to UTF-8 when sourcing code
             vim.g.R_source_args = 'echo = TRUE, spaced = TRUE, encoding = "UTF-8"'
             -- number of columns to be offset when calculating R terminal width
-            vim.g.R_setwidth = -7
+            vim.g.R_setwidth = 2
             -- manually set the R path since scoop did not write registry entries about R
             if string.lower(jit.os) == "windows" then
                 local scoop_r = require("plenary.path").new(vim.loop.os_homedir(), "scoop", "apps", "r")
