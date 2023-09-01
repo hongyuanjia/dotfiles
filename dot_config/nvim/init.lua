@@ -675,11 +675,10 @@ lazy.setup({
         config = true
     },
     {
-        "tkmpypy/chowcho.nvim",
+        "4513ECHO/vim-snipewin",
         keys = {
-            { "-", function() require("chowcho").run() end, "n", remap = true, desc = "Choose windows"  }
-        },
-        opts = { icon_enabled = true, border_style = "rounded" }
+            { "-", "<Plug>(snipewin)", "n", remap = true, desc = "Choose windows" }
+        }
     },
     {
         "sindrets/winshift.nvim",
@@ -1869,3 +1868,4 @@ lazy.setup({
     }
 }
 )
+
