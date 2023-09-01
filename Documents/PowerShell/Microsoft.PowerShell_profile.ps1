@@ -86,3 +86,7 @@ if (Get-Command lua -ErrorAction SilentlyContinue | Test-Path) {
         }
     }
 }
+
+# rig autocompletion
+$rig_ac=$(try { Join-Path -Path $(scoop prefix rig) -ChildPath _rig.ps1 } catch { '' })
+if (Test-Path -Path $rig_ac)  { & $rig_ac }
