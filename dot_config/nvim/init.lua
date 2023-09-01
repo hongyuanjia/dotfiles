@@ -1610,8 +1610,6 @@ lazy.setup({
             vim.g.R_assign_map = "<M-->"
             -- show hidden objects in object browser
             vim.g.R_objbr_allnames = 1
-            -- show comments when sourced
-            vim.g.R_commented_lines = 1
             -- use the same working directory as Vim
             vim.g.R_nvim_wd = 1
             -- highlight chunk header as R code
