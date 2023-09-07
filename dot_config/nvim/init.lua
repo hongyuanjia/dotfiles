@@ -1401,6 +1401,22 @@ lazy.setup({
             end
         }
     },
+    {
+        'stevearc/oil.nvim',
+        cmd = { "Oil" },
+        keys = {
+            -- <Leader>f[iles]
+            { "<Leader>ft", "<cmd>Oil<CR>", desc = "Open parent directory" },
+            { "<Leader>fT", "<cmd>Oil --float<CR>", desc = "Open parent directory in float window" }
+        },
+        opts = {
+            view_options = {
+                -- Show files and directories that start with "."
+                show_hidden = true
+            }
+        },
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
 
     -- Treesitter
     {
