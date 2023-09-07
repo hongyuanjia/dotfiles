@@ -419,7 +419,7 @@ lazy.setup({
             })
         end
     },
-    { "kyazdani42/nvim-web-devicons", opts = { default = true } },
+    { "nvim-tree/nvim-web-devicons", opts = { default = true } },
     {
         "nanozuki/tabby.nvim",
         event = "VeryLazy",
