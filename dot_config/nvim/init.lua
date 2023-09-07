@@ -851,6 +851,7 @@ lazy.setup({
                     ['<Space>'] = cmp.mapping(require("cmp_im").select(), { 'i' })
                 },
                 sources = cmp.config.sources({
+                    { name = "neorg" },
                     { name = "IM"},
                     { name = "nvim_lsp" },
                     { name = "nvim_lsp_signature_help" },
@@ -1589,6 +1590,34 @@ lazy.setup({
                 q = { name = "Quit" }
 
             }, { prefix = "<Leader>" })
+        end
+    },
+
+    -- Neorg
+    {
+        "nvim-neorg/neorg",
+        build = ":Neorg sync-parsers",
+        dependencies = {
+            { "nvim-lua/plenary.nvim" }
+        },
+        cmd = { "Neorg" },
+        config = function()
+            require("neorg").setup {
+                load = {
+                    ["core.defaults"] = {}, -- Loads default behaviour
+                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                    ["core.completion"] = {
+                        engine = "nvim-cmp" -- Setup auto-completion
+                    },
+                    ["core.dirman"] = { -- Manages Neorg workspaces
+                        config = {
+                            workspaces = {
+                                notes = "~/Dropbox/notes",
+                            },
+                        },
+                    },
+                }
+            }
         end
     },
 
