@@ -1564,18 +1564,6 @@ lazy.setup({
         config = true
     },
     { "pwntester/octo.nvim", config = true, cmd = { "Octo" } },
-    {
-        "tpope/vim-fugitive",
-        dependencies = "tpope/vim-rhubarb",
-        cmd = { "Git", "Gdiffsplit", "Gwrite" },
-        keys = {
-            { "<Leader>gg", "<cmd>Git<CR>", desc = "Git status" },
-            { "<Leader>gc", "<cmd>Git commit<CR>", desc = "Git commit" },
-            { "<Leader>gd", "<cmd>Gdiffsplit<CR>", desc = "Git diff" },
-            { "<Leader>gw", "<cmd>Gwrite<CR>", desc = "Git stage buffer" },
-            { "<Leader>gP", "<cmd>Git push<CR>", desc = "Git push" }
-        }
-    },
 
     -- WhichKey
     {
