@@ -895,10 +895,10 @@ lazy.setup({
                         vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
                         vim_item.menu = ({
                             nvim_lsp = "[LSP]",
-                            luasnip = "[Snippet]",
-                            buffer = "[Buffer]",
-                            path = "[Path]",
-                            IM = "[IM]",
+                            luasnip  = "[Snippet]",
+                            buffer   = "[Buffer]",
+                            path     = "[Path]",
+                            IM       = "[IM]",
                         })[entry.source.name]
                         return vim_item
                     end
@@ -1502,8 +1502,7 @@ lazy.setup({
                             ["[L"] = "@loop.outer"
                         }
                     }
-                },
-                playground = { enable = true }
+                }
             })
         end
     },
@@ -1514,7 +1513,6 @@ lazy.setup({
             require("treesitter-context").setup()
         end,
     },
-    { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 
     -- Git
     {
