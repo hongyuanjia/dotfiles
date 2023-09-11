@@ -1600,18 +1600,31 @@ lazy.setup({
         },
         cmd = { "Neorg" },
         config = function()
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "BufWinEnter" },
+                {
+                    pattern = { "*.norg" },
+                    callback = function()
+                        vim.opt_local.conceallevel = 2
+                        vim.cmd([[setlocal nospell]])
+                    end
+                }
+            )
+
             require("neorg").setup {
                 load = {
                     ["core.defaults"] = {}, -- Loads default behaviour
                     ["core.concealer"] = {}, -- Adds pretty icons to your documents
                     ["core.completion"] = {
-                        engine = "nvim-cmp" -- Setup auto-completion
+                        config = { engine = "nvim-cmp" } -- Setup auto-completion
                     },
+                    ["core.integrations.nvim-cmp"] = {},
                     ["core.dirman"] = { -- Manages Neorg workspaces
                         config = {
                             workspaces = {
                                 notes = "~/Dropbox/notes",
                             },
+                            default_workspace = "notes"
                         },
                     },
                 }
