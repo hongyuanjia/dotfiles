@@ -1289,7 +1289,7 @@ lazy.setup({
             require("inc_rename").setup()
         end,
     },
-    { "kylechui/nvim-surround", event = "BufRead", opts = { move_cursor = false } },
+    { "kylechui/nvim-surround", event = { "BufReadPre", "BufNewFile" }, opts = { move_cursor = false } },
     {
         "ntpeters/vim-better-whitespace",
         cmd = {
