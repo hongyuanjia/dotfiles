@@ -1309,11 +1309,10 @@ lazy.setup({
     {
         "mg979/vim-visual-multi",
         keys = {
-            { "<C-n>" }, { "<C-Up>" }, { "<C-Down>" }, { "g/" },
-            {"<C-n>",    nil, "x"},
-            {"<C-Up>",   nil, "x"},
-            {"<C-Down>", nil, "x"},
-            {"g/",       nil, "x"}
+            { "<C-n>", mode = { "n", "v" } },
+            { "<C-Up>", mode = { "n", "v" } },
+            { "<C-Down>", mode = { "n", "v" } },
+            { "g/", mode = { "n", "v"} },
         }
     },
     {
