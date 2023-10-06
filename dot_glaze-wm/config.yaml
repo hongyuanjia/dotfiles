@@ -8,6 +8,7 @@ general:
   floating_window_move_amount: "5%"
 
 bar:
+  always_on_top: false
   height: "30px"
   position: "top"
   opacity: 1.0
@@ -20,6 +21,7 @@ bar:
   offset_y: "0"
   border_radius: "2"
   border_color: "#33467c"
+  border_width: "2"
   components_left:
     - type: "workspaces"
       focused_workspace_background: "#ffffff33"
