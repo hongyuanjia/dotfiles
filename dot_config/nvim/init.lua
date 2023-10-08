@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2023-06-15 10:54
+-- Last Modified: 2023-10-08 10:18
 
 -- Basic Settings
 local options = {
@@ -523,13 +523,16 @@ lazy.setup({
     },
     {
         "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
         event = "BufReadPre",
         opts = {
-            buftype_exclude = { "terminal", "nofile" },
-            filetype_exclude = {
-                "alpha", "help", "checkhealth", "dashboard", "NvimTree", "Trouble"
+            exclude = {
+                filetypes = {
+                    "lspinfo", "checkhealth", "help", "man", "TelescopeResults",
+                    "TelescopePrompt", "alpha", "dashboard", "NvimTree", "Trouble"
+                }
             },
-            use_treesitter_scope = false
+            scope = { enabled = true }
         }
     },
     { "norcalli/nvim-colorizer.lua", event = "BufReadPre", config = true },
