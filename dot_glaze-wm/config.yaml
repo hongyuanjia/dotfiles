@@ -38,6 +38,8 @@ bar:
       background: "#ffffff33"
       margin: "0 4px"
       padding: "0 8px"
+    - type: "clock"
+      time_formatting: "MM-dd"
     - type: "binding mode"
       background: "#ffffff33"
       margin: "0 4px 0 0"
