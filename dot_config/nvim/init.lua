@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2023-10-08 10:18
+-- Last Modified: 2023-10-12 11:09
 
 -- Basic Settings
 local options = {
@@ -532,7 +532,7 @@ lazy.setup({
                     "TelescopePrompt", "alpha", "dashboard", "NvimTree", "Trouble"
                 }
             },
-            scope = { enabled = true }
+            scope = { enabled = false }
         }
     },
     { "norcalli/nvim-colorizer.lua", event = "BufReadPre", config = true },
