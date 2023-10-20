@@ -25,7 +25,7 @@ bar:
   components_left:
     - type: "workspaces"
       focused_workspace_background: "#ffffff33"
-      displayed_workspace_background: "#00000033"
+      displayed_workspace_background: "#24283b"
       default_workspace_background: "transparent"
       font_family: "JetBrainsMono Nerd Font"
       font_size: "15px"
