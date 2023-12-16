@@ -98,7 +98,7 @@ window_rules:
   - command: "set floating"
     match_class_name: "TDLG2FILEACTIONMIN"
 
-  - command: "ignore"
+  - command: "set floating"
     match_process_name: "dropbox"
 
   # Launches system dialogs as floating by default (eg. File Explorer save/open dialog).
