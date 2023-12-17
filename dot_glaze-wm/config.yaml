@@ -112,7 +112,7 @@ window_rules:
   - command: "move to workspace 5"
     match_process_name: "WINWORD"
 
-  - command: "move to workspace 5"
+  - command: "ignore"
     match_process_name: "EXCEL"
 
   - command: "move to workspace 5"
