@@ -165,7 +165,7 @@
           "*"
         ],
         "Priority": 0,
-        "Disabled": true
+        "Disabled": false
       },
       "6A122269676E40EB86EB543B945932B9": {
         "ID": "6A122269676E40EB86EB543B945932B9",
@@ -283,16 +283,6 @@
         "Version": "2.2.3",
         "ActionKeywords": [
           "d"
-        ],
-        "Priority": 0,
-        "Disabled": false
-      },
-      "D2D2C23B084D411DB66FE0C79D6C2A6E": {
-        "ID": "D2D2C23B084D411DB66FE0C79D6C2A6E",
-        "Name": "Everything",
-        "Version": "1.7.2",
-        "ActionKeywords": [
-          "*"
         ],
         "Priority": 0,
         "Disabled": false
