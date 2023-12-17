@@ -64,5 +64,10 @@
     "vertically_align_arguments_indent": false,
     "visual_markdown_editing_wrap": "column",
     "visual_markdown_editing_wrap_at_column": 80,
-    "windows_terminal_shell": "win-ps"
+    "windows_terminal_shell": "win-ps",
+    "show_rmd_render_command": true,
+    "doc_outline_show": "sections_and_chunks",
+    "rmd_viewer_type": "pane",
+    "pdf_previewer": "none",
+    "copilot_enabled": true
 }
