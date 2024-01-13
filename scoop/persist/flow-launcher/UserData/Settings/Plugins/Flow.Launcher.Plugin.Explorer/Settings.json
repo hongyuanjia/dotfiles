@@ -19,12 +19,12 @@
   "QuickAccessActionKeyword": "*",
   "QuickAccessKeywordEnabled": false,
   "WarnWindowsSearchServiceOff": true,
-  "IndexSearchEngine": 0,
+  "IndexSearchEngine": 1,
   "PathEnumerationEngine": 0,
   "ContentSearchEngine": 0,
   "EverythingInstalledPath": null,
   "SortOption": 1,
   "EnableEverythingContentSearch": false,
-  "EverythingEnabled": false,
-  "EverythingSearchFullPath": false
+  "EverythingEnabled": true,
+  "EverythingSearchFullPath": true
 }
