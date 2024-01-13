@@ -142,6 +142,41 @@ local({
     normalizePath(json, mustWork = TRUE)
 }
 
+.enable_nvimcom_in_renv <- function(file = ".Rprofile") {
+    l <- 'local({
+    if (
+        # running in vim
+        !is.na(Sys.getenv("VIM", unset = NA)) &&
+        # get the original lib paths where nvimcom is installed
+        !is.na(ori_libs <- Sys.getenv("R_LIBS_USER", unset = NA)) &&
+        # test if nvimcom is there
+        dir.exists(nvimcom <- file.path(ori_libs, "nvimcom"))
+    ) {
+            tmp_libs <- file.path(Sys.getenv("TMP", unset = tempdir()), "NVIMR")
+            if (!dir.exists(tmp_libs)) dir.create(tmp_libs)
+            file.copy(nvimcom, tmp_libs, recursive = TRUE)
+
+            options(renv.settings.external.libraries = tmp_libs)
+    }
+})'
+
+    opts <- options(encoding = "native.enc")
+    on.exit(options(opts), add = TRUE)
+
+    if (file.exists(file)) {
+        txt <- readLines(file, encoding = "UTF-8", warn = FALSE)
+        if (grepl("^\\s*options\\(renv\\.settings\\.external\\.libraries = tmp_libs\\)", txt)) {
+            message("* NVim-R integration already added to .Rprofile. Skip")
+            return(invisible())
+        } else {
+            l <- c(l, txt)
+        }
+    }
+
+    writeLines(enc2utf8(l), file, useBytes = TRUE)
+    message("* Successfully add NVim-R integration to .Rprofile:")
+}
+
 # custom start up
 tryCatch(startup::startup(), error = function(ex) message(".Rprofile error: ", conditionMessage(ex)))
 
