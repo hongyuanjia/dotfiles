@@ -1906,7 +1906,70 @@ lazy.setup({
                 }
             )
         end
-    }
+    },
+    {
+        "Vigemus/iron.nvim",
+        keys = {
+            -- <Leader>r[epl]
+            { "<Leader>rs", "<cmd>IronRepl<CR>",    desc = "Toggle REPL" },
+            { "<Leader>rr", "<cmd>IronRestart<CR>", desc = "Restart REPL" },
+            { "<Leader>rf", "<cmd>IronFocus<CR>",   desc = "Focus REPL"},
+            { "<Leader>rh", "<cmd>IronHide<CR>",    desc = "Hide REPL"},
+
+            -- local keymaps
+            { "<LocalLeader>ss",   mode = { "n", "x" }, desc = "Send to REPL"},
+            { "<LocalLeader>sf",   desc = "Send file to REPL"},
+            { "<LocalLeader>sl",   desc = "Send line to REPL"},
+            { "<LocalLeader>sc",   desc = "Send until cursor to REPL"},
+            { "<LocalLeader>mb",   desc = "Send text with in mark to REPL"},
+            { "<LocalLeader>mm",   mode = { "n", "x" }, desc = "Mark the test object"},
+            { "<LocalLeader>md",   desc = "Remove the set mark"},
+            { "<LocalLeader><CR>", desc = "Send ENTER to REPL"},
+            { "<LocalLeader>cc",   desc = "Send <Ctrl-C> to REPL"},
+            { "<LocalLeader>sq",   desc = "Exit REPL"},
+            { "<LocalLeader>cl",   desc = "Clear REPL"},
+        },
+
+        -- since irons's setup call is `require("iron.core").setup`, instead of
+        -- `require("iron").setup` like other plugins would do, we need to tell
+        -- lazy.nvim which module to via the `main` key
+        main = "iron.core",
+
+        opts = {
+            keymaps = {
+                send_motion = "<LocalLeader>ss",
+                visual_send = "<LocalLeader>ss",
+                send_file = "<LocalLeader>sf",
+                send_line = "<LocalLeader>sl",
+                send_until_cursor = "<LocalLeader>sc",
+                mark_motion = "<LocalLeader>mb",
+                mark_visual = "<LocalLeader>mm",
+                remove_mark = "<LocalLeader>md",
+                cr = "<LocalLeader><CR>",
+                interrupt = "<LocalLeader>cc",
+                exit = "<LocalLeader>sq",
+                clear = "<LocalLeader>cl",
+            },
+            config = {
+                repl_open_cmd = "horizontal bot 10 split",
+                repl_definition = {
+                    python = {
+                        command = function()
+                            -- activate virtual environment if available
+                            if vim.fn.isdirectory(".venv") ~= 0 then
+                                if string.lower(jit.os) == "windows" then
+                                    return {".venv\\Scripts\\activate.bat", "&&", "python"}
+                                    -- return {"cmd", "/k", ".venv\\Scripts\\activate.bat"}
+                                else
+                                    return {".venv/Scripts/activate", "&&", "python"}
+                                end
+                            end
+                        end,
+                    },
+                },
+            },
+        },
+    },
 },
 {
     -- lazy load all plugins by default
