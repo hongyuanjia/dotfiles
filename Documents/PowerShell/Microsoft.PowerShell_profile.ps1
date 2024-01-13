@@ -70,6 +70,11 @@ if ($null -ne (Get-Module -ListAvailable PSReadLine -ErrorAction SilentlyContinu
     Set-PSReadLineKeyHandler -Key Ctrl+f -Function ShellForwardWord
 }
 
+if ($null -ne (Get-Module -ListAvailable PSFzf -ErrorAction SilentlyContinue)) {
+    Import-Module -Name PSFzf
+    Set-PsFzfOption -TabExpansion -EnableAliasFuzzyHistory
+}
+
 if ($null -ne (Get-Module -ListAvailable Terminal-Icons -ErrorAction SilentlyContinue)) {
     Import-Module -Name Terminal-Icons
 }
