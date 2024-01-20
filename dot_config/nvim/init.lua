@@ -763,12 +763,21 @@ lazy.setup({
     -- autocompletion
     {
         "zbirenbaum/copilot.lua",
+        init = function()
+            vim.keymap.set("n", "<Leader>Ct", function()
+                require('copilot.suggestion').trigger_auto_trigger()
+            end)
+        end,
         cmd = "Copilot",
         event = "InsertEnter",
         config = function()
             require("copilot").setup({
-                suggestion = { enabled = false },
                 panel = { enabled = false },
+                suggestion = {
+                    enable = true,
+                    auto_trigger = false,
+                    keymap = { accept = "<M-'>" }
+                }
             })
         end,
     },
