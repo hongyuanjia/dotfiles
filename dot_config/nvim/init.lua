@@ -1469,7 +1469,7 @@ lazy.setup({
                     -- have to make sure parsers for 'c', 'vim', 'lua' and
                     -- 'help' have been installed
                     -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/3970
-                    "r", "toml", "tsx", "typescript", "vue", "yaml", "vim"
+                    "r", "toml", "tsx", "typescript", "vue", "yaml", "vim", "vimdoc"
                 },
                 sync_install = false,
                 auto_install = false,
