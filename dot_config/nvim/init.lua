@@ -1591,11 +1591,6 @@ lazy.setup({
         end,
         config = true
     },
-    {
-        "sindrets/diffview.nvim",
-        cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
-        config = true
-    },
     { "pwntester/octo.nvim", config = true, cmd = { "Octo" } },
 
     -- WhichKey
