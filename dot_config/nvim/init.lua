@@ -1661,6 +1661,13 @@ lazy.setup({
         end
     },
 
+    {
+        "keaising/im-select.nvim",
+        enabled = vim.fn.has("win32") == 1,
+        event = "InsertEnter",
+        config = true
+    },
+
     -- R
     { "jalvesaq/R-Vim-runtime", lazy = false },
     {
