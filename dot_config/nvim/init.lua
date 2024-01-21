@@ -1464,7 +1464,7 @@ lazy.setup({
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
                     "bash", "jsonc", "rust", "c", "cmake", "cpp", "css",
-                    "html", "javascript", "latex", "lua", "markdown", "python",
+                    "html", "javascript", "latex", "lua", "markdown", "markdown_inline", "python",
                     -- have to make sure parsers for 'c', 'vim', 'lua' and
                     -- 'help' have been installed
                     -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/3970
@@ -1659,7 +1659,6 @@ lazy.setup({
             }
         end
     },
-
     {
         "keaising/im-select.nvim",
         enabled = vim.fn.has("win32") == 1,
