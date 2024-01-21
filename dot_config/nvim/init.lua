@@ -1975,6 +1975,9 @@ lazy.setup({
                             end
                         end,
                     },
+                    R = {
+                        command = "R"
+                    }
                 },
             },
         },
