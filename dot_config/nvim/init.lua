@@ -774,8 +774,7 @@ lazy.setup({
             require("copilot").setup({
                 panel = { enabled = false },
                 suggestion = {
-                    enable = true,
-                    auto_trigger = false,
+                    enabled = true,
                     keymap = { accept = "<M-'>" }
                 }
             })
