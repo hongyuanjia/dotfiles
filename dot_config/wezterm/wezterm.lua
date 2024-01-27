@@ -29,7 +29,7 @@ config.warn_about_missing_glyphs = false
 -- Enable WSL Domain
 config.wsl_domains = wezterm.default_wsl_domains()
 
---
+-- Use Powershell Core as the default shell for Windows
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   config.default_prog = { "pwsh.exe", "-NoLogo" }
   config.launch_menu = {
@@ -38,6 +38,11 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
       args = { "pwsh.exe", "-NoLogo" }
     }
   }
+end
+
+-- Disable the title bar but enable the resizable border
+if wezterm.target_triple == "aarch64-apple-darwin" then
+  config.window_decorations = "RESIZE"
 end
 
 config.disable_default_key_bindings = true
