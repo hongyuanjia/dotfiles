@@ -87,6 +87,9 @@ if command -v fd &> /dev/null && command -v fzf &> /dev/null ; then
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
+# enable z.lua
+eval "$(lua $(brew --prefix z.lua)/share/z.lua/z.lua --init zsh)"
+
 # alias
 alias la="ls -la"
 alias cm=chezmoi
