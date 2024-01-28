@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+
+sudo /opt/homebrew/bin/yabai --load-sa
+/opt/homebrew/bin/yabai -m signal --add event=dock_did_restart action="sudo /opt/homebrew/bin/yabai --load-sa"
+
+# global settings
+/opt/homebrew/bin/yabai -m config mouse_follows_focus          off
+/opt/homebrew/bin/yabai -m config focus_follows_mouse          off
+/opt/homebrew/bin/yabai -m config window_origin_display        default
+/opt/homebrew/bin/yabai -m config window_placement             second_child
+/opt/homebrew/bin/yabai -m config window_topmost               off
+/opt/homebrew/bin/yabai -m config window_shadow                on
+/opt/homebrew/bin/yabai -m config window_opacity               off
+/opt/homebrew/bin/yabai -m config insert_feedback_color        0xffd75f5f
+/opt/homebrew/bin/yabai -m config auto_balance                 off
+/opt/homebrew/bin/yabai -m config mouse_modifier               fn
+/opt/homebrew/bin/yabai -m config mouse_action1                move
+/opt/homebrew/bin/yabai -m config mouse_action2                resize
+/opt/homebrew/bin/yabai -m config mouse_drop_action            swap
+
+# general space settings
+/opt/homebrew/bin/yabai -m config layout                       bsp
+/opt/homebrew/bin/yabai -m config window_gap                   13
+/opt/homebrew/bin/yabai -m config top_padding                  10
+/opt/homebrew/bin/yabai -m config bottom_padding               10
+/opt/homebrew/bin/yabai -m config left_padding                 10
+/opt/homebrew/bin/yabai -m config right_padding                10
+/opt/homebrew/bin/yabai -m config window_animation_duration    0.1
+
+# integration with Sketchybar
+/opt/homebrew/bin/yabai -m config external_bar main:0:30
+
+/opt/homebrew/bin/yabai -m rule --add app="^iStat*" sticky=on layer=above manage=off border=off
+/opt/homebrew/bin/yabai -m rule --add app="^System Preferences*" manage=off
+
+/opt/homebrew/bin/borders active_color=0xff2cf9ed inactive_color=0xff494d64 width=8.0 hidpi=on &
