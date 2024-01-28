@@ -15,6 +15,24 @@ Documents
 .glaze-wm
 scoop
 
+# Linux specific
+{{ if eq .chezmoi.os "darwin" }}
+awesome
+gtk-2.0
+gtk-3.0
+mimeapps.list
+picom.conf
+.Xnord
+.Xresources
+
+# macOS specific
+{{ else if eq .chezmoi.os "linux" }}
+yabai
+sketchybar
+skhd
+
+{{ end }}
+
 # on Windows
 {{ else }}
 .config/nvim
