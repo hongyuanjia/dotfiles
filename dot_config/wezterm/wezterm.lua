@@ -43,6 +43,7 @@ end
 -- Disable the title bar but enable the resizable border
 if wezterm.target_triple == "aarch64-apple-darwin" then
   config.window_decorations = "RESIZE"
+  config.font_size = 15.0
 end
 
 config.disable_default_key_bindings = true
