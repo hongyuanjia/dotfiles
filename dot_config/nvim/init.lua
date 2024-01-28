@@ -1744,7 +1744,18 @@ lazy.setup({
                 vim.keymap.set("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>", { buffer = buf, desc = "Make targets"} )
                 vim.keymap.set("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>", { buffer = buf, desc = "Make targets in current session" })
                 vim.keymap.set("n", "<LocalLeader>tf", "<cmd>RSend targets::tar_make_future(workers = parallelly::availableCores() - 1L)<CR>", { buffer = buf, desc = "Make targets in parallel" })
-                vim.keymap.set("n", "<LocalLeader>tc", "<cmd>RSend targets::tar_make_clustermq(workers = parallelly::availableCores() - 1L)<CR>", { buffer = buf, desc = "Make targets in parallel (clustermq)" })
+                vim.keymap.set("n", "<LocalLeader>tp", "<cmd>call RAction('targets::tar_read')<CR>", { buffer = buf, desc = "Print target under cursor" })
+                vim.keymap.set("n", "<LocalLeader>tr",
+                    function()
+                        local word = vim.fn.expand("<cword>")
+                        local cmd = "RSend " .. word .. " <- targets::tar_read(" .. word ..")"
+                        vim.cmd(cmd)
+                    end,
+                    { buffer = buf, desc = "Print target under cursor" }
+                )
+                vim.keymap.set("n", "<LocalLeader>tl", "<cmd>RSend targets::tar_source('R')<CR>",
+                    { buffer = buf, desc = "Reload scripts under 'R'" }
+                )
             end
 
             -- debug
