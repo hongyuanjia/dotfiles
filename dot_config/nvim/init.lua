@@ -1685,8 +1685,12 @@ lazy.setup({
         ft = { "r", "rhelp", "rmd", "rnoweb", "rrst", "quarto" },
         config = function()
             -- do not update $HOME on Windows since I set it manually
+            -- disable R startup messages
             if vim.fn.has("win32") == 1 then
                 vim.g.R_set_home_env = 0
+                vim.g.R_args = { "--no-save", "--quiet", "--sdi" }
+            else
+                vim.g.R_args = { "--no-save", "--quiet" }
             end
 
             -- disable debugging support,
