@@ -1715,7 +1715,7 @@ lazy.setup({
             vim.g.R_setwidth = 2
             -- manually set the R path since scoop did not write registry entries about R
             vim.g.R_use_scoop = 0
-            if string.lower(jit.os) == "windows" and not vim.g.R_use_scoop then
+            if string.lower(jit.os) == "windows" and vim.g.R_use_scoop == 1 then
                 local path = require("plenary.path")
                 local scoop_r = path:new(vim.loop.os_homedir(), "scoop", "apps", "r")
                 local sys_r = path:new("C:/Program Files/R")
