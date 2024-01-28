@@ -17,19 +17,19 @@ scoop
 
 # Linux specific
 {{ if eq .chezmoi.os "darwin" }}
-awesome
-gtk-2.0
-gtk-3.0
-mimeapps.list
-picom.conf
+.config/awesome
+.config/gtk-2.0
+.config/gtk-3.0
+.config/mimeapps.list
+.config/picom.conf
 .Xnord
 .Xresources
 
 # macOS specific
 {{ else if eq .chezmoi.os "linux" }}
-yabai
-sketchybar
-skhd
+.config/yabai
+.config/sketchybar
+.config/skhd
 
 {{ end }}
 
