@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2023-10-12 11:09
+-- Last Modified: 2024-01-26 00:58
 
 -- Basic Settings
 local options = {
@@ -826,8 +826,19 @@ lazy.setup({
             })
             require("cmp_dictionary").update()
 
+            local cmp_im_enabled = false
             vim.keymap.set({"n", "v", "c", "i"}, "<M-;>", function()
+                cmp_im_enabled = not cmp_im_enabled
                 vim.notify(string.format("IM is %s", require("cmp_im").toggle() and "enabled" or "disabled"))
+                if cmp_im_enabled then
+                    for lhs, rhs in pairs(require("cmp_im_zh").symbols()) do
+                        vim.keymap.set("i", lhs, rhs)
+                    end
+                else
+                    for lhs, _ in pairs(require("cmp_im_zh").symbols()) do
+                        vim.keymap.del("i", lhs)
+                    end
+                end
             end, { desc = "Toggle Chinese input method" })
 
             local has_words_before = function()
