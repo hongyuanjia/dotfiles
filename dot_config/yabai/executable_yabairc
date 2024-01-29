@@ -28,7 +28,7 @@ sudo /opt/homebrew/bin/yabai --load-sa
 /opt/homebrew/bin/yabai -m config window_animation_duration    0.1
 
 # integration with Sketchybar
-/opt/homebrew/bin/yabai -m config external_bar main:0:30
+/opt/homebrew/bin/yabai -m config external_bar all:0:30
 
 /opt/homebrew/bin/yabai -m rule --add app="^iStat*" sticky=on layer=above manage=off border=off
 /opt/homebrew/bin/yabai -m rule --add app="^System Preferences*" manage=off
