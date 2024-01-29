@@ -1741,7 +1741,13 @@ lazy.setup({
             vim.keymap.set("o", "ih", function() require("gitsigns").select_hunk() end, { desc = "Select hunk" })
             vim.keymap.set("x", "ih", function() require("gitsigns").select_hunk() end, { desc = "Select hunk" })
         end,
-        config = true
+        config = function()
+            require("gitsigns").setup()
+            local scrollbar_status_ok, _ = pcall(require, "scrollbar")
+            if scrollbar_status_ok then
+                require("scrollbar.handlers.gitsigns").setup()
+            end
+        end
     },
     { "pwntester/octo.nvim", config = true, cmd = { "Octo" } },
 
