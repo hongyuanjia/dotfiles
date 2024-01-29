@@ -624,6 +624,24 @@ lazy.setup({
         end
     },
     {
+        "petertriho/nvim-scrollbar",
+        config = function()
+            local colors = require("tokyonight.colors").setup()
+
+            require("scrollbar").setup({
+                handle = {
+                    color = colors.fg_gutter,
+                    blend = 0
+                },
+                marks = {
+                    GitAdd = { text = "│" },
+                    GitChange = { text = "│" },
+                },
+                handlers = { cursor = false }
+            })
+        end
+    },
+    {
         "goolord/alpha-nvim",
         event = "VimEnter",
         config = function()
