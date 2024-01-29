@@ -1447,7 +1447,41 @@ lazy.setup({
             { "<C-Up>", mode = { "n", "v" } },
             { "<C-Down>", mode = { "n", "v" } },
             { "g/", mode = { "n", "v"} },
-        }
+        },
+        config = function()
+            local has_hlslens, hlslens = pcall(require, "hlslens")
+            if has_hlslens then
+                local overrideLens = function(render, posList, nearest, idx, relIdx)
+                    local _ = relIdx
+                    local lnum, col = unpack(posList[idx])
+
+                    local text, chunks
+                    if nearest then
+                        text = ("[%d/%d]"):format(idx, #posList)
+                        chunks = {{" ", "Ignore"}, {text, "VM_Extend"}}
+                    else
+                        text = ("[%d]"):format(idx)
+                        chunks = {{" ", "Ignore"}, {text, "HlSearchLens"}}
+                    end
+                    render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
+                end
+                local lensBak
+                local config = require("hlslens.config")
+                vim.api.nvim_create_autocmd("User", {
+                    pattern = { "visual_multi_start", "visual_multi_exit" },
+                    group = vim.api.nvim_create_augroup("VMlens", {}),
+                    callback = function(ev)
+                        if ev.match == "visual_multi_start" then
+                            lensBak = config.override_lens
+                            config.override_lens = overrideLens
+                        else
+                            config.override_lens = lensBak
+                        end
+                        hlslens.start()
+                    end
+                })
+            end
+        end
     },
     {
         "dhruvasagar/vim-table-mode",
