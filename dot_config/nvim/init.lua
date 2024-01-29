@@ -208,6 +208,10 @@ vim.keymap.set("n", "<C-h>", "<cmd>vertical resize +2<CR>", { desc = "Shrink win
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
 
+-- select last pasted text
+vim.keymap.set("n", "gp", "`[v`]" )
+vim.keymap.set("n", "gP", "`[V`]" )
+
 -- move text up and down
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==",        { desc = "Move line down" })
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv",    { desc = "Move line down" })
