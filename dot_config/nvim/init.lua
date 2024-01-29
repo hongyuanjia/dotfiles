@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-01-28 11:42
+-- Last Modified: 2024-01-29 23:04
 
 -- Basic Settings
 local options = {
@@ -26,7 +26,7 @@ local options = {
     number = true,
     relativenumber = true,
     numberwidth = 4,
-    signcolumn = "auto:1-9",
+    signcolumn = "yes:1",
     wrap = false,
     scrolloff = 8,
     sidescrolloff = 8,
