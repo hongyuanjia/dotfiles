@@ -1493,6 +1493,25 @@ lazy.setup({
         cond = jit.os ~= "Windows",
         cmd = { "SudaRead", "SudaWrite" }
     },
+    {
+        "kevinhwang91/nvim-hlslens",
+        keys = {
+            { "n", "<cmd>execute('normal! ' . v:count1 . 'n')<CR><cmd>lua require('hlslens').start()<CR>", "n" },
+            { "N", "<cmd>execute('normal! ' . v:count1 . 'N')<CR><cmd>lua require('hlslens').start()<CR>", "n" },
+            { "*", "*<Cmd>lua require('hlslens').start()<CR>", "n" },
+            { "#", "#<Cmd>lua require('hlslens').start()<CR>", "n"},
+            { "g*", "g*<Cmd>lua require('hlslens').start()<CR>", "n" },
+            { "g#", "g#<Cmd>lua require('hlslens').start()<CR>", "n" }
+        },
+        config = function()
+            local scrollbar_status_ok, _ = pcall(require, "scrollbar.handers.search")
+            if not scrollbar_status_ok then
+                require("hlslens").setup()
+            else
+                require("scrollbar.handlers.search").setup()
+            end
+        end
+    },
 
     -- file management
     {
