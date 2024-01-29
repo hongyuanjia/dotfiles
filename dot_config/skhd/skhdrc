@@ -69,4 +69,4 @@ ctrl + alt + cmd - s : yabai --start-service
 ctrl + alt + cmd - r : yabai --restart-service
 
 # start wezterm
-cmd - return : open -na wezterm
+alt - return : open -na wezterm
