@@ -1589,7 +1589,8 @@ lazy.setup({
         }
     },
     {
-        'stevearc/oil.nvim',
+        "stevearc/oil.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         cmd = { "Oil" },
         keys = {
             -- <Leader>f[iles]
@@ -1602,7 +1603,6 @@ lazy.setup({
                 show_hidden = true
             }
         },
-        dependencies = { "nvim-tree/nvim-web-devicons" },
     },
 
     -- Treesitter
