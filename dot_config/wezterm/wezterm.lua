@@ -44,6 +44,10 @@ end
 if wezterm.target_triple == "aarch64-apple-darwin" then
   config.window_decorations = "RESIZE"
   config.font_size = 15.0
+  config.font = wezterm.font_with_fallback({
+    "JetBrainsMono Nerd Font",
+    "Hei"
+  })
 end
 
 config.disable_default_key_bindings = true
