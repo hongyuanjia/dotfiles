@@ -561,7 +561,22 @@ lazy.setup({
             scope = { enabled = false }
         }
     },
-    { "norcalli/nvim-colorizer.lua", event = "BufReadPre", config = true },
+    {
+        "NvChad/nvim-colorizer.lua",
+        cmd = {
+            "ColorizerAttachToBuffer", "ColorizerDetachFromBuffer", "ColorizerToggle"
+        },
+        opts = {
+            filetypes = { "*", "!lazy" },
+            user_default_options = {
+                RGB = true,
+                RRGGBB = true,
+                RRGGBBAA = true,
+                AARRGGBB = true,
+                mode = "background"
+            }
+        }
+    },
     {
         "akinsho/toggleterm.nvim",
         keys = { "<Leader>tf", "<Leader>th", "<Leader>tv", "<Leader>g=" },
