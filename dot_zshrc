@@ -28,7 +28,13 @@ fi
 
 proxy_enable ()
 {
-    if ps -aux | grep clash &> /dev/null ; then
+    if [[ $(uname) == "Darwin" ]] ; then
+        PROC=$(ps aux)
+    else
+        PROC=$(ps -aux)
+    fi
+    CLASH_RUN= $(echo "$PROC" | grep clash &> /dev/null)
+    if $CLASH_RUN  ; then
         export HTTP_PROXY=127.0.0.1:7890
         export HTTPS_PROXY=127.0.0.1:7890
         export SOCKS_PROXY=127.0.0.1:7890
