@@ -405,7 +405,7 @@ lazy.setup({
     },
 
     -- chezmoi for dot file management
-    { "alker0/chezmoi.vim", lazy = false },
+    { "alker0/chezmoi.vim", lazy = false, init = function() vim.g['chezmoi#use_tmp_buffer'] = true end },
 
     -- start tim profile
     { "tweekmonster/startuptime.vim", cmd = "StartupTime" },
