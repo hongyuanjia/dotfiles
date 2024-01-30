@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-01-29 23:04
+-- Last Modified: 2024-01-30 15:53
 
 -- Basic Settings
 local options = {
@@ -447,23 +447,38 @@ lazy.setup({
     },
     { "nvim-tree/nvim-web-devicons", opts = { default = true } },
     {
-        "nanozuki/tabby.nvim",
+        "romgrk/barbar.nvim",
         event = "VeryLazy",
         init = function()
-            vim.keymap.set("n", "<Leader>tR", function()
-                vim.ui.input(
-                    {
-                        prompt = "Tab Name > ",
-                        default = nil
-                    },
-                    function(input)
-                        if input and input ~= "" then
-                            vim.cmd.TabRename(input)
-                        end
-                    end
-                )
-            end,
-            { desc = "Tab rename" })
+            vim.g.barbar_auto_setup = false
+
+            vim.keymap.set("n", "]b", "<cmd>BufferNext<CR>",     { desc = "Next buffer" })
+            vim.keymap.set("n", "[b", "<cmd>BufferPrevious<CR>", { desc = "Previous buffer" })
+
+            -- <Leader>b[uffers]
+            vim.keymap.set("n", "<Leader>bn", "<cmd>BufferNext<CR>",     { desc = "Next buffer" })
+            vim.keymap.set("n", "<Leader>bp", "<cmd>BufferPrevious<CR>", { desc = "Previous buffer" })
+            vim.keymap.set("n", "<Leader>b1", "<cmd>BufferGoto 1<CR>", { desc = "Go to buffer 1" })
+            vim.keymap.set("n", "<Leader>b2", "<cmd>BufferGoto 2<CR>", { desc = "Go to buffer 2" })
+            vim.keymap.set("n", "<Leader>b3", "<cmd>BufferGoto 3<CR>", { desc = "Go to buffer 3" })
+            vim.keymap.set("n", "<Leader>b4", "<cmd>BufferGoto 4<CR>", { desc = "Go to buffer 4" })
+            vim.keymap.set("n", "<Leader>b5", "<cmd>BufferGoto 5<CR>", { desc = "Go to buffer 5" })
+            vim.keymap.set("n", "<Leader>b6", "<cmd>BufferGoto 6<CR>", { desc = "Go to buffer 6" })
+            vim.keymap.set("n", "<Leader>b7", "<cmd>BufferGoto 7<CR>", { desc = "Go to buffer 7" })
+            vim.keymap.set("n", "<Leader>b8", "<cmd>BufferGoto 8<CR>", { desc = "Go to buffer 8" })
+            vim.keymap.set("n", "<Leader>b9", "<cmd>BufferGoto 9<CR>", { desc = "Go to buffer 9" })
+            vim.keymap.set("n", "<Leader>b0", "<cmd>BufferLast<CR>",   { desc = "Go to buffer last" })
+
+            vim.keymap.set("n", "<Leader>bP", "<cmd>BufferPin<CR>",    { desc = "Pin current buffer" })
+            vim.keymap.set("n", "<Leader>bd", "<cmd>BufferClose<CR>",  { desc = "Close buffer" })
+
+            vim.keymap.set("n", "<Leader>b-", "<cmd>BufferPick<CR>",        { desc = "Pick buffer" })
+            vim.keymap.set("n", "<Leader>b=", "<cmd>BufferPickDelete<CR>",  { desc = "Pick buffer to delete" })
+            -- Sort automatically by...
+            vim.keymap.set('n', '<Space>bb', '<cmd>BufferOrderByBufferNumber<CR>', { desc = "Order buffer by bufnr" })
+            vim.keymap.set('n', '<Space>bd', '<cmd>BufferOrderByDirectory<CR>', { desc = "Order buffer by dir" })
+            vim.keymap.set('n', '<Space>bl', '<cmd>BufferOrderByLanguage<CR>', { desc = "Order buffer by lang" })
+            vim.keymap.set('n', '<Space>bw', '<cmd>BufferOrderByWindowNumber<CR>', { desc = "Order buffer by winnr" })
         end,
         config = true
     },
