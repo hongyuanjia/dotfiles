@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-01-30 15:53
+-- Last Modified: 2024-02-01 01:20
 
 -- Basic Settings
 local options = {
@@ -475,10 +475,10 @@ lazy.setup({
             vim.keymap.set("n", "<Leader>b-", "<cmd>BufferPick<CR>",        { desc = "Pick buffer" })
             vim.keymap.set("n", "<Leader>b=", "<cmd>BufferPickDelete<CR>",  { desc = "Pick buffer to delete" })
             -- Sort automatically by...
-            vim.keymap.set('n', '<Space>bb', '<cmd>BufferOrderByBufferNumber<CR>', { desc = "Order buffer by bufnr" })
-            vim.keymap.set('n', '<Space>bd', '<cmd>BufferOrderByDirectory<CR>', { desc = "Order buffer by dir" })
-            vim.keymap.set('n', '<Space>bl', '<cmd>BufferOrderByLanguage<CR>', { desc = "Order buffer by lang" })
-            vim.keymap.set('n', '<Space>bw', '<cmd>BufferOrderByWindowNumber<CR>', { desc = "Order buffer by winnr" })
+            vim.keymap.set('n', '<Leader>bB', '<cmd>BufferOrderByBufferNumber<CR>', { desc = "Order buffer by bufnr" })
+            vim.keymap.set('n', '<Leader>bD', '<cmd>BufferOrderByDirectory<CR>', { desc = "Order buffer by dir" })
+            vim.keymap.set('n', '<Leader>bL', '<cmd>BufferOrderByLanguage<CR>', { desc = "Order buffer by lang" })
+            vim.keymap.set('n', '<Leader>bW', '<cmd>BufferOrderByWindowNumber<CR>', { desc = "Order buffer by winnr" })
         end,
         config = true
     },
