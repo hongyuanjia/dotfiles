@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-02-01 01:20
+-- Last Modified: 2024-02-01 23:32
 
 -- Basic Settings
 local options = {
@@ -109,7 +109,9 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
     callback = function()
         -- do not add comment header
-        vim.opt.formatoptions:remove("cro")
+        vim.opt.formatoptions:remove("c")
+        vim.opt.formatoptions:remove("r")
+        vim.opt.formatoptions:remove("o")
         -- do not insert spaces for multi bytes
         vim.opt.formatoptions:append("M")
         -- don't insert a space before or after a multi-byte when join
