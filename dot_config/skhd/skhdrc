@@ -1,29 +1,31 @@
+# WINDOW MANAGEMENT
 # change window focus within space
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
-alt - h : yabai -m window --focus west
-alt - l : yabai -m window --focus east
+alt - j : yabai -m window --focus south       || \
+          yabai -m window --focus stack.next  || \
+          yabai -m window --focus stack.first || \
+          yabai -m window --focus north;         \
+          sketchybar --trigger window_focus
 
-# change focus between external displays
-alt - s : yabai -m display --focus west
-alt - g : yabai -m display --focus east
+alt - k : yabai -m window --focus north       || \
+          yabai -m window --focus stack.prev  || \
+          yabai -m window --focus stack.last  || \
+          yabai -m window --focus south;         \
+          sketchybar --trigger window_focus
 
-# rotate layout clockwise
-shift + alt - r : yabai -m space --rotate 270
+alt - h : yabai -m window --focus west || \
+          yabai -m window --focus east;   \
+          sketchybar --trigger window_focus
 
-# flip along the y axis
-shift + alt - y : yabai -m space --mirror y-axis
-# flip along the x axis
-shift + alt - x : yabai -m space --mirror x-axis
+alt - l : yabai -m window --focus east || \
+          yabai -m window --focus west    \
+          sketchybar --trigger window_focus
+
+# useful if window focus is lost
+shift + alt - m : yabai -m window --focus mouse; \
+                  sketchybar --trigger window_focus
 
 # toggle window float
 shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
-
-# maximum a window
-shift + alt - m : yabai -m window --toggle zoom-fullscreen
-
-# balance out tree of windows (resize to occupy same area)
-shift + alt - e : yabai -m space --balance
 
 # swap windows
 shift + alt - j : yabai -m window --swap south
@@ -37,36 +39,286 @@ ctrl + alt - k : yabai -m window --warp north
 ctrl + alt - h : yabai -m window --warp west
 ctrl + alt - l : yabai -m window --warp east
 
-# move window to prev and next space
-ctrl + alt - p : yabai -m window --space prev
-ctrl + alt - n : yabai -m window --space next
-
-# move window to space #
-shift + alt - 1 : yabai -m window --space 1
-shift + alt - 2 : yabai -m window --space 2
-shift + alt - 3 : yabai -m window --space 3
-shift + alt - 4 : yabai -m window --space 4
-shift + alt - 5 : yabai -m window --space 5
-shift + alt - 6 : yabai -m window --space 6
-shift + alt - 7 : yabai -m window --space 7
-shift + alt - 8 : yabai -m window --space 8
-shift + alt - 9 : yabai -m window --space 9
-
 # focus space
 alt - r : yabai -m space --focus recent
 alt - n : yabai -m space --focus next || yabai -m space --focus first
 alt - p : yabai -m space --focus prev || yabai -m space --focus last
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
+alt - 7 : yabai -m space --focus 7
+alt - 8 : yabai -m space --focus 8
+alt - 9 : yabai -m space --focus 9
+alt - 0 : yabai -m space --focus 10
 
-# resize window
-shift + ctrl + alt - h : yabai -m window --resize right:-20:0 2> /dev/null || yabai -m window --resize left:-20:0 2> /dev/null
-shift + ctrl + alt - j : yabai -m window --resize bottom:0:20 2> /dev/null || yabai -m window --resize top:0:20 2> /dev/null
-shift + ctrl + alt - k : yabai -m window --resize bottom:0:-20 2> /dev/null || yabai -m window --resize top:0:-20 2> /dev/null
-shift + ctrl + alt - l : yabai -m window --resize right:20:0 2> /dev/null || yabai -m window --resize left:20:0 2> /dev/null
-
+# YABAI
 # start/stop yabai
 ctrl + alt + cmd - q : yabai --stop-service
 ctrl + alt + cmd - s : yabai --start-service
 ctrl + alt + cmd - r : yabai --restart-service
 
+# MODE
+# ref: https://github.com/cauliyang/dotfiles/blob/main/dot_config/skhd/executable_skhdrc
+
+:: default    # default mode: normal
+:: display @  # display mode: focus displays, move windows to other displays
+:: window  @  # window mode: manipulate windows and spaces
+:: resize  @  # resize mode: resize windows in current space
+:: stack   @  # stack mode: interact with stacks
+:: inst    @  # inst mode: tell yabai where to inst the new window
+
+# activate modes using the keybinding
+default < shift + alt - d ; display
+default < shift + alt - s ; stack
+default < shift + alt - w ; window
+default < shift + alt - r ; resize
+default < shift + alt - i ; inst
+
+# de-activate modes
+display, window, resize, stack, inst < escape ; default
+display < shift + alt - d ; default
+stack   < shift + alt - s ; default
+window  < shift + alt - w ; default
+resize  < shift + alt - r ; default
+inst    < shift + alt - i ; default
+
+# DISPLAY MODE
+# focus previous display , (Like <)
+display < p : yabai -m display --focus prev || \
+              yabai -m display --focus next; \
+              skhd -k 'escape'
+
+# Focus next display . (Like >)
+display < n : yabai -m display --focus next || \
+              yabai -m display --focus prev; \
+              skhd -k 'escape'
+
+# send window to north/up display and follow focus
+display < k : yabai -m window --display north; \
+              yabai -m display --focus north; \
+              skhd -k 'escape'
+
+# Send window to down/south display and follow focus
+display < j : yabai -m window --display south; \
+              yabai -m display --focus south; \
+              skhd -k 'escape'
+
+# Send window to right/east display and follow focus
+display < l : yabai -m window --display east; \
+              yabai -m display --focus east; \
+              skhd -k 'escape'
+
+# Send window to left/west display and follow focus
+display < h : yabai -m window --display west; \
+              yabai -m display --focus west; \
+              skhd -k 'escape'
+
+# focus display by number
+display < 1 : yabai -m display --focus 1; skhd -k 'escape'
+display < 2 : yabai -m display --focus 2; skhd -k 'escape'
+display < 3 : yabai -m display --focus 3; skhd -k 'escape'
+display < 4 : yabai -m display --focus 4; skhd -k 'escape'
+
+# INSERT MODE
+inst < h : yabai -m window --insert west;  skhd -k 'escape'
+inst < j : yabai -m window --insert south; skhd -k 'escape'
+inst < k : yabai -m window --insert north; skhd -k 'escape'
+inst < l : yabai -m window --insert east;  skhd -k 'escape'
+inst < s : yabai -m window --insert stack; skhd -k 'escape'
+
+# STACK MODE
+# add the active window to the window or stack to the {direction}
+# note that this only works when the active window does *not* already belong to a stack
+stack < h : yabai -m window west  \
+            --stack "$(yabai -m query --windows --window | jq -r '.id')"; \
+            skhd -k 'escape'
+
+stack < j : yabai -m window south \
+            --stack "$(yabai -m query --windows --window | jq -r '.id')" ; \
+            skhd -k 'escape'
+
+stack < k : yabai -m window north \
+            --stack "$(yabai -m query --windows --window | jq -r '.id')" ; \
+            skhd -k 'escape'
+
+stack < l : yabai -m window east  \
+            --stack "$(yabai -m query --windows --window | jq -r '.id')"; \
+            skhd -k 'escape'
+
+# toggle current space layout between stack and bsp
+stack < space : yabai -m query --spaces --space | \
+                jq -re ".type" | \
+                xargs -I {} bash -c \
+                "if [ {} = 'stack' ]; \
+                then yabai -m space --layout bsp; \
+                else yabai -m space --layout stack; \
+                fi"; \
+                skhd -k 'escape'
+
+# remove the current window from the stack. only works if the space layout is bsp
+stack < b : set -l window (yabai -m query --windows --window | jq -r '.id'); \
+            yabai -m window east --stack $window || (yabai -m window $window --toggle float && yabai -m window $window --toggle float); \
+            skhd -k 'escape'
+
+# stack all windows in the current space on top of the current window while keeping the current space layout in bsp
+stack < s : set -l window (yabai -m query --windows --window | jq -r '.id') && \
+            yabai -m query --windows --space | jq -rc --arg w $window '[.[].id] | map(select(. != $w)) | .[]' | \
+            xargs -I {} yabai -m window "$window" --stack {}; \
+            skhd -k 'escape'
+
+# RESIZE MODE
+# Resize focused window towards left direction
+resize < h : yabai -m window --resize left:-20:0 || \
+             yabai -m window --resize right:-20:0
+
+# Resize focused window towards down direction
+resize < j : yabai -m window --resize bottom:0:20 || \
+             yabai -m window --resize top:0:20
+
+# Resize focused window towards up direction
+resize < k : yabai -m window --resize top:0:-20 || \
+             yabai -m window --resize bottom:0:-20
+
+# Resize focused window towards right direction
+resize < l : yabai -m window --resize right:20:0 || \
+             yabai -m window --resize left:20:0
+
+# Balance all windows. Maps to `=` key
+resize < 0x18 : yabai -m space --balance; skhd -k 'escape'
+
+# Rotate tree by 90 degrees
+resize < r : yabai -m space --rotate 90
+
+# Mirror tree y-axis
+resize < y : yabai -m space --mirror y-axis; \
+             skhd -k 'escape'
+
+# Mirror tree x-axis
+resize < x : yabai -m space --mirror x-axis; \
+             skhd -k 'escape'
+
+# Set all windows on active space back to normal
+resize < z : yabai -m query --windows --space | jq -re '.[] | select(."has-fullscreen-zoom" == true) | .id' | \
+             xargs -I{} yabai -m window {} --toggle zoom-fullscreen; \
+             skhd -k 'escape'
+
+# Swaps the recent window with the window that's currently focused by the mouse
+resize < s : yabai -m window mouse --swap recent; \
+             skhd -k 'escape'
+
+# WINDOW MODE
+# create desktop and follow focus
+window < c : yabai -m space --create; \
+             index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')"; \
+             yabai -m space --focus "${index}"; \
+             skhd -k 'escape'
+
+# create desktop, send window to new desktop and follow focus
+window < s : yabai -m space --create; \
+             index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')"; \
+             yabai -m window --space "${index}"; \
+             yabai -m space --focus "${index}"; \
+             skhd -k 'escape'
+
+# destroy current desktop and follow focus to previous desktop
+window < x : index="$(yabai -m query --spaces --space | jq '.index - 1')"; \
+             yabai -m space --destroy; \
+             yabai -m space --focus "${index}"; \
+             skhd -k 'escape'
+
+# toggle window native fullscreen
+window < f : yabai -m window --toggle native-fullscreen; skhd -k 'escape'
+window < z : yabai -m window --toggle zoom-fullscreen; skhd -k 'escape'
+
+# toggle window float
+window < t : yabai -m window --toggle float --grid 4:4:1:1:2:2; skhd -k 'escape'
+
+# toggle window expose
+window < e : yabai -m window --toggle expose; skhd -k 'escape'
+
+# send current window to prev/next space and follow focus
+window < h : yabai -m window --space prev; \
+             yabai -m space --focus prev; \
+             skhd -k 'escape'
+window < l : yabai -m window --space next; \
+             yabai -m space --focus next; \
+             skhd -k 'escape'
+
+# send current window to i-th space and follow focus
+window < 1 : yabai -m window --space 1; \
+             yabai -m space --focus 1; \
+             skhd -k 'escape'
+window < 2 : yabai -m window --space 2; \
+             yabai -m space --focus 2; \
+             skhd -k 'escape'
+window < 3 : yabai -m window --space 3; \
+             yabai -m space --focus 3; \
+             skhd -k 'escape'
+window < 4 : yabai -m window --space 4; \
+             yabai -m space --focus 4; \
+             skhd -k 'escape'
+window < 5 : yabai -m window --space 5; \
+             yabai -m space --focus 5; \
+             skhd -k 'escape'
+window < 6 : yabai -m window --space 6; \
+             yabai -m space --focus 6; \
+             skhd -k 'escape'
+window < 7 : yabai -m window --space 7; \
+             yabai -m space --focus 7; \
+             skhd -k 'escape'
+window < 8 : yabai -m window --space 8; \
+             yabai -m space --focus 8; \
+             skhd -k 'escape'
+window < 9 : yabai -m window --space 9; \
+             yabai -m space --focus 9; \
+             skhd -k 'escape'
+window < 0 : yabai -m window --space 10; \
+             yabai -m space --focus 10; \
+             skhd -k 'escape'
+
+# send current window to prev/next space without following focus
+window < alt - h : yabai -m window --space prev; \
+                   yabai -m space --focus prev; \
+                   skhd -k 'escape'
+window < alt - l : yabai -m window --space next; \
+                   yabai -m space --focus next; \
+                   skhd -k 'escape'
+
+# send current window to i-th space without following focus
+window < alt - 1 : yabai -m window --space 1; \
+                   skhd -k 'escape'
+window < alt - 2 : yabai -m window --space 2; \
+                   skhd -k 'escape'
+window < alt - 3 : yabai -m window --space 3; \
+                   skhd -k 'escape'
+window < alt - 4 : yabai -m window --space 4; \
+                   skhd -k 'escape'
+window < alt - 5 : yabai -m window --space 5; \
+                   skhd -k 'escape'
+window < alt - 6 : yabai -m window --space 6; \
+                   skhd -k 'escape'
+window < alt - 7 : yabai -m window --space 7; \
+                   skhd -k 'escape'
+window < alt - 8 : yabai -m window --space 8; \
+                   skhd -k 'escape'
+window < alt - 9 : yabai -m window --space 9; \
+                   skhd -k 'escape'
+window < alt - 0 : yabai -m window --space 10; \
+                   skhd -k 'escape'
+
+# switch layout of current desktop between bsp and stack
+window < space   : yabai -m query --spaces --space | \
+                   jq -re ".type" | \
+                   xargs -I {} bash -c \
+                   "if [ {} = 'stack' ]; \
+                   then yabai -m space --layout bsp; \
+                   else yabai -m space --layout stack; \
+                   fi"; \
+                   skhd -k 'escape'
+
 # start wezterm
-alt - return : open -na wezterm
+alt - return : open -na /Applications/WezTerm.app
+alt - q      : yabai -m window --close
