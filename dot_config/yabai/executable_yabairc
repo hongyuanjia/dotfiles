@@ -1,7 +1,26 @@
 #!/usr/bin/env sh
 
-sudo /opt/homebrew/bin/yabai --load-sa
 /opt/homebrew/bin/yabai -m signal --add event=dock_did_restart action="sudo /opt/homebrew/bin/yabai --load-sa"
+/opt/homebrew/bin/yabai -m signal --add event=window_focused   action="sketchybar --trigger window_focus"
+/opt/homebrew/bin/yabai -m signal --add event=window_created   action="sketchybar --trigger windows_on_spaces"
+/opt/homebrew/bin/yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
+
+# See:  https://github.com/AdamWagner/stackline/issues/110
+EVENT_TYPES=(
+    display_added
+    display_removed
+    display_changed
+    space_changed
+    application_visible
+    application_hidden
+    window_created
+    window_destroyed
+)
+for event in ${EVENT_TYPES[@]}; do
+    /opt/homebrew/bin/yabai -m signal --add event=$event action="hs -A -c 'stackline.manager:update({forceRedraw = true})'"
+done
+
+sudo /opt/homebrew/bin/yabai --load-sa
 
 # global settings
 /opt/homebrew/bin/yabai -m config mouse_follows_focus          off
