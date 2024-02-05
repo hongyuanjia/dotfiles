@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
