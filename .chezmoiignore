@@ -9,11 +9,11 @@ choco.config
 {{ if ne .chezmoi.os "windows" }}
 AppData
 Documents
-*.ahk
-*.ps1
+scoop
 .config/komorebi
 .glaze-wm
-scoop
+*.ahk
+*.ps1
 
 # Linux specific
 {{ if eq .chezmoi.os "darwin" }}
@@ -35,17 +35,25 @@ scoop
 
 # on Windows
 {{ else }}
-.config/nvim
-.config/rstudio
-.config/lazygit
+# Linux specific
+.config/awesome
+.config/gtk-2.0
+.config/gtk-3.0
+.config/mimeapps.list
+.config/picom.conf
 .bashrc
 .bash_profile
 .zshrc
 .Xnord
 .Xresources
-awesome
-gtk-2.0
-gtk-3.0
-mimeapps.list
-picom.conf
+
+# macOS specific
+.config/yabai
+.config/sketchybar
+.config/skhd
+
+# Windows ones located in AppData or LocalAppData
+.config/nvim
+.config/rstudio
+.config/lazygit
 {{ end }}
