@@ -62,7 +62,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions z)
+plugins=(git zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -94,8 +94,8 @@ if command -v fd &> /dev/null && command -v fzf &> /dev/null ; then
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
-# enable z.lua
-eval "$(lua $(brew --prefix z.lua)/share/z.lua/z.lua --init zsh)"
+# enable zoxide
+eval "$(zoxide init zsh)"
 
 # alias
 alias la="ls -la"
