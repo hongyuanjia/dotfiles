@@ -1,4 +1,11 @@
-export ZSH="$HOME/.oh-my-zsh"
+# Enable autocompletion provided by Homebrew
+if type brew &>/dev/null; then
+    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+    autoload -Uz compinit
+    compinit
+fi
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
@@ -50,21 +57,10 @@ proxy_disable ()
     unset ALL_PROXY
 }
 
-ZSH_THEME="robbyrussell"
-
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
 HIST_STAMPS="yyyy-mm-dd"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
-
-source $ZSH/oh-my-zsh.sh
 
 bindkey '^l' autosuggest-accept
 
@@ -106,6 +102,7 @@ function ya() {
     fi
     rm -f -- "$tmp"
 }
+
 # alias
 alias la="ls -la"
 alias cm=chezmoi
