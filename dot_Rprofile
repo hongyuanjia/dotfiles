@@ -179,5 +179,6 @@ local({
 
 # custom start up
 tryCatch(startup::startup(), error = function(ex) message(".Rprofile error: ", conditionMessage(ex)))
+try(require(colorout, quietly = TRUE), silent = TRUE)
 
 # vim: noai:ts=4:sw=4
