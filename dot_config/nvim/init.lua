@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-02-01 23:32
+-- Last Modified: 2024-02-03 23:06
 
 -- Basic Settings
 local options = {
@@ -1684,25 +1684,29 @@ lazy.setup({
                             ["]f"] = "@function.outer",
                             ["]]"] = "@class.outer",
                             ["]i"] = "@conditional.outer",
-                            ["]l"] = "@loop.outer"
+                            ["]l"] = "@loop.outer",
+                            ["]k"] = "@call.inner"
                         },
                         goto_next_end = {
                             ["]F"] = "@function.outer",
                             ["]["] = "@class.outer",
                             ["]I"] = "@conditional.outer",
-                            ["]L"] = "@loop.outer"
+                            ["]L"] = "@loop.outer",
+                            ["]K"] = "@call.outer"
                         },
                         goto_previous_start = {
                             ["[f"] = "@function.outer",
                             ["[["] = "@class.outer",
                             ["[i"] = "@conditional.outer",
-                            ["[l"] = "@loop.outer"
+                            ["[l"] = "@loop.outer",
+                            ["[k"] = "@call.outer"
                         },
                         goto_previous_end = {
                             ["[F"] = "@function.outer",
                             ["[]"] = "@class.outer",
                             ["[I"] = "@conditional.outer",
-                            ["[L"] = "@loop.outer"
+                            ["[L"] = "@loop.outer",
+                            ["[K"] = "@call.outer"
                         }
                     }
                 }
