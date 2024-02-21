@@ -52,6 +52,7 @@ sudo /opt/homebrew/bin/yabai --load-sa
 /opt/homebrew/bin/yabai -m rule --add app="^iStat*" sticky=on layer=above manage=off border=off
 /opt/homebrew/bin/yabai -m rule --add app="^System Preferences*" manage=off
 /opt/homebrew/bin/yabai -m rule --add app="^Grammarly*" manage=off
+/opt/homebrew/bin/yabai -m rule --add app="^(Wechat|微信)" title="通用" manage=off
 /opt/homebrew/bin/yabai -m rule --add app="^(Calculator|VLC|System Preferences|AppCleaner|zoom.us|Inkscape Settings|Activity Monitor)$" manage=off
 /opt/homebrew/bin/yabai -m rule --add label="Select file to save to" app="^Inkscape$" title="Select file to save to" manage=off
 
