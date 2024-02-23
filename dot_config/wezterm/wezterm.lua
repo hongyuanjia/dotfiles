@@ -38,6 +38,7 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
       args = { "pwsh.exe", "-NoLogo" }
     }
   }
+  config.window_decorations = "RESIZE"
 end
 
 -- Disable the title bar but enable the resizable border
