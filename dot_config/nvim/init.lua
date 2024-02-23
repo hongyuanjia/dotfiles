@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-02-03 23:06
+-- Last Modified: 2024-02-23 15:49
 
 -- Basic Settings
 local options = {
@@ -882,7 +882,11 @@ lazy.setup({
 
             -- Chinese input method
             "yehuohan/cmp-im",
-            "yehuohan/cmp-im-zh"
+            "yehuohan/cmp-im-zh",
+
+            -- R
+            "R-nvim/cmp-r"
+
         },
         config = function()
             local cmp = require("cmp")
@@ -925,6 +929,9 @@ lazy.setup({
 
             -- load snippets
             require("luasnip/loaders/from_vscode").lazy_load()
+
+            -- cmp_r
+            require("cmp_r").setup()
 
             cmp.setup({
                 snippet = {
@@ -971,6 +978,7 @@ lazy.setup({
                     { name = "copilot", group_index = 2 },
                     { name = "neorg" },
                     { name = "IM"},
+                    { name = "cmp_r"},
                     { name = "nvim_lsp" },
                     { name = "nvim_lsp_signature_help" },
                     { name = "luasnip" },
@@ -1014,6 +1022,7 @@ lazy.setup({
                         vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
                         vim_item.menu = ({
                             copilot  = "[Copilot]",
+                            cmp_r    = "[R]",
                             nvim_lsp = "[LSP]",
                             luasnip  = "[Snippet]",
                             buffer   = "[Buffer]",
@@ -1026,10 +1035,10 @@ lazy.setup({
                 sorting = {
                     priority_weight = 2,
                     comparators = {
+                        compare.sort_text,
                         compare.exact,
                         require("copilot_cmp.comparators").prioritize,
                         compare.score,
-                        compare.sort_text,
                         compare.kind,
                         compare.offset,
                         compare.recently_used,
@@ -1847,268 +1856,190 @@ lazy.setup({
     },
 
     -- R
-    { "jalvesaq/R-Vim-runtime", lazy = false },
     {
-        "jalvesaq/Nvim-R",
-        dependencies = { "jalvesaq/R-Vim-runtime" },
-        ft = { "r", "rhelp", "rmd", "rnoweb", "rrst", "quarto" },
+        "R-nvim/R.nvim",
+        -- lazy = false,
+        dependencies = { "mllg/vim-devtools-plugin" },
+        ft = { "r", "rout", "rmd", "rhelp", "rnoweb", "qmd" },
         config = function()
-            -- do not update $HOME on Windows since I set it manually
-            -- disable R startup messages
-            if vim.fn.has("win32") == 1 then
-                vim.g.R_set_home_env = 0
-                vim.g.R_args = { "--no-save", "--quiet", "--sdi" }
-            else
-                vim.g.R_args = { "--no-save", "--quiet" }
-            end
+            -- make vim-devtools-plugin compatible with R.nvim
+            vim.g.SendCmdToR = require("r.send").cmd
+            vim.fn.RWarningMsg = require("r").warn
 
-            -- disable debugging support,
-            vim.g.R_debug = 1
-            -- do not align function arguments
-            vim.g.r_indent_align_args = 0
-            -- use two backticks to trigger the Rmarkdown chunk completion
-            vim.g.R_rmdchunk = "``"
-            -- use <Alt>- to insert assignment
-            vim.g.R_assign_map = "<M-->"
-            -- show hidden objects in object browser
-            vim.g.R_objbr_allnames = 1
-            -- use the same working directory as Vim
-            vim.g.R_nvim_wd = 1
-            -- highlight chunk header as R code
-            vim.g.rmd_syn_hl_chunk = 1
-            -- only highlight functions when followed by a parenthesis
-            vim.g.r_syntax_fun_pattern = 1
-            -- set encoding to UTF-8 when sourcing code
-            vim.g.R_source_args = 'echo = TRUE, spaced = TRUE, encoding = "UTF-8"'
-            -- number of columns to be offset when calculating R terminal width
-            vim.g.R_setwidth = 2
+            local opts = {}
+
+            -- use two backticks to trigger the RMarkdown chunk completion
+            opts.rmdchunk = "``"
+
+            -- remove the 'nobuflisted' from the default buffer_opts to list the R buffer
+            opts.buffer_opts = "winfixwidth winfixheight"
+
             -- manually set the R path since scoop did not write registry entries about R
-            vim.g.R_use_scoop = 0
-            if string.lower(jit.os) == "windows" and vim.g.R_use_scoop == 1 then
+            local use_scoop_r = false
+            if string.lower(jit.os) == "windows" and use_scoop_r then
+                -- do not update $HOME on Windows since I set it manually
+                opts.set_home_env = false
+
                 local path = require("plenary.path")
                 local scoop_r = path:new(vim.loop.os_homedir(), "scoop", "apps", "r")
-                local sys_r = path:new("C:/Program Files/R")
-                if not sys_r:exists() and scoop_r:exists() then
-                    vim.g.R_path = scoop_r:joinpath("current", "bin").filename:gsub("\\", "/")
+                if scoop_r:exists() then
+                    opts.R_path = scoop_r:joinpath("current", "bin").filename:gsub("\\", "/")
                 end
             end
 
-            -- auto quit R when close Vim
-            vim.cmd[[
-                autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
-            ]]
+            -- disable R startup messages
+            opts.R_args = { "--no-save", "--quiet" }
 
-            -- assign and pipe
-            local r_set_keymap_pipe = function (buffer)
-                local buf = buffer == nil and 0 or buffer
-                vim.keymap.set("i", "<M-->", "<C-v><Space><-<C-v><Space>", { buffer = buf, desc = "Insert assign" })
-                vim.keymap.set("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>", { buffer = buf, desc = "Insert {magrittr} pipe" })
-                vim.keymap.set("i", "<M-\\>", "<C-v><Space>|><C-v><Space>", { buffer = buf, desc = "Insert base pipe" })
-                vim.keymap.set("i", "<M-;>", "<C-v><Space>:=<C-v><Space>", { buffer = buf, desc = "Insert {data.table} assign" })
-            end
+            -- use 'nvim.list.args()' to list arguments
+            opts.listmethods = true
 
-            -- {targets}
-            local r_set_keymap_targets = function (buffer)
+            -- echo when sourcing code
+            opts.source_args = "print.eval=TRUE, echo=TRUE, spaced=TRUE"
+
+            -- clear lines before sending code
+            opts.clear_line = true
+
+            -- use NeoVim working directory
+            opts.nvim_wd = 1
+
+            -- {targets} related keymaps
+            local r_set_keymap_targets = function(buffer)
                 local buf = buffer == nil and 0 or buffer
-                vim.keymap.set("n", "<LocalLeader>tm", "<cmd>RSend targets::tar_make()<CR>", { buffer = buf, desc = "Make targets"} )
-                vim.keymap.set("n", "<LocalLeader>tM", "<cmd>RSend targets::tar_make(callr_function = NULL)<CR>", { buffer = buf, desc = "Make targets in current session" })
-                vim.keymap.set("n", "<LocalLeader>tf", "<cmd>RSend targets::tar_make_future(workers = parallelly::availableCores() - 1L)<CR>", { buffer = buf, desc = "Make targets in parallel" })
-                vim.keymap.set("n", "<LocalLeader>tp", "<cmd>call RAction('targets::tar_read')<CR>", { buffer = buf, desc = "Print target under cursor" })
+                vim.keymap.set("n", "<LocalLeader>tm", "<cmd>lua require('r.send').cmd('targets::tar_make()')<CR>", { buffer = buf, desc = "Make targets"} )
+                vim.keymap.set("n", "<LocalLeader>tM", "<cmd>lua require('r.send').cmd('targets::tar_make(callr_function = NULL)')<CR>", { buffer = buf, desc = "Make targets in current session" })
+                vim.keymap.set("n", "<LocalLeader>tf", "<cmd>lua require('r.send').cmd('targets::tar_make(use_crew = TRUE)')<CR>", { buffer = buf, desc = "Make targets in parallel" })
+                vim.keymap.set("n", "<LocalLeader>tp", "<cmd>lua require('r.run').action('targets::tar_read')<CR>", { buffer = buf, desc = "Print target under cursor" })
                 vim.keymap.set("n", "<LocalLeader>tr",
                     function()
                         local word = vim.fn.expand("<cword>")
-                        local cmd = "RSend " .. word .. " <- targets::tar_read(" .. word ..")"
-                        vim.cmd(cmd)
+                        local cmd = word .. " <- targets::tar_read(" .. word ..")"
+                        require("r.run").cmd(cmd)
                     end,
                     { buffer = buf, desc = "Print target under cursor" }
                 )
-                vim.keymap.set("n", "<LocalLeader>tl", "<cmd>RSend targets::tar_source('R')<CR>",
+                vim.keymap.set("n", "<LocalLeader>tl", "<cmd>lua require('r.send').cmd('targets::tar_source(\'R\')')<CR>",
                     { buffer = buf, desc = "Reload scripts under 'R'" }
                 )
             end
 
-            -- debug
-            local r_set_keymap_debug = function (buffer)
+            -- debug related keymaps
+            local r_set_keymap_debug = function(buffer)
                 local buf = buffer == nil and 0 or buffer
-                vim.keymap.set("n", "<LocalLeader>tb", "<cmd>RSend traceback()<CR>", { buffer = buf, desc = "Send 'trackback()'" })
-                vim.keymap.set("n", "<LocalLeader>sq", "<cmd>RSend Q<CR>", { buffer = buf, desc = "Send 'Q' in debug mode" })
-                vim.keymap.set("n", "<LocalLeader>sc", "<cmd>RSend c<CR>", { buffer = buf, desc = "Send 'c' in debug mode" })
-                vim.keymap.set("n", "<LocalLeader>sn", "<cmd>RSend n<CR>", { buffer = buf, desc = "Send 'n' in debug mode" })
-                if string.lower(jit.os) == "windows" then
-                    -- check if TotalCMD is installed
-                    local totalcmd = require("plenary.path").new(vim.env.LOCALAPPDATA, "TotalCMD64", "TotalCMD64.exe")
-                    local has_totalcmd = function()
-                        return totalcmd:exists()
-                    end
-                    local totalcmd_open = function(dir)
-                        if not has_totalcmd() then return end
-                        local rcmd = "RSend system2"
-                        rcmd = rcmd .. "('" .. totalcmd.filename:gsub("\\", "/") .. "', "
-                        rcmd = rcmd .. "c('/O', '/P=L', sprintf('/L=\"%s\"', " .. dir .. ")))"
-                        vim.cmd(rcmd)
-                    end
-                    vim.keymap.set("n", "<LocalLeader>sd",
-                        function()
-                            if not has_totalcmd() then
-                                vim.cmd([[RSend shell.exec(getwd())]])
-                            else
-                                totalcmd_open("getwd()")
-                            end
-                        end,
-                        { buffer = buf, desc = "Open current work directory"}
-                    )
-                    vim.keymap.set("n", "<LocalLeader>st",
-                        function()
-                            if not has_totalcmd() then
-                                vim.cmd([[RSend shell.exec(tempdir())]])
-                            else
-                                totalcmd_open("tempdir()")
-                            end
-                        end,
-                        { buffer = buf, desc = "Open R temp directory"}
-                    )
+                vim.keymap.set("n", "<LocalLeader>tb", "<cmd>lua require('r.send').cmd('traceback()')<CR>", { buffer = buf, desc = "Send 'trackback()'" })
+                vim.keymap.set("n", "<LocalLeader>sq", "<cmd>lua require('r.send').cmd('Q')<CR>", { buffer = buf, desc = "Send 'Q' in debug mode" })
+                vim.keymap.set("n", "<LocalLeader>sc", "<cmd>lua require('r.send').cmd('c')<CR>", { buffer = buf, desc = "Send 'c' in debug mode" })
+                vim.keymap.set("n", "<LocalLeader>sn", "<cmd>lua require('r.send').cmd('n')<CR>", { buffer = buf, desc = "Send 'n' in debug mode" })
+
+                -- check if TotalCMD is installed
+                local totalcmd = require("plenary.path").new(vim.env.LOCALAPPDATA, "TotalCMD64", "TotalCMD64.exe")
+                local has_totalcmd = string.lower(jit.os) == "windows" and totalcmd:exists()
+
+                -- open directory using TotalCMD
+                local totalcmd_open = function(dir)
+                    if not has_totalcmd then return end
+                    local rcmd = "system2"
+                    rcmd = rcmd .. "('" .. totalcmd.filename:gsub("\\", "/") .. "', "
+                    rcmd = rcmd .. "c('/O', '/P=L', sprintf('/L=\"%s\"', " .. dir .. ")))"
+                    require("r.run").cmd(rcmd)
+                end
+
+                vim.keymap.set("n", "<LocalLeader>sd",
+                    function()
+                        if not has_totalcmd then
+                            require("r.run").cmd("shell.exec(getwd())")
+                        else
+                            totalcmd_open("getwd()")
+                        end
+                    end,
+                    { buffer = 0, desc = "Open current work directory"}
+                )
+
+                vim.keymap.set("n", "<LocalLeader>st",
+                    function()
+                        if not has_totalcmd then
+                            require("r.run").cmd("shell.exec(tempdir())")
+                        else
+                            totalcmd_open("tempdir()")
+                        end
+                    end,
+                    { buffer = 0, desc = "Open R temp directory"}
+                )
+            end
+
+            -- {devtools} related keymaps
+            local r_dev_find_desc = function(path)
+                local desc
+                if not path then
+                    desc = vim.fn.findfile("DESCRIPTION", ".;")
+                else
+                    desc = vim.fn.findfile("DESCRIPTION", vim.fn.expand(path) .. ";")
+                end
+
+                if not desc or desc == "" then
+                    require("r").warn("DESCRIPTION file not found.")
+                    return ""
+                end
+
+                local path = vim.fn.fnamemodify(desc, ":p:h")
+                vim.notify("Using package DESCRIPTION in \"" .. path .. "\".")
+                return path:gsub("\\", "/")
+            end
+            local r_dev_cmd = function(cmd)
+                local desc = r_dev_find_desc()
+                if desc ~= "" then
+                    require("r.send").cmd("devtools::" .. cmd .. "('" .. desc .. "') # [history skip]")
                 end
             end
 
-            -- add keymap for quit R if current window is an R terminal
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "BufWinEnter" },
-                {
-                    group = vim.api.nvim_create_augroup("RTermSetup", {}),
-                    pattern = "*",
-                    callback = function(args)
-                        -- if current buffer is an R terminal
-                        if vim.g.rplugin and vim.g.rplugin.R_bufnr == args.buf then
-                            -- set keymap to quit R
-                            vim.keymap.set("n", "<LocalLeader>rq", "<cmd>call RQuit('nosave')<CR>", { buffer = args.buf, desc = "Quit R" })
-
-                            -- set other keymap
-                            r_set_keymap_targets(args.buf)
-                            r_set_keymap_debug(args.buf)
-                        end
-                    end
-                }
-            )
-
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "BufWinEnter" },
-                {
-                    group = vim.api.nvim_create_augroup("RCommonSetup", {}),
-                    pattern = { "*.r", "*.R", "*.rmd", "*.Rmd", "*.qmd" },
-                    callback = function()
-                        -- set roxygen comment string
-                        vim.opt_local.comments:append("b:#'")
-
-                        -- insert current comment leader
-                        vim.opt_local.formatoptions:append("r")
-
-                        -- nvim-lspconfig set formatexpr to use lsp formatting,
-                        -- which breaks gq for comments
-                        vim.opt_local.formatexpr = nil
-                    end
-                }
-            )
-
-            -- keymaps for inserting pipes and debugging
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "BufWinEnter" },
-                {
-                    group = vim.api.nvim_create_augroup("RKeymapSetup", {}),
-                    pattern = { "*.r", "*.R", "*.rmd", "*.Rmd", "*.qmd" },
-                    callback = function(args)
-                        vim.wo.colorcolumn = "80"
-                        r_set_keymap_pipe(args.buf)
-                        r_set_keymap_targets(args.buf)
-                        r_set_keymap_debug(args.buf)
-                    end
-                }
-            )
-
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "BufWinEnter" },
-                {
-                    group = vim.api.nvim_create_augroup("RMarkdownSetup", {}),
-                    pattern = { "*.rmd", "*.Rmd" },
-                    callback = function(args)
-                        -- wrap long lines
-                        vim.wo.wrap = true
-
-                        function RToggleRmdEnv()
-                            -- get current value
-                            local env = vim.g.R_rmd_environment
-
-                            if env == ".GlobalEnv" then
-                                env = "new.env()"
-                                print("Rmd will be rendered in an empty environment.")
-                            else
-                                env = ".GlobalEnv"
-                                print("Rmd will be rendered in global environment.")
-                            end
-                            vim.g.R_rmd_environment = env
-                        end
-
-                        vim.keymap.set("n", "<LocalLeader>re", RToggleRmdEnv, { buffer = args.buf, desc = "Toggle Rmd render environment" })
-                    end
-                }
-            )
-        end
-    },
-    {
-        "mllg/vim-devtools-plugin",
-        dependencies = "jalvesaq/Nvim-R",
-        ft = { "r", "rmd", "rnoweb", "rout", "rhelp" },
-        config = function()
-            -- devtools
             local r_set_keymap_devtools = function(buffer)
                 local buf = buffer == nil and 0 or buffer
-                vim.keymap.set("n", "<LocalLeader>da", "<cmd>RLoadPackage<CR>",                   { buffer = buf, desc = "Load package" })
-                vim.keymap.set("n", "<LocalLeader>dd", "<cmd>RDocumentPackage<CR>",               { buffer = buf, desc = "Document package" })
-                vim.keymap.set("n", "<LocalLeader>dt", "<cmd>RTestPackage<CR>",                   { buffer = buf, desc = "Test package" })
-                vim.keymap.set("n", "<LocalLeader>dc", "<cmd>RCheckPackage<CR>",                  { buffer = buf, desc = "Check package" })
-                vim.keymap.set("n", "<LocalLeader>dr", "<cmd>RSend devtools::build_readme()<CR>", { buffer = buf, desc = "Build package README" })
-                vim.keymap.set("n", "<LocalLeader>dI", "<cmd>RInstallPackage<CR>",                { buffer = buf, desc = "Install package" })
+                vim.keymap.set("n", "<LocalLeader>da", function() r_dev_cmd("load_all") end,     { buffer = buf, desc = "Load package" })
+                vim.keymap.set("n", "<LocalLeader>dd", function() r_dev_cmd("document") end,     { buffer = buf, desc = "Document package" })
+                vim.keymap.set("n", "<LocalLeader>dt", function() r_dev_cmd("test") end,         { buffer = buf, desc = "Test package" })
+                vim.keymap.set("n", "<LocalLeader>dc", function() r_dev_cmd("check") end,        { buffer = buf, desc = "Check package" })
+                vim.keymap.set("n", "<LocalLeader>dr", function() r_dev_cmd("build_readme") end, { buffer = buf, desc = "Build package README" })
+                vim.keymap.set("n", "<LocalLeader>dI", function() r_dev_cmd("install") end,      { buffer = buf, desc = "Install package" })
+
+                -- redefine test current file
+                vim.keymap.set("n", "<LocalLeader>df",
+                    function()
+                        local curfile = vim.fn.expand("%:p").gsub("\\", "/")
+                        require("r.send").cmd('devtools::test_active_file("' .. curfile .. '")')
+                    end,
+                    { buffer = buffer, desc = "Test current file" }
+                )
             end
 
-            -- keymap for package development
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "BufWinEnter" },
-                {
-                    group = vim.api.nvim_create_augroup("RDevtoolsSetup", {}),
-                    pattern = { "*.r", "*.R" },
-                    callback = function(args)
-                        -- {devtools}
-                        r_set_keymap_devtools(args.buf)
+            opts.hook = {
+                after_config = function()
+                    vim.keymap.set("i", "<M-->", "<C-v><Space><-<C-v><Space>", { buffer = 0, desc = "Insert assign" })
+                    vim.keymap.set("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>", { buffer = 0, desc = "Insert {magrittr} pipe" })
+                    vim.keymap.set("i", "<M-\\>", "<C-v><Space>|><C-v><Space>", { buffer = 0, desc = "Insert base pipe" })
+                    vim.keymap.set("i", "<M-;>", "<C-v><Space>:=<C-v><Space>", { buffer = 0, desc = "Insert {data.table} assign" })
 
-                        -- redefine test current file
-                        vim.keymap.set("n", "<LocalLeader>df",
-                            function()
-                                local curfile = vim.fn.substitute(vim.fn.expand('%:p'), '\\', '/', "g")
-                                if vim.bo.filetype ~= "r" then
-                                    vim.fn['RWarningMsg']("Current file is not an R script.")
-                                    return
-                                end
-                                vim.fn['devtools#send_cmd']('devtools::test_active_file("' .. curfile .. '")')
-                            end,
-                            { buffer = args.buf, desc = "Test current file" }
-                        )
-                    end
-                }
-            )
+                    -- {targets}
+                    r_set_keymap_targets(0)
+                    -- {devtools}
+                    r_set_keymap_devtools(0)
+                    -- debug
+                    r_set_keymap_debug(0)
+                end,
+                after_R_start = function()
+                    -- get the R terminal buffer number
+                    local r_bufnr = require("r.term").get_buf_nr()
+                    -- set keymap to quit R
+                    vim.keymap.set("n", "<LocalLeader>rq", "<cmd>lua require('r.run').quit_R('nosave')<CR>", { buffer = r_bufnr, desc = "Quit R" })
 
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "BufWinEnter" },
-                {
-                    group = vim.api.nvim_create_augroup("RTermDevtoolsSetup", {}),
-                    pattern = "*",
-                    callback = function(args)
-                        -- if current buffer is an R terminal
-                        if vim.g.rplugin and vim.g.rplugin.R_bufnr == args.buf then
-                            -- {devtools}
-                            r_set_keymap_devtools(args.buf)
-                        end
-                    end
-                }
-            )
+                    -- {targets}
+                    r_set_keymap_targets(0)
+                    -- {devtools}
+                    r_set_keymap_devtools(0)
+                    -- debug
+                    r_set_keymap_debug(0)
+                end
+            }
+
+            require("r").setup(opts)
         end
     },
     {
