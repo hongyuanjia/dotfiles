@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-02-23 15:49
+-- Last Modified: 2024-02-25 15:58
 
 -- Basic Settings
 local options = {
@@ -1913,11 +1913,11 @@ lazy.setup({
                     function()
                         local word = vim.fn.expand("<cword>")
                         local cmd = word .. " <- targets::tar_read(" .. word ..")"
-                        require("r.run").cmd(cmd)
+                        require("r.send").cmd(cmd)
                     end,
                     { buffer = buf, desc = "Print target under cursor" }
                 )
-                vim.keymap.set("n", "<LocalLeader>tl", "<cmd>lua require('r.send').cmd('targets::tar_source(\'R\')')<CR>",
+                vim.keymap.set("n", "<LocalLeader>tl", "<cmd>lua require('r.send').cmd('targets::tar_source()')<CR>",
                     { buffer = buf, desc = "Reload scripts under 'R'" }
                 )
             end
