@@ -5,6 +5,8 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 # load predefined colors
 source "$CONFIG_DIR/colors.sh"
 
+sketchybar --add event mode_changed
+
 sketchybar --bar height=37        \
                  blur_radius=30   \
                  position=bottom  \
@@ -61,4 +63,12 @@ sketchybar --add item front_app left                                         \
            --subscribe front_app front_app_switched
 
 ##### Adding Right Items #####
+sketchybar --add item mode_indicator right                                   \
+           --set mode_indicator background.color=$ACCENT_COLOR               \
+                                icon.color=$BAR_COLOR                        \
+                                icon.font="sketchybar-app-font:Regular:16.0" \
+                                label.color=$BAR_COLOR                       \
+                                label.padding_right=20                       \
+                                drawing=off
+
 sketchybar --update
