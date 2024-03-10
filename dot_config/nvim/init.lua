@@ -1862,6 +1862,35 @@ lazy.setup({
         dependencies = { "mllg/vim-devtools-plugin" },
         ft = { "r", "rout", "rmd", "rhelp", "rnoweb", "qmd" },
         config = function()
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "BufWinEnter" },
+                {
+                    group = vim.api.nvim_create_augroup("RCommonSetup", {}),
+                    pattern = { "*.r", "*.R" },
+                    callback = function()
+                        -- set roxygen comment string
+                        vim.opt_local.comments:append("b:#'")
+                        -- insert current comment leader
+                        vim.opt_local.formatoptions:append("r")
+                        -- nvim-lspconfig set formatexpr to use lsp formatting,
+                        -- which breaks gq for comments
+                        vim.opt_local.formatexpr = nil
+                    end
+                }
+            )
+
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "BufWinEnter" },
+                {
+                    group = vim.api.nvim_create_augroup("RMarkdownSetup", {}),
+                    pattern = { "*.rmd", "*.Rmd" },
+                    callback = function()
+                        -- wrap long lines
+                        vim.wo.wrap = true
+                    end
+                }
+            )
+
             -- make vim-devtools-plugin compatible with R.nvim
             vim.g.SendCmdToR = require("r.send").cmd
             vim.fn.RWarningMsg = require("r").warn
