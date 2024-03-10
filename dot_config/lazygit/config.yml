@@ -22,4 +22,9 @@ git:
     pager: "delta --dark --paging=never --24-bit-color=never"
 os:
   editPreset: "nvim"
-
+customCommands:
+  - key: "F"
+    command: "git fetch --prune"
+    context: "remoteBranches"
+    description: "Prune remote brances"
+    stream: true
