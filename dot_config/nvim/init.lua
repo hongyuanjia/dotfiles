@@ -2003,7 +2003,7 @@ lazy.setup({
                 -- redefine test current file
                 vim.keymap.set("n", "<LocalLeader>df",
                     function()
-                        local curfile = vim.fn.expand("%:p").gsub("\\", "/")
+                        local curfile = vim.fn.expand("%:p"):gsub("\\", "/")
                         require("r.send").cmd('devtools::test_active_file("' .. curfile .. '")')
                     end,
                     { buffer = buffer, desc = "Test current file" }
