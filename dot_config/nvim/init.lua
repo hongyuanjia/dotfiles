@@ -1889,6 +1889,38 @@ lazy.setup({
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "BufWinEnter" },
                 {
+                    group = vim.api.nvim_create_augroup("RQuartoSetup", {}),
+                    pattern = { "_quarto.yml" },
+                    callback = function()
+                        -- wrap long lines
+                        vim.wo.wrap = true
+                        vim.keymap.set("n", "<LocalLeader>rf",
+                            "<cmd>lua require('r.run').start_R('R')<CR>",
+                            { buffer = 0, desc = "Send to R: quarto::quarto_render()" }
+                        )
+                        vim.keymap.set("n", "<LocalLeader>rq",
+                            "<cmd>lua require('r.run').quit_R('nosave')<CR>",
+                            { buffer = 0, desc = "Send to R: quarto::quarto_render()" }
+                        )
+                        vim.keymap.set("n", "<LocalLeader>qr",
+                            "<cmd>lua require('r.quarto').command('render')<CR>",
+                            { buffer = 0, desc = "Send to R: quarto::quarto_render()" }
+                        )
+                        vim.keymap.set("n", "<LocalLeader>qp",
+                            "<cmd>lua require('r.quarto').command('preview')<CR>",
+                            { buffer = 0, desc = "Send to R: quarto::quarto_preview()" }
+                        )
+                        vim.keymap.set("n", "<LocalLeader>qs",
+                            "<cmd>lua require('r.quarto').command('stop')<CR>",
+                            { buffer = 0, desc = "Send to R: quarto::quarto_preivew_stop()" }
+                        )
+                    end
+                }
+            )
+
+            vim.api.nvim_create_autocmd(
+                { "BufEnter", "BufWinEnter" },
+                {
                     group = vim.api.nvim_create_augroup("RMarkdownSetup", {}),
                     pattern = { "*.rmd", "*.Rmd" },
                     callback = function()
