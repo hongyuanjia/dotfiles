@@ -2068,11 +2068,11 @@ lazy.setup({
                     vim.keymap.set("n", "<LocalLeader>rq", "<cmd>lua require('r.run').quit_R('nosave')<CR>", { buffer = r_bufnr, desc = "Quit R" })
 
                     -- {targets}
-                    r_set_keymap_targets(0)
+                    r_set_keymap_targets(r_bufnr)
                     -- {devtools}
-                    r_set_keymap_devtools(0)
+                    r_set_keymap_devtools(r_bufnr)
                     -- debug
-                    r_set_keymap_debug(0)
+                    r_set_keymap_debug(r_bufnr)
                 end
             }
 
