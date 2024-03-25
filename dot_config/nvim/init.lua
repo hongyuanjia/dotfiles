@@ -1867,7 +1867,7 @@ lazy.setup({
         "R-nvim/R.nvim",
         -- lazy = false,
         dependencies = { "mllg/vim-devtools-plugin" },
-        ft = { "r", "rout", "rmd", "rhelp", "rnoweb", "qmd" },
+        ft = { "r", "rout", "rmd", "rhelp", "rnoweb", "quarto" },
         config = function()
             vim.api.nvim_create_autocmd(
                 { "BufEnter", "BufWinEnter" },
