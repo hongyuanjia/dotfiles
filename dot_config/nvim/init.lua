@@ -983,7 +983,6 @@ lazy.setup({
                 sources = cmp.config.sources({
                     -- Copilot Source
                     { name = "copilot", group_index = 2 },
-                    { name = "neorg" },
                     { name = "IM"},
                     { name = "cmp_r"},
                     { name = "nvim_lsp" },
@@ -1815,51 +1814,28 @@ lazy.setup({
         end
     },
 
-    -- Neorg
-    {
-        "nvim-neorg/neorg",
-        build = ":Neorg sync-parsers",
-        dependencies = {
-            { "nvim-lua/plenary.nvim" }
-        },
-        cmd = { "Neorg" },
-        config = function()
-            vim.api.nvim_create_autocmd(
-                { "BufEnter", "BufWinEnter" },
-                {
-                    pattern = { "*.norg" },
-                    callback = function()
-                        vim.opt_local.conceallevel = 2
-                        vim.cmd([[setlocal nospell]])
-                    end
-                }
-            )
-
-            require("neorg").setup {
-                load = {
-                    ["core.defaults"] = {}, -- Loads default behaviour
-                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
-                    ["core.completion"] = {
-                        config = { engine = "nvim-cmp" } -- Setup auto-completion
-                    },
-                    ["core.integrations.nvim-cmp"] = {},
-                    ["core.dirman"] = { -- Manages Neorg workspaces
-                        config = {
-                            workspaces = {
-                                notes = "~/Dropbox/notes",
-                            },
-                            default_workspace = "notes"
-                        },
-                    },
-                }
-            }
-        end
-    },
     {
         "keaising/im-select.nvim",
         enabled = vim.fn.has("win32") == 1,
         event = "InsertEnter",
         config = true
+    },
+    {
+        "epwalsh/obsidian.nvim",
+        version = "*",
+        cmd = {
+            "ObsidianOpen", "ObsidianNew", "ObsidianQuickSwitch", "ObsidianSearch",
+            "ObsidianWorkspace"
+        },
+        event = {
+          "BufReadPre " .. vim.fn.expand "~" .. "/notes/**.md",
+        },
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {
+            workspaces = {
+                { name = "personal", path = "~/notes", }
+            }
+        }
     },
 
     -- R
