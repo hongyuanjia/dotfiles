@@ -479,7 +479,7 @@ lazy.setup({
 
             vim.keymap.set("n", "<Leader>bP", "<cmd>BufferPin<CR>",    { desc = "Pin current buffer" })
             vim.keymap.set("n", "<Leader>bd", "<cmd>BufferClose<CR>",  { desc = "Close buffer" })
-            vim.keymap.set("n", "<Leader>bD", "<cmd>BufferClose!<CR>", { desc = "Close buffer without saving" })
+            vim.keymap.set("n", "<Leader>bX", "<cmd>BufferClose!<CR>", { desc = "Close buffer without saving" })
 
             vim.keymap.set("n", "<Leader>b-", "<cmd>BufferPick<CR>",        { desc = "Pick buffer" })
             vim.keymap.set("n", "<Leader>b=", "<cmd>BufferPickDelete<CR>",  { desc = "Pick buffer to delete" })
