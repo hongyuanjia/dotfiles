@@ -546,7 +546,7 @@ lazy.setup({
                             end
                         }
                     },
-                    lualine_y = { "encoding", "filetype" },
+                    lualine_y = { "encoding", "filetype", "fileformat" },
                     lualine_z = { "location", "progress" }
                 }
             })
