@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-03-11 23:14
+-- Last Modified: 2024-03-25 15:38
 
 -- Basic Settings
 local options = {
@@ -1634,6 +1634,13 @@ lazy.setup({
                 -- Show files and directories that start with "."
                 show_hidden = true
             }
+        },
+    },
+    {
+        "rolv-apneseth/tfm.nvim",
+        -- <Leader>f[iles]
+        keys = {
+            { "<Leader>fy", function() require("tfm").open() end, desc = "Open Yazi" },
         },
     },
 
