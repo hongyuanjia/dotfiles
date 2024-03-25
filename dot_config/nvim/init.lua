@@ -1976,13 +1976,13 @@ lazy.setup({
                     local rcmd = "system2"
                     rcmd = rcmd .. "('" .. totalcmd.filename:gsub("\\", "/") .. "', "
                     rcmd = rcmd .. "c('/O', '/P=L', sprintf('/L=\"%s\"', " .. dir .. ")))"
-                    require("r.run").cmd(rcmd)
+                    require("r.send").cmd(rcmd)
                 end
 
                 vim.keymap.set("n", "<LocalLeader>sd",
                     function()
                         if not has_totalcmd then
-                            require("r.run").cmd("shell.exec(getwd())")
+                            require("r.send").cmd("shell.exec(getwd())")
                         else
                             totalcmd_open("getwd()")
                         end
@@ -1993,7 +1993,7 @@ lazy.setup({
                 vim.keymap.set("n", "<LocalLeader>st",
                     function()
                         if not has_totalcmd then
-                            require("r.run").cmd("shell.exec(tempdir())")
+                            require("r.send").cmd("shell.exec(tempdir())")
                         else
                             totalcmd_open("tempdir()")
                         end
@@ -2063,6 +2063,7 @@ lazy.setup({
                 after_R_start = function()
                     -- get the R terminal buffer number
                     local r_bufnr = require("r.term").get_buf_nr()
+
                     -- set keymap to quit R
                     vim.keymap.set("n", "<LocalLeader>rq", "<cmd>lua require('r.run').quit_R('nosave')<CR>", { buffer = r_bufnr, desc = "Quit R" })
 
