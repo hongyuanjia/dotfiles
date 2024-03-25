@@ -401,7 +401,13 @@ lazy.setup({
         "folke/tokyonight.nvim",
         event = "VimEnter",
         config = function()
-            require("tokyonight").setup()
+            require("tokyonight").setup({
+                -- the default win separator is too dark
+                -- https://github.com/folke/tokyonight.nvim/issues/34
+                on_colors = function(colors)
+                    colors.border = "#565f89"
+                end
+            })
             vim.cmd.colorscheme("tokyonight")
         end
     },
