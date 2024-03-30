@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-03-25 15:38
+-- Last Modified: 2024-03-26 20:00
 
 -- Basic Settings
 local options = {
@@ -1455,7 +1455,12 @@ lazy.setup({
             require("inc_rename").setup()
         end,
     },
-    { "kylechui/nvim-surround", event = { "BufReadPre", "BufNewFile" }, opts = { move_cursor = false } },
+    {
+        "kylechui/nvim-surround",
+        version = "*",
+        event = "VeryLazy",
+        opts = { move_cursor = true }
+    },
     {
         "ntpeters/vim-better-whitespace",
         cmd = {
