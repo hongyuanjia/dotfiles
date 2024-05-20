@@ -1112,13 +1112,6 @@ lazy.setup({
             })
             local lspconfig = require("lspconfig")
 
-            -- update diagnostic config
-            local signs = { Error = "" , Warn = "" , Hint = "" , Info = "" }
-            for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-            end
-
             -- custom namespace
             local ns_diag = vim.api.nvim_create_namespace('severe-diagnostics')
 
@@ -1155,6 +1148,14 @@ lazy.setup({
                 update_in_insert = false,
                 virtual_text = { spacing = 4, prefix = "●" },
                 severity_sort = true,
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = "",
+                        [vim.diagnostic.severity.WARN] = "",
+                        [vim.diagnostic.severity.HINT] = "",
+                        [vim.diagnostic.severity.INFO] = ""
+                    }
+                }
             })
 
             vim.lsp.handlers["workspace/diagnostic/refresh"] = function(_, _, ctx)
