@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-03-26 20:00
+-- Last Modified: 2024-05-20 08:35
 
 -- Basic Settings
 local options = {
@@ -1677,7 +1677,7 @@ lazy.setup({
                     -- have to make sure parsers for 'c', 'vim', 'lua' and
                     -- 'help' have been installed
                     -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/3970
-                    "r", "toml", "tsx", "typescript", "vue", "yaml", "vim", "vimdoc"
+                    "r", "rnoweb", "toml", "tsx", "typescript", "vue", "yaml", "vim", "vimdoc"
                 },
                 sync_install = false,
                 auto_install = false,
@@ -1958,17 +1958,11 @@ lazy.setup({
             -- disable R startup messages
             opts.R_args = { "--no-save", "--quiet" }
 
-            -- use 'nvim.list.args()' to list arguments
-            opts.listmethods = true
-
             -- echo when sourcing code
             opts.source_args = "print.eval=TRUE, echo=TRUE, spaced=TRUE"
 
             -- clear lines before sending code
             opts.clear_line = true
-
-            -- use NeoVim working directory
-            opts.nvim_wd = 1
 
             -- {targets} related keymaps
             local r_set_keymap_targets = function(buffer)
@@ -2105,6 +2099,22 @@ lazy.setup({
                     r_set_keymap_devtools(r_bufnr)
                     -- debug
                     r_set_keymap_debug(r_bufnr)
+
+                    vim.api.nvim_create_autocmd(
+                        { "BufEnter", "BufWinEnter" },
+                        {
+                            group = vim.api.nvim_create_augroup("RKeymapSetup", {}),
+                            pattern = { "*.r", "*.R" },
+                            callback = function(args)
+                                -- {targets}
+                                r_set_keymap_targets(args.buf)
+                                -- {devtools}
+                                r_set_keymap_devtools(args.buf)
+                                -- debug
+                                r_set_keymap_debug(args.buf)
+                            end
+                        }
+                    )
                 end
             }
 
