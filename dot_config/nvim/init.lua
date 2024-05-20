@@ -1164,6 +1164,7 @@ lazy.setup({
                 return true
             end
 
+            local diagnostics_active = true
             local on_attach = function(client, bufnr)
                 require("nvim-navic").attach(client, bufnr)
                 vim.keymap.set("n", "gpi", "<cmd>Glance implementations<CR>", { buffer = bufnr, desc = "Glance: Preview implementations" })
@@ -1190,8 +1191,18 @@ lazy.setup({
                 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Lsp: Code action" })
                 vim.keymap.set("n", "<Leader>lF", function() vim.lsp.buf.format{ timeout_ms = 10000 } end, { buffer = bufnr, desc = "Lsp: Format buffer" })
                 vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, { buffer = bufnr, desc = "Lsp: Rename under cursor" })
+                vim.keymap.set("n", "<Leader>lt",
+                    function()
+                        diagnostics_active = not diagnostics_active
+                        if diagnostics_active then
+                            vim.diagnostic.show()
+                        else
+                            vim.diagnostic.hide()
+                end
+            end,
+                    { buffer = bufnr, desc = "Lsp: show/hide diagnostics" }
+        )
             end
-
 
             -- add lsp auto-completion source
             require("lspconfig.util").default_config = vim.tbl_extend(
