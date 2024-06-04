@@ -561,7 +561,7 @@ lazy.setup({
             { "[n", function() require("illuminate").goto_prev_reference(false) end, desc = "Previous word under-cursor" }
         },
         config = function()
-            require("illuminate").configure({ delay = 200 })
+            require("illuminate").configure({ delay = 200, large_file_cutoff = 8000 })
         end
     },
     {
