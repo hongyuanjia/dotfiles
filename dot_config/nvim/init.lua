@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-05-20 08:35
+-- Last Modified: 2024-06-04 09:24
 
 -- Basic Settings
 local options = {
@@ -1165,6 +1165,7 @@ lazy.setup({
             end
 
             local diagnostics_active = true
+            local diagnostics_virtual = true
             local on_attach = function(client, bufnr)
                 require("nvim-navic").attach(client, bufnr)
                 vim.keymap.set("n", "gpi", "<cmd>Glance implementations<CR>", { buffer = bufnr, desc = "Glance: Preview implementations" })
@@ -1191,6 +1192,13 @@ lazy.setup({
                 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Lsp: Code action" })
                 vim.keymap.set("n", "<Leader>lF", function() vim.lsp.buf.format{ timeout_ms = 10000 } end, { buffer = bufnr, desc = "Lsp: Format buffer" })
                 vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, { buffer = bufnr, desc = "Lsp: Rename under cursor" })
+                vim.keymap.set("n", "<Leader>lv",
+                    function()
+                        diagnostics_virtual = not diagnostics_virtual
+                        vim.diagnostic.config({ virtual_text = diagnostics_virtual })
+                    end,
+                    { buffer = bufnr, desc = "Lsp: Show/Hide diagnostics virtual text" }
+                )
                 vim.keymap.set("n", "<Leader>lt",
                     function()
                         diagnostics_active = not diagnostics_active
