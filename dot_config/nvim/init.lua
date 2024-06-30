@@ -1184,6 +1184,7 @@ lazy.setup({
                 vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Next diagnostic" })
 
                 -- <Leader>l[sp]
+                vim.keymap.set("n", "<Leader>lh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { buffer = bufnr, desc = "Lsp: Toggle inlay hints" })
                 vim.keymap.set("n", "<Leader>li", "<cmd>LspInfo<CR>", { buffer = bufnr, desc = "Lsp: Info" })
                 vim.keymap.set("n", "<Leader>lI", "<cmd>LspInstallInfo<CR>", { buffer = bufnr, desc = "Lsp: Install info" })
                 vim.keymap.set("n", "<Leader>lj", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Next diagnostic" })
