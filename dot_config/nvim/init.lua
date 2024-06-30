@@ -1382,12 +1382,12 @@ lazy.setup({
             }
 
             -- use <Ctrl-o> to open all items with trouble
-            local trouble = require("trouble.providers.telescope")
+            local trouble = require("trouble.sources.telescope")
 
             vim.tbl_extend("force", mappings,
                 {
-                    i = { ["<C-o>"] = trouble.open_with_trouble },
-                    n = { ["<C-o>"] = trouble.open_with_trouble }
+                    i = { ["<C-o>"] = trouble.open },
+                    n = { ["<C-o>"] = trouble.open }
                 }
             )
 
@@ -2217,4 +2217,3 @@ lazy.setup({
     }
 }
 )
-
