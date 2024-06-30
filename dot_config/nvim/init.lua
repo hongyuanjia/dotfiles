@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-06-04 09:24
+-- Last Modified: 2024-06-11 15:03
 
 -- Basic Settings
 local options = {
@@ -1097,7 +1097,6 @@ lazy.setup({
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
         dependencies = {
-            "simrat39/rust-tools.nvim",
             "hrsh7th/cmp-nvim-lsp",
             { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
             { "folke/neodev.nvim", config = true }
@@ -1207,10 +1206,10 @@ lazy.setup({
                             vim.diagnostic.show()
                         else
                             vim.diagnostic.hide()
-                end
-            end,
+                        end
+                    end,
                     { buffer = bufnr, desc = "Lsp: show/hide diagnostics" }
-        )
+                )
             end
 
             -- add lsp auto-completion source
@@ -1260,11 +1259,20 @@ lazy.setup({
                 end,
 
                 -- rust
-                ["rust_analyzer"] = function()
-                    require('rust-tools').setup({ server = { on_attach = on_attach } })
-                end
+                ['rust_analyzer'] = function() end,
             })
+
+            vim.g.rustaceanvim = {
+                server = {
+                    on_attach = on_attach
+                }
+            }
         end
+    },
+    {
+        'mrcjkb/rustaceanvim',
+        version = '^4', -- Recommended
+        lazy = false, -- This plugin is already lazy
     },
     { "m-demare/hlargs.nvim", event = "VeryLazy", config = true },
     {
