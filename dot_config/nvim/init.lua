@@ -848,7 +848,7 @@ lazy.setup({
         "zbirenbaum/copilot.lua",
         init = function()
             vim.keymap.set("n", "<Leader>Ct", function()
-                require('copilot.suggestion').trigger_auto_trigger()
+                require("copilot.suggestion").toggle_auto_trigger()
             end)
         end,
         cmd = "Copilot",
