@@ -92,6 +92,23 @@ if (Get-Command lua -ErrorAction SilentlyContinue | Test-Path) {
     }
 }
 
+if (Get-Command yazi -ErrorAction SilentlyContinue | Test-Path) {
+    $file_one = $(try {Join-Path -Path $(scoop prefix git) -ChildPath "usr\bin\file.exe" } catch { '' })
+    if (Test-Path -Path $file_one) {
+        $env:YAZI_FILE_ONE = $file_one
+    }
+
+    function ya {
+        $tmp = [System.IO.Path]::GetTempFileName()
+            yazi $args --cwd-file="$tmp"
+            $cwd = Get-Content -Path $tmp
+            if (-not [String]::IsNullOrEmpty($cwd) -and $cwd -ne $PWD.Path) {
+                Set-Location -LiteralPath $cwd
+            }
+        Remove-Item -Path $tmp
+    }
+}
+
 # rig autocompletion
 $rig_ac=$(try { Join-Path -Path $(scoop prefix rig) -ChildPath _rig.ps1 } catch { '' })
 if (Test-Path -Path $rig_ac)  { & $rig_ac }

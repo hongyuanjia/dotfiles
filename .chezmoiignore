@@ -51,6 +51,7 @@ scoop
 .config/yabai
 .config/sketchybar
 .config/skhd
+.config/yazi
 
 # Windows ones located in AppData or LocalAppData
 .config/nvim
