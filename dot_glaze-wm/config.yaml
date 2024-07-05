@@ -164,18 +164,8 @@ keybindings:
   - command: "move down"
     bindings: ["Alt+Shift+J"]
 
-  # Resize focused window by a percentage or pixel amount.
-  - command: "resize width -2%"
-    binding: "Alt+U"
-  - command: "resize width +2%"
-    binding: "Alt+P"
-  - command: "resize height +2%"
-    binding: "Alt+O"
-  - command: "resize height -2%"
-    binding: "Alt+I"
-
-  # As an alternative to the resize keybindings above, resize mode enables resizing via
-  # HJKL or arrow keys. The binding mode is defined above with the name "resize".
+  # Resize mode enables resizing via HJKL or arrow keys. The binding mode is
+  # defined above with the name "resize".
   - command: "binding mode resize"
     binding: "Alt+R"
 
@@ -218,13 +208,13 @@ keybindings:
 
   # Focus the workspace that last had focus.
   - command: "focus workspace recent"
-    binding: "Alt+Y"
+    binding: "Alt+U"
 
   # Focus the next/previous workspace defined in `workspaces` config.
   - command: "focus workspace next"
-    binding: "Alt+T"
+    binding: "Alt+N"
   - command: "focus workspace prev"
-    binding: "Alt+Shift+T"
+    binding: "Alt+P"
 
   # Change focus to a workspace defined in `workspaces` config.
   - command: "focus workspace 1"
