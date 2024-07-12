@@ -75,6 +75,9 @@ window_rules:
   - command: "ignore"
     match_process_name: "mmc"
 
+  - command: "set floating"
+    match_process_name: "DeST Launcher"
+
   # for iSlides
   - command: "ignore"
     match_class_name: "/HwndWrapper.*iSlide Tools/"
