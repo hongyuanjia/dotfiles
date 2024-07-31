@@ -1792,21 +1792,21 @@ lazy.setup({
 
             whichkey.setup({
                 plugins = { spelling = { enable = true } },
-                window = { border = "rounded" }
+                win = { border = "rounded" }
             })
 
-            whichkey.register({
-                b = { name = "Buffer" },
-                f = { name = "File" },
-                g = { name = "Git" },
-                l = { name = "List" },
-                o = { name = "Open" },
-                s = { name = "Search" },
-                t = { name = "Toggle/Tab" },
-                w = { name = "Windows" },
-                q = { name = "Quit" }
+            whichkey.add({
+                { "<Leader>b", { name = "Buffer" }},
+                { "<Leader>f", { name = "File" }},
+                { "<Leader>g", { name = "Git" }},
+                { "<Leader>l", { name = "List" }},
+                { "<Leader>o", { name = "Open" }},
+                { "<Leader>s", { name = "Search" }},
+                { "<Leader>t", { name = "Toggle/Tab" }},
+                { "<Leader>w", { name = "Windows" }},
+                { "<Leader>q", { name = "Quit" }}
 
-            }, { prefix = "<Leader>" })
+            })
         end
     },
 
