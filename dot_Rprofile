@@ -35,7 +35,10 @@ local({
             License = "MIT + file LICENSE",
             # default package initial version
             Version = "0.0.0.9000"
-        )
+        ),
+
+        # disable R language serve snippet support
+        languageserver.snippet_support = FALSE
     )
 
     # always use English
