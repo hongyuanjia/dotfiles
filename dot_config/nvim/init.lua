@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-06-11 15:03
+-- Last Modified: 2024-07-30 20:46
 
 -- Basic Settings
 local options = {
@@ -867,6 +867,8 @@ lazy.setup({
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
+        commit = "b356f2c",
+        pin = true,
         dependencies = {
             -- completion sources
             "hrsh7th/cmp-buffer",
@@ -876,11 +878,6 @@ lazy.setup({
             "hrsh7th/cmp-nvim-lsp-signature-help",
             "petertriho/cmp-git",
             "uga-rosa/cmp-dictionary",
-
-            -- snippets
-            "saadparwaiz1/cmp_luasnip",
-            {"L3MON4D3/LuaSnip", build = "make install_jsregexp"},
-            "rafamadriz/friendly-snippets",
 
             -- Chinese input method
             "yehuohan/cmp-im",
@@ -893,7 +890,6 @@ lazy.setup({
         config = function()
             local cmp = require("cmp")
             local compare = require("cmp.config.compare")
-            local luasnip = require("luasnip")
 
             require("cmp_im").setup({
                 tables = require("cmp_im_zh").tables({ "wubi", "pinyin" })
@@ -923,24 +919,10 @@ lazy.setup({
                 end
             end, { desc = "Toggle Chinese input method" })
 
-            local has_words_before = function()
-                if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
-            end
-
-            -- load snippets
-            require("luasnip/loaders/from_vscode").lazy_load()
-
             -- cmp_r
             require("cmp_r").setup()
 
             cmp.setup({
-                snippet = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
-                    end
-                },
                 mapping = {
                     ['<C-p>'] = cmp.mapping.select_prev_item(),
                     ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -953,26 +935,6 @@ lazy.setup({
                         c = cmp.mapping.close()
                     }),
                     ["<CR>"] = cmp.mapping.confirm({ select = false }),
-                    ["<Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() and has_words_before() then
-                            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                        elseif luasnip.expand_or_jumpable() then
-                            luasnip.expand_or_jump()
-                        elseif has_words_before() then
-                            cmp.complete()
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }),
-                    ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        if luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
-                        elseif cmp.visible() then
-                            cmp.select_prev_item()
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }),
                     ['<Space>'] = cmp.mapping(require("cmp_im").select(), { 'i' })
                 },
                 sources = cmp.config.sources({
@@ -982,7 +944,6 @@ lazy.setup({
                     { name = "cmp_r"},
                     { name = "nvim_lsp" },
                     { name = "nvim_lsp_signature_help" },
-                    { name = "luasnip" },
                     { name = "nvim_lua" },
                     { name = "git" },
                     { name = "dictionary", keyword_length = 2 },
@@ -1025,7 +986,6 @@ lazy.setup({
                             copilot  = "[Copilot]",
                             cmp_r    = "[R]",
                             nvim_lsp = "[LSP]",
-                            luasnip  = "[Snippet]",
                             buffer   = "[Buffer]",
                             path     = "[Path]",
                             IM       = "[IM]",
@@ -1049,7 +1009,7 @@ lazy.setup({
                     }
                 },
                 experimental = {
-                    ghost_text = { hl_group = "LspCodeLens" },
+                    ghost_text = { hl_group = "CmpGhostText" },
                     native_menu = false
                 }
             })
