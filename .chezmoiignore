@@ -30,6 +30,7 @@ scoop
 .config/yabai
 .config/sketchybar
 .config/skhd
+Library
 
 {{ end }}
 
@@ -52,6 +53,7 @@ scoop
 .config/sketchybar
 .config/skhd
 .config/yazi
+Library
 
 # Windows ones located in AppData or LocalAppData
 .config/nvim
