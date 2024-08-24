@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-07-30 20:46
+-- Last Modified: 2024-08-13 00:49
 
 -- Basic Settings
 local options = {
@@ -1106,6 +1106,16 @@ lazy.setup({
                 vim.keymap.set("n", "K",  vim.lsp.buf.hover, { buffer = bufnr, desc = "Lsp: Hover" })
                 vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Previous diagnostic" })
                 vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Next diagnostic" })
+
+                -- rustaceanvim specific
+                if client.name == "rust-analyzer" then
+                    vim.keymap.set("n", "<LocalLeader>rr", function() vim.cmd.RustLsp("run") end, { buffer = bufnr, desc = "Rust: Run" })
+                    vim.keymap.set("n", "<LocalLeader>xm", function() vim.cmd.RustLsp("expandMacro") end, { buffer = bufnr, desc = "Rust: Expand macros" })
+                    vim.keymap.set("n", "ga", function() vim.cmd.RustLsp('codeAction') end, { buffer = bufnr, desc = "Rust: Code actions" })
+                    vim.keymap.set("n", "<LocalLeader>oc", function() vim.cmd.RustLsp('openCargo') end, { buffer = bufnr, desc = "Rust: Open Cargo.toml" })
+                    vim.keymap.set("n", "<LocalLeader>rh", function() vim.cmd.RustLsp('openDocs') end, { buffer = bufnr, desc = "Rust: Open docs under the cursor" })
+                    vim.keymap.set({"n", "v"}, "<LocalLeader>j", function() vim.cmd.RustLsp('joinLines') end, { buffer = bufnr, desc = "Rust: Join lines" })
+                end
 
                 -- <Leader>l[sp]
                 vim.keymap.set("n", "<Leader>lh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { buffer = bufnr, desc = "Lsp: Toggle inlay hints" })
