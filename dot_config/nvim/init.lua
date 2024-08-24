@@ -489,7 +489,6 @@ lazy.setup({
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
-        dependencies = "SmiteshP/nvim-navic",
         config = function()
             require("lualine").setup({
                 options = {
@@ -518,19 +517,7 @@ lazy.setup({
                             colored = true,
                         }
                     },
-                    lualine_c = {
-                        {
-                            function()
-                                local navic = require("nvim-navic")
-                                local ret = navic.get_location()
-                                return ret:len() > 2000 and "navic error" or ret
-                            end,
-                            cond = function()
-                                local navic = require("nvim-navic")
-                                return navic.is_available()
-                            end
-                        }
-                    },
+                    lualine_c = {},
                     lualine_x = {
                         {
                             "diff",
@@ -1039,13 +1026,6 @@ lazy.setup({
             require("glance").setup()
         end
     },
-    {
-        "SmiteshP/nvim-navic",
-        config = function()
-            vim.g.navic_silence = true
-            require("nvim-navic").setup({ separator = " ", highlight = true, depth_limit = 5 })
-        end,
-    },
     { "williamboman/mason.nvim", build = ":MasonUpdate", config = true },
     { "williamboman/mason-lspconfig.nvim", config = true },
     {
@@ -1121,7 +1101,6 @@ lazy.setup({
             local diagnostics_active = true
             local diagnostics_virtual = true
             local on_attach = function(client, bufnr)
-                require("nvim-navic").attach(client, bufnr)
                 vim.keymap.set("n", "gpi", "<cmd>Glance implementations<CR>", { buffer = bufnr, desc = "Glance: Preview implementations" })
                 vim.keymap.set("n", "gpr", "<cmd>Glance references<CR>", { buffer = bufnr, desc = "Glance: Preview references" })
                 vim.keymap.set("n", "gpd", "<cmd>Glance definitions<CR>", { buffer = bufnr, desc = "Glance: Preview definitions" })
