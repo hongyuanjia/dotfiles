@@ -734,15 +734,6 @@ lazy.setup({
         end
     },
     {
-        "simrat39/symbols-outline.nvim",
-        cmd = "SymbolsOutline",
-        keys = {
-            -- <Leader>l[ist]
-            { "<Leader>lo", "<cmd>SymbolsOutline<CR>", desc = "List symbols outline" }
-        },
-        config = true
-    },
-    {
         "4513ECHO/vim-snipewin",
         keys = {
             { "-", "<Plug>(snipewin)", "n", remap = true, desc = "Choose windows" }
@@ -1205,26 +1196,23 @@ lazy.setup({
     },
     {
         'mrcjkb/rustaceanvim',
-        version = '^4', -- Recommended
+        version = '^5', -- Recommended
         lazy = false, -- This plugin is already lazy
     },
     { "m-demare/hlargs.nvim", event = "VeryLazy", config = true },
     {
         "folke/trouble.nvim",
+        cmd = "Trouble",
         keys = {
-            -- <Leader>t[oggle]
-            { "<Leader>tt", "<cmd>TroubleToggle<CR>", desc = "Toggle Trouble" },
+            -- <Leader>t[rouble]
+            { "<Leader>tl", "<cmd>Trouble loclist toggle<CR>", desc = "Toggle: Open in Location List" },
+            { "<Leader>tq", "<cmd>Trouble quickfix toggle<CR>", desc = "Toggle: Open in Quickfix List" },
+            { "<Leader>td", "<cmd>Trouble diagnostics trouble filter.buf=0<CR>", desc = "Trouble: Buffer diagnostics" },
+            { "<Leader>tD", "<cmd>Trouble diagnostics toggle<CR>", desc = "Trouble: Workspace diagnostics" },
+            { "<Leader>tO", "<cmd>Trouble symbols toggle focus=false<CR>", desc = "Trouble: Symbols" },
 
             -- use trouble to replace gr
-            { "gr", "<cmd>TroubleToggle lsp_references<CR>", desc = "List references" },
-
-            -- <Leader>l[ist]
-            { "<Leader>ld", "<cmd>TroubleToggle document_diagnostics<CR>", desc = "Lsp: Buffer diagnostic" },
-            { "<Leader>lw", "<cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Lsp: Workspace diagnostic" },
-
-            -- <Leader>o[pen]
-            { "<Leader>oq", "<cmd>TroubleToggle quickfix<CR>", desc = "Open quickfix list" },
-            { "<Leader>ol", "<cmd>TroubleToggle loclist<CR>", desc = "Open location list"}
+            { "gr", "<cmd>Trouble lsp_references<CR>", desc = "Trouble: List references" },
         },
         opts = { use_diagnostic_signs = true }
     },
