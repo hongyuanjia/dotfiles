@@ -1,0 +1,8 @@
+[manager]
+prepend_keymap = [
+{{- if ne .chezmoi.os "windows" }}
+    { on = "<C-s>", run = 'shell "$SHELL" --block --confirm', desc = "Open shell here" }
+{{ else }}
+    { on = "<C-s>", run = 'shell "pwsh.exe --NoLogo" --block --confirm', desc = "Open shell here" }
+{{ end -}}
+]
