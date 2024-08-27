@@ -3,3 +3,12 @@
 [manager]
 sort_sensitive = false
 show_hidden    = true
+
+[opener]
+edit = [
+    { run = '${EDITOR:=vi} "$@"', block = true, desc = "$EDITOR", for = "unix" },
+    { run = 'nvim "%@"', block = true, desc = "neovim", for = "windows" }
+]
+reveal = [
+    { run = '"%LOCALAPPDATA%/TotalCMD64/TotalCMD64.exe" /O /P=L /L="%@"', orphan = true, desc = "Reveal (TotalCMD)", for = "windows" },
+]
