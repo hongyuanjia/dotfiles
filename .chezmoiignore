@@ -12,6 +12,7 @@ Documents
 scoop
 .config/komorebi
 .glaze-wm
+.glzr
 *.ahk
 *.ps1
 
