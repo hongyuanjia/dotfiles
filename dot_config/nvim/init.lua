@@ -154,9 +154,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("UpdateLastModified", {}),
     pattern = vim.fn.substitute(vim.fn.expand("$MYVIMRC"), "\\", "/", "g"),
     callback = function()
-        local bufnr = vim.api.nvim_get_current_buf()
         -- only update if $MYVIMRC is a lua file, modifiable, and has more than 8 lines
-        if vim.bo.filetype == "lua" and vim.api.nvim_buf_get_option(bufnr, "modifiable") and vim.fn.line("$") >= 8 then
+        if vim.bo.filetype == "lua" and vim.api.nvim_get_option_value("modifiable", {}) and vim.fn.line("$") >= 8 then
             os.setlocale("en_US.UTF-8")
             local time = os.date("%Y-%m-%d %H:%M")
             local l = 1
@@ -2079,9 +2078,9 @@ lazy.setup({
                     return ""
                 end
 
-                local path = vim.fn.fnamemodify(desc, ":p:h")
-                vim.notify("Using package DESCRIPTION in \"" .. path .. "\".")
-                return path:gsub("\\", "/")
+                local p = vim.fn.fnamemodify(desc, ":p:h")
+                vim.notify("Using package DESCRIPTION in \"" .. p .. "\".")
+                return p:gsub("\\", "/")
             end
             local r_dev_cmd = function(cmd)
                 local desc = r_dev_find_desc()
