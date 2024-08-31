@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-08-24 16:05
+-- Last Modified: 2024-08-31 16:13
 
 -- Basic Settings
 local options = {
@@ -407,9 +407,14 @@ lazy.setup({
     },
 
     -- chezmoi for dot file management
-    { "alker0/chezmoi.vim", lazy = false, init = function() vim.g['chezmoi#use_tmp_buffer'] = true end },
+    { "alker0/chezmoi.vim",
+        lazy = false,
+        init = function()
+            vim.g['chezmoi#use_tmp_buffer'] = true
+        end
+    },
 
-    -- start tim profile
+    -- start time profile
     { "tweekmonster/startuptime.vim", cmd = "StartupTime" },
 
     {
@@ -1690,11 +1695,20 @@ lazy.setup({
         },
     },
     {
-        "rolv-apneseth/tfm.nvim",
+        "mikavilpas/yazi.nvim",
+        event = "VeryLazy",
         -- <Leader>f[iles]
         keys = {
-            { "<Leader>fy", function() require("tfm").open() end, desc = "Open Yazi" },
+            { "<Leader>fy", "<cmd>Yazi<CR>", desc = "Open current file using yazi" },
+            { "<Leader>fd", "<cmd>Yazi cwd<CR>", desc = "Open CWD using yazi" },
+            { "<Leader>ft", "<cmd>Yazi toggle<CR>", desc = "Resume the last yazi session" },
         },
+        opts = {
+            open_for_directories = true,
+            keymaps = {
+                show_help = "g?"
+            }
+        }
     },
 
     -- Treesitter
