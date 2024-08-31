@@ -105,7 +105,11 @@ window_rules:
       - window_process: { equals: 'Lively' }
         window_class: { regex: 'HwndWrapper*' }
 
+      # Ignore Total Commander dialogs
       - window_class: { equals: 'TDLG2FILEACTIONMIN' }
+
+      # Ignore Synology Drive window
+      - window_process: { equals: 'cloud-drive-ui' }
 
   - commands: ['move --workspace 1']
     match:
