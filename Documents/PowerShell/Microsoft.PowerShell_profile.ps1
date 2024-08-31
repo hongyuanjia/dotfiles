@@ -98,7 +98,7 @@ if (Get-Command yazi -ErrorAction SilentlyContinue | Test-Path) {
         $env:YAZI_FILE_ONE = $file_one
     }
 
-    function ya {
+    function yy {
         $tmp = [System.IO.Path]::GetTempFileName()
             yazi $args --cwd-file="$tmp"
             $cwd = Get-Content -Path $tmp
