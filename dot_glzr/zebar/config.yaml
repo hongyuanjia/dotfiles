@@ -124,12 +124,6 @@ window/bar:
           <i class="tiling-direction nf nf-md-swap_vertical"></i>
         }
 
-    template/memory:
-      providers: ['memory']
-      template: |
-        <i class="nf nf-fae-chip"></i>
-        {{ Math.round(memory.usage) }}%
-
     template/cpu:
       providers: ['cpu']
       styles: |
@@ -145,3 +139,9 @@ window/bar:
         } @else {
           <span>{{ Math.round(cpu.usage) }}%</span>
         }
+
+    template/memory:
+      providers: ['memory']
+      template: |
+        <i class="nf nf-fae-chip"></i>
+        {{ Math.round(memory.usage) }}%
