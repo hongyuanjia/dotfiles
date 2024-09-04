@@ -111,6 +111,12 @@ window_rules:
       # Ignore Synology Drive window
       - window_process: { equals: 'cloud-drive-ui' }
 
+      # Ignore the WerFault error window
+      - window_process: { equals: 'werfault'}
+
+      # Ignore PotPlayer
+      - window_process: { equals: 'PotPlayerMini64'}
+
   - commands: ['move --workspace 1']
     match:
       - window_process: { equals: 'firefox'}
