@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-08-31 16:13
+-- Last Modified: 2024-09-13 14:45
 
 -- Basic Settings
 local options = {
@@ -2217,19 +2217,6 @@ lazy.setup({
             config = {
                 repl_open_cmd = "horizontal bot 10 split",
                 repl_definition = {
-                    python = {
-                        command = function()
-                            -- activate virtual environment if available
-                            if vim.fn.isdirectory(".venv") ~= 0 then
-                                if string.lower(jit.os) == "windows" then
-                                    return {".venv\\Scripts\\activate.bat", "&&", "python"}
-                                    -- return {"cmd", "/k", ".venv\\Scripts\\activate.bat"}
-                                else
-                                    return {".venv/Scripts/activate", "&&", "python"}
-                                end
-                            end
-                        end,
-                    },
                     R = {
                         command = "R"
                     }
