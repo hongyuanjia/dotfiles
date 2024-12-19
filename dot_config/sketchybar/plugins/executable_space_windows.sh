@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 if [ "$SENDER" = "space_windows_change" ]; then
-    space="$(echo "$INFO" | jq -r '.space')"
-    apps="$(echo "$INFO" | jq -r '.apps | keys[]')"
+    sid="$(aerospace list-workspaces --focused)"
+    apps="$(aerospace list-windows --workspace $sid | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}' | sort -u)"
 
     icon_strip=" "
     if [ "${apps}" != "" ]; then
@@ -14,5 +14,5 @@ if [ "$SENDER" = "space_windows_change" ]; then
         icon_strip=" —"
     fi
 
-    sketchybar --set space.$space label="$icon_strip"
+    sketchybar --set space.$sid label="$icon_strip"
 fi
