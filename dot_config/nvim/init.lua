@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-09-13 14:45
+-- Last Modified: 2024-10-20 15:54
 
 -- Basic Settings
 local options = {
@@ -254,7 +254,7 @@ vim.keymap.set("n", "<Leader>fR", "<cmd>source $MYVIMRC<CR>", { desc = "Source $
 vim.keymap.set("n", "<Leader>fv", "<cmd>e $MYVIMRC<CR>",      { desc = "Edit $MYVIMRC" })
 
 -- <Leader>o[pen]
-vim.keymap.set("n", "<Leader>oq", "<cmd>qopen<CR>", { desc = "Open quickfix list"})
+vim.keymap.set("n", "<Leader>oq", "<cmd>copen<CR>", { desc = "Open quickfix list"})
 vim.keymap.set("n", "<Leader>ol", "<cmd>lopen<CR>", { desc = "Open location list"})
 
 -- <Leader>t[ab]
