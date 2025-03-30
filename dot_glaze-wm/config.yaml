@@ -130,6 +130,9 @@ window_rules:
   - command: "move to workspace 5"
     match_process_name: "POWERPNT"
 
+  - command: "ignore"
+    match_process_name: "Flow.Launcher"
+
 binding_modes:
   - name: "resize"
     keybindings:
