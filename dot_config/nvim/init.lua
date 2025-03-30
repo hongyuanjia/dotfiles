@@ -2173,6 +2173,7 @@ lazy.setup({
     },
     {
         "Vigemus/iron.nvim",
+        cmd = { "IronRepl", "IronRestart", "IronFocus", "IronHide" },
         keys = {
             -- <Leader>r[epl]
             { "<Leader>rs", "<cmd>IronRepl<CR>",    desc = "Toggle REPL" },
