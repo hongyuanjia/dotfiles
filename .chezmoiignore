@@ -31,6 +31,7 @@ scoop
 .config/yabai
 .config/sketchybar
 .config/skhd
+.config/aerospace
 Library
 
 {{ end }}
@@ -54,6 +55,7 @@ Library
 .config/sketchybar
 .config/skhd
 .config/yazi
+.config/aerospace
 Library
 
 # Windows ones located in AppData or LocalAppData
