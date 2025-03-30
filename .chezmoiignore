@@ -10,11 +10,14 @@ choco.config
 AppData
 Documents
 scoop
-.config/komorebi
 .glaze-wm
 .glzr
 *.ahk
 *.ps1
+komorebi.bar.json
+komorebi.json
+applications.json
+.config/whkdrc
 
 # Linux specific
 {{ if eq .chezmoi.os "darwin" }}
