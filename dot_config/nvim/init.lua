@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2024-10-20 15:54
+-- Last Modified: 2025-03-29 11:22
 
 -- Basic Settings
 local options = {
@@ -841,176 +841,105 @@ lazy.setup({
         end,
     },
     {
-        "zbirenbaum/copilot-cmp",
-        config = function ()
-            require("copilot_cmp").setup()
-        end
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
     },
     {
-        "hrsh7th/nvim-cmp",
+        "giuxtaposition/blink-cmp-copilot",
+    },
+    {
+        'saghen/blink.cmp',
         event = "InsertEnter",
-        commit = "b356f2c",
-        pin = true,
         dependencies = {
-            -- completion sources
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
-            "petertriho/cmp-git",
-            "uga-rosa/cmp-dictionary",
-
-            -- Chinese input method
-            "yehuohan/cmp-im",
-            "yehuohan/cmp-im-zh",
-
-            -- R
-            "R-nvim/cmp-r"
-
+            'rafamadriz/friendly-snippets',
+            'giuxtaposition/blink-cmp-copilot',
         },
-        config = function()
-            local cmp = require("cmp")
-            local compare = require("cmp.config.compare")
-
-            require("cmp_im").setup({
-                tables = require("cmp_im_zh").tables({ "wubi", "pinyin" })
-            })
-            require("cmp_git").setup()
-
-            require("cmp_dictionary").setup({
-                dic = {
-                    ["*"] = vim.fn.expand(vim.fn.stdpath("data") .. "/dictionary/en.dict")
+        version = '*',
+        opts = {
+            keymap = { preset = "super-tab" },
+            sources = {
+                default = { "lazydev", "lsp", "path", "snippets", "buffer", "copilot", "lazydev" },
+                providers = {
+                    copilot = {
+                        name = "copilot",
+                        module = "blink-cmp-copilot",
+                        score_offset = 100,
+                        async = true,
+                        transform_items = function(_, items)
+                            local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+                            local kind_idx = #CompletionItemKind + 1
+                            CompletionItemKind[kind_idx] = "Copilot"
+                            for _, item in ipairs(items) do
+                                item.kind = kind_idx
+                            end
+                            return items
+                        end,
+                    },
+                    lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
                 },
-                async = true
-            })
-            require("cmp_dictionary").update()
-
-            local cmp_im_enabled = false
-            vim.keymap.set({"n", "v", "c", "i"}, "<M-;>", function()
-                cmp_im_enabled = not cmp_im_enabled
-                vim.notify(string.format("IM is %s", require("cmp_im").toggle() and "enabled" or "disabled"))
-                if cmp_im_enabled then
-                    for lhs, rhs in pairs(require("cmp_im_zh").symbols()) do
-                        vim.keymap.set("i", lhs, rhs)
-                    end
-                else
-                    for lhs, _ in pairs(require("cmp_im_zh").symbols()) do
-                        vim.keymap.del("i", lhs)
-                    end
-                end
-            end, { desc = "Toggle Chinese input method" })
-
-            -- cmp_r
-            require("cmp_r").setup()
-
-            cmp.setup({
-                mapping = {
-                    ['<C-p>'] = cmp.mapping.select_prev_item(),
-                    ['<C-n>'] = cmp.mapping.select_next_item(),
-                    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-                    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs( 4), { "i", "c" }),
-                    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-                    ["<C-y>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-                    ["<C-e>"] = cmp.mapping({
-                        i = cmp.mapping.abort(),
-                        c = cmp.mapping.close()
-                    }),
-                    ["<CR>"] = cmp.mapping.confirm({ select = false }),
-                    ['<Space>'] = cmp.mapping(require("cmp_im").select(), { 'i' })
+            },
+            signature = { enabled = true },
+            completion = {
+                menu = {
+                    draw = {
+                        columns = {
+                            { "label", "label_description", gap = 1 },
+                            { "kind_icon", "kind", gap = 1 }
+                        },
+                    },
                 },
-                sources = cmp.config.sources({
-                    -- Copilot Source
-                    { name = "copilot", group_index = 2 },
-                    { name = "IM"},
-                    { name = "cmp_r"},
-                    { name = "nvim_lsp" },
-                    { name = "nvim_lsp_signature_help" },
-                    { name = "nvim_lua" },
-                    { name = "git" },
-                    { name = "dictionary", keyword_length = 2 },
-                    { name = "buffer" },
-                    { name = "path" }
-                }),
-                formatting = {
-                    fields = { "kind", "abbr", "menu" },
-                    format = function(entry, vim_item)
-                        local kind_icons = {
-                            Text          = "󰊄",
-                            Method        = "m",
-                            Function      = "󰊕",
-                            Constructor   = "",
-                            Field         = "",
-                            Variable      = "",
-                            Class         = "",
-                            Interface     = "",
-                            Module        = "",
-                            Property      = "",
-                            Unit          = "",
-                            Value         = "",
-                            Enum          = "",
-                            Keyword       = "",
-                            Snippet       = "",
-                            Color         = "",
-                            File          = "",
-                            Reference     = "",
-                            Folder        = "",
-                            EnumMember    = "",
-                            Constant      = "",
-                            Struct        = "",
-                            Event         = "",
-                            Operator      = "",
-                            TypeParameter = "",
-                            Copilot       = ""
-                        }
-                        vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-                        vim_item.menu = ({
-                            copilot  = "[Copilot]",
-                            cmp_r    = "[R]",
-                            nvim_lsp = "[LSP]",
-                            buffer   = "[Buffer]",
-                            path     = "[Path]",
-                            IM       = "[IM]",
-                        })[entry.source.name]
-                        return vim_item
-                    end
-                },
-                sorting = {
-                    priority_weight = 2,
-                    comparators = {
-                        compare.sort_text,
-                        compare.exact,
-                        require("copilot_cmp.comparators").prioritize,
-                        compare.score,
-                        compare.kind,
-                        compare.offset,
-                        compare.recently_used,
-                        compare.locality,
-                        compare.length,
-                        compare.order
-                    }
-                },
-                experimental = {
-                    ghost_text = { hl_group = "CmpGhostText" },
-                    native_menu = false
+                documentation = {
+                    auto_show = true
                 }
-            })
+            },
+            appearance = {
+                use_nvim_cmp_as_default = false,
+                nerd_font_variant = 'mono',
+                kind_icons = {
+                    Copilot = "",
+                    Text = '󰉿',
+                    Method = '󰊕',
+                    Function = '󰊕',
+                    Constructor = '󰒓',
 
-            cmp.setup.cmdline("/", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "buffer" }
-                }
-            })
+                    Field = '󰜢',
+                    Variable = '󰆦',
+                    Property = '󰖷',
 
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = "path" },
-                    { name = "cmdline" }
-                })
-            })
-        end
+                    Class = '󱡠',
+                    Interface = '󱡠',
+                    Struct = '󱡠',
+                    Module = '󰅩',
+
+                    Unit = '󰪚',
+                    Value = '󰦨',
+                    Enum = '󰦨',
+                    EnumMember = '󰦨',
+
+                    Keyword = '󰻾',
+                    Constant = '󰏿',
+
+                    Snippet = '󱄽',
+                    Color = '󰏘',
+                    File = '󰈔',
+                    Reference = '󰬲',
+                    Folder = '󰉋',
+                    Event = '󱐋',
+                    Operator = '󰪚',
+                    TypeParameter = '󰬛',
+                },
+            },
+        },
+        -- allows extending the providers array elsewhere in your config
+        -- without having to redefine it
+        opts_extend = { "sources.default" }
     },
 
     -- lsp
@@ -1027,14 +956,9 @@ lazy.setup({
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-            { "folke/neodev.nvim", config = true }
+             'saghen/blink.cmp' ,
         },
         config = function()
-            -- load neoconf before lspconfig
-            require("neoconf").setup()
-
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed = { "lua_ls" }
@@ -1156,7 +1080,7 @@ lazy.setup({
                 "force",
                 require("lspconfig.util").default_config,
                 {
-                    capabilities = require("cmp_nvim_lsp").default_capabilities()
+                    capabilities = require('blink.cmp').get_lsp_capabilities()
                 }
             )
             require("mason-lspconfig").setup_handlers({
@@ -1213,7 +1137,6 @@ lazy.setup({
         version = '^5', -- Recommended
         lazy = false, -- This plugin is already lazy
     },
-    { "m-demare/hlargs.nvim", event = "VeryLazy", config = true },
     {
         "folke/trouble.nvim",
         cmd = "Trouble",
@@ -1450,12 +1373,6 @@ lazy.setup({
                 check_ts = true,
                 disable_filetype = { "TelescopePrompt" }
             })
-
-            local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-            local cmp_status_ok, cmp = pcall(require, "cmp")
-            if cmp_status_ok then
-                cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
-            end
         end
     },
     { "terrortylor/nvim-comment",
