@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2025-03-29 11:22
+-- Last Modified: 2025-04-01 09:30
 
 -- Basic Settings
 local options = {
@@ -1903,9 +1903,6 @@ lazy.setup({
 
             local opts = {}
 
-            -- use two backticks to trigger the RMarkdown chunk completion
-            opts.rmdchunk = "``"
-
             -- remove the 'nobuflisted' from the default buffer_opts to list the R buffer
             opts.buffer_opts = "winfixwidth winfixheight"
 
@@ -1930,6 +1927,9 @@ lazy.setup({
 
             -- clear lines before sending code
             opts.clear_line = true
+
+            -- disable debug support
+            opts.debug = false
 
             -- {targets} related keymaps
             local r_set_keymap_targets = function(buffer)
