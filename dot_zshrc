@@ -107,3 +107,6 @@ function yy() {
 alias la="ls -la"
 alias cm=chezmoi
 alias lg=lazygit
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/hongyuanjia/.cache/lm-studio/bin"
