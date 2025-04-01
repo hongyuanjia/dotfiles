@@ -57,3 +57,6 @@ fi
 # alias
 alias la="ls -la"
 alias cm=chezmoi
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/hongyuanjia/.cache/lm-studio/bin"
