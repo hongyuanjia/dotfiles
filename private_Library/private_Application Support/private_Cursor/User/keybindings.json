@@ -1,0 +1,163 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "alt+cmd+b",
+    "command": "-r.runFromBeginningToLine",
+    "when": "editorTextFocus && editorLangId == 'r'"
+  },
+  {
+    "key": "alt+cmd+e",
+    "command": "-r.runFromLineToEnd",
+    "when": "editorTextFocus && editorLangId == 'r'"
+  },
+  {
+    "key": "cmd+i",
+    "command": "composerMode.agent"
+  },
+  {
+    "key": "h",
+    "command": "editor.action.scrollLeftHover",
+    "when": "editorHoverFocused"
+  },
+  {
+    "key": "j",
+    "command": "editor.action.scrollDownHover",
+    "when": "editorHoverFocused"
+  },
+  {
+    "key": "k",
+    "command": "editor.action.scrollUpHover",
+    "when": "editorHoverFocused"
+  },
+  {
+    "key": "l",
+    "command": "editor.action.scrollRightHover",
+    "when": "editorHoverFocused"
+  },
+  {
+    "key": "ctrl-u",
+    "command": "editor.action.pageUpHover",
+    "when": "editorHoverFocused"
+  },
+  {
+    "key": "ctrl-d",
+    "command": "editor.action.pageDownHover",
+    "when": "editorHoverFocused"
+  },
+  {
+    "key": ", d a",
+    "command": "r.loadAll",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r"
+  },
+  {
+    "key": ", d c",
+    "command": "r.check",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r"
+  },
+  {
+    "key": ", d d",
+    "command": "r.document",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r"
+  },
+  {
+    "key": ", d t",
+    "command": "r.test",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r"
+  },
+  {
+    "key": ", l",
+    "command": "r.runSelectionRetainCursor",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
+  },
+  {
+    "key": ", t b",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "traceback()"
+  },
+  {
+    "key": ", s q",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "Q"
+  },
+  {
+    "key": ", s c",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "c"
+  },
+  {
+    "key": ", s s",
+    "command": "r.runSelectionRetainCursor",
+    "when": "(vim.mode == 'Normal' || vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+  },
+  {
+    "key": ", r a",
+    "command": "r.runCommandWithSelectionOrWord",
+    "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "args($$)"
+  },
+  {
+    "key": ", r p",
+    "command": "r.runCommandWithSelectionOrWord",
+    "when": "(vim.mode == 'Normal' || vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "print($$)"
+  },
+  {
+    "key": ", r t",
+    "command": "r.runCommandWithSelectionOrWord",
+    "when": "(vim.mode == 'Normal' || vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "str($$)"
+  },
+  {
+    "key": ", r n",
+    "command": "r.names",
+    "when": "(vim.mode == 'Normal' || vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+  },
+  {
+    "key": ", r l",
+    "command": "r.length",
+    "when": "(vim.mode == 'Normal' || vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+  },
+  {
+    "key": ", r h",
+    "command": "r.helpPanel.openForSelection",
+    "when": "(vim.mode == 'Normal') && (editorLangId =~ /r|rmd|qmd/ && editorTextFocus)",
+  },
+  {
+    "key": ", r f",
+    "command": "r.attachActive",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
+  },
+  {
+    "key": ", r q",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "q()"
+  },
+  {
+    "key": "alt+-",
+    "command": "type",
+    "when": "(vim.mode == 'Insert') && (editorLangId =~ /r|rmd|qmd/ && editorTextFocus)",
+    "args": {
+      "text": " <- "
+    }
+  },
+  {
+    "key": "alt+=",
+    "command": "type",
+    "when": "(vim.mode == 'Insert') && (editorLangId =~ /r|rmd|qmd/ && editorTextFocus)",
+    "args": {
+      "text": " %>% "
+    }
+  },
+  {
+    "key": "alt+\\",
+    "command": "type",
+    "when": "(vim.mode == 'Insert') && (editorLangId =~ /r|rmd|qmd/ && editorTextFocus)",
+    "args": {
+      "text": " |> "
+    }
+  },
+]
