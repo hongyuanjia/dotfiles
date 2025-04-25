@@ -76,6 +76,36 @@
     "args": "traceback()"
   },
   {
+    "key": ", t m",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "targets::tar_make()"
+  },
+  {
+    "key": ", t shift+m",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "targets::tar_make(callr_function = NULL)"
+  },
+  {
+    "key": ", t r",
+    "command": "r.runCommandWithSelectionOrWord",
+    "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "targets::tar_load($$)"
+  },
+  {
+    "key": ", t p",
+    "command": "r.runCommandWithSelectionOrWord",
+    "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "targets::tar_read($$)"
+  },
+  {
+    "key": ", t l",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "targets::tar_source()"
+  },
+  {
     "key": ", s q",
     "command": "r.runCommand",
     "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
