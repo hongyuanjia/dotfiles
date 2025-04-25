@@ -4,7 +4,6 @@
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "window.openFilesInNewWindow": "off",
     "workbench.editor.openPositioning": "last",
-    "window.commandCenter": true,
     "explorer.confirmDelete": false,
     "workbench.iconTheme": "material-icon-theme",
     "editor.formatOnSave": true,
@@ -398,6 +397,16 @@
         {
             "before": [
                 "<leader>",
+                "w",
+                "m"
+            ],
+            "commands": [
+                "workbench.action.toggleMaximizeEditorGroup",
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
                 "f",
                 "s"
             ],
@@ -611,4 +620,6 @@
         },
     ],
     "svelte.enable-ts-plugin": true,
+    "workbench.navigationControl.enabled": false,
+    "workbench.layoutControl.enabled": false,
 }
