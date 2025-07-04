@@ -1,5 +1,5 @@
 {
-  "LastIndexTime": "2024-01-11T11:57:14.2682533+08:00",
+  "LastIndexTime": "2025-07-02T20:11:12.9757741+08:00",
   "ProgramSources": [
     {
       "Location": "C:\\Users\\hongy\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Scoop Apps",
@@ -29,5 +29,6 @@
   "HideUninstallers": false,
   "EnableRegistrySource": true,
   "EnablePathSource": false,
-  "EnableUWP": true
+  "EnableUWP": true,
+  "HideDuplicatedWindowsApp": false
 }

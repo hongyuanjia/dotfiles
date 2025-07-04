@@ -25,6 +25,7 @@
   "ShowFileSizeInPreviewPanel": true,
   "ShowCreatedDateInPreviewPanel": true,
   "ShowModifiedDateInPreviewPanel": true,
+  "ShowFileAgeInPreviewPanel": false,
   "PreviewPanelDateFormat": "yyyy-MM-dd",
   "PreviewPanelTimeFormat": "HH:mm",
   "IndexSearchEngine": 1,
@@ -34,5 +35,6 @@
   "SortOption": 1,
   "EnableEverythingContentSearch": false,
   "EverythingEnabled": true,
-  "EverythingSearchFullPath": true
+  "EverythingSearchFullPath": true,
+  "EverythingEnableRunCount": true
 }
