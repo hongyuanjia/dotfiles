@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2025-04-01 09:30
+-- Last Modified: 2025-07-04 23:15
 
 -- Basic Settings
 local options = {
@@ -956,17 +956,13 @@ lazy.setup({
         "neovim/nvim-lspconfig",
         event = "BufReadPre",
         dependencies = {
-             'saghen/blink.cmp' ,
+             "saghen/blink.cmp" ,
         },
         config = function()
-            require("mason").setup()
-            require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls" }
-            })
             local lspconfig = require("lspconfig")
 
             -- custom namespace
-            local ns_diag = vim.api.nvim_create_namespace('severe-diagnostics')
+            local ns_diag = vim.api.nvim_create_namespace("severe-diagnostics")
 
             -- reference to the original handler
             local orig_signs_handler = vim.diagnostic.handlers.signs
@@ -1075,54 +1071,38 @@ lazy.setup({
                 )
             end
 
-            -- add lsp auto-completion source
-            require("lspconfig.util").default_config = vim.tbl_extend(
-                "force",
-                require("lspconfig.util").default_config,
-                {
-                    capabilities = require('blink.cmp').get_lsp_capabilities()
-                }
-            )
-            require("mason-lspconfig").setup_handlers({
-                function(server_name)
-                    require("lspconfig")[server_name].setup({ on_attach = on_attach })
-                end,
-
-                -- lua
-                ["lua_ls"] = function()
-                    lspconfig.lua_ls.setup({
-                        on_attach = on_attach,
-                        settings = {
-                            Lua = {
-                                runtime = {
-                                    version = "LuaJIT",
-                                    special = {
-                                        reload = "require"
-                                    }
-                                },
-                                completion = { callSnippet = "Replace" },
-                                diagnostics = {
-                                    globals = { "vim" }
-                                },
-                                workspace = {
-                                    library = {
-                                        vim.fn.expand("$VIMRUNTIME")
-                                    },
-                                    maxPreload = 5000,
-                                    preloadFileSize = 10000,
-                                    -- Diable the message "Do you need to configure your environment as luassert"
-                                    checkThirdParty = false
-                                },
-                                telemetry = {
-                                    enable = false
-                                }
+            lspconfig.lua_ls.setup({
+                on_attach = on_attach,
+                capabilities = vim.lsp.protocol.make_client_capabilities(),
+                flags = {
+                    debounce_text_changes = 150
+                },
+                settings = {
+                    Lua = {
+                        runtime = {
+                            version = "LuaJIT",
+                            special = {
+                                reload = "require"
                             }
+                        },
+                        completion = { callSnippet = "Replace" },
+                        diagnostics = {
+                            globals = { "vim" }
+                        },
+                        workspace = {
+                            library = {
+                                vim.fn.expand("$VIMRUNTIME")
+                            },
+                            maxPreload = 5000,
+                            preloadFileSize = 10000,
+                            -- Diable the message "Do you need to configure your environment as luassert"
+                            checkThirdParty = false
+                        },
+                        telemetry = {
+                            enable = false
                         }
-                    })
-                end,
-
-                -- rust
-                ['rust_analyzer'] = function() end,
+                    }
+                }
             })
 
             vim.g.rustaceanvim = {
@@ -1130,11 +1110,21 @@ lazy.setup({
                     on_attach = on_attach
                 }
             }
+
+            vim.lsp.config("*", {
+                on_attach = on_attach,
+                capabilities = vim.lsp.protocol.make_client_capabilities()
+            })
+
+            require("mason").setup()
+            require("mason-lspconfig").setup({
+                ensure_installed = { "lua_ls" }
+            })
         end
     },
     {
-        'mrcjkb/rustaceanvim',
-        version = '^5', -- Recommended
+        "mrcjkb/rustaceanvim",
+        version = "^5", -- Recommended
         lazy = false, -- This plugin is already lazy
     },
     {
@@ -1185,25 +1175,14 @@ lazy.setup({
         },
 
         config = function()
-            require ('mason-nvim-dap').setup({
-                ensure_installed = {'stylua', 'jq'},
+            require ("mason-nvim-dap").setup({
+                automatic_installation = true,
+                ensure_installed = {"stylua", "jq"},
                 handlers = {}, -- sets up dap in the predefined manner
             })
 
             vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-
-            -- setup dap config by VsCode launch.json file
-            local vscode = require("dap.ext.vscode")
-            local json = require("plenary.json")
-            vscode.json_decode = function(str)
-                return vim.json.decode(json.json_strip_comments(str))
-            end
-
-            -- Extends dap.configurations with entries read from .vscode/launch.json
-            if vim.fn.filereadable(".vscode/launch.json") then
-                vscode.load_launchjs()
-            end
-        end,
+        end
     },
     -- fancy UI for the debugger
     {
