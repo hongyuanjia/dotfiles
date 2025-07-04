@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 prepend_keymap = [
 {{- if ne .chezmoi.os "windows" }}
     { on = "<C-s>", run = 'shell "$SHELL" --block --confirm', desc = "Open shell here" }
