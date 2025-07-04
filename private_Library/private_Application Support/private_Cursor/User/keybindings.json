@@ -1,6 +1,16 @@
 // Place your key bindings in this file to override the defaults
 [
   {
+    "key": "ctrl+n",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "inQuickOpen"
+  },
+  {
     "key": "alt+cmd+b",
     "command": "-r.runFromBeginningToLine",
     "when": "editorTextFocus && editorLangId == 'r'"
