@@ -27,4 +27,4 @@ customCommands:
     command: "git fetch --prune"
     context: "remoteBranches"
     description: "Prune remote brances"
-    stream: true
+    output: log
