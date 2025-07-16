@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2025-07-04 23:18
+-- Last Modified: 2025-07-05 17:11
 
 -- Basic Settings
 local options = {
@@ -1917,6 +1917,15 @@ lazy.setup({
                 vim.keymap.set("n", "<LocalLeader>tM", "<cmd>lua require('r.send').cmd('targets::tar_make(callr_function = NULL)')<CR>", { buffer = buf, desc = "Make targets in current session" })
                 vim.keymap.set("n", "<LocalLeader>tf", "<cmd>lua require('r.send').cmd('targets::tar_make(use_crew = TRUE)')<CR>", { buffer = buf, desc = "Make targets in parallel" })
                 vim.keymap.set("n", "<LocalLeader>tp", "<cmd>lua require('r.run').action('targets::tar_read')<CR>", { buffer = buf, desc = "Print target under cursor" })
+                vim.keymap.set("n", "<LocalLeader>tt",
+                    function()
+                        local word = vim.fn.expand("<cword>")
+                        local cmd = "targets::tar_unblock_process(store = '_targets')"
+                        cmd = cmd .. "; targets::tar_make('" .. word .."', callr_function = NULL, use_crew = FALSE, as_job = FALSE)"
+                        require("r.send").cmd(cmd)
+                    end,
+                    { buffer = buf, desc = "Make target under cursor" }
+                )
                 vim.keymap.set("n", "<LocalLeader>tr",
                     function()
                         local word = vim.fn.expand("<cword>")
@@ -1937,6 +1946,7 @@ lazy.setup({
                 vim.keymap.set("n", "<LocalLeader>sq", "<cmd>lua require('r.send').cmd('Q')<CR>", { buffer = buf, desc = "Send 'Q' in debug mode" })
                 vim.keymap.set("n", "<LocalLeader>sc", "<cmd>lua require('r.send').cmd('c')<CR>", { buffer = buf, desc = "Send 'c' in debug mode" })
                 vim.keymap.set("n", "<LocalLeader>sn", "<cmd>lua require('r.send').cmd('n')<CR>", { buffer = buf, desc = "Send 'n' in debug mode" })
+                vim.keymap.set("n", "<LocalLeader>vp", "<cmd>lua require('r.send').cmd('print(.Last.value, n = Inf)')<CR>", { buffer = buf, desc = "Print .Last.value with maximum rows" })
 
                 -- check if TotalCMD is installed
                 local totalcmd = require("plenary.path").new(vim.env.LOCALAPPDATA, "TotalCMD64", "TotalCMD64.exe")
