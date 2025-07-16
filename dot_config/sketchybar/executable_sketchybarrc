@@ -41,16 +41,25 @@ for sid in $(aerospace list-workspaces --all); do
                      label.y_offset=-1                             \
                      click_script="aerospace workspace $sid"       \
                      script="$PLUGIN_DIR/space.sh $sid"
+
+    apps=$(aerospace list-windows --format %{app-name} --workspace "$sid" | sort -u)
+    icon_strip=""
+    if [ "${apps}" != "" ]; then
+        while read -r app; do
+            icon_strip+=" $($CONFIG_DIR/plugins/icon_map.sh "$app")"
+        done <<<"${apps}"
+        sketchybar --set space.$sid drawing=on label="$icon_strip"
+    fi
 done
 
-sketchybar --add item space_separator left                             \
-           --set space_separator icon="􀆊"                              \
-                                 icon.color=$ACCENT_COLOR              \
-                                 icon.padding_left=4                   \
-                                 label.drawing=off                     \
-                                 background.drawing=off                \
-                                 script="$PLUGIN_DIR/space_windows.sh" \
-           --subscribe space_separator space_windows_change
+sketchybar --add item space_windows left                             \
+           --set space_windows icon="􀆊"                              \
+                               icon.color=$ACCENT_COLOR              \
+                               icon.padding_left=4                   \
+                               label.drawing=off                     \
+                               background.drawing=off                \
+                               script="$PLUGIN_DIR/space_windows.sh" \
+           --subscribe space_windows aerospace_workspace_change space_windows_change
 
 sketchybar --add item front_app left                                         \
            --set front_app      background.color=$ACCENT_COLOR               \
@@ -60,4 +69,5 @@ sketchybar --add item front_app left                                         \
                                 script="$PLUGIN_DIR/front_app.sh"            \
            --subscribe front_app front_app_switched
 
+sketchybar --hotload on
 sketchybar --update

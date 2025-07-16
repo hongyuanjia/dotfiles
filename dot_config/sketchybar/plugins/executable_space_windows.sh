@@ -1,18 +1,30 @@
 #!/usr/bin/env bash
 
-if [ "$SENDER" = "space_windows_change" ]; then
-    sid="$(aerospace list-workspaces --focused)"
-    apps="$(aerospace list-windows --workspace $sid | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}' | sort -u)"
-
-    icon_strip=" "
-    if [ "${apps}" != "" ]; then
+if [ "$SENDER" = "aerospace_workspace_change" ]; then
+    prevapps=$(aerospace list-windows --format %{app-name} --workspace "$PREV_WORKSPACE" | sort -u)
+    if [ "${prevapps}" != "" ]; then
+        icon_strip=""
         while read -r app
         do
             icon_strip+=" $($CONFIG_DIR/plugins/icon_map.sh "$app")"
-        done <<< "${apps}"
+        done <<< "${prevapps}"
+        sketchybar --set space."$PREV_WORKSPACE" label="$icon_strip" drawing=on
     else
-        icon_strip=" —"
+        sketchybar --set space."$PREV_WORKSPACE" drawing=off
     fi
-
-    sketchybar --set space.$sid label="$icon_strip"
+else
+    FOCUSED_WORKSPACE="$(aerospace list-workspaces --focused)"
 fi
+
+apps=$(aerospace list-windows --format %{app-name} --workspace "$FOCUSED_WORKSPACE" | sort -u)
+icon_strip=""
+if [ "${apps}" != "" ]; then
+    while read -r app
+    do
+        icon_strip+=" $("$CONFIG_DIR"/plugins/icon_map.sh "$app")"
+    done <<< "${apps}"
+else
+    icon_strip="—"
+fi
+
+sketchybar --set space."$FOCUSED_WORKSPACE" label="$icon_strip" drawing=on
