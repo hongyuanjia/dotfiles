@@ -101,7 +101,7 @@
     "key": ", t t",
     "command": "r.runCommandWithSelectionOrWord",
     "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
-    "args": "targets::tar_make(names = '$$')"
+    "args": "targets::tar_unblock_process(store = '_targets'); targets::tar_make(names = '$$', callr_function = NULL, use_crew = FALSE, as_job = FALSE)"
   },
   {
     "key": ", t r",
