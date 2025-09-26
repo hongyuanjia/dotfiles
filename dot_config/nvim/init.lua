@@ -5,7 +5,7 @@
 --
 --
 -- Author: @hongyuanjia
--- Last Modified: 2025-07-05 17:11
+-- Last Modified: 2025-09-26 11:44
 
 -- Basic Settings
 local options = {
@@ -1712,6 +1712,13 @@ lazy.setup({
         end
     },
     { "pwntester/octo.nvim", config = true, cmd = { "Octo" } },
+    { 
+        "tpope/vim-fugitive",
+        cmd = { "Git", "Gdiffsplit"},
+        keys = {
+            { "<Leader>gd", "<cmd>Gdiffsplit<CR>" }
+        }
+    },
 
     -- WhichKey
     {
