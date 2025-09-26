@@ -755,69 +755,26 @@ lazy.setup({
 
     -- session management
     {
-        "natecraddock/sessions.nvim",
-        cmd = { "SessionsLoad", "SessionsStop", "SessionsSave" },
-        init = function()
-            vim.keymap.set("n", "<Leader>Ss", function()
-                -- detect if an R terminal is started by NVim-R
-                if vim.g.rplugin and vim.g.rplugin.R_bufnr then
-                    -- quite R sessions
-                    vim.call("RQuit", "nosave")
-                    -- delete the buffer
-                    vim.cmd("bdelete " .. vim.g.rplugin.R_bufnr)
-                end
-                vim.ui.input(
-                    {
-                        prompt = "Session Name > ",
-                        default = nil
-                    },
-                    function(input)
-                        if input and input ~= "" then
-                            require("sessions").save(input)
-                        end
-                    end
-                )
-            end,
-            { desc = "Session save" }
-            )
-            vim.keymap.set("n", "<Leader>Sl", function() require("sessions").load() end, { desc = "Session load" })
-        end,
+        "folke/persistence.nvim",
+        event = "BufReadPre",
+        keys = {
+            -- load the session for the current directory
+            { "<leader>Ss", mode = "n", function() require("persistence").load() end },
+
+            -- select a session to load
+            { "<leader>SS", mode = "n", function() require("persistence").select() end },
+
+            -- load the last session
+            { "<leader>Sl", mode = "n", function() require("persistence").load({ last = true }) end },
+
+            -- stop Persistence => session won't be saved on exit
+            { "<leader>Sd", mode = "n", function() require("persistence").stop() end }
+        },
         opts = {
-            session_filepath = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions"),
-            absolute = true
+            dir = vim.fn.stdpath("state") .. "/sessions/",
+            need = 1,
+            branch = true
         }
-    },
-    {
-        "natecraddock/workspaces.nvim",
-        init = function()
-            vim.keymap.set("n", "<Leader>pa", function()
-                vim.ui.input(
-                    {
-                        prompt = "Project Name > ",
-                        default = nil
-                    },
-                    function(input)
-                        if input and input ~= "" then
-                            require("workspaces").add(input, nil)
-                        end
-                    end
-                )
-            end)
-            vim.keymap.set("n", "<Leader>pl", function() require("workspaces").list() end)
-            vim.keymap.set("n", "<Leader>ps", function() require("telescope").extensions.workspaces.workspaces() end )
-        end,
-        config = function()
-            require("workspaces").setup({
-                hooks = {
-                    open = function()
-                        if not require("sessions").load(nil, { silent = true }) then
-                            require("telescope.builtin").find_files()
-                        end
-                    end,
-                }
-            })
-            require("telescope").load_extension("workspaces")
-        end
     },
 
     -- autocompletion
