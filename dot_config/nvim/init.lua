@@ -1028,8 +1028,8 @@ lazy.setup({
                 vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Lsp: Code actions" })
                 vim.keymap.set("n", "gl", function() vim.diagnostic.open_float(nil, { scope = "line" }) end, { buffer = bufnr, desc = "Lsp: Current diagnostic" })
                 vim.keymap.set("n", "K",  vim.lsp.buf.hover, { buffer = bufnr, desc = "Lsp: Hover" })
-                vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Previous diagnostic" })
-                vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Next diagnostic" })
+                vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { buffer = bufnr, desc = "Lsp: Previous diagnostic" })
+                vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, { buffer = bufnr, desc = "Lsp: Next diagnostic" })
 
                 -- rustaceanvim specific
                 if client.name == "rust-analyzer" then
@@ -1045,8 +1045,8 @@ lazy.setup({
                 vim.keymap.set("n", "<Leader>lh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { buffer = bufnr, desc = "Lsp: Toggle inlay hints" })
                 vim.keymap.set("n", "<Leader>li", "<cmd>LspInfo<CR>", { buffer = bufnr, desc = "Lsp: Info" })
                 vim.keymap.set("n", "<Leader>lI", "<cmd>LspInstallInfo<CR>", { buffer = bufnr, desc = "Lsp: Install info" })
-                vim.keymap.set("n", "<Leader>lj", function() vim.diagnostic.goto_next({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Next diagnostic" })
-                vim.keymap.set("n", "<Leader>lk", function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, { buffer = bufnr, desc = "Lsp: Previous diagnostic" })
+                vim.keymap.set("n", "<Leader>lj", function() vim.diagnostic.jump({ count = -1, float = true }) end, { buffer = bufnr, desc = "Lsp: Previous diagnostic" })
+                vim.keymap.set("n", "<Leader>lk", function() vim.diagnostic.jump({ count = 1, float = true }) end, { buffer = bufnr, desc = "Lsp: Next diagnostic" })
                 vim.keymap.set("n", "<Leader>ll", vim.lsp.codelens.run, { buffer = bufnr, desc = "Lsp: Code lens" })
                 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Lsp: Code action" })
                 vim.keymap.set("n", "<Leader>lF", function() vim.lsp.buf.format{ timeout_ms = 10000 } end, { buffer = bufnr, desc = "Lsp: Format buffer" })
@@ -1716,7 +1716,7 @@ lazy.setup({
             vim.keymap.set("n", "]c",
                 function()
                     if vim.wo.diff then return ']c' end
-                    vim.schedule(function() require("gitsigns").next_hunk({ preview = true }) end)
+                    vim.schedule(function() require("gitsigns").nav_hunk('next', { preview = true }) end)
                     return '<Ignore>'
                 end,
                 { expr = true, desc = "Next diff" }
@@ -1724,22 +1724,21 @@ lazy.setup({
             vim.keymap.set("n", "[c",
                 function()
                     if vim.wo.diff then return '[c' end
-                    vim.schedule(function() require("gitsigns").prev_hunk({ preview = true }) end)
+                    vim.schedule(function() require("gitsigns").nav_hunk('prev', { preview = true }) end)
                     return '<Ignore>'
                 end,
                 { expr = true, desc = "Previous diff" }
             )
 
             -- <Leader>g[it]
-            vim.keymap.set("n", "<Leader>gj", function() require("gitsigns").next_hunk({ preview = true }) end, { desc = "Next hunk" })
-            vim.keymap.set("n", "<Leader>gk", function() require("gitsigns").prev_hunk({ preview = true }) end, { desc = "Previous hunk" })
+            vim.keymap.set("n", "<Leader>gj", function() require("gitsigns").nav_hunk('next', { preview = true }) end, { desc = "Next hunk" })
+            vim.keymap.set("n", "<Leader>gk", function() require("gitsigns").nav_hunk('prev', { preview = true }) end, { desc = "Previous hunk" })
             vim.keymap.set("n", "<Leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Stage hunk" })
             vim.keymap.set("v", "<Leader>gs", function() require("gitsigns").stage_hunk({vim.fn.line("."), vim.fn.line("v")}) end, { desc = "Stage selected" })
             vim.keymap.set("n", "<Leader>gr", function() require("gitsigns").reset_hunk() end, { desc = "Reset hunk" })
             vim.keymap.set("v", "<Leader>gr", function() require("gitsigns").reset_hunk({vim.fn.line("."), vim.fn.line("v")}) end, { desc = "Reset selected" })
             vim.keymap.set("n", "<Leader>gl", function() require("gitsigns").setloclist() end, { desc = "List all changes in location list" })
             vim.keymap.set("n", "<Leader>gp", function() require("gitsigns").preview_hunk() end, { desc = "Preview hunk" })
-            vim.keymap.set("n", "<Leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Undo stage hunk" })
             vim.keymap.set("n", "<Leader>gR", function() require("gitsigns").reset_buffer() end, { desc = "Reset buffer" })
             vim.keymap.set("n", "<Leader>gb", function() require("gitsigns").blame_line({ full = true }) end, { desc = "Blame line" })
 
