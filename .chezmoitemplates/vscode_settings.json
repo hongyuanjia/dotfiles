@@ -1,5 +1,7 @@
 {
+    "augment.chat.userGuidelines": "1. Always answer in Chinese, but code and code comments should always in English.\n2. Correct me if I am wrong.\n3. Do not use any emojis in code and comments.\n4. Do not create any summary documentation unless asked for.",
     "breadcrumbs.enabled": false,
+    "diffEditor.hideUnchangedRegions.enabled": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.accessibilitySupport": "off",
     "editor.cursorSurroundingLines": 1,
@@ -13,18 +15,23 @@
     "editor.minimap.enabled": false,
     "editor.overviewRulerBorder": false,
     "editor.renderWhitespace": "trailing",
+    "editor.rulers": [80,120],
     "editor.showFoldingControls": "never",
     "explorer.compactFolders": false,
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "explorer.decorations.badges": false,
     "extensions.ignoreRecommendations": true,
+    "extensions.experimental.affinity": {
+        "vscodevim.vim": 1
+    },
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "git.autofetch": true,
     "git.confirmSync": false,
     "git.decorations.enabled": false,
     "git.openRepositoryInParentFolders": "never",
+    "telemetry.feedback.enabled": false,
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "window.customTitleBarVisibility": "never",
     "window.openFilesInNewWindow": "off",
@@ -32,6 +39,7 @@
     "workbench.colorTheme": "Tokyo Night Storm",
     "workbench.editor.enablePreview": false,
     "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.editor.navigationScope": "editorGroup",
     "workbench.editor.openPositioning": "last",
     "workbench.editor.revealIfOpen": false,
     "workbench.editor.showTabs": "multiple",
@@ -80,9 +88,12 @@
         ".title .monaco-icon-label:after": "margin-right: 0",
     },
     "rust-analyzer.workspace.symbol.search.kind": "all_symbols",
+    "rust-analyzer.check.command": "clippy",
+{{- if contains "Cursor" .chezmoi.sourceFile }}
     "cursor.composer.shouldChimeAfterChatFinishes": true,
     "cursor.composer.shouldAllowCustomModes": true,
     "cursor.general.disableHttp2": true,
+{{- end }}
     "vim.easymotion": true,
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
@@ -222,6 +233,22 @@
                 "$"
             ]
         },
+        {
+            "before": [
+                "<C-o>"
+            ],
+            "commands": [
+                "workbench.action.navigateBack"
+            ]
+        },
+        {
+            "before": [
+                "<C-i>"
+            ],
+            "commands": [
+                "workbench.action.navigateForward"
+            ]
+        }
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
@@ -709,9 +736,11 @@
     ],
     "workbench.editor.decorations.badges": false,
     "workbench.editor.editorActionsLocation": "hidden",
-    "augment.chat.userGuidelines": "1. Always answer in Chinese.\n2. Correct me if I am wrong.\n3. Do not use emoji in code and comments.",
     "svelte.enable-ts-plugin": true,
     "remote.SSH.remotePlatform": {
         "Range": "linux"
     },
+{{- if contains "Cursor" .chezmoi.sourceFile }}
+    "extensions.gallery.serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
+{{- end }}
 }
