@@ -1,16 +1,88 @@
 {
-    "workbench.editor.revealIfOpen": false,
-    "workbench.editor.enablePreviewFromQuickOpen": false,
-    "window.openFilesInNewWindow": "off",
-    "workbench.editor.openPositioning": "last",
-    "explorer.confirmDelete": false,
-    "workbench.iconTheme": "material-icon-theme",
-    "rust-analyzer.workspace.symbol.search.kind": "all_symbols",
-    "editor.fontFamily": "'JetBrainsMono Nerd Font', Menlo, Monaco, 'Courier New', monospace",
+    "breadcrumbs.enabled": false,
+    "diffEditor.ignoreTrimWhitespace": false,
     "editor.accessibilitySupport": "off",
-    "workbench.colorTheme": "Tokyo Night Storm",
-    "editor.lineNumbers": "relative",
     "editor.cursorSurroundingLines": 1,
+    "editor.fontFamily": "'JetBrainsMono Nerd Font', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "editor.hideCursorInOverviewRuler": true,
+    "editor.hover.enabled": false,
+    "editor.lightbulb.enabled": "off",
+    "editor.lineNumbers": "relative",
+    "editor.minimap.enabled": false,
+    "editor.overviewRulerBorder": false,
+    "editor.renderWhitespace": "trailing",
+    "editor.showFoldingControls": "never",
+    "explorer.compactFolders": false,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.decorations.badges": false,
+    "extensions.ignoreRecommendations": true,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.decorations.enabled": false,
+    "git.openRepositoryInParentFolders": "never",
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "window.customTitleBarVisibility": "never",
+    "window.openFilesInNewWindow": "off",
+    "window.titleBarStyle": "native",
+    "workbench.colorTheme": "Tokyo Night Storm",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.editor.openPositioning": "last",
+    "workbench.editor.revealIfOpen": false,
+    "workbench.editor.showTabs": "multiple",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.layoutControl.enabled": false,
+    "workbench.navigationControl.enabled": false,
+    "workbench.startupEditor": "none",
+    "workbench.tips.enabled": false,
+    "workbench.tree.enableStickyScroll": false,
+    "workbench.tree.indent": 8,
+    "workbench.tree.renderIndentGuides": "none",
+    "workbench.colorCustomizations": {
+        "editorCursor.background": "#000000",
+        "editorOverviewRuler.wordHighlightStrongForeground": "#0000",
+        "editorOverviewRuler.selectionHighlightForeground": "#0000",
+        "editorOverviewRuler.rangeHighlightForeground": "#0000",
+        "editorOverviewRuler.wordHighlightForeground": "#0000",
+        "editorOverviewRuler.bracketMatchForeground": "#0000",
+        "editorOverviewRuler.findMatchForeground": "#0000",
+        "editorOverviewRuler.modifiedForeground": "#0000",
+        "editorOverviewRuler.deletedForeground": "#0000",
+        "editorOverviewRuler.warningForeground": "#0000",
+        "editorOverviewRuler.addedForeground": "#0000",
+        "editorOverviewRuler.errorForeground": "#0000",
+        "editorOverviewRuler.infoForeground": "#0000",
+        "editorOverviewRuler.border": "#0000",
+        "tab.inactiveBackground": "#272A3F",
+    },
+    "custom-ui-style.electron": {
+        "frame": false
+    },
+    "custom-ui-style.stylesheet": {
+        ".notification-toast": "box-shadow: none !important",
+        ".quick-input-widget.show-file-icons": "box-shadow: none !important",
+        ".quick-input-widget": "top: 25vh !important",
+        ".monaco-action-bar.quick-input-inline-action-bar": "display: none",
+        ".editor-widget.find-widget": "box-shadow: none; border-radius: 4px",
+        ".monaco-workbench .part.editor > .content .editor-group-container > .title.title-border-bottom:after": "display: none",
+        ".sidebar .title-label": "padding: 0 !important",
+        ".sidebar": "border: none !important",
+        ".monaco-workbench .monaco-list:not(.element-focused):focus:before": "outline: none !important",
+        ".monaco-list-row.focused": "outline: none !important",
+        ".monaco-editor .scroll-decoration": "display: none",
+        ".title-actions": "display: none !important",
+        ".title.show-file-icons .label-container .monaco-icon-label.file-icon": "justify-content: center; padding: 0 !important",
+        ".title .monaco-icon-label:after": "margin-right: 0",
+    },
+    "rust-analyzer.workspace.symbol.search.kind": "all_symbols",
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "cursor.composer.shouldAllowCustomModes": true,
+    "cursor.general.disableHttp2": true,
     "vim.easymotion": true,
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
@@ -20,9 +92,6 @@
     "vim.sneak": true,
     "vim.sneakUseIgnorecaseAndSmartcase": true,
     "vim.highlightedyank.enable": true,
-    "extensions.experimental.affinity": {
-        "vscodevim.vim": 1
-    },
     "vim.operatorPendingModeKeyBindings": [
         {
             "before": [
@@ -172,7 +241,7 @@
                 "b"
             ],
             "commands": [
-                "workbench.action.showAllEditors"
+                "workbench.action.showEditorsInActiveGroup"
             ],
         },
         {
@@ -594,7 +663,8 @@
         },
         {
             "before": [
-                "[ b"
+                "[",
+                "b"
             ],
             "commands": [
                 "workbench.action.previousEditorInGroup"
@@ -602,7 +672,8 @@
         },
         {
             "before": [
-                "[ d"
+                "[",
+                "d"
             ],
             "commands": [
                 "editor.action.marker.prev"
@@ -610,22 +681,37 @@
         },
         {
             "before": [
-                "] d"
+                "]",
+                "d"
             ],
             "commands": [
                 "editor.action.marker.next"
             ],
         },
+        {
+            "before": [
+                "[",
+                "c"
+            ],
+            "commands": [
+                "editor.action.dirtydiff.previous"
+            ]
+        },
+        {
+            "before": [
+                "]",
+                "c"
+            ],
+            "commands": [
+                "editor.action.dirtydiff.next"
+            ]
+        },
     ],
+    "workbench.editor.decorations.badges": false,
+    "workbench.editor.editorActionsLocation": "hidden",
+    "augment.chat.userGuidelines": "1. Always answer in Chinese.\n2. Correct me if I am wrong.\n3. Do not use emoji in code and comments.",
     "svelte.enable-ts-plugin": true,
-    "workbench.navigationControl.enabled": false,
-    "workbench.layoutControl.enabled": false,
-    "editor.formatOnSaveMode": "modificationsIfAvailable",
-    "git.openRepositoryInParentFolders": "never",
-    "diffEditor.ignoreTrimWhitespace": false,
-    "workbench.editor.enablePreview": false,
-    "cursor.general.disableHttp2": true,
-    "git.autofetch": true,
-    "git.confirmSync": false,
-    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "remote.SSH.remotePlatform": {
+        "Range": "linux"
+    },
 }

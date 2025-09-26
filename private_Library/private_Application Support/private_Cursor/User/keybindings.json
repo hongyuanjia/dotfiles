@@ -1,4 +1,3 @@
-// Place your key bindings in this file to override the defaults
 [
   {
     "key": "ctrl+n",
@@ -104,6 +103,12 @@
     "args": "targets::tar_unblock_process(store = '_targets'); targets::tar_make(names = '$$', callr_function = NULL, use_crew = FALSE, as_job = FALSE)"
   },
   {
+    "key": ", t shift+t",
+    "command": "r.runCommandWithSelectionOrWord",
+    "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "targets::tar_unblock_process(store = '_targets'); targets::tar_make(names = '$$')"
+  },
+  {
     "key": ", t r",
     "command": "r.runCommandWithSelectionOrWord",
     "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
@@ -151,6 +156,18 @@
     "args": "print($$)"
   },
   {
+    "key": ", r shift+p",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "print(.Last.value, n = Inf)"
+  },
+  {
+    "key": ", r shift+p",
+    "command": "r.runCommandWithSelectionOrWord",
+    "when": "(vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "print($$, n = Inf)"
+  },
+  {
     "key": ", r t",
     "command": "r.runCommandWithSelectionOrWord",
     "when": "(vim.mode == 'Normal' || vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
@@ -177,10 +194,28 @@
     "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
   },
   {
+    "key": ", r r",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "options(width = cli::console_width())"
+  },
+  {
     "key": ", r q",
     "command": "r.runCommand",
     "when": "(vim.mode == 'Normal') && (editorTextFocus || !inputFocus) && editorLangId == r",
     "args": "q()"
+  },
+  {
+    "key": ", r m",
+    "command": "r.runCommandWithSelectionOrWord",
+    "when": "(vim.mode == 'Normal' || vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "base::rm($$)"
+  },
+  {
+    "key": ", r shift+m",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal' || vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "base::rm(list = ls())"
   },
   {
     "key": "alt+-",
@@ -195,7 +230,7 @@
     "command": "type",
     "when": "(vim.mode == 'Insert') && (editorLangId =~ /r|rmd|qmd/ && editorTextFocus)",
     "args": {
-      "text": " %>% "
+      "text": " %>%"
     }
   },
   {
@@ -203,7 +238,7 @@
     "command": "type",
     "when": "(vim.mode == 'Insert') && (editorLangId =~ /r|rmd|qmd/ && editorTextFocus)",
     "args": {
-      "text": " |> "
+      "text": " |>"
     }
   },
 ]
