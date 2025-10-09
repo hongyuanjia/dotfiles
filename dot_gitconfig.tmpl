@@ -19,6 +19,15 @@
     pager = delta
     {{- end }}
     excludesFile = ~/.gitignore
+[init]
+    defaultBranch = main
+[diff]
+{{- if lookPath "delta" }}
+    colorMoved = default
+{{- end }}
+    tool = nvimdiff
+[difftool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 {{- if lookPath "delta" }}
 [interactive]
     diffFilter = delta --color-only
@@ -27,10 +36,6 @@
     navigate = true
     side-by-side = true
     line-numbers = true
-[diff]
-    colorMoved = default
 [merge]
     conflictstyle = diff3
 {{- end }}
-[init]
-    defaultBranch = main
