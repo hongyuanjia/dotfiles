@@ -4,11 +4,17 @@ local({
     r["CRAN"] <- "https://mirrors.bfsu.edu.cn/CRAN/"
     options(repos = r)
 
-    # unset R_LIBS_SITE and R_LIBS_USER if R is installed using scoop
-    path_scoop_r <- normalizePath(file.path(Sys.getenv("USERPROFILE"), "scoop/apps/r/current"), "/", FALSE)
-    if (normalizePath(Sys.getenv("R_HOME"), "/", FALSE) == path_scoop_r) {
-        Sys.unsetenv("R_LIBS_SITE")
-        Sys.unsetenv("R_LIBS_USER")
+    if (.Platform$OS.type == "windows") {
+        # unset R_LIBS_SITE and R_LIBS_USER if R is installed using scoop
+        path_scoop_r <- normalizePath(
+            file.path(Sys.getenv("USERPROFILE"), "scoop/apps/r/current"),
+            "/",
+            FALSE
+        )
+        if (normalizePath(Sys.getenv("R_HOME"), "/", FALSE) == path_scoop_r) {
+            Sys.unsetenv("R_LIBS_SITE")
+            Sys.unsetenv("R_LIBS_USER")
+        }
     }
 })
 
@@ -23,22 +29,24 @@ local({
         usethis.description = list(
             "Authors@R" = utils::person(
                 # default author name
-                "Hongyuan", "Jia",
+                "Hongyuan",
+                "Jia",
                 # default author email
                 email = "hongyuanjia@cqust.edu.cn",
                 # default role, i.e. aut = author, cre = creator
                 role = c("aut", "cre"),
                 # default ORCID
                 comment = c(ORCID = "0000-0002-0075-8183")
-                ),
+            ),
             # default license of the R code
             License = "MIT + file LICENSE",
             # default package initial version
             Version = "0.0.0.9000"
         ),
 
-        # disable R language serve snippet support
-        languageserver.snippet_support = FALSE
+        # disable R language serve snippet support and lintr
+        languageserver.snippet_support = FALSE,
+        languageserver.diagnostics = FALSE
     )
 
     # always use English
@@ -61,10 +69,14 @@ local({
 .setup_pak <- function(update = FALSE) {
     repos <- sprintf(
         "https://r-lib.github.io/p/pak/devel/%s/%s/%s",
-        .Platform$pkgType, R.Version()$os, R.Version()$arch
+        .Platform$pkgType,
+        R.Version()$os,
+        R.Version()$arch
     )
 
-    if (!update && !requireNamespace("pak", quietly = TRUE)) update <- TRUE
+    if (!update && !requireNamespace("pak", quietly = TRUE)) {
+        update <- TRUE
+    }
 
     if (update) install.packages("pak", repos = repos)
 }
@@ -76,9 +88,14 @@ local({
 
 .compiledb <- function(pkg = ".", echo = TRUE) {
     # this approach only works with clang > v5.0
-    if (Sys.which("clang") == "") stop("Failed to found 'clang' compiler")
+    if (Sys.which("clang") == "") {
+        stop("Failed to found 'clang' compiler")
+    }
     clangv <- system2("clang", "--version", stdout = TRUE)[1L]
-    clangv <- regmatches(clangv, regexec("clang version (\\d+\\.\\d+)", clangv))[[1L]][[2]]
+    clangv <- regmatches(
+        clangv,
+        regexec("clang version (\\d+\\.\\d+)", clangv)
+    )[[1L]][[2]]
     if (numeric_version(clangv) <= 5.0) {
         stop("Requires a 'clang' compiler > v5.0, but v", clangv, " is found.")
     }
@@ -101,25 +118,35 @@ local({
     # R packages instead of G++ and apprend the '-MJ' flag
     makevars_user <- tempfile()
     Sys.setenv("R_MAKEVARS_USER" = makevars_user)
-    if (backup) on.exit(Sys.setenv("R_MAKEVARS_USER" = ori_makevars_user), add = TRUE)
+    if (backup) {
+        on.exit(Sys.setenv("R_MAKEVARS_USER" = ori_makevars_user), add = TRUE)
+    }
 
     # create a temporary directory to store the output JSON from clang
     dir_json <- tempfile("json-")
     dir.create(dir_json)
 
-    writeLines(con = makevars_user, useBytes = TRUE,
+    writeLines(
+        con = makevars_user,
+        useBytes = TRUE,
         c(
-            "CC=clang", "CXX=clang++", "CXX11=clang++", "CXX14=clang++",
+            "CC=clang",
+            "CXX=clang++",
+            "CXX11=clang++",
+            "CXX14=clang++",
             sprintf("PKG_CPPFLAGS+=-MJ \"%s\"", file.path(dir_json, "$@.json"))
         )
     )
 
-    if (echo) message("=== Compiling the package using clang ===")
+    if (echo) {
+        message("=== Compiling the package using clang ===")
+    }
     system2(
         # get the rcmd path
         file.path(R.home("bin"), paste0("Rcmd", exe)),
         c("INSTALL", "-l", tempdir(), "--clean", "--preclean", pkg),
-        stdout = if (echo) "" else NULL, stderr = if (echo) "" else NULL
+        stdout = if (echo) "" else NULL,
+        stderr = if (echo) "" else NULL
     )
 
     # combine all JSON files into one
@@ -168,7 +195,12 @@ local({
 
     if (file.exists(file)) {
         txt <- readLines(file, encoding = "UTF-8", warn = FALSE)
-        if (grepl("^\\s*options\\(renv\\.settings\\.external\\.libraries = tmp_libs\\)", txt)) {
+        if (
+            grepl(
+                "^\\s*options\\(renv\\.settings\\.external\\.libraries = tmp_libs\\)",
+                txt
+            )
+        ) {
             message("* NVim-R integration already added to .Rprofile. Skip")
             return(invisible())
         } else {
@@ -181,7 +213,9 @@ local({
 }
 
 # custom start up
-tryCatch(startup::startup(), error = function(ex) message(".Rprofile error: ", conditionMessage(ex)))
+tryCatch(startup::startup(), error = function(ex) {
+    message(".Rprofile error: ", conditionMessage(ex))
+})
 try(require(colorout, quietly = TRUE), silent = TRUE)
 
 # vim: noai:ts=4:sw=4
