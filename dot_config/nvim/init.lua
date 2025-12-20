@@ -926,8 +926,6 @@ lazy.setup({
                 "saghen/blink.cmp",
             },
             config = function()
-                local lspconfig = require("lspconfig")
-
                 -- custom namespace
                 local ns_diag = vim.api.nvim_create_namespace("severe-diagnostics")
 
@@ -1061,7 +1059,7 @@ lazy.setup({
                     )
                 end
 
-                lspconfig.lua_ls.setup({
+                vim.lsp.config("lua_ls", {
                     on_attach = on_attach,
                     capabilities = vim.lsp.protocol.make_client_capabilities(),
                     flags = {
