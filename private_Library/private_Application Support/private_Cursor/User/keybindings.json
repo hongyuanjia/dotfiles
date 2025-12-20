@@ -121,10 +121,28 @@
     "args": "targets::tar_read($$)"
   },
   {
+    "key": ", t shift+p",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "targets::tar_prune()"
+  },
+  {
     "key": ", t l",
     "command": "r.runCommand",
     "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
     "args": "targets::tar_source()"
+  },
+  {
+    "key": ", t v",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "targets::tar_visnetwork(targets_only = TRUE)"
+  },
+  {
+    "key": ", t shift+v",
+    "command": "r.runCommand",
+    "when": "(vim.mode == 'Normal'|| vim.mode == 'Visual') && (editorTextFocus || !inputFocus) && editorLangId == r",
+    "args": "targets::tar_visnetwork()"
   },
   {
     "key": ", s q",
