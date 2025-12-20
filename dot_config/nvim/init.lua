@@ -1152,14 +1152,14 @@ lazy.setup({
             cmd = "Trouble",
             keys = {
                 -- <Leader>t[rouble]
-                { "<Leader>tl", "<cmd>Trouble loclist toggle<CR>",                   desc = "Toggle: Open in Location List" },
-                { "<Leader>tq", "<cmd>Trouble quickfix toggle<CR>",                  desc = "Toggle: Open in Quickfix List" },
-                { "<Leader>td", "<cmd>Trouble diagnostics trouble filter.buf=0<CR>", desc = "Trouble: Buffer diagnostics" },
-                { "<Leader>tD", "<cmd>Trouble diagnostics toggle<CR>",               desc = "Trouble: Workspace diagnostics" },
-                { "<Leader>tO", "<cmd>Trouble symbols toggle focus=false<CR>",       desc = "Trouble: Symbols" },
+                { "<Leader>tl", "<cmd>Trouble loclist toggle<CR>",                  desc = "Toggle: Open in Location List" },
+                { "<Leader>tq", "<cmd>Trouble quickfix toggle<CR>",                 desc = "Toggle: Open in Quickfix List" },
+                { "<Leader>td", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", desc = "Trouble: Buffer diagnostics" },
+                { "<Leader>tD", "<cmd>Trouble diagnostics toggle<CR>",              desc = "Trouble: Workspace diagnostics" },
+                { "<Leader>tO", "<cmd>Trouble symbols toggle focus=false<CR>",      desc = "Trouble: Symbols" },
 
                 -- use trouble to replace gr
-                { "gr",         "<cmd>Trouble lsp_references<CR>",                   desc = "Trouble: List references" },
+                { "gr",         "<cmd>Trouble lsp_references<CR>",                  desc = "Trouble: List references" },
             },
             opts = { use_diagnostic_signs = true }
         },
