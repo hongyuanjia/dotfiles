@@ -1,5 +1,5 @@
 {
-    "augment.chat.userGuidelines": "1. Always answer in Chinese, but code and code comments should always in English.\n2. Correct me if I am wrong.\n3. Do not use any emojis in code and comments.\n4. Do not create any summary documentation unless asked for.",
+    "augment.chat.userGuidelines": "1. Always answer in Chinese, but code and code comments should always in English.\n2. Correct me if I am wrong.\n3. Do not use any emojis in code and comments.\n4. Do not create any summary documentation(总结文档) unless asked for.",
     "breadcrumbs.enabled": false,
     "diffEditor.hideUnchangedRegions.enabled": true,
     "diffEditor.ignoreTrimWhitespace": false,
@@ -33,7 +33,6 @@
     "git.openRepositoryInParentFolders": "never",
     "telemetry.feedback.enabled": false,
     "terminal.integrated.enableMultiLinePasteWarning": "never",
-    "window.customTitleBarVisibility": "never",
     "window.openFilesInNewWindow": "off",
     "window.titleBarStyle": "native",
     "workbench.colorTheme": "Tokyo Night Storm",
@@ -52,7 +51,6 @@
     "workbench.tree.indent": 8,
     "workbench.tree.renderIndentGuides": "none",
     "workbench.colorCustomizations": {
-        "editorCursor.background": "#000000",
         "editorOverviewRuler.wordHighlightStrongForeground": "#0000",
         "editorOverviewRuler.selectionHighlightForeground": "#0000",
         "editorOverviewRuler.rangeHighlightForeground": "#0000",
@@ -66,7 +64,6 @@
         "editorOverviewRuler.errorForeground": "#0000",
         "editorOverviewRuler.infoForeground": "#0000",
         "editorOverviewRuler.border": "#0000",
-        "tab.inactiveBackground": "#272A3F",
     },
     "custom-ui-style.electron": {
         "frame": false
@@ -740,6 +737,9 @@
     "remote.SSH.remotePlatform": {
         "Range": "linux"
     },
+    "workbench.activityBar.location": "top",
+    "window.commandCenter": false,
+    "window.customTitleBarVisibility": "never",
 {{- if contains "Cursor" .chezmoi.sourceFile }}
     "extensions.gallery.serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
 {{- end }}
