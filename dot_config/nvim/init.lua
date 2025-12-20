@@ -1093,6 +1093,34 @@ lazy.setup({
                     }
                 })
 
+                vim.lsp.config("r_language_server", {
+                    on_attach = function(client, _)
+                        client.server_capabilities.documentFormattingProvider = false
+                        client.server_capabilities.documentRangeFormattingProvider = false
+                        client.server_capabilities.hoverProvider = false
+                        client.server_capabilities.signatureHelpProvider = false
+                        client.server_capabilities.completionProvider = false
+                        client.server_capabilities.completionItemResolve = false
+                        on_attach(client, _)
+                    end,
+                })
+
+                vim.lsp.config("jarl", {
+                    cmd = { "jarl", "server" },
+                    filetypes = { 'r', 'rmd' }
+                })
+
+                vim.lsp.config("air", {
+                    on_attach = function(_, bufnr)
+                        vim.api.nvim_create_autocmd("BufWritePre", {
+                            buffer = bufnr,
+                            callback = function()
+                                vim.lsp.buf.format()
+                            end,
+                        })
+                    end,
+                })
+
                 vim.g.rustaceanvim = {
                     server = {
                         on_attach = on_attach
@@ -1108,6 +1136,10 @@ lazy.setup({
                 require("mason-lspconfig").setup({
                     ensure_installed = { "lua_ls" }
                 })
+                -- enable jarl R linter when possible
+                if vim.fn.executable("jarl") == 1 then
+                    vim.lsp.enable("jarl")
+                end
             end
         },
         {
