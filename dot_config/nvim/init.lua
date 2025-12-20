@@ -1883,75 +1883,8 @@ lazy.setup({
         -- R
         {
             "R-nvim/R.nvim",
-            -- lazy = false,
-            dependencies = { "mllg/vim-devtools-plugin" },
-            ft = { "r", "rout", "rmd", "rhelp", "rnoweb", "quarto" },
+            lazy = false,
             config = function()
-                vim.api.nvim_create_autocmd(
-                    { "BufEnter", "BufWinEnter" },
-                    {
-                        group = vim.api.nvim_create_augroup("RCommonSetup", {}),
-                        pattern = { "*.r", "*.R" },
-                        callback = function()
-                            -- set roxygen comment string
-                            vim.opt_local.comments:append("b:#'")
-                            -- insert current comment leader
-                            vim.opt_local.formatoptions:append("r")
-                            -- nvim-lspconfig set formatexpr to use lsp formatting,
-                            -- which breaks gq for comments
-                            vim.opt_local.formatexpr = nil
-                        end
-                    }
-                )
-
-                vim.api.nvim_create_autocmd(
-                    { "BufEnter", "BufWinEnter" },
-                    {
-                        group = vim.api.nvim_create_augroup("RQuartoSetup", {}),
-                        pattern = { "_quarto.yml" },
-                        callback = function()
-                            -- wrap long lines
-                            vim.wo.wrap = true
-                            vim.keymap.set("n", "<LocalLeader>rf",
-                                "<cmd>lua require('r.run').start_R('R')<CR>",
-                                { buffer = 0, desc = "Send to R: quarto::quarto_render()" }
-                            )
-                            vim.keymap.set("n", "<LocalLeader>rq",
-                                "<cmd>lua require('r.run').quit_R('nosave')<CR>",
-                                { buffer = 0, desc = "Send to R: quarto::quarto_render()" }
-                            )
-                            vim.keymap.set("n", "<LocalLeader>qr",
-                                "<cmd>lua require('r.quarto').command('render')<CR>",
-                                { buffer = 0, desc = "Send to R: quarto::quarto_render()" }
-                            )
-                            vim.keymap.set("n", "<LocalLeader>qp",
-                                "<cmd>lua require('r.quarto').command('preview')<CR>",
-                                { buffer = 0, desc = "Send to R: quarto::quarto_preview()" }
-                            )
-                            vim.keymap.set("n", "<LocalLeader>qs",
-                                "<cmd>lua require('r.quarto').command('stop')<CR>",
-                                { buffer = 0, desc = "Send to R: quarto::quarto_preivew_stop()" }
-                            )
-                        end
-                    }
-                )
-
-                vim.api.nvim_create_autocmd(
-                    { "BufEnter", "BufWinEnter" },
-                    {
-                        group = vim.api.nvim_create_augroup("RMarkdownSetup", {}),
-                        pattern = { "*.rmd", "*.Rmd" },
-                        callback = function()
-                            -- wrap long lines
-                            vim.wo.wrap = true
-                        end
-                    }
-                )
-
-                -- make vim-devtools-plugin compatible with R.nvim
-                vim.g.SendCmdToR = require("r.send").cmd
-                vim.fn.RWarningMsg = require("r").warn
-
                 local opts = {}
 
                 -- remove the 'nobuflisted' from the default buffer_opts to list the R buffer
@@ -2120,15 +2053,59 @@ lazy.setup({
                     )
                 end
 
+                local r_set_keymap_quarto = function(buffer)
+                    vim.keymap.set("n", "<LocalLeader>rf",
+                        "<cmd>lua require('r.run').start_R('R')<CR>",
+                        { buffer = buffer, desc = "Start R" }
+                    )
+                    vim.keymap.set("n", "<LocalLeader>rq",
+                        "<cmd>lua require('r.run').quit_R('nosave')<CR>",
+                        { buffer = buffer, desc = "Send to R: quarto::quarto_render()" }
+                    )
+                    vim.keymap.set("n", "<LocalLeader>qr",
+                        "<cmd>lua require('r.quarto').command('render')<CR>",
+                        { buffer = buffer, desc = "Send to R: quarto::quarto_render()" }
+                    )
+                    vim.keymap.set("n", "<LocalLeader>qp",
+                        "<cmd>lua require('r.quarto').command('preview')<CR>",
+                        { buffer = buffer, desc = "Send to R: quarto::quarto_preview()" }
+                    )
+                    vim.keymap.set("n", "<LocalLeader>qs",
+                        "<cmd>lua require('r.quarto').command('stop')<CR>",
+                        { buffer = buffer, desc = "Send to R: quarto::quarto_preivew_stop()" }
+                    )
+                end
+
+                local r_set_keymap_insert = function(buffer)
+                    vim.keymap.set("i", "<M-->", "<C-v><Space><-<C-v><Space>",
+                        { buffer = buffer, desc = "Insert assign" })
+                    vim.keymap.set("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>",
+                        { buffer = buffer, desc = "Insert {magrittr} pipe" })
+                    vim.keymap.set("i", "<M-\\>", "<C-v><Space>|><C-v><Space>",
+                        { buffer = buffer, desc = "Insert base pipe" })
+                    vim.keymap.set("i", "<M-;>", "<C-v><Space>:=<C-v><Space>",
+                        { buffer = buffer, desc = "Insert {data.table} assign" })
+                end
+
                 opts.hook = {
-                    after_config = function()
-                        vim.keymap.set("i", "<M-->", "<C-v><Space><-<C-v><Space>", { buffer = 0, desc = "Insert assign" })
-                        vim.keymap.set("i", "<M-=>", "<C-v><Space>%>%<C-v><Space>",
-                            { buffer = 0, desc = "Insert {magrittr} pipe" })
-                        vim.keymap.set("i", "<M-\\>", "<C-v><Space>|><C-v><Space>",
-                            { buffer = 0, desc = "Insert base pipe" })
-                        vim.keymap.set("i", "<M-;>", "<C-v><Space>:=<C-v><Space>",
-                            { buffer = 0, desc = "Insert {data.table} assign" })
+                    on_filetype = function()
+                        -- set roxygen comment string
+                        vim.opt_local.comments:append("b:#'")
+                        -- insert current comment leader
+                        vim.opt_local.formatoptions:append("r")
+                        -- nvim-lspconfig set formatexpr to use lsp formatting,
+                        -- which breaks gq for comments
+                        vim.opt_local.formatexpr = nil
+
+                        -- only applicable to _quarto.yml files
+                        if vim.fn.expand("%:t") == "_quarto.yml" then
+                            -- wrap long lines
+                            vim.wo.wrap = true
+                            r_set_keymap_quarto(0)
+                        elseif vim.bo.filetype == "rmd" or vim.bo.filetype == "quarto" then
+                            -- wrap long lines
+                            vim.wo.wrap = true
+                        end
 
                         -- {targets}
                         r_set_keymap_targets(0)
@@ -2136,10 +2113,13 @@ lazy.setup({
                         r_set_keymap_devtools(0)
                         -- debug
                         r_set_keymap_debug(0)
+                        -- insert
+                        r_set_keymap_insert(0)
                     end,
+
                     after_R_start = function()
                         -- get the R terminal buffer number
-                        local r_bufnr = require("r.term").get_buf_nr()
+                        local r_bufnr = require("r.term.builtin").get_buf_nr()
 
                         -- set keymap to quit R
                         vim.keymap.set("n", "<LocalLeader>rq", "<cmd>lua require('r.run').quit_R('nosave')<CR>",
@@ -2151,22 +2131,8 @@ lazy.setup({
                         r_set_keymap_devtools(r_bufnr)
                         -- debug
                         r_set_keymap_debug(r_bufnr)
-
-                        vim.api.nvim_create_autocmd(
-                            { "BufEnter", "BufWinEnter" },
-                            {
-                                group = vim.api.nvim_create_augroup("RKeymapSetup", {}),
-                                pattern = { "*.r", "*.R" },
-                                callback = function(args)
-                                    -- {targets}
-                                    r_set_keymap_targets(args.buf)
-                                    -- {devtools}
-                                    r_set_keymap_devtools(args.buf)
-                                    -- debug
-                                    r_set_keymap_debug(args.buf)
-                                end
-                            }
-                        )
+                        -- insert
+                        r_set_keymap_insert(0)
                     end
                 }
 
