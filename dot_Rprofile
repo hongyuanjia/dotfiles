@@ -110,7 +110,8 @@ local({
     exe <- if (.Platform$OS.type == "windows") ".exe" else ""
 
     # check if R_MAKEVARS_USER is set
-    if (backup <- Sys.getenv("R_MAKEVARS_USER") != "") {
+    backup <- Sys.getenv("R_MAKEVARS_USER") != ""
+    if (backup) {
         # store the original value
         ori_makevars_user <- Sys.getenv("R_MAKEVARS_USER")
     }
@@ -182,11 +183,11 @@ local({
         # test if nvimcom is there
         dir.exists(nvimcom <- file.path(ori_libs, "nvimcom"))
     ) {
-            tmp_libs <- file.path(Sys.getenv("TMP", unset = tempdir()), "NVIMR")
-            if (!dir.exists(tmp_libs)) dir.create(tmp_libs)
-            file.copy(nvimcom, tmp_libs, recursive = TRUE)
+        tmp_libs <- file.path(Sys.getenv("TMP", unset = tempdir()), "NVIMR")
+        if (!dir.exists(tmp_libs)) dir.create(tmp_libs)
+        file.copy(nvimcom, tmp_libs, recursive = TRUE)
 
-            options(renv.settings.external.libraries = tmp_libs)
+        options(renv.settings.external.libraries = tmp_libs)
     }
 })'
 
@@ -213,9 +214,26 @@ local({
 }
 
 # custom start up
-tryCatch(startup::startup(), error = function(ex) {
-    message(".Rprofile error: ", conditionMessage(ex))
-})
-try(require(colorout, quietly = TRUE), silent = TRUE)
+if (requireNamespace("startup", quietly = TRUE)) {
+    tryCatch(startup::startup(), error = function(ex) {
+        message(".Rprofile error: ", conditionMessage(ex))
+    })
+} else {
+    message(
+        "startup package not found. You can install it via:\n",
+        "  install.packages('startup')"
+    )
+}
 
+if (interactive() || isatty(stdout())) {
+    tryCatch(
+        require(colorout, quietly = TRUE),
+        error = function(e) {
+            message(
+                "colorout package not found. You can install it via:\n",
+                "  install.packages('colorout', repos = 'https://community.r-multiverse.org')"
+            )
+        }
+    )
+}
 # vim: noai:ts=4:sw=4
