@@ -999,7 +999,8 @@ lazy.setup({
                     vim.keymap.set("n", "ga", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Lsp: Code actions" })
                     vim.keymap.set("n", "gl", function() vim.diagnostic.open_float(nil, { scope = "line" }) end,
                         { buffer = bufnr, desc = "Lsp: Current diagnostic" })
-                    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Lsp: Hover" })
+                    vim.keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end,
+                        { buffer = bufnr, desc = "Lsp: Hover" })
                     vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end,
                         { buffer = bufnr, desc = "Lsp: Previous diagnostic" })
                     vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end,
