@@ -765,6 +765,8 @@
         "editor.formatOnSave": true,
         "editor.formatOnSaveMode": "file",
     },
+    "r.lsp.diagnostics": false,
+    "jarl.logLevel": "info",
 {{- if contains "Cursor" .chezmoi.sourceFile }}
     "extensions.gallery.serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
 {{- end }}
