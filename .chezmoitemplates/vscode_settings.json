@@ -9,13 +9,16 @@
     "editor.fontLigatures": true,
     "editor.formatOnSaveMode": "modificationsIfAvailable",
     "editor.hideCursorInOverviewRuler": true,
-    "editor.hover.enabled": false,
+    "editor.hover.enabled": "off",
     "editor.lightbulb.enabled": "off",
     "editor.lineNumbers": "relative",
     "editor.minimap.enabled": false,
     "editor.overviewRulerBorder": false,
     "editor.renderWhitespace": "trailing",
-    "editor.rulers": [80,120],
+    "editor.rulers": [
+        80,
+        120
+    ],
     "editor.showFoldingControls": "never",
     "explorer.compactFolders": false,
     "explorer.confirmDelete": false,
@@ -730,6 +733,20 @@
                 "editor.action.dirtydiff.next"
             ]
         },
+        {
+            "before": [
+                "<leader>",
+                "r",
+                "r"
+            ],
+            "commands": [
+                {
+                    "command": "rust-analyzer.run",
+                    "args": "cursor"
+                }
+            ],
+            "when": "editorLangId == rust && editorTextFocus"
+        }
     ],
     "workbench.editor.decorations.badges": false,
     "workbench.editor.editorActionsLocation": "hidden",
@@ -740,6 +757,14 @@
     "workbench.activityBar.location": "top",
     "window.commandCenter": false,
     "window.customTitleBarVisibility": "never",
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file",
+    },
 {{- if contains "Cursor" .chezmoi.sourceFile }}
     "extensions.gallery.serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
 {{- end }}
