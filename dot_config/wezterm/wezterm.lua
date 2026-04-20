@@ -53,156 +53,196 @@ end
 
 config.disable_default_key_bindings = true
 config.keys = {
+  -- scroll command history
+  { mods = "CTRL",     key = "P",      action = wezterm.action.ScrollToPrompt(-1) },
+  { mods = "CTRL",     key = "N",      action = wezterm.action.ScrollToPrompt(1) },
+  { key = 'UpArrow',   mods = 'SHIFT', action = wezterm.action.ScrollToPrompt(-1) },
+  { key = 'DownArrow', mods = 'SHIFT', action = wezterm.action.ScrollToPrompt(1) },
   -- command palette
   {
-    mods = "CTRL|SHIFT", key = "P",
+    mods = "CTRL|SHIFT",
+    key = "P",
     action = "ActivateCommandPalette"
   },
   -- copy and paste
   {
-    mods = "CTRL|SHIFT", key = "F",
+    mods = "CTRL|SHIFT",
+    key = "F",
     action = wezterm.action { Search = { CaseSensitiveString = "" } }
   },
   {
-    mods = "CTRL|SHIFT", key = "C",
+    mods = "CTRL|SHIFT",
+    key = "C",
     action = wezterm.action { CopyTo = "Clipboard" }
   },
   {
-    mods = "CTRL|SHIFT", key = "V",
+    mods = "CTRL|SHIFT",
+    key = "V",
     action = wezterm.action { PasteFrom = "Clipboard" }
   },
   {
-    mods = "SHIFT", key = "Insert",
+    mods = "SHIFT",
+    key = "Insert",
     action = wezterm.action { PasteFrom = "PrimarySelection" }
   },
   -- resize fonts
   {
-    mods = "CTRL", key = "-",
+    mods = "CTRL",
+    key = "-",
     action = "DecreaseFontSize"
   },
   {
-    mods = "CTRL", key = "=",
+    mods = "CTRL",
+    key = "=",
     action = "IncreaseFontSize"
   },
   {
-    mods = "CTRL", key = "0",
+    mods = "CTRL",
+    key = "0",
     action = "ResetFontSize"
   },
   -- split pane
   {
-    mods = "CTRL|SHIFT|ALT", key = "_",
+    mods = "CTRL|SHIFT|ALT",
+    key = "_",
     action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } }
   },
   {
-    mods = "CTRL|SHIFT|ALT", key = "?",
+    mods = "CTRL|SHIFT|ALT",
+    key = "?",
     action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } }
   },
   -- resize pane
   {
-    mods = "CTRL|SHIFT|ALT", key = "H",
+    mods = "CTRL|SHIFT|ALT",
+    key = "H",
     action = wezterm.action { AdjustPaneSize = { "Left", 1 } }
   },
   {
-    mods = "CTRL|SHIFT|ALT", key = "L",
+    mods = "CTRL|SHIFT|ALT",
+    key = "L",
     action = wezterm.action { AdjustPaneSize = { "Right", 1 } }
   },
   {
-    mods = "CTRL|SHIFT|ALT", key = "K",
+    mods = "CTRL|SHIFT|ALT",
+    key = "K",
     action = wezterm.action { AdjustPaneSize = { "Up", 1 } }
   },
   {
-    mods = "CTRL|SHIFT|ALT", key = "J",
+    mods = "CTRL|SHIFT|ALT",
+    key = "J",
     action = wezterm.action { AdjustPaneSize = { "Down", 1 } }
   },
   -- change focussed pane
   {
-    mods = "CTRL|SHIFT", key = "H",
+    mods = "CTRL|SHIFT",
+    key = "H",
     action = wezterm.action { ActivatePaneDirection = "Left" }
   },
   {
-    mods = "CTRL|SHIFT", key = "L",
+    mods = "CTRL|SHIFT",
+    key = "L",
     action = wezterm.action { ActivatePaneDirection = "Right" }
   },
   {
-    mods = "CTRL|SHIFT", key = "K",
+    mods = "CTRL|SHIFT",
+    key = "K",
     action = wezterm.action { ActivatePaneDirection = "Up" }
   },
   {
-    mods = "CTRL|SHIFT", key = "J",
+    mods = "CTRL|SHIFT",
+    key = "J",
     action = wezterm.action { ActivatePaneDirection = "Down" }
   },
   -- maximize pane
   {
-    mods = "CTRL|SHIFT", key = "Z",
+    mods = "CTRL|SHIFT",
+    key = "Z",
     action = "TogglePaneZoomState"
   },
   -- create tab
   {
-    mods = "CTRL|SHIFT", key = "T",
+    mods = "CTRL|SHIFT",
+    key = "T",
     action = wezterm.action { SpawnTab = "CurrentPaneDomain" }
   },
   -- close tab
   {
-    mods = "CTRL|SHIFT", key = "X",
+    mods = "CTRL|SHIFT",
+    key = "X",
     action = wezterm.action { CloseCurrentTab = { confirm = true } }
   },
   -- activate tab
   {
-    mods = "CTRL|SHIFT", key = "!",
+    mods = "CTRL|SHIFT",
+    key = "!",
     action = wezterm.action { ActivateTab = 0 }
   },
   {
-    mods = "CTRL|SHIFT", key = "@",
+    mods = "CTRL|SHIFT",
+    key = "@",
     action = wezterm.action { ActivateTab = 1 }
   },
   {
-    mods = "CTRL|SHIFT", key = "#",
+    mods = "CTRL|SHIFT",
+    key = "#",
     action = wezterm.action { ActivateTab = 2 }
   },
   {
-    mods = "CTRL|SHIFT", key = "$",
+    mods = "CTRL|SHIFT",
+    key = "$",
     action = wezterm.action { ActivateTab = 3 }
   },
   {
-    mods = "CTRL|SHIFT", key = "%",
+    mods = "CTRL|SHIFT",
+    key = "%",
     action = wezterm.action { ActivateTab = 4 }
   },
   {
-    mods = "CTRL|SHIFT", key = "^",
+    mods = "CTRL|SHIFT",
+    key = "^",
     action = wezterm.action { ActivateTab = 5 }
   },
   {
-    mods = "CTRL|SHIFT", key = "&",
+    mods = "CTRL|SHIFT",
+    key = "&",
     action = wezterm.action { ActivateTab = 6 }
   },
   {
-    mods = "CTRL|SHIFT", key = "*",
+    mods = "CTRL|SHIFT",
+    key = "*",
     action = wezterm.action { ActivateTab = 7 }
   },
   {
-    mods = "CTRL|SHIFT", key = "(",
+    mods = "CTRL|SHIFT",
+    key = "(",
     action = wezterm.action { ActivateTab = -1 }
   },
   {
-    mods = "CTRL|SHIFT", key = "Tab",
+    mods = "CTRL|SHIFT",
+    key = "Tab",
     action = wezterm.action { ActivateTabRelative = -1 }
   },
   {
-    mods = "CTRL", key = "Tab",
+    mods = "CTRL",
+    key = "Tab",
     action = wezterm.action { ActivateTabRelative = 1 }
   },
   -- change tab order
   {
-    mods = "CTRL|SHIFT", key = "PageUp",
+    mods = "CTRL|SHIFT",
+    key = "PageUp",
     action = wezterm.action { MoveTabRelative = -1 }
   },
   {
-    mods = "CTRL|SHIFT", key = "PageDown",
+    mods = "CTRL|SHIFT",
+    key = "PageDown",
     action = wezterm.action { MoveTabRelative = 1 }
   },
   -- rename tab (NOTE: only works in nightly)
   {
-    mods = "CTRL|SHIFT", key = "E",
+    mods = "CTRL|SHIFT",
+    key = "E",
     action = wezterm.action.PromptInputLine {
       description = "Enter new name for tab",
       action = wezterm.action_callback(
@@ -214,11 +254,13 @@ config.keys = {
   },
   -- scroll pages
   {
-    mods = "SHIFT", key = "PageUp",
+    mods = "SHIFT",
+    key = "PageUp",
     action = wezterm.action { ScrollByPage = -1 }
   },
   {
-    mods = "SHIFT", key = "PageDown",
+    mods = "SHIFT",
+    key = "PageDown",
     action = wezterm.action { ScrollByPage = 1 }
   }
 }
