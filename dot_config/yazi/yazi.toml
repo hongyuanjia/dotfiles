@@ -1,14 +1,49 @@
-"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+#:schema https://yazi-rs.github.io/schemas/yazi.json
 
 [mgr]
 sort_sensitive = false
-show_hidden    = true
+show_hidden = true
+show_symlink = true
+sort_by = "mtime"
+sort_reverse = true
+linemode = "size_and_mtime"
+sort_dir_first = true
 
 [opener]
 edit = [
-    { run = '${EDITOR:=vi} "$@"', block = true, desc = "$EDITOR", for = "unix" },
-    { run = 'nvim "%@"', block = true, desc = "neovim", for = "windows" }
+  { run = '${EDITOR:=vi} "$@"', block = true, desc = "$EDITOR", for = "unix" },
+  { run = 'nvim "%@"', block = true, desc = "neovim", for = "windows" }
 ]
 reveal = [
-    { run = '"%LOCALAPPDATA%/TotalCMD64/TotalCMD64.exe" /O /P=L /L="%@"', orphan = true, desc = "Reveal (TotalCMD)", for = "windows" },
+  { run = '"%LOCALAPPDATA%/TotalCMD64/TotalCMD64.exe" /O /P=L /L="%@"', orphan = true, desc = "Reveal (TotalCMD)", for = "windows" },
+  { run = '"/Applications/Double Commander.app/Contents/MacOS/doublecmd" -C -T -P=L -L="%@"', orphan = true, desc = "Reveal (DoubleCMD)", for = "macos" },
+]
+
+[plugin]
+prepend_fetchers = [
+  { url = "local:///Users/*/Library/CloudStorage/**", run = "mime-ext.local", prio = "high", group = "mime" },
+  { url = "local:///Users/*/SynologyDrive/**", run = "mime-ext.local", prio = "high", group = "mime" },
+  { url = "local:///Users/*/Dropbox/**", run = "mime-ext.local", prio = "high", group = "mime" },
+  { url = "remote://*", run = "mime-ext.remote", prio = "high", group = "mime" },
+]
+prepend_preloaders = [
+  { url = "/Users/*/Library/CloudStorage/**", run = "cloud-view", group = "mime" },
+  { url = "/Users/*/Dropbox/**", run = "cloud-view", group = "mime" },
+  { url = "/Users/*/SynologyDrive/**", run = "cloud-view", group = "mime" },
+  # Office Documents
+  { mime = "application/openxmlformats-officedocument.*", run = "office", group = "mime" },
+  { mime = "application/oasis.opendocument.*", run = "office", group = "mime" },
+  { mime = "application/ms-*", run = "office", group = "mime" },
+  { mime = "application/msword", run = "office", group = "mime" },
+]
+
+prepend_previewers = [
+  { url = "/Users/*/Library/CloudStorage/**", run = "cloud-view", group = "mime" },
+  { url = "/Users/*/Dropbox/**", run = "cloud-view", group = "mime" },
+  { url = "/Users/*/SynologyDrive/**", run = "cloud-view", group = "mime" },
+  # Office Documents
+  { mime = "application/openxmlformats-officedocument.*", run = "office", group = "mime" },
+  { mime = "application/oasis.opendocument.*", run = "office", group = "mime" },
+  { mime = "application/ms-*", run = "office", group = "mime" },
+  { mime = "application/msword", run = "office", group = "mime" },
 ]
